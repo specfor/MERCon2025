@@ -1,0 +1,14 @@
+.fees-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.fees-table th, .fees-table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+}
+
+.fees-table th {
+    background-color: #dadada;
+}

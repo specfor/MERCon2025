@@ -1,0 +1,76 @@
+.owl-carousel {
+  position: relative;
+  z-index: 0;
+}
+
+.side-menu {
+  position: relative;
+  z-index: 1;
+}
+.item {
+  opacity: 0.4;
+  transition: 0.4s ease all;
+  margin: 0 20px;
+  transform: scale(0.8);
+}
+@media (max-width: 1000px) {
+  .item {
+    margin: 0;
+    transform: scale(0.9);
+  }
+}
+.active .item {
+  overflow: hidden;
+  opacity: 1;
+  transform: scale(1);
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.owl-nav{
+  width: 100%;
+  height: 25%;
+  position: absolute;
+  transform: translateY(-250%);
+  display: flex;
+  justify-content: space-between;
+}
+
+.owl-nav button{
+  width: 15%;
+}
+
+.owl-nav i{
+  transform: scale(3);
+}
+
+.owl-item img{
+  border-radius: 20px;
+}
+
+.owl-carousel:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 8%;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -4%;
+  pointer-events: none;
+  background-size: 100% auto;
+}
+.owl-carousel::before{
+  height: 50vh;
+}
+.owl-controls {
+  position: absolute;
+  margin-top: 300px;
+}
+.owl-item:not(.active) img {
+  filter: blur(3px);
+}
+

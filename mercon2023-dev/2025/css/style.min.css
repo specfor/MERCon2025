@@ -280,7 +280,7 @@ nav #check {
   display: none;
 }
 .hero {
-  background-image: url("../img/Frame 1.png");
+  background-image: url("../img/Frame1.jpg");
   background-size: cover;
   background-position: fixed;
   background-repeat: no-repeat;
@@ -1038,25 +1038,37 @@ nav #check {
   }
 }
 
+/* Parent container for the date boxes */
+.dateContainer {
+  display: flex; /* Align boxes side by side */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Align vertically */
+  gap: 20px; /* Space between boxes */
+  margin: 20px auto;
+  flex-wrap: nowrap; /* Prevent wrapping to the next line */
+}
+
+/* Date box styling */
 .dateBox {
   width: 400px;
-  backdrop-filter: blur(2px);
-  background: rgba(255, 255, 255, 0.1);
+  
+  background: rgb(64, 64, 64);
   color: #190229;
   font-weight: bold;
   font-size: 19px;
-  -webkit-backdrop-filter: blur(5px);
-  height: 80px;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  height: 55px;
+  border-radius: 40px;
   display: flex;
   align-items: center;
-  flex-direction: column;
+  justify-content: center;
   text-align: center;
-  margin: auto;
 }
 
+/* Responsive adjustments */
 @media (max-width: 765px) {
+  .dateContainer {
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  }
   .dateBox {
     width: 300px;
     height: 70px;

@@ -45,7 +45,7 @@
   background-color: #026ab4;
 }
 .bg-secondary {
-  background-color: #310a0a;
+  background-color: #340b0bf3;
 }
 .bg-white {
   background-color: #fff;
@@ -141,6 +141,7 @@ h4 {
 }
 .text-center {
   text-align: center;
+  
 }
 .text-yellow {
   color: #ffc700;
@@ -180,8 +181,9 @@ body {
   font-family: "Gorgia", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background: linear-gradient(90.42deg, #c31432 8.4%, #240b36 90.16%);
+  background-image: url("../img/BackgroundImg.png");
   color: #ffffff;
+  background-color: #000;
 }
 p,
 h4 {
@@ -280,7 +282,7 @@ nav #check {
   display: none;
 } */
 .hero {
-  background-image: url("../img/Frame1.jpg");
+  background-image: url("../img/BackgroundImg.png");
   background-size: cover;
   background-position: fixed;
   background-repeat: no-repeat;
@@ -290,6 +292,7 @@ nav #check {
   height: 100vh;
   padding-top: 30vh;
   position: relative;
+  background-color: #000;
 }
 /* Media query for smaller screens (e.g., mobile devices) */
 @media only screen and (max-width: 767px) {
@@ -1038,17 +1041,17 @@ nav #check {
   }
 }
 
-/* Parent container for the date boxes */
+
 .dateContainer {
-  display: flex; /* Align boxes side by side */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Align vertically */
-  gap: 20px; /* Space between boxes */
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+  gap: 20px; 
   margin: 20px auto;
-  flex-wrap: nowrap; /* Prevent wrapping to the next line */
+  flex-wrap: nowrap; 
 }
 
-/* Date box styling */
+
 .dateBox {
   width: 400px;
   
@@ -1064,10 +1067,10 @@ nav #check {
   text-align: center;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 765px) {
   .dateContainer {
-    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+    flex-wrap: wrap; 
   }
   .dateBox {
     width: 300px;

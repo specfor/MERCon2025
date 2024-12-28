@@ -187,7 +187,7 @@ p,
 h4 {
   transition: all 0.3s ease-in-out;
 }
-nav {
+/* nav {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.29);
   height: 60px;
   width: 100%;
@@ -278,7 +278,7 @@ nav .checkbtn {
 }
 nav #check {
   display: none;
-}
+} */
 .hero {
   background-image: url("../img/Frame1.jpg");
   background-size: cover;
@@ -856,7 +856,7 @@ nav #check {
   }
 }
 @media (max-width: 1100px) {
-  nav {
+  /* nav {
     height: 60px !important;
   }
   nav .checkbtn {
@@ -927,7 +927,7 @@ nav #check {
   }
   nav #past:checked ~ ul li {
     display: block;
-  }
+  } */
 }
 @media (max-width: 600px) {
   .grid-sponsor {

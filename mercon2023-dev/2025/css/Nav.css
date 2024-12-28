@@ -16,9 +16,10 @@ nav{
   width: 100%;
   height: 100%;
   height: 70px;
-  background: #000000;
+  background: rgba(0, 0, 0, 0.8); /* Black with 80% opacity */
   box-shadow: 0 1px 2px rgba(229, 227, 227, 0.2);
   z-index: 99;
+  opacity: 1;
 }
 nav .navbar{
   height: 100%;
@@ -26,7 +27,7 @@ nav .navbar{
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content:space-around;
+  justify-content: space-between;
   margin: auto;
 
   padding: 0 50px;
@@ -49,9 +50,12 @@ nav .navbar{
 nav .navbar .nav-links{
   line-height: 70px;
   height: 100%;
+  
 }
 nav .navbar .links{
   display: flex;
+  justify-content: space-around;
+  
 }
 nav .navbar .links li{
   position: relative;
@@ -60,7 +64,8 @@ nav .navbar .links li{
   justify-content: space-between;
   list-style: none;
   padding: 0 14px;
-  gap: 20px;
+  gap: 2px;
+  
   
 }
 nav .navbar .links li a{
@@ -148,11 +153,16 @@ nav .navbar .links li:hover .js-sub-menu{
   nav .navbar .links li a{
     font-size: 15px;
   }
+  nav .navbar .logo img{
+    width: 150px;
+    height: fit-content;
+   
+   }
 }
 @media (max-width:800px){
-  nav{
-    /* position: relative; */
-  }
+  /* nav{
+    position: relative;
+  } */
   .navbar .bx-menu{
     display: block;
   }
@@ -163,7 +173,7 @@ nav .navbar .links li:hover .js-sub-menu{
     display: block;
     max-width: 270px;
     width: 100%;
-    background:  #000000;
+    background: rgba(0, 0, 0, 0.8); /* Black with 80% opacity */
     line-height: 40px;
     padding: 20px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -247,7 +257,16 @@ nav .navbar .links li .sub-menu li{
     }
 }
 @media (max-width:370px){
+    nav .navbar{
+        justify-content: space-between;
+    }
   nav .navbar .nav-links{
   max-width: 100%;
+  }
+  nav .navbar .logo img{
+    width: 150px;
+    height: fit-content;
+   
+   
 } 
 }

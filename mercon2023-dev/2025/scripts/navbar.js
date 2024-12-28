@@ -1,39 +1,25 @@
-const authors = document.getElementById("authors");
-const committee = document.getElementById("committee");
-const past = document.getElementById("past");
-const attendies = document.getElementById("attendies");
+let navbar = document.querySelector(".navbar");
 
-function check() {
-  if (
-    (authors.checked && committee.checked) ||
-    (authors.checked && past.checked) ||
-    (authors.checked && attendies.checked) ||
-    (committee.checked && past.checked) ||
-    (committee.checked && attendies.checked) ||
-    (past.checked && attendies.checked)
-  ) {
-    //set all checkboxes to false
-    authors.checked = false;
-    committee.checked = false;
-    past.checked = false;
-    attendies.checked = false;
-  }
+// sidebar open close js code
+let navLinks = document.querySelector(".nav-links");
+let menuOpenBtn = document.querySelector(".navbar .bx-menu");
+let menuCloseBtn = document.querySelector(".nav-links .bx-x");
+menuOpenBtn.onclick = function() {
+navLinks.style.left = "0";
 }
-
-//if more than one checkbox is checked
-//listen for cheking any checkbox
-authors.addEventListener("click", () => {
-  check();
-});
-committee.addEventListener("click", () => {
-  check();
-});
-past.addEventListener("click", () => {
-  check();
-});
-attendies.addEventListener("click", () => {
-  check();
-});
-
-
-// define a function
+menuCloseBtn.onclick = function() {
+navLinks.style.left = "-100%";
+}
+// sidebar submenu open close js code
+let htmlcssArrow = document.querySelector(".htmlcss-arrow");
+htmlcssArrow.onclick = function() {
+ navLinks.classList.toggle("show1");
+}
+let moreArrow = document.querySelector(".more-arrow");
+moreArrow.onclick = function() {
+ navLinks.classList.toggle("show2");
+}
+let jsArrow = document.querySelector(".js-arrow");
+jsArrow.onclick = function() {
+ navLinks.classList.toggle("show3");
+}

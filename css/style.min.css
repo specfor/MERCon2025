@@ -301,7 +301,7 @@ nav #check {
 /* Media query for smaller screens (e.g., mobile devices) */
 @media only screen and (max-width: 767px) {
   .hero {
-    background-image: url("../img/Frame 2.png"); /* Specify the path to your mobile image */
+    background-image: url("../img/Frame3.png"); /* Specify the path to your mobile image */
     padding-top: 20vh; /* Adjust padding as needed for mobile layout */
   }
 }

@@ -18,11 +18,14 @@
   cursor: pointer;
 }
 .btn.btn-primary {
-  background-color: #310a0a;
-  color: #fff;
+  background-color:#b98f5e;
+  color: #000000;
+  border-radius: 40px;
+  width: 30%;
+  
 }
 .btn.btn-primary:hover {
-  background-color: #000;
+  background-color: rgb(64, 64, 64);
   color: #fff;
 }
 .btn.btn-secondary {
@@ -181,9 +184,10 @@ body {
   font-family: "Gorgia", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-image: url("../img/BackgroundImg.png");
+  background-image: url("../img/Frame2.png");
+  background-size: 100%;
   color: #ffffff;
-  background-color: #000;
+  background-color: #000000;
 }
 p,
 h4 {
@@ -282,7 +286,7 @@ nav #check {
   display: none;
 } */
 .hero {
-  background-image: url("../img/BackgroundImg.png");
+  background-image: url("../img/Frame1.png");
   background-size: cover;
   background-position: fixed;
   background-repeat: no-repeat;
@@ -309,7 +313,7 @@ nav #check {
 }
 .hero .hero-content {
   margin: auto;
-  max-width: 700px;
+  max-width: 750px;
   padding: 0 40px;
 }
 .hero .hero-content h4 {
@@ -336,7 +340,7 @@ nav #check {
   animation: jumpup 3s infinite;
 }
 .width-fixed {
-  max-width: 600px;
+  max-width: 70%;
   margin: auto;
 }
 .width-fixed p {
@@ -1093,4 +1097,19 @@ nav #check {
     height: 60px;
     font-size: 11px;
   }
+}
+
+.tinted {
+  width: 90%; /* Makes the box 80% of the parent div's width */
+  margin: 20px auto; /* Centers the box and adds spacing */
+  padding: 20px; /* Adds padding inside the box */
+  background: linear-gradient(to bottom, #0000009d, #0000009d); /* Subtle gradient effect */
+  border-radius: 10px; /* Rounded corners */
+  text-align: center; /* Centers text inside the box */
+  color: #ffffff; /* White text for contrast */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adds a slight shadow for depth */
+}
+
+.box-container {
+  padding-top: 40px; 
 }

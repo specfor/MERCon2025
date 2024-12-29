@@ -48,7 +48,7 @@
   background-color: #026ab4;
 }
 .bg-secondary {
-  background-color: #340b0bf3;
+  background-color: #848282;
 }
 .bg-white {
   background-color: #fff;
@@ -56,7 +56,7 @@
 .card {
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.29);
-  padding: 20px;
+  padding: 10px;
   margin: 20px auto;
 }
 .card-text {
@@ -144,6 +144,9 @@ h4 {
 }
 .text-center {
   text-align: center;
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 600;
+  font-style: normal;
   
 }
 .text-yellow {
@@ -330,9 +333,7 @@ nav #check {
   width: fit-content;
   padding: 2px 20px;
   margin: auto;
-  font-size: larger;
-  font-family: "Times New Roman", Times, serif;
-  font-weight: 500;
+  
 }
 .hero .hero-content .fa {
   position: absolute;
@@ -355,7 +356,10 @@ nav #check {
   aspect-ratio: 1/1;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  border-radius: 100px;
+
 }
+
 .track + h4 {
   padding: 0 10px;
 }
@@ -407,8 +411,8 @@ nav #check {
   display: grid;
   place-content: center;
   grid-template-columns: repeat(auto-fit, 200px);
-  gap: 10px;
-  padding: 0 30px;
+  gap: 40px;
+  padding: 0 20px;
   overflow: hidden;
 }
 .tracks a {
@@ -1059,10 +1063,8 @@ nav #check {
 .dateBox {
   width: 400px;
   
-  background: rgb(64, 64, 64);
+  background: #848282a8;
   color: #190229;
-  font-weight: bold;
-  font-size: 19px;
   height: 55px;
   border-radius: 40px;
   display: flex;
@@ -1104,12 +1106,69 @@ nav #check {
   margin: 20px auto; /* Centers the box and adds spacing */
   padding: 20px; /* Adds padding inside the box */
   background: linear-gradient(to bottom, #0000009d, #0000009d); /* Subtle gradient effect */
-  border-radius: 10px; /* Rounded corners */
+  border-radius: 30px; /* Rounded corners */
   text-align: center; /* Centers text inside the box */
   color: #ffffff; /* White text for contrast */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adds a slight shadow for depth */
 }
 
 .box-container {
-  padding-top: 40px; 
+  padding-top: 70px; 
+}
+
+
+/* font classes */
+
+.encode-sans-semi-expanded-thin {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-extralight {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-light {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-regular {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-medium {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-semibold {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-bold {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-extrabold {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-black {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 900;
+  font-style: normal;
 }

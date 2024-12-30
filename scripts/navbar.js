@@ -1,25 +1,44 @@
-let navbar = document.querySelector(".navbar");
-
-// sidebar open close js code
+// Sidebar open/close
 let navLinks = document.querySelector(".nav-links");
 let menuOpenBtn = document.querySelector(".navbar .bx-menu");
 let menuCloseBtn = document.querySelector(".nav-links .bx-x");
-menuOpenBtn.onclick = function() {
-navLinks.style.left = "0";
+
+if (menuOpenBtn && navLinks) {
+  menuOpenBtn.onclick = function () {
+    navLinks.style.left = "0";
+  };
 }
-menuCloseBtn.onclick = function() {
-navLinks.style.left = "-100%";
+
+if (menuCloseBtn && navLinks) {
+  menuCloseBtn.onclick = function () {
+    navLinks.style.left = "-100%";
+  };
 }
-// sidebar submenu open close js code
-let htmlcssArrow = document.querySelector(".htmlcss-arrow");
-htmlcssArrow.onclick = function() {
- navLinks.classList.toggle("show1");
-}
-let moreArrow = document.querySelector(".more-arrow");
-moreArrow.onclick = function() {
- navLinks.classList.toggle("show2");
-}
-let jsArrow = document.querySelector(".js-arrow");
-jsArrow.onclick = function() {
- navLinks.classList.toggle("show3");
-}
+
+// Dropdown toggle
+let dropdownArrows = document.querySelectorAll(".arrow");
+dropdownArrows.forEach((arrow) => {
+  arrow.onclick = function () {
+    let parent = arrow.closest("li");
+    if (parent) {
+      let subMenu = parent.querySelector(".sub-menu");
+      if (subMenu) {
+        if (subMenu.classList.contains("show")) {
+          // Close dropdown
+          subMenu.classList.remove("show");
+          arrow.classList.remove("rotate");
+        } else {
+          // Close other dropdowns
+          document.querySelectorAll(".sub-menu.show").forEach((openMenu) => {
+            openMenu.classList.remove("show");
+            let openArrow = openMenu.closest("li").querySelector(".arrow");
+            if (openArrow) openArrow.classList.remove("rotate");
+          });
+          // Open current dropdown
+          subMenu.classList.add("show");
+          arrow.classList.add("rotate");
+        }
+      }
+    }
+  };
+});

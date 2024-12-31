@@ -29,9 +29,14 @@
   background-color: rgb(64, 64, 64);
   color: #fff;
 }
-.btn.btn-secondary {
-  background-color: #21334b;
-  color: #fff;
+.UOM {
+  background-color:rgb(64, 64, 64);
+  color: #ffffff;
+  border-radius: 40px;
+  width: 300px;
+  align-content: center;
+  padding: 10px;
+  margin: auto;
 }
 .btn.btn-secondary:hover {
   background-color: #314b6e;

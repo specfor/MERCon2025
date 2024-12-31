@@ -21,7 +21,8 @@
   background-color:#b98f5e;
   color: #000000;
   border-radius: 40px;
-  width: 30%;
+  width: 300px;
+  align-content: center;
   
 }
 .btn.btn-primary:hover {
@@ -132,19 +133,15 @@ h4 {
 .text-heading {
   text-align: center;
   text-transform: uppercase;
-  margin: 30px 0;
+  margin: 40px auto;
+  border-top: #ffffff solid 3px;
+  border-bottom: #ffffff solid 3px;
+  width:fit-content;
   
+
 }
 
-.text-heading::before,
-.text-heading::after {
-  content: '';
-  display: block;
-  width: 120px; /* Adjust line width as needed */
-  height: 5px; /* Thickness of the lines */
-  background-color: rgb(255, 255, 255); /* Line color */
-  margin: 10px auto; /* Spacing between text and lines */
-}
+
 
 
 .text-underline::after {
@@ -485,19 +482,43 @@ nav #check {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.sponsor-two-columns {
+.grid-sponsor-two-columns {
   grid-template-columns: 1fr 1fr ;
+  padding-left: 200px;
+  padding-right: 200px;
+  
 }
+
 .sponsor-two-columns-card{
-  width: 500px; height:250px; display: flex; justify-content: center;
+  height:300px; display: flex; justify-content: center;
 }
 .grid-sponsor .img-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 250px;
+  height: 200px;
   padding: 10px;
+  margin: 20px;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.63); /* Bottom shadow */
+  border-radius: 25px; /* Optional: for rounded corners */
 }
+
+.grid-sponsor-two-columns .img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  padding: 10px;
+  margin: 20px;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.63); /* Bottom shadow */
+  border-radius: 25px; /* Optional: for rounded corners */
+}
+
+.grid-sponsor .img-container:not(:has(img)) {
+  box-shadow: none;
+}
+
+
 .grid-sponsor .img-container img {
   width: auto;
   height: auto;
@@ -507,7 +528,7 @@ nav #check {
   overflow: hidden;
 }
 .img-container {
-  border-radius: 10px;
+  border-radius: 40px;
   overflow: hidden;
 }
 .img-container img {

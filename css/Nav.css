@@ -117,12 +117,15 @@ min-width: 100%;
   background: rgba(0, 0, 0, 0.9);
   display: none;
   z-index: 2;
+
 }
 .navbar .links li:hover .htmlCss-sub-menu,
 .navbar .links li:hover .js-sub-menu{
   display: block;
-  align-self: start;
-  justify-items: start;
+  align-self:baseline;
+
+justify-items: start;
+
 }
 nav .navbar .links li .sub-menu a:hover {
   color: #fbec6d; /* Change text color on hover */
@@ -130,16 +133,20 @@ nav .navbar .links li .sub-menu a:hover {
   
 }
 .navbar .links li .sub-menu li{
-  padding: 0px 10px ;
-border-bottom: #c4be12;
+  padding: -10px 1px ;
 
 }
-.navbar .links li .sub-menu a{
+.navbar .links li .sub-menu a {
   color: #fff;
   font-size: 15px;
   font-weight: 500;
-  border: #c4be12;
-  border: 12px; 
+  border-bottom: 1px solid #e4e4e3; /* Full-width bottom border */
+  height: 40px; /* Set a specific height */
+  line-height: 50px; /* Vertically align text inside the height */
+  display: block; /* Ensure full width */
+  padding: 0 10px; /* Horizontal padding */
+  text-decoration: none; /* Remove underline if present */
+  box-sizing: border-box; /* Include border and padding in the width */
 }
 .navbar .nav-links .sidebar-logo{
   display: none;

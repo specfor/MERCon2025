@@ -1121,23 +1121,20 @@ body.custom-page {
   background-image: url("../img/Frame4.png");
 }
 .dimmed-container {
-  display: inline-block; /* Allows the width to adjust to text size */
-  margin: 20px auto; /* Centers the box with spacing */
-  padding: 15px 50px 15px; /* Inner spacing for content */
-  background: rgba(99,96,90,255); /* Semi-transparent white background */
-  border-radius: 20px; /* Smooth, rounded corners */
-  text-align: center; /* Centers text inside */
-  color: #333333; /* Slightly dimmed text for readability */
-  /*backdrop-filter: blur(5px); /* Adds a subtle blur effect */
+  display: inline-block; 
+  margin: 20px auto 30px; 
+  padding: 10px 40px; 
+  background: rgba(99,96,90,255); 
+  border-radius: 20px; 
+  text-align: center; 
+  color: #333333; 
   z-index: 2;
 }
 .bg-custom {
   padding: 100px 0;
-  /*background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3));*/
   position: relative;
   z-index: 1;
 }
- 
 .heading-with-line {
   padding: 50px 0;
   display: flex;
@@ -1145,60 +1142,73 @@ body.custom-page {
   justify-content: center;
   max-width: 100vw;
   margin: 0 auto;
+  position: relative;
 }
-
-.line {
+.heading-with-line::before,
+.heading-with-line::after {
+  content: '';
   flex: 1;
   height: 2px;
   background-color: white;
 }
 
-.diamond {
-  width: 8px;
-  height: 8px;
-  background-color: white;
-  transform: rotate(45deg);
-  display: inline-block;
-}
-
-.heading-text {
+.text {
   color: white;
   font-size: 32px;
   font-weight: bold;
   letter-spacing: 2px;
   display: flex;
   align-items: center;
-  white-space: nowrap;
-  gap: 20px; /* Adds spacing between diamond and text */
+  gap: 20px;
   position: relative;
+}
+
+.text::before,
+.text::after {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  transform: rotate(45deg);
+  display: inline-block;
 }
 .member-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 3px 15px 30px; /* Reduced padding */
-  width: 300px; /* Reduced width */
-  border-radius: 10px; /* Adjusted border radius */
-  margin: 0;
-}
-.parent-container {
-  padding: 0; /* Remove inner spacing to align perfectly */
-  /*border: 5px solid #333333; /* Define the parent container's border */
-  border-radius: 23px; /* Smooth rounded corners */
-  background: none; /* No background for parent */
-  display: flex;
-  flex-direction: column; /* Stack contents vertically */
-  align-items: stretch; /* Ensure children span the full width */
-  border: 3px solid rgba(99,96,90,255);
-  z-index: 2;
-  
+  width: 280px;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 .image-container {
   position: relative;
-  width: 180px; /* Reduced width */
-  height: 180px; /* Reduced height */
-  margin-bottom: 0px;
+  width: 200px;
+  height: 200px;
   z-index: 1;
+}
+
+.image-container::before {
+  content: '';
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: -20px;
+  border: 2px solid #e5a84d;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.image-container::after {
+  content: '';
+  position: absolute;
+  top: 42px; /* 50px - 8px */
+  left: -8px;
+  right: -8px;
+  bottom: -28px; /* -20px - 8px */
+  border: 2px solid #e5a84d;
+  border-radius: 50%;
+  z-index: -1;
 }
 
 .profile-image {
@@ -1207,63 +1217,35 @@ body.custom-page {
   object-fit: cover;
   z-index: 1;
 }
-
-.circle-accent {
-  position: absolute;
-  top: 50px; /* Adjusted position */
-  left: 0px;
-  right: 0px;
-  bottom: -20px; /* Adjusted size */
-  border: 2px solid #e5a84d; /* Reduced border thickness */
-  border-radius: 50%;
-  z-index: -1;
+.parent-container {
+  padding-bottom: 5px;
+  border-radius: 23px;
+  display: flex;
+  flex-direction: column;
+  border: 3px solid #e5a84d;
+  z-index: 2;
+  min-width: 250px;
 }
-
-.circle-accent::before {
-  content: '';
-  position: absolute;
-  top: -8px;
-  left: -8px;
-  right: -8px;
-  bottom: -8px;
-  border: inherit; /* Reduced border thickness */
-  border-radius: 50%;
-  z-index: -1;
-}
-
-.name-plate {
-  background: #b08d57;
-  padding: 8px 20px; /* Reduced padding */
-  border-radius: 20px; /* Adjusted border radius */
+.name {
+  color: #000;
+  font-weight: bold;
+  font-size: 14px; 
+  text-align: center;
+  background: #e5a84d;
+  padding: 8px 25px;
+  border-radius: 20px;
   margin-bottom: 10px;
   z-index: 2;
 }
 
-.name {
-  color: #000;
-  font-weight: bold;
-  font-size: 14px; /* Reduced font size */
-  margin: 0;
-  text-align: center;
-}
-
 .description {
   color: white;
-  font-size: 14px; /* Reduced font size */
-  margin: 0;
+  font-size: 16px; 
+  margin: 0px;
   text-align: center;
   font-weight: 500;
-  padding: 5px ;
+  padding: 5px 15px;
 }
-
-.title {
-  color: white;
-  font-size: 20px; /* Reduced font size */
-  margin: 0;
-  text-align: center;
-  font-weight: 500;
-}
-
 .heading-container2 {
   display: flex;
   align-items: center;
@@ -1274,9 +1256,7 @@ body.custom-page {
 .title2 {
   color: white;
   text-align: center;
-  font-family: Arial, sans-serif;
-  font-size: 24px;
-  font-weight: bold;
+  font: bold 24px Arial, sans-serif;
   position: relative;
   width: fit-content;
   padding: 20px 0;
@@ -1288,16 +1268,14 @@ body.custom-page {
   position: absolute;
   height: 2px;
   background-color: white;
+  left: -30px;
+  width: calc(100% + 60px);
 }
 
 .title2::before {
   top: 0;
-  left: -30px;   /* Move the left line 30px to the left */
-  width: calc(100% + 60px); /* Increase the width of the line */
 }
 
 .title2::after {
   bottom: 0;
-  left: -30px;   /* Move the right line 30px to the left */
-  width: calc(100% + 60px); /* Increase the width of the line */
 }

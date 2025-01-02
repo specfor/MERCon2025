@@ -21,7 +21,8 @@
   background-color:#b98f5e;
   color: #000000;
   border-radius: 40px;
-  width: 30%;
+  width: 300px;
+  align-content: center;
   
 }
 .btn.btn-primary:hover {
@@ -48,7 +49,7 @@
   background-color: #026ab4;
 }
 .bg-secondary {
-  background-color: #340b0bf3;
+  background-color: #848282;
 }
 .bg-white {
   background-color: #fff;
@@ -56,7 +57,7 @@
 .card {
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.29);
-  padding: 20px;
+  padding: 10px;
   margin: 20px auto;
 }
 .card-text {
@@ -132,8 +133,17 @@ h4 {
 .text-heading {
   text-align: center;
   text-transform: uppercase;
-  margin: 30px 0;
+  margin: 40px auto;
+  border-top: #ffffff solid 3px;
+  border-bottom: #ffffff solid 3px;
+  width:fit-content;
+  
+
 }
+
+
+
+
 .text-underline::after {
   content: "";
   display: block;
@@ -144,6 +154,9 @@ h4 {
 }
 .text-center {
   text-align: center;
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 600;
+  font-style: normal;
   
 }
 .text-yellow {
@@ -330,9 +343,7 @@ nav #check {
   width: fit-content;
   padding: 2px 20px;
   margin: auto;
-  font-size: larger;
-  font-family: "Times New Roman", Times, serif;
-  font-weight: 500;
+  
 }
 .hero .hero-content .fa {
   position: absolute;
@@ -355,7 +366,10 @@ nav #check {
   aspect-ratio: 1/1;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+  border-radius: 100px;
+
 }
+
 .track + h4 {
   padding: 0 10px;
 }
@@ -377,38 +391,45 @@ nav #check {
 .square-div-280 span {
   font-size: 14px;
 }
-.track svg path {
-  top: 0;
-  left: 0;
-  width: 80%;
-  height: 80%;
-  fill: #fff;
-  transition: all 0.3s ease-in-out;
+.track img {
+  width: 100%;
+  height: auto;
+  filter: grayscale(100%) brightness(0) invert(1); /* Makes the image white */
+  transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
+
+.track {
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out, background 0.3s ease-in-out;
+}
+
 .track:hover {
   transform: scale(1.05);
   background: #000;
 }
-.track:hover > svg path {
-  fill: #cddb07;
+
+.track:hover img {
+  filter: none; /* Restores the original image colors */
 }
-.track:hover > img {
-  filter: grayscale(0);
-}
+
 .track:hover + h4 {
   transform: scale(1.05);
-  color: #cddb07;
+  color: #b98f5e;
   font-weight: 700;
+  transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
 }
+
 .track:hover + h4 + p {
   transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
 }
+
 .tracks {
   display: grid;
   place-content: center;
   grid-template-columns: repeat(auto-fit, 200px);
-  gap: 10px;
-  padding: 0 30px;
+  gap: 40px;
+  padding: 0 20px;
   overflow: hidden;
 }
 .tracks a {
@@ -423,14 +444,14 @@ nav #check {
   background: #000;
 }
 .tracks > div:hover .track > svg path {
-  fill: #cddb07;
+  fill: #b98f5e;
 }
 .tracks > div:hover .track > img {
   filter: grayscale(0);
 }
 .tracks > div:hover .track + h4 {
   transform: scale(1.05);
-  color: #cddb07 !important;
+  color: #b98f5e !important;
   font-weight: 700;
 }
 .tracks > div:hover .track + h4 + p {
@@ -461,19 +482,43 @@ nav #check {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.sponsor-two-columns {
+.grid-sponsor-two-columns {
   grid-template-columns: 1fr 1fr ;
+  padding-left: 200px;
+  padding-right: 200px;
+  
 }
+
 .sponsor-two-columns-card{
-  width: 500px; height:250px; display: flex; justify-content: center;
+  height:300px; display: flex; justify-content: center;
 }
 .grid-sponsor .img-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 250px;
+  height: 200px;
   padding: 10px;
+  margin: 20px;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.63); /* Bottom shadow */
+  border-radius: 25px; /* Optional: for rounded corners */
 }
+
+.grid-sponsor-two-columns .img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  padding: 10px;
+  margin: 20px;
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.63); /* Bottom shadow */
+  border-radius: 25px; /* Optional: for rounded corners */
+}
+
+.grid-sponsor .img-container:not(:has(img)) {
+  box-shadow: none;
+}
+
+
 .grid-sponsor .img-container img {
   width: auto;
   height: auto;
@@ -483,7 +528,7 @@ nav #check {
   overflow: hidden;
 }
 .img-container {
-  border-radius: 10px;
+  border-radius: 40px;
   overflow: hidden;
 }
 .img-container img {
@@ -1059,10 +1104,8 @@ nav #check {
 .dateBox {
   width: 400px;
   
-  background: rgb(64, 64, 64);
+  background: #848282a8;
   color: #190229;
-  font-weight: bold;
-  font-size: 19px;
   height: 55px;
   border-radius: 40px;
   display: flex;
@@ -1104,14 +1147,71 @@ nav #check {
   margin: 20px auto; /* Centers the box and adds spacing */
   padding: 20px; /* Adds padding inside the box */
   background: linear-gradient(to bottom, #0000009d, #0000009d); /* Subtle gradient effect */
-  border-radius: 10px; /* Rounded corners */
+  border-radius: 30px; /* Rounded corners */
   text-align: center; /* Centers text inside the box */
   color: #ffffff; /* White text for contrast */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adds a slight shadow for depth */
 }
 
 .box-container {
-  padding-top: 40px; 
+  padding-top: 70px; 
+}
+
+
+/* font classes */
+
+.encode-sans-semi-expanded-thin {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-extralight {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-light {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-regular {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-medium {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-semibold {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-bold {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-extrabold {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.encode-sans-semi-expanded-black {
+  font-family: "Encode Sans Semi Expanded", serif;
+  font-weight: 900;
+  font-style: normal;
 }
 body.custom-page {
   background-size: 100%;

@@ -206,6 +206,21 @@ p,
 h4 {
   transition: all 0.3s ease-in-out;
 }
+
+
+.buttonhero {
+	width: 300px;
+  padding: 15px 10px;
+	color: white;
+	text-decoration: none;
+	border: .1em solid white;
+
+}
+	
+	.button-primaryhero {
+		color: black;
+		background-color: rgb(194, 191, 179);
+	}
 /* nav {
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.29);
   height: 60px;
@@ -1104,7 +1119,7 @@ nav #check {
 
 .dateBox {
   width: 400px;
-  
+  cursor: pointer;
   background: #848282a8;
   color: #190229;
   height: 55px;
@@ -1114,7 +1129,11 @@ nav #check {
   justify-content: center;
   text-align: center;
 }
-
+.dateBox:hover {
+  background:  #b98f5e;
+  color: #848282a8;
+  transition-duration: 0.5s; ;
+}
 
 @media (max-width: 765px) {
   .dateContainer {
@@ -1122,7 +1141,7 @@ nav #check {
   }
   .dateBox {
     width: 300px;
-    height: 70px;
+    height: 50px;
     font-size: 15px;
   }
 }

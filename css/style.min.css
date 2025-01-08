@@ -334,6 +334,35 @@ nav #check {
   }
 }
 
+
+
+
+@media only screen and (max-width: 487px) {
+
+  .btn {
+    border-radius: 5px;
+    padding: 0px 1px;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.29);
+    font-family: inherit;
+    margin: 0px 0px;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+  }
+  .btn.btn-primary {
+    background-color:#b98f5e;
+    color: #000000;
+    border-radius: 50px;
+    width: 160px;
+    align-content: center;
+    font-size: 10px !important;
+    
+    
+  }
+
+}
+
+
 .hero img {
   width: 100%;
   -o-object-fit: contain;
@@ -498,14 +527,14 @@ nav #check {
 }
 
 .grid-sponsor-two-columns {
-  grid-template-columns: 1fr 1fr ;
-  padding-left: 200px;
-  padding-right: 200px;
+  grid-template-columns: 1fr  ;
+  padding-left: 0px;
+  padding-right: 0px;
   
 }
 
 .sponsor-two-columns-card{
-  height:300px; display: flex; justify-content: center;
+  height:00px; display: flex; justify-content: center;
 }
 .grid-sponsor .img-container {
   display: flex;
@@ -683,7 +712,6 @@ nav #check {
 #footer .linkedin:hover i {
   color: #0077b5;
 }
-
 .main {
   padding: 80px 0;
   background: linear-gradient(90.42deg, #c31432 8.4%, #240b36 90.16%);
@@ -1006,8 +1034,11 @@ nav #check {
     height: -moz-fit-content !important;
     height: fit-content !important;
   }
-  .sponsor-two-columns {
-    grid-template-columns: 1fr 1fr;
+  .grid-sponsor-two-columns {
+    grid-template-columns: 1fr  ;
+    padding-left: 0px;
+    padding-right: 0px;
+    
   }
 }
 @media (max-width: 400px) {
@@ -1439,4 +1470,3 @@ body.custom-page {
     padding: 40px 40px 10px;
   }
 }
-

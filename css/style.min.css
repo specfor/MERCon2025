@@ -29,9 +29,14 @@
   background-color: rgb(64, 64, 64);
   color: #fff;
 }
-.btn.btn-secondary {
-  background-color: #21334b;
-  color: #fff;
+.UOM {
+  background-color:rgb(64, 64, 64);
+  color: #ffffff;
+  border-radius: 40px;
+  width: 300px;
+  align-content: center;
+  padding: 10px;
+  margin: auto;
 }
 .btn.btn-secondary:hover {
   background-color: #314b6e;
@@ -59,6 +64,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.29);
   padding: 10px;
   margin: 20px auto;
+  
 }
 .card-text {
   text-align: center;
@@ -197,7 +203,7 @@ body {
   font-family: "Gorgia", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-image: url("../img/Frame2.png");
+  background-image: url("../img/Frame2.jpg");
   background-size: 100%;
   color: #ffffff;
   background-color: #000000;

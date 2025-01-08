@@ -410,9 +410,12 @@ nav #check {
   aspect-ratio: 1/1;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  border-radius: 100px;
-
+  border-radius: 20px;
+  background-color: transparent;
+  border: 1.9px solid #b98f5e; /* Combined border properties */
+  box-shadow: #b98f5e 0px 0px 10px; /* Adds a subtle shadow */
 }
+
 
 .track + h4 {
   padding: 0 10px;
@@ -475,6 +478,7 @@ nav #check {
   gap: 40px;
   padding: 0 20px;
   overflow: hidden;
+
 }
 .tracks a {
   text-decoration: none;
@@ -589,20 +593,12 @@ nav #check {
   .grid-sponsor-two-columns {
     grid-template-columns: 1fr  ; 
   }
-  .grid-sponsor-two-columns .img-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
-    padding: 10px;
-    margin: 0px;
-    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.63); /* Bottom shadow */
-    border-radius: 25px; /* Optional: for rounded corners */
-  }
+
 }
 
 .grid-sponsor .img-container:not(:has(img)) {
   box-shadow: none;
+  
 }
 
 
@@ -1087,6 +1083,11 @@ nav #check {
   .tracks {
     grid-template-columns: repeat(auto-fit, 150px);
   }
+  .grid-sponsor .img-container:not(:has(img)) {
+    box-shadow: none;
+    display: none;
+  }
+  
 }
 @media (max-width: 600px) {
   .tracks {

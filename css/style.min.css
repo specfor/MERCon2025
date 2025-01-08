@@ -519,12 +519,13 @@ nav #check {
 .grid-venue iframe {
   grid-column: 1/3;
 }
-.grid-venue .venue-info {
+.venue-info {
   margin: 0;
-  grid-column: 3/5;
+background-color: #410d35;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  border-radius: 20px;
 }
 .grid-sponsor {
   grid-template-columns: 1fr 1fr 1fr;
@@ -611,7 +612,7 @@ nav #check {
   overflow: hidden;
 }
 .img-container {
-  border-radius: 40px;
+  border-radius: 10px;
  overflow: hidden;
 }
 .img-container img {
@@ -627,12 +628,29 @@ nav #check {
 .img-container img:hover {
   transform: scale(1.05);
 }
+
+.map {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Default to one column */
+  gap: 20px; /* Optional: Add some spacing between the columns */
+  padding: 20px;
+}
+@media (max-width: 768px) {
+ .map {
+    grid-template-columns: 1fr; /* Change to one column */
+  }
+
+
+
+}
+
 .mapouter {
   position: relative;
   text-align: right;
   height: 100%;
-  width: 200%;
+  width: 100%;
 }
+
 #footer {
   padding: 0 30px;
   color: #eee;
@@ -972,8 +990,13 @@ nav #check {
   .grid-venue iframe {
     grid-column: 1/2 !important;
   }
-  .grid-venue .venue-info {
-    grid-column: 2/3 !important;
+  .venue-info {
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      background-color: #410d35;
+    
+    
   }
   .mapouter {
     width: 100% !important;
@@ -1102,9 +1125,7 @@ nav #check {
   .grid-venue iframe {
     grid-column: 1/1;
   }
-  .grid-venue .venue-info {
-    grid-column: 1/1;
-  }
+ 
 }
 @media (max-width: 900px) {
   .keynotes-hero h1 {

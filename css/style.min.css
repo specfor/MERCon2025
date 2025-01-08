@@ -29,6 +29,8 @@
   background-color: rgb(64, 64, 64);
   color: #fff;
 }
+
+
 .btn.btn-secondary {
   background-color: #21334b;
   color: #fff;
@@ -163,7 +165,7 @@ h4 {
   color: #ffc700;
 }
 .text-primary {
-  color: #026ab4;
+  color: #b98f5e;
 }
 .text-white {
   color: #fff;
@@ -1273,6 +1275,7 @@ body.custom-page {
   flex: 1;
   height: 2px;
   background-color: white;
+  
 }
 
 .text {

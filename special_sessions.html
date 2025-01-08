@@ -48,235 +48,21 @@
     <link rel="stylesheet" href="./css/style.min.css" />
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="./scripts/components.js"></script>
-    <style>
-      body {
-        background-image: url('/img/Frame3.png'); /* Replace with your image path */
-        background-size: cover; /* Makes the image cover the entire page */
-        background-position: center; /* Centers the image */
-        background-repeat: no-repeat; /* Ensures the image doesn't repeat */
-        background-attachment: fixed; /* Keeps the background fixed during scrolling */
-        padding: 80px 0;
-      }
-      .workshops-heading {
-          font-size: 2.5rem; /* Default size for larger screens */
-          text-align: center;
-          color: #fff;
-          margin: 20px 0;
-          position: relative;
-        }
 
-        .workshops-heading::before,
-        .workshops-heading::after {
-          content: "";
-          position: absolute;
-          top: 50%;
-          width: 35%; /* Line width adjusted for balance */
-          height: 2px;
-          background-color: #fff;
-        }
-
-        .workshops-heading::before {
-          left: 0;
-        }
-
-        .workshops-heading::after {
-          right: 0;
-        }
-
-        /* Responsive adjustments for medium screens */
-        @media (max-width: 768px) {
-          .workshops-heading {
-            font-size: 1.8rem; /* Slightly smaller font */
-          }
-
-          .workshops-heading::before,
-          .workshops-heading::after {
-            width: 25%; /* Reduce line width */
-            height: 1.5px;
-          }
-        }
-
-        /* Responsive adjustments for small screens */
-        @media (max-width: 480px) {
-          .workshops-heading {
-            font-size: 1.5rem; /* Smaller font for compact screens */
-          }
-
-          .workshops-heading::before,
-          .workshops-heading::after {
-            width: 20%; /* Further reduce line width */
-            height: 1.2px;
-          }
-        }
-        /* Default button styling for larger screens */
-        .btn.btn-primary {
-          background-color: #b98f5e;
-          color: #000000;
-          border-radius: 40px;
-          width: 300px;
-          text-align: center; /* Center text */
-          font-size: 1.2rem;
-          font-weight: bold;
-          padding: 10px 20px; /* Add padding for better appearance */
-          margin-bottom: 40px; /* Increase vertical gap */
-          margin-top: 40px;
-        }
-
-        /* Responsive adjustments for medium-sized screens */
-        @media (max-width: 768px) {
-          .btn.btn-primary {
-            width: 250px; /* Reduce width for medium screens */
-            font-size: 1rem; /* Decrease font size */
-            padding: 8px 16px; /* Adjust padding */
-          }
-        }
-
-        /* Responsive adjustments for small screens */
-        @media (max-width: 480px) {
-          .btn.btn-primary {
-            width: 200px; /* Further reduce width for small screens */
-            font-size: 0.9rem; /* Adjust font size */
-            padding: 6px 12px; /* Adjust padding */
-            margin-bottom: 20px; /* Increase vertical gap */
-            margin-top: 20px;
-          }
-        }
-
-        .btn.btn-primary:hover {
-          background-color: rgb(64, 64, 64);
-          color: #fff;
-        }
-
-        .ul {
-          text-align: left;
-          padding-left: 350px; /* Default padding for larger screens */
-          padding-right: 250px;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          align-items: flex-start;
-        }
-
-        /* Specific class for special padding adjustments */
-        .ul.special-padding {
-          padding-left: 500px; /* Larger padding for larger screens by default */
-        }
-
-        /* Responsive adjustments for medium-sized screens */
-        @media (max-width: 1200px) {
-          .ul {
-            padding-left: 100px; /* Adjust padding for medium-large screens */
-            padding-right: 150px;
-          }
-          .ul.special-padding {
-            padding-left: 500px; /* Adjusted padding for special ul on medium-large screens */
-          }
-        }
-
-        @media (max-width: 768px) {
-          .ul {
-            padding-left: 50px; /* Adjust padding for medium screens */
-            padding-right: 50px;
-          }
-          .ul.special-padding {
-            padding-left: 350px; /* Default smaller padding for special ul on medium screens */
-          }
-        }
-
-        /* Responsive adjustments for small screens */
-        @media (max-width: 480px) {
-          .ul {
-            padding-left: 50px; /* Minimal padding for smaller screens */
-            padding-right: 20px;
-          }
-          .ul.special-padding {
-            padding-left: 50px; /* Consistent minimal padding for special ul */
-          }
-        }
-        .tinted {
-          width: 90%; /* Makes the box 80% of the parent div's width */
-          margin: 20px auto; /* Centers the box and adds spacing */
-          padding: 20px; /* Adds padding inside the box */
-          background: linear-gradient(to bottom, #0000009d, #0000009d); /* Subtle gradient effect */
-          border-radius: 30px; /* Rounded corners */
-          text-align: center; /* Centers text inside the box */
-          color: #ffffff; /* White text for contrast */
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adds a slight shadow for depth */
-        }
-
-        /* Default styling for the paragraph */
-        .workshop-intro {
-          padding-left: 200px;
-          padding-right: 200px;
-          text-align:center; /* Optional for improved readability */
-        }
-
-        /* Responsive adjustments for medium screens */
-        @media (max-width: 768px) {
-          .workshop-intro {
-            padding-left: 50px;
-            padding-right: 50px;
-          }
-        }
-
-        /* Responsive adjustments for small screens */
-        @media (max-width: 480px) {
-          .workshop-intro {
-            padding-left: 20px;
-            padding-right: 20px;
-          }
-        }
-
-        .wrap-list {
-          margin-top: 40px !important;
-        }
-        .wrap-list ul {
-          display: flex;
-          flex-direction: column;
-          flex-wrap: wrap;
-          align-content: center;
-          height: 800px;
-        }
-        .wrap-list li {
-          margin-right: 50px;
-          margin-left: 150px; /* Default for large screens */
-        }
-
-        /* Responsive adjustments for medium screens */
-        @media (max-width: 768px) {
-          .wrap-list li {
-            margin-right: 20px; /* Adjust or remove margin for medium screens */
-            margin-left: 20px;
-          }
-        }
-
-        /* Responsive adjustments for small screens */
-        @media (max-width: 480px) {
-          .wrap-list li {
-            margin-right: 0; /* Remove margin for small screens */
-            margin-left: 0;
-          }
-        }
-        .flex-wrap {
-          padding: 10px 30px;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          gap: 100px;
-        }
-
-
-
-    </style>
-
-    <title>Mercon 2025</title>
+    <title>Mercon 2024</title>
   </head>
 
-  <body>
+  <body class="custom-page">
     <header></header>
-    <section class="">
-      <h2 class="workshops-heading">Special Sessions</h2>
-      <div class="tinted">
+    <section class="bg-custom">
+      <div class="heading-with-line">
+        <span class="text">
+          <p>&nbsp;&nbsp;Special Sessions&nbsp;&nbsp;</p>
+        </span>
+      </div>
+      
+            
+      <div class="">
         <!-- <div>
           <h2 class="text-heading text-underline">SPECIAL SESSIONS</h2>
           <div>
@@ -462,7 +248,7 @@
             </div>
           </div>
         </div> -->
-        <div >
+        <div class="tinted" style="text-align: left;">
           <!-- <h2 class="text-heading text-underline">SPECIAL SESSIONS</h2>
           <div>
             
@@ -557,15 +343,13 @@
           </div> -->
            <div >
             
-            
-
-            <p class="workshop-intro" style="margin-top: 40px;">
+            <p class="center" style="padding-inline: 15%; text-align: center; margin-top: 2%;">
               MERCon 2024 calls proposals for special sessions in multidisciplinary areas 
               of research which complement the regular tracks by highlighting new and emerging research topics. 
               The proposals for special sessions can be related to one of the following areas. Topics of interest include, 
               but are not limited to: 
-              <div class="wrap-list ul">
-              <ul >
+            <div class="wrap-list"  style="padding-inline: 15%;  margin-top: 10%;">
+              <ul>
                 <li>Air, Maritime, & Public Transport</li>
                <li>Apparel Production Engineering</li> 
                <li>Applied Statistics</li>
@@ -619,26 +403,26 @@
                 <li>Thermodynamics</li>
                 <li>Transport and Logistics</li>
                 <li>Transportation Engineering</li>
-
-             
-            </ul>
+              </ul>
+              
           </div>
             </p>
 
             <div class="center">
               
               <button
-                class="btn btn-primary"
+              class="btn btn-primary"
                 onclick='location.href="./assets/pdf/Special Session Flyer.pdf";'
+                style="margin-top:15% ; margin-bottom: 15%;"
               >
-                Special Sessions Flyer
+                <h2>Special Sessions Flyer</h2>
               </button>
             </div>
           </div> 
           <div>
-            <h3 class="" style="margin-bottom: 30px;">A Special Session Proposal Submission</h3>
-            <div class="">
-              <ul class="ul" >
+            <p style="padding-left: 15%;">A Special Session Proposal Submission</p>
+            <div style="padding-inline: 17%;">
+              <ul >
                 <li>Title of the special session</li>
                 <li>
                   Short description of the proposed field (one paragraph)
@@ -654,8 +438,8 @@
               </ul>
             </div>
           </div>
-          <div style="margin-top: 40px">
-            <p class="workshop-intro">
+          <div style="margin-top: 2%">
+            <p  style="padding-inline: 10%; text-align: center;" >
               The organizers will be track chairs for the proposed special session. 
               Accepted special sessions will be opened for submission and the submitted 
               papers will be peer reviewed as in regular papers. At least there should be 
@@ -664,27 +448,25 @@
               the most relevant regular track. Note that an accepted special will appear similar to 
               a regular track in the conference program and keynotes or any other invited talks are not entertained.
             </p>
-            <div class="ul " style="color: #b98f5e; margin-bottom: 30px; margin-top: 20px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; text-align: left; width: fit-content; margin-left: auto; margin-right: auto;">
-                <br>
+            <br>
+            <div class="text-primary" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding-inline: 8%;">
                 <p   ><s>Submission Deadline: 22nd March 2024</s></p>
-                <p   >Extended Submission Deadline: 29th March 2024</p>
-                <p   >Notification of Acceptance:<s> 29th March 2024</s> 31st March 2024</p>
-
-                <p   >Paper Submission deadline: 26th April 2024</p>
-              </div>
+                <p  >Extended Submission Deadline: 29th March 2024</p>
+                <p  >Notification of Acceptance:<s> 29th March 2024</s> 31st March 2024</p>
+                <p  >Paper Submission deadline: 26th April 2024</p>
+            </div>    
           </div>
-          <div style="margin-top: 20px; margin-bottom: 20px">
-            <h5 >
+          <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 2%; margin-bottom: 4%;">
+            <h5>
               Submit your proposals to Special Session Chair below:
             </h5>
-            <div >
-              <ul class="ul special-padding"
-                
-              >
+            <div class="wrap-list-2">
+              <ul>
                 <li>Dr. Chamira Edussooriya : chamira@uom.lk</li>
               </ul>
             </div>
           </div>
+          
         </div>
       </div>
     </section>

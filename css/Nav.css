@@ -17,7 +17,7 @@ nav{
   height: 70px;
   background: rgba(0, 0, 0, 0.8); /* Black with 80% opacity */
   /* box-shadow: 0 1px 2px rgba(229, 227, 227, 0.2); */
-  z-index: 99;
+  z-index: 1000;
 }
 nav .navbar{
   height: 100%;
@@ -50,16 +50,19 @@ nav .navbar .nav-links{
 }
 nav .navbar .links{
   display: flex;
+  gap: 20px;
 
 }
+
 nav .navbar .links li{
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-around;
   list-style: none;
-  padding: 0 8px;
-  gap: 2px;
+  
+
+ 
   
 }
 nav .navbar .links li a{
@@ -71,24 +74,26 @@ nav .navbar .links li a{
   display: flex;
   justify-content: space-around;
  
-  
 }
 .yr {
   display: flex;
- /* Stack years vertically *
- 
+  justify-content: space-between;
+width: 100%;
+gap: 10px;
 
-/* Optional: Adds some padding around the group */
+
 }
 
 .yr a {
+  display: flex; /* Enables flexbox for centering */
+  align-items: center; /* Centers content vertically */
+  justify-content: center; /* Centers content horizontally */
+  color: #fff; /* Text color */
  
-  color: #fff;
-  text-decoration: none;
-  padding: 0px 25px; /* Add some padding for better clickable area */
-  background:transparent; /* Optional: Light background for each link */
-  border-radius: 2px; /* Rounded corners for links */
-  border: #c4be12;
+  width: 90%; /* Adjusts link width */
+
+  padding: 10px; /* Optional: Adds space inside the link */
+  margin: 0 auto; /* Centers the link block if needed */
 }
 
 .yr a:hover {
@@ -98,6 +103,7 @@ nav .navbar .links li a{
 .links li:hover .htmlcss-arrow,
 .links li:hover .js-arrow{
   transform: rotate(180deg);
+
 }
 .navbar .links li .arrow{
   height: 100%;
@@ -107,22 +113,30 @@ nav .navbar .links li a{
   display: inline-block;
   color: #fff;
   transition: all 0.3s ease;
+  
 }
 .navbar .links li .sub-menu{
   position: absolute;
   top: 70px;
+  
   width:max-content;
 min-width: 100%;
   left: 0;
   background: rgba(0, 0, 0, 0.9);
   display: none;
   z-index: 2;
+
 }
 .navbar .links li:hover .htmlCss-sub-menu,
 .navbar .links li:hover .js-sub-menu{
   display: block;
-  align-self: start;
-  justify-items: start;
+  align-self:baseline;
+
+justify-items: start;
+
+}
+nav .navbar .links li:hover .submenu {
+  display: block; /* Show submenu on hover */
 }
 nav .navbar .links li .sub-menu a:hover {
   color: #fbec6d; /* Change text color on hover */
@@ -130,16 +144,24 @@ nav .navbar .links li .sub-menu a:hover {
   
 }
 .navbar .links li .sub-menu li{
-  padding: 0px 10px ;
-border-bottom: #c4be12;
+ display: flex;
+ align-items: start;
+  justify-content: start;
+  width: 100%;
 
 }
-.navbar .links li .sub-menu a{
+.navbar .links li .sub-menu a {
   color: #fff;
+  width: 100%;
   font-size: 15px;
   font-weight: 500;
-  border: #c4be12;
-  border: 12px; 
+  border-bottom: 1px solid #e4e4e3; /* Full-width bottom border */
+  height: 40px; /* Set a specific height */
+  line-height: 50px; /* Vertically align text inside the height */
+  display: block; /* Ensure full width */
+  padding: 0 10px; /* Horizontal padding */
+  text-decoration: none; /* Remove underline if present */
+  box-sizing: border-box; /* Include border and padding in the width */
 }
 .navbar .nav-links .sidebar-logo{
   display: none;

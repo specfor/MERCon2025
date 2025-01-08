@@ -11,14 +11,18 @@
       href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
       rel="stylesheet"
     />
+    
     <link
       rel="stylesheet"
       href="path/to/font-awesome/css/font-awesome.min.css"
     />
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script
       src="https://kit.fontawesome.com/a24a7503cf.js"
       crossorigin="anonymous"
     ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -46,222 +50,302 @@
     <link rel="icon" type="image/x-icon" href="./img/logos/UOMlogo.ico" />
 
     <link rel="stylesheet" href="./css/style.min.css" />
+    <link rel="stylesheet" href="./css/Nav.css" />
     <script src="./scripts/components.js"></script>
+    <style>
+      body {
+        background-image: url('../img/Frame3.png'); /* Replace with your image path */
+        background-size: cover; /* Makes the image cover the entire page */
+        background-position: center; /* Centers the image */
+        background-repeat: no-repeat; /* Ensures the image doesn't repeat */
+        background-attachment: fixed; /* Keeps the background fixed during scrolling */
+        padding: 80px 0;
+      }
+      /* Correct styling for ul and li inside .tinted */
+      
+      /* Default styling for .ul */
+        .ul {
+          text-align: left;
+          padding-left: 170px; /* Default padding for larger screens */
+          padding-right: 250px;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-start;
+          align-items: flex-start;
+        }
 
-    <title>Mercon 2024</title>
+        /* Specific class for special padding adjustments */
+        .ul.special-padding {
+          padding-left: 500px; /* Larger padding for larger screens by default */
+        }
+
+        /* Responsive adjustments for medium-sized screens */
+        @media (max-width: 1200px) {
+          .ul {
+            padding-left: 100px; /* Adjust padding for medium-large screens */
+            padding-right: 150px;
+          }
+          .ul.special-padding {
+            padding-left: 500px; /* Adjusted padding for special ul on medium-large screens */
+          }
+        }
+
+        @media (max-width: 768px) {
+          .ul {
+            padding-left: 50px; /* Adjust padding for medium screens */
+            padding-right: 50px;
+          }
+          .ul.special-padding {
+            padding-left: 350px; /* Default smaller padding for special ul on medium screens */
+          }
+        }
+
+        /* Responsive adjustments for small screens */
+        @media (max-width: 480px) {
+          .ul {
+            padding-left: 20px; /* Minimal padding for smaller screens */
+            padding-right: 20px;
+          }
+          .ul.special-padding {
+            padding-left: 20px; /* Consistent minimal padding for special ul */
+          }
+        }
+
+      
+      /* End of styling for ul and li inside .tinted */
+
+      
+
+      .workshops-heading {
+          font-size: 2.5rem; /* Default size for larger screens */
+          text-align: center;
+          color: #fff;
+          margin: 20px 0;
+          position: relative;
+        }
+
+        .workshops-heading::before,
+        .workshops-heading::after {
+          content: "";
+          position: absolute;
+          top: 50%;
+          width: 39%; /* Line width adjusted for balance */
+          height: 2px;
+          background-color: #fff;
+        }
+
+        .workshops-heading::before {
+          left: 0;
+        }
+
+        .workshops-heading::after {
+          right: 0;
+        }
+
+        /* Responsive adjustments for medium screens */
+        @media (max-width: 768px) {
+          .workshops-heading {
+            font-size: 1.8rem; /* Slightly smaller font */
+          }
+
+          .workshops-heading::before,
+          .workshops-heading::after {
+            width: 20%; /* Reduce line width */
+            height: 1.5px;
+          }
+        }
+
+        /* Responsive adjustments for small screens */
+        @media (max-width: 480px) {
+          .workshops-heading {
+            font-size: 1.5rem; /* Smaller font for compact screens */
+          }
+
+          .workshops-heading::before,
+          .workshops-heading::after {
+            width: 25%; /* Further reduce line width */
+            height: 1.2px;
+          }
+        }
+
+      .li {
+        color: #f2f2f2; /* Light text color */
+        font-size: 1rem; /* Adjust text size */
+        font-family: 'Arial', sans-serif; /* Adjust font if needed */
+        margin-bottom: 5px; /* Space between list items */
+        line-height: 1.5; /* Improve readability */
+      }
+
+      .p {
+        color: #f2f2f2; /* Same light text color for consistency */
+        font-size: 0.95rem; /* Slightly smaller size for the paragraph */
+        font-family: 'Arial', sans-serif;
+        padding: 0;
+        margin-left: 20px; /* Add left margin for proper alignment */
+        line-height: 1.5; /* Match list line height */
+      }
+
+      .li::marker {
+        color: #ffcc33; /* Change bullet point color to gold (#ffcc33) */
+        font-size: 1.2rem; /* Slightly larger bullets */
+      }
+
+      .li + p {
+        margin-top: 5px; /* Ensure consistent spacing between <li> and <p> */
+      }
+      .tinted {
+        width: 90%; /* Makes the box 80% of the parent div's width */
+        margin: 20px auto; /* Centers the box and adds spacing */
+        padding: 20px; /* Adds padding inside the box */
+        background: linear-gradient(to bottom, #0000009d, #0000009d); /* Subtle gradient effect */
+        border-radius: 30px; /* Rounded corners */
+        text-align: center; /* Centers text inside the box */
+        color: #ffffff; /* White text for contrast */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adds a slight shadow for depth */
+      }
+      .encode-sans-semi-expanded-bold {
+        font-family: "Encode Sans Semi Expanded", serif;
+        font-weight: 700;
+        font-style: normal;
+      }
+      h3.text-heading {
+        text-align: center;
+        margin: 40px auto;
+        border-top: #ffffff solid 3px;
+        border-bottom: #ffffff solid 3px;
+        width: fit-content;
+        margin-top: 60px;
+        margin-bottom: 60px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-family: 'Arial', sans-serif; /* Default font */
+        text-transform: none; /* Ensure no transformation is applied */
+      }
+
+
+      /* Default button styling for larger screens */
+      .btn.btn-primary {
+        background-color: #b98f5e;
+        color: #000000;
+        border-radius: 40px;
+        width: 250px;
+        text-align: center; /* Center text */
+        font-size: 1.2rem;
+        font-weight: bold;
+        padding: 10px 20px; /* Add padding for better appearance */
+      }
+
+      /* Responsive adjustments for medium-sized screens */
+      @media (max-width: 768px) {
+        .btn.btn-primary {
+          width: 200px; /* Reduce width for medium screens */
+          font-size: 1rem; /* Decrease font size */
+          padding: 8px 16px; /* Adjust padding */
+        }
+      }
+
+      /* Responsive adjustments for small screens */
+      @media (max-width: 480px) {
+        .btn.btn-primary {
+          width: 150px; /* Further reduce width for small screens */
+          font-size: 0.9rem; /* Adjust font size */
+          padding: 6px 12px; /* Adjust padding */
+        }
+      }
+
+      .btn.btn-primary:hover {
+        background-color: rgb(64, 64, 64);
+        color: #fff;
+      }
+      .text-yellow {
+        color: #ffc700;
+      }
+      h5 {
+        padding: 0px 10px; /* Default padding for smaller screens */
+        padding-left: 20px; /* Smaller left padding by default */
+        text-align: left;
+        font-size: 0.7rem; /* Increase font size */
+      }
+
+      /* Larger screen styling using media query */
+      @media (min-width: 1200px) {
+        h5 {
+          padding-left: 150px; /* Larger padding for bigger screens */
+          font-size: 1.1rem; /* Increase font size for larger screens */
+        }
+      }
+
+      /* Default styling for the paragraph */
+      .workshop-intro {
+        padding-left: 200px;
+        padding-right: 200px;
+        text-align:center; /* Optional for improved readability */
+      }
+
+      /* Responsive adjustments for medium screens */
+      @media (max-width: 768px) {
+        .workshop-intro {
+          padding-left: 50px;
+          padding-right: 50px;
+        }
+      }
+
+      /* Responsive adjustments for small screens */
+      @media (max-width: 480px) {
+        .workshop-intro {
+          padding-left: 20px;
+          padding-right: 20px;
+        }
+      }
+
+
+
+
+    </style>
+    <title>Mercon 2025</title>
   </head>
-
-  <body>
+  
+  <body >
     <header>
     </header>
-    <section class="main">
-      <div class="width-fixed-large">
+    <section class="">
+      <div class=" ">
         <div>
-          <h2 class="text-heading text-underline">WORKSHOPS</h2>
-          <!-- <div> -->
-            <!-- <h5 class="margin-20">Workshops</h5> -->
-            <!-- <p>
-              <ul>
-                <li class="text-primary">All workshops will be held on <b>11<sup>th</sup> November 2023</b></li>
-                
-                <li class="text-primary">Workshops registration deadline: <b>7<sup>th</sup> November 2023</b></li>
-                
-              </ul>
-
-            </p> -->
-
-          <!-- </div> -->
-
-          <!-- ws1 -->
-
-          <!-- <div>
-            <hr style="margin-bottom: 20px" >
-            <h3 class="margin-20">Workshop 1 - Essentials of R for researchers</h3>
-            <p>
-              Are you a researcher looking to harness the full potential 
-              of data analysis and visualization for your work? Join our 
-              exclusive workshop on the "Essentials of R for Researchers" 
-              and embark on a journey to become an R programming expert. 
-              The Center for Data Science is to disseminate knowledge in 
-              Data Science and Statistics among researchers, academics and 
-              industry personnel. The center has been conducting workshops 
-              for local and foreign students for more than six years now. 
-              It has seen the necessity of educating and guiding young engineering
-               students and researchers on conducting essential research methods 
-               using statistical software, R.
-            </p>
-
-            <div class="center">
-              <button
-              class="btn btn-primary"
-              onclick="window.open('https://forms.gle/6T1yaC3iiS4UGHYY6', '_blank');"
-            >
-              Register Now
-            </button>
-              <button
-                class="btn btn-alt"
-                onclick="window.open('./assets/pdf/WS1-final.pdf', '_blank');"
-              >
-                Download Flyer
-              </button>
-            </div>
-
-            <br>
-
-          </div> -->
-
-          <!-- ws2 -->
-          <!-- <div>
-            <hr style="margin-bottom: 20px" >
-            <h3 class="margin-20">Workshop 2 - Environmental Lifecyle assessment of buildings using Building-SAT- A cradle to grave sustainability assessment. </h3>
-            <p>
-              Climate change and rapid urbanization with growing population 
-              have prompted an emerging interest on construction industries to 
-              include more sustainable practices. To accomplish a net-zero carbon 
-              building stock in 2050, direct and indirect building CO2 release 
-              needs to be assessed and quantified. Thus, the assessment of global 
-              warming potential of buildings, through life cycle assessment, 
-              taking into account both the processes and materials, to promote 
-              the use of more sustainable construction materials and processes 
-              is timely. Different techniques associated with sustainability 
-              assessment of built environments will be discussed through lectures 
-              and interactive activities.  An introduction to the life cycle 
-              assessment of built environment will be given. 
-              <br><br>
-              Different life cycle assessment tools available to calculate the global warming 
-              potential of built environment will be shown with examples. 
-              Building-SAT, the locally developed whole building sustainability 
-              tool will be introduced (<a href="http://building-sat.com/">http://building-sat.com/</a>). 
-              Also the methodology for estimate the operational energy using a 
-              energy modelling software will be shared as a hands on session. 
-              Finally, there will be a hands-on session to use Building-SAT tool 
-              to assess the Global Warming Potential of a simple building. 
-              Further a discussion of case studies and real-world examples of 
-              successful LCA implementation in the building sector will be presented.
-
-            </p>
-
-            <div class="center">
-              <button
-              class="btn btn-primary"
-              onclick="window.open('https://forms.gle/KVmeWbwNzDVGSL5C8', '_blank');"
-            >
-              Register Now
-            </button>
-              <button
-                class="btn btn-alt"
-                onclick="window.open('./assets/pdf/WS2-final.pdf', '_blank');"
-              >
-                Download Flyer
-              </button>
-            </div>
-            <br>
-          </div> -->
+          <h2 class="workshops-heading">WORKSHOPS</h2>
           
-          <!-- ws3 -->
-          <!-- <div>
-            <hr style="margin-bottom: 20px" >
-            <h3 class="margin-20">Workshop 3 - Sequencing Success: A Hands-On Workshop in Deep Learning for Sequence-to-Sequence Models</h3>
-            <p>
-              This hands-on workshop focused on sequence-to-sequence (Seq2Seq) 
-              learning, a popular deep learning technique used for various natural 
-              language processing (NLP) tasks such as machine translation, speech 
-              recognition, etc. The workshop aims to provide participants with a 
-              comprehensive understanding of Seq2Seq models and equip them with 
-              the necessary skills to implement and train their own models. 
-              The workshop will cover theoretical and practical aspects of 
-              Seq2Seq learning, enabling participants to apply this powerful 
-              technique to real-world NLP problems.
-              <br><br>
-              The workshop will provide participants with hands-on experience 
-              through interactive coding sessions in google collab cloud services. 
-              So the participants only need to bring laptops with access to the internet.
-            </p>
 
-            <div class="center">
-              <button
-              class="btn btn-primary"
-              onclick="window.open('https://forms.gle/HHug3bV5j6S3JEK77', '_blank');"
-            >
-              Register Now
-            </button>
-              <button
-                class="btn btn-alt"
-                onclick="window.open('./assets/pdf/WS3-final.pdf', '_blank');"
-              >
-                Download Flyer
-              </button>
-            </div>
-            <br>
-          </div> -->
-          
-          <!-- ws4  -->
-          <!-- <div>
-            <hr style="margin-bottom: 20px" >
-            <h3 class="margin-20">Workshop 4 - MLOPS - Productionize and Operationalize Machine Learning Models with Modern Engineering Practices</h3>
-            <p>
-              MLOps, short for Machine Learning Operations, entails an 
-              organizational transformation that leverages the synergy 
-              between individuals, processes, and technology to ensure 
-              the efficient delivery of machine learning solutions. It 
-              emphasizes the need for robustness, scalability, reliability, 
-              and automation throughout the entire machine-learning lifecycle.
-              <br><br>
-              During this workshop, we will guide you through contemporary 
-              engineering techniques and industry best practices for scaling 
-              up and operationalizing machine learning models in enterprise 
-              and business-critical environments. In this workshop, we will 
-              be focusing on both theoretical principles and practical 
-              implementation, encompassing vital aspects such as model 
-              reproducibility, validation, deployment, and monitoring.
-            </p>
-
-            <div class="center">
-              <button
-              class="btn btn-primary"
-              onclick="window.open('https://forms.gle/mGUyhRahvKiZGXW87', '_blank');"
-            >
-              Register Now
-            </button>
-              <button
-                class="btn btn-alt"
-                onclick="window.open('./assets/pdf/WS4-final.pdf', '_blank');"
-              >
-                Download Flyer
-              </button>
-            </div>
-            <br>
-          </div> -->
-
-           <div>
-            <hr style="margin-bottom: 20px" >
-            <h3 class="margin-20">MERCon 2024 - Call for Workshops</h3>
+           <div class=" tinted ">
+            
+            <h3 class="text-heading ">MERCon 2024 - Call for Workshops</h3>
             <p>As MERCon 2024 organizing committee, we invite proposals for workshops</p>
-            <p>
-              <ul>
-                <b>Call for workshops- deadline: 5<sup>th</sup> May 2024</b>
-                  <li>Submit your proposals to the Workshops Chairs below:</li>
-                  <li>Dr. Thushara Subasinghe: thusharas@uom.lk</li>
-              </ul>
-
-            </p>
-            <h3 class="margin-20">Please refer the details below</h3>
-            <h3 class="margin-20">Workshops:</h3>
-            <p>
-              As MERCon 2024 organizing committee, we invite proposals for workshops with the aim of exposing our participants to expert knowledge and the opportunity to discuss novel trends and scientific contributions in all engineering disciplines. We strongly encourage the workshops to be highly interactive and in high demand. It is preferred to have foreign collaborators. 
-              <div class="center">
-              
-                <button
-                  class="btn btn-alt"
-                  onclick='location.href="./assets/pdf/Workshops Flyer.pdf";'
-                >
-                  Workshops Flyer
-                </button>
+            <div style="margin-top: 20px; margin-bottom: 30px;"> 
+              <p >
+                <ul class="ul special-padding" >
+                <li>Call for workshops- deadline: 5<sup>th</sup> May 2024</li>
+                <li>Submit your proposals to the Workshops Chairs below:</li>
+                </ul>
+                <p>Dr. Thushara Subasinghe: thusharas@uom.lk</p>
+              </p>
+            </div>
+            <p >Please refer the details below</p>
+            <p >Workshops:</p>
+            <p  class="margin-20">
+              <p class="workshop-intro">As MERCon 2024 organizing committee, we invite proposals for workshops with the aim of exposing our participants to expert knowledge and the opportunity to discuss novel trends and scientific contributions in all engineering disciplines. We strongly encourage the workshops to be highly interactive and in high demand. It is preferred to have foreign collaborators. </p>
+               <div style="margin-top: 60px; margin-bottom: 60px;"> 
+                <div class="center">
+                
+                  <button
+                    class="btn btn-primary" 
+                    onclick='location.href="./assets/pdf/Workshops Flyer.pdf";'
+                  >
+                    Workshops Flyer
+                  </button>
+                </div>
               </div>
-              <h4 class="margin-20"><b>Proposal details</b></h4>
+              <h3 class="text-heading encode-sans-semi-expanded-bold"><b>Proposal details</b></h4>
               <h5>Proposals are limited to no more than five pages and should contain the following information:</h5> 
 
-              <ul>
+              <ul class="ul">
                 <li>Organizers' names, affiliations, and email addresses with one person identified as the primary contact person.</li>
                 <li>Description of the workshop in terms of abstract, objectives, goals, relevance to Engineering discipline and expected outcomes</li>
                 <li>Motivation for why MERCon 2024 workshop on this topic will be effective</ulil>
@@ -269,23 +353,27 @@
                 <li>Workshop duration, format, activities, and schedule</li>
                 <li>List of program committee members and their short biographies describing relevant of qualifications and experience • Preliminary list of invited speakers (if any) and their brief profiles</li>
               </ul>
-              <h4 class="margin-20"><b>Evaluation criteria</b></h4>
-              <h5>All workshop proposals will be evaluated based on the following criteria</h5>
-                <ul>
+              <h3 class="text-heading encode-sans-semi-expanded-bold"><b>Evaluation criteria</b></h4>
+                <h5 >All workshop proposals will be evaluated based on the following criteria:</h5>
+                 
+                  <ul class=" ul">
                   <li>Relevance of the workshop to the engineering disciplines</li>
                   <li>Interest in the community on the important technical topic of concern</li>
                   <li>Novelty concerning other conference forums</li>
                   <li>Likelihood of strong participation</li>
-                  <li>Strength of the profile of researchers Confirmation program committee members</li>
-                  <li>Profiles of the keynote speaker or a tutorial presenter</li>
+                  <li>Strength of the profile of researchers in the program committee</li>
+                  <li>Profiles of the keynote speaker or tutorial presenter</li>
                   <li>Letters of support from colleagues/researchers indicating their interest and intent to participate in this workshop</li>
-                </ul>
-                <p class="text-primary" style="padding: 0" >Deadline: 05th May 2024</p>
-                <p class="text-primary" style="padding: 0" >Submit your proposals to the Workshop Chair below:</p>
-
-                <p class="text-primary" style="padding: 0 ; margin-left: 8px;" >Dr. Thushara Subasinghe: thusharas@uom.lk</p>
-             
-
+                  </ul>
+                
+                  <div style="color: #b98f5e; margin-bottom: 30px; margin-top: 20px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; text-align: left; width: fit-content; margin-left: auto; margin-right: auto;">
+                  <ul>
+                    <li>Call for workshops - deadline: 5th May 2024</li>
+                    <li>Submit your proposals to the Workshop Chair below:</li>
+                    <p>Dr. Thushara Subasinghe: thusharas@uom.lk</p>
+                  </ul>
+                </div>
+                
             </p>
             <br>
           </div>

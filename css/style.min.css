@@ -1248,7 +1248,7 @@ background-color:  transparent;
 @media (max-width: 413px) {
   .dateBox {
     width: 250px;
-    height: 60px;
+    height: 50px;
     font-size: 12px;
   }
 }
@@ -1256,7 +1256,7 @@ background-color:  transparent;
 @media (max-width: 375px) {
   .dateBox {
     width: 250px;
-    height: 60px;
+    height: 40px;
     font-size: 11px;
   }
 }

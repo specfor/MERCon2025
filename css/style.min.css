@@ -420,8 +420,8 @@ nav #check {
   transition: all 0.3s ease-in-out;
   border-radius: 20px;
   background-color: transparent;
-  border: 1.9px solid #ffc700; /* Combined border properties */
-  box-shadow: #ffc700 0px 0px 10px; /* Adds a subtle shadow */
+  border: 1.9px solid #c0a33a; /* Combined border properties */
+  box-shadow: #4e431d 0px 0px 10px; /* Adds a subtle shadow */
 }
 
 
@@ -577,7 +577,7 @@ background-color:  transparent;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 200px;
+  height: 300px;
   padding: 10px;
   margin: 20px;
   box-shadow: 0 10px 20px rgba(255, 255, 255, 0.63); /* Bottom shadow */
@@ -994,7 +994,7 @@ background-color:  transparent;
   }
   .grid-sponsor {
     grid-template-columns: 1fr !important;
-    margin: 10px 50px !important;
+    margin: 1px 10px !important;
   }
   .grid-sponsor .img-container {
     height: 150px !important;

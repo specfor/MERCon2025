@@ -203,7 +203,11 @@ body {
   background-image: url("../img/Frame2.jpg");
   background-size: 100%;
   color: #ffffff;
-  background-color: #000000;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  
 }
 p,
 h4 {

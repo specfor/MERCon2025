@@ -965,7 +965,7 @@ background-color:  transparent;
 @media (max-width: 768px) {
   body {
     font-size: 0.7rem !important;
-    background-image: url("../img/Frame2.jpg");
+    
   }
   .hide-sm {
     display: none;

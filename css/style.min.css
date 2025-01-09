@@ -1,4 +1,3 @@
-
 .ml-25 {
   margin-left: 25px;
 }
@@ -204,7 +203,7 @@ body {
   background-image: url("../img/Frame2.jpg");
   background-size: 100%;
   color: #ffffff;
- 
+  background-color: #000000;
 }
 p,
 h4 {

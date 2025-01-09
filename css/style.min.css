@@ -96,6 +96,7 @@
 }
 .wrap-list li {
   margin-right: 50px;
+  gap: 20px;
 }
 .flex-wrap {
   padding: 10px 30px;
@@ -166,7 +167,7 @@ h4 {
   color: #ffc700;
 }
 .text-primary {
-  color: #026ab4;
+  color: #e5a84d;
 }
 .text-white {
   color: #fff;

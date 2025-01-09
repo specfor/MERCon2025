@@ -1534,3 +1534,21 @@ body.custom-page {
     height: 180px;
   }
 }
+.mainProgram {
+  padding: 80px 0;
+}
+
+.width-fixed-large-registration {
+  max-width: 1500px;
+  margin: auto;
+}
+
+.tinted-registration {
+  width: 90%; /* Makes the box 80% of the parent div's width */
+  margin: 20px auto; /* Centers the box and adds spacing */
+  padding: 20px; /* Adds padding inside the box */
+  background: linear-gradient(to bottom, #0000009d, #0000009d); /* Subtle gradient effect */
+  border-radius: 30px; /* Rounded corners */
+  color: #ffffff; /* White text for contrast */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adds a slight shadow for depth */
+}

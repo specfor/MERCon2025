@@ -1332,7 +1332,7 @@ body.custom-page {
   background-repeat: repeat-y;
   background-position: center top;
   color: #ffffff; /* Ensure text remains visible */
-  background-image: url("../img/Frame4.jpg");
+  background-image: url("../img/Frame4.png");
 }
 .dimmed-container {
   display: inline-block;

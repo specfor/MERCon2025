@@ -512,13 +512,17 @@ nav #check {
 .grid {
   display: grid;
   gap: 5px;
-  margin: 10px 30px;
   overflow: hidden;
+  padding:5px;
 }
 .grid-venue {
-  margin-top: 3rem;
+  margin-top: 5px;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5px;
+  padding: 20px;
+  padding-top: 0px;
+
 }
 .grid-venue iframe {
   grid-column: 1/3;
@@ -617,8 +621,8 @@ background-color:  transparent;
   overflow: hidden;
 }
 .img-container {
-  border-radius: 10px;
- overflow: hidden;
+  border-radius: 20px;
+  overflow: hidden;
 }
 .img-container img {
  overflow: hidden;
@@ -637,8 +641,9 @@ background-color:  transparent;
 .map {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Default to one column */
-  gap: 20px; /* Optional: Add some spacing between the columns */
+  gap: 5px; /* Optional: Add some spacing between the columns */
   padding: 20px;
+  padding-bottom: 0px;
 }
 @media (max-width: 768px) {
  .map {

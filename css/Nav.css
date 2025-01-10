@@ -41,7 +41,7 @@ nav .navbar{
 }
 .navbar .logo img{
   width: 200px;
-  height: fit-content;
+  height: 56px;
 }
 nav .navbar .nav-links{
   line-height: 70px;
@@ -183,7 +183,10 @@ nav .navbar .links li .sub-menu a:hover {
 
   }
 
-
+  nav .navbar .logo img{
+    width: 150px;
+    height: 44px;
+  }
 
   .navbar .nav-links .sidebar-logo {
     display: flex; /* Make the sidebar-logo visible */
@@ -201,7 +204,7 @@ nav .navbar .links li .sub-menu a:hover {
     top: 0;
     left: -100%;
     display: block;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(15, 15, 15, 0.8);
     line-height: 30px;
     padding: 20px;
     box-shadow: 0 5px 10px rgba(96, 3, 162, 0.2);
@@ -214,13 +217,23 @@ nav .navbar .links li .sub-menu a:hover {
     
   
   }
+  .navbar .nav-links li{
+   
+    background-color: transparent;
+    font-size: 20px;
+    min-height: 50px !important;
+    max-height: 50px;
+  }
+  .navbar .nav-links li a{
+    font-size: 20px;
+  }
   .navbar .links li .sub-menu{
     position: absolute;
     top: 70px;
     width:max-content;
     min-width: 300px;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0,);
     display: none;
     z-index: 2;
   }
@@ -247,26 +260,14 @@ nav .navbar .links li .sub-menu a:hover {
 
 justify-content: flex-start;
     gap: 10px;
-
-
-
   }
   .navbar .links li .sub-menu{
     display: none;
   }
+  .navbar .links  li a{
+    font-size: 20px;
+  }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 .sub-menu {
   display: none;
@@ -286,7 +287,8 @@ justify-content: flex-start;
     width: max-content;
   } */
   nav .navbar .logo img{
-    width: 150px;
-    height: fit-content;
+    width: 120px;
+    height: 36px;
   }
+  
 }

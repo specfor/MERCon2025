@@ -32,6 +32,8 @@
   border: #ffffff solid 2px;
   transition: all 0.5s ease-in-out;
 }
+
+
 .btn.btn-secondary {
   background-color: #21334b;
   color: #fff;
@@ -1382,6 +1384,7 @@ body.custom-page {
   flex: 1;
   height: 2px;
   background-color: white;
+  
 }
 
 .text {

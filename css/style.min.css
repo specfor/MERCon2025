@@ -32,6 +32,8 @@
   border: #ffffff solid 2px;
   transition: all 0.5s ease-in-out;
 }
+
+
 .btn.btn-secondary {
   background-color: #21334b;
   color: #fff;
@@ -96,6 +98,7 @@
 }
 .wrap-list li {
   margin-right: 50px;
+  gap: 20px;
 }
 .flex-wrap {
   padding: 10px 30px;
@@ -166,7 +169,7 @@ h4 {
   color: #ffc700;
 }
 .text-primary {
-  color: #026ab4;
+  color: #e5a84d;
 }
 .text-white {
   color: #fff;
@@ -802,17 +805,7 @@ background-color:  transparent;
   padding: 5px 20px;
 }
 
-.read-more-link {
-  background: transparent;
-  color: white;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  margin-bottom: 12px;
-}
-.read-more-link:hover {
-  color: #ccc; /* Lighter shade for hover effect */
-}
+
 
 #scroll-to-top-button {
   position: fixed;
@@ -834,136 +827,154 @@ background-color:  transparent;
   border-radius: 5px;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
 }
-.keynote-hero-text {
+.keynote-section {
+  padding: 50px 20px;
+  text-align: center;
+  max-width: 1800px;
+  margin: 0 auto;
+}
+
+
+.keynote-cards {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  text-align: center;
-}
-.keynote-hero-text h1 {
-  font-size: 40px;
-  padding-top: 80px;
-}
-.keynote-hero-text hr {
-  width: 200px;
-  height: 3px;
-  background-color: #0095ff;
-  border: none;
-  box-shadow: 0 0 20px #9e51ac;
-}
-.keynote-hero-profiles {
-  display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  align-items: start;
+  gap: 100px; 
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.keynote-card {
+  width: 400px;
+  background: linear-gradient(to bottom, #0000009d, #0000009d);
+  transition: all 0.5s ease-in-out; 
+  border: 2px solid #e5a84d;
+  border-radius: 23px;
+  overflow: hidden;
   padding: 20px;
-  text-align: center;
+  color: #ffffff;
+
 }
-.keynote-hero-profiles-card {
-  width: 350px;
-  height: auto;
-  padding-top: 20px;
-  background: #310a0a;
-  margin: 30px;
-  border-radius: 20px;
-  border: 2px #fff;
-  border: 10px solid rgba(255, 255, 255, 0.1098039216);
+
+.keynote-card.expanded {
+  width: 90%;
+  max-width: 800px;
+  transition: all 0.5s ease-in-out;
 }
-.keynote-hero-profiles-card img {
-  width: 60%;
+
+.keynote-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+
+  margin: 0 auto;
+  display: block;
+  position: relative;
+
+}
+
+
+.keynote-card .image-container {
+  position: relative;
+  width: 220px;
+  margin: 0 auto;
+}
+
+.keynote-card .image-container::before,
+.keynote-card .image-container::after {
+  content: '';
+  position: absolute;
+  border: 2px solid #e5a84d;
   border-radius: 50%;
-  height: 200px;
+  z-index: 0;
 }
-.keynote-hero-profiles-card h1 {
-  height: 80px;
-  margin: 0px 20px;
-  display: flex;
-  justify-content: center;
+
+.keynote-card .image-container::before {
+  top: 50px;
+  left: 10px;
+  right: 10px;
+  bottom: -30px;
 }
-.keynote-hero-profiles-card p {
-  /* height: 200px; */
-  margin: 20px;
-  font-size: 16px;
+
+.keynote-card .image-container::after {
+  top: 55px;
+  left: 15px;
+  right: 15px;
+  bottom: -25px;
 }
-.keynote-person {
-  height: 100vh;
-  background: linear-gradient(207.66deg, #001b37 14.58%, #587594 82.81%);
+
+.keynote-card h1 {
+  color: #000;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
+  background: #e5a84d;
+  padding: 8px 20px;
+  border-radius: 20px;
+  margin: 15px auto;
+  width: fit-content;
+  z-index: 2;
 }
-.keynote-one {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+
+.keynote-card button {
+  background-color: transparent;
+  color: #e5a84d;
+  border: 2px solid #e5a84d;
+  padding: 8px 25px;
+  margin: 15px auto;
+  display: block;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: all 0.3s ease;
 }
-.keynote-one > h1 {
-  margin: 20px;
+
+.keynote-card button:hover {
+  background-color: #e5a84d;
+  color: #000;
 }
-.keynote-one hr {
-  width: 200px;
-  height: 3px;
-  background-color: #0095ff;
-  border: none;
-  box-shadow: 0 0 20px #0095ff;
+
+.keynote-details {
+  display: none;
+  padding: 15px;
+  text-align: left;
+  font-size: 14px;
+  color: #ffffff;
+  margin-top: 15px;
+  transition: all 0.5s ease-in-out;
 }
-.keynote-one-profile {
-  display: flex;
-  width: 80%;
-  margin: 30px auto;
+
+.keynote-card.active .keynote-details {
+  display: block;
 }
-.keynote-one-profile .text-section {
-  margin-left: 30px;
+
+@media (max-width: 426px) {
+  .keynote-card {
+    width: 300px;
+    padding: 15px;
+  }
+  
+  .keynote-card.expanded {
+    width: 95%;
+  }
+  
+  .keynote-card img {
+    width: 180px;
+    height: 180px;
+  }
+  
+  .keynote-card h1 {
+    font-size: 12px;
+    padding: 6px 15px;
+  }
+  
+  .keynote-details {
+    font-size: 13px;
+  }
 }
-.keynote-one-profile .text-section h2 {
-  color: #ffc700;
-}
-.keynote-one-profile img {
-  width: 350px;
-  aspect-ratio: 1/1;
-}
-.keynote-two {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(207.66deg, #001b37 14.58%, #587594 82.81%);
-}
-.keynote-two-profile {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 80%;
-  margin: 30px auto;
-}
-.keynote-two-profile .text-section {
-  margin-left: 30px;
-}
-.keynote-two-profile .text-section h2 {
-  color: #ffc700;
-}
-.keynote-two-profile img {
-  width: 350px;
-  aspect-ratio: 1/1;
-}
-.keynote-three {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.keynote-three-profile {
-  display: flex;
-  width: 80%;
-  margin: 30px auto;
-}
-.keynote-three-profile .text-section {
-  margin-left: 30px;
-}
-.keynote-three-profile .text-section h2 {
-  color: #ffc700;
-}
-.keynote-three-profile img {
-  width: 350px;
-  aspect-ratio: 1/1;
-}
+
 .topic-content {
   padding: 5px 20px;
 }
@@ -1143,7 +1154,7 @@ background-color:  transparent;
   }
  
 }
-@media (max-width: 900px) {
+/* @media (max-width: 900px) {
   .keynotes-hero h1 {
     font-size: 24px;
   }
@@ -1203,7 +1214,7 @@ background-color:  transparent;
   .keynote-hero-profiles .keynote-hero-profiles-card {
     width: 400px;
   }
-}
+} */
 
 
 .dateContainer {
@@ -1373,6 +1384,7 @@ body.custom-page {
   flex: 1;
   height: 2px;
   background-color: white;
+  
 }
 
 .text {

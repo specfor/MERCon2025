@@ -203,8 +203,9 @@ body {
   background-image: url("../img/Frame2.jpg");
   background-size: 100%;
   color: #ffffff;
-  background-repeat: repeat;
-  background-position:top;
+  background-repeat: no-repeat;
+  background-attachment:scroll;
+  background-position:center;
   background-color: #000000;
 
 }

@@ -1284,6 +1284,7 @@ background-color:  transparent;
 
 .box-container {
   padding-top: 70px; 
+  background: linear-gradient(to bottom, black 10px, transparent 115px);
 }
 
 

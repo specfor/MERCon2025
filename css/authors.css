@@ -44,10 +44,10 @@
     color: #fff;
 }
 
-.ul {
+.ul,.ol {
     text-align: left;
     padding-left: 170px;
-    padding-right: 200px;
+    padding-right: 150px;
     padding-top: 20px;
     padding-bottom: 30px;
     display: flex;

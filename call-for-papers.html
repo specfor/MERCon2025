@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -27,6 +28,15 @@
       rel="stylesheet"
     />
 
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
     <!-- carousel styles and scripts -->
     <link
       rel="stylesheet"
@@ -44,37 +54,46 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <link rel="stylesheet" href="./css/carousel.css" />
     <link rel="icon" type="image/x-icon" href="./img/logos/UOMlogo.ico" />
 
     <link rel="stylesheet" href="./css/style.min.css" />
+    <link rel="stylesheet" href="./css/authors.css" />
+
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="./scripts/components.js"></script>
-
-    <title>Mercon 2024</title>
+    <script src="./scripts/navColorChange.js"></script>
+    <script src="./scripts/navbar.js"></script>
+    <title>Mercon 2025</title>
   </head>
 
-  <body class=" .encode-sans-semi-expanded-medium" >
+
+  <body class=".encode-sans-semi-expanded-medium">
     <header></header>
-    <div class="heading-with-line ">
-      <span class="text   ">
-        CALL FOR PAPERS 
-      </span>
+    <section class="bg-custom">
+      
+    <div class="heading-with-line">
+        <span class="text">
+          CALL FOR PAPERS
+        </span>
     </div>
-    <section class="main">
-      <div class="width-fixed-large">
-        <p>
+    
+
+    <div  class=" tinted ">  
+        <p class="workshop-intro" style="margin-top: 40px;">
+
           MERCon 2024 is the 10th International Conference organized by the Engineering Research Unit, University of Moratuwa, Sri Lanka. We welcome research papers on a broad range of research themes, including both theoretical and applied research. The following engineering-related disciplines are the focus of the research papers that will be presented at MERCon 2024.
         </p>
-        <!-- <del
-          ><p class="text-primary">Submission Deadline: June 07, 2023</p></del
-        > -->
+        <br>
+        <p class="text-primary">Submission Deadline: June 07, 2023</p></del> 
         <p class="text-primary">Submission Deadline: <del>April 5, 2024</p></del>
         <p class="text-primary">Extended Deadline: <del>April 19, 2024</del> April 29, 2024 at 5.30pm SL time</p>
         <p class="text-primary">Please Follow The Paper Template At: 
         <a href = "https://www.ieee.org/conferences/publishing/templates.html" >https://www.ieee.org/conferences/publishing/templates.html</a></p>
         <div class="center">
           <button
-            class="btn btn-alt"
+            class="btn btn-primary"
             onclick='location.href="./assets/pdf/Call for papers.pdf";'
           >
             Download Guidelines
@@ -93,7 +112,7 @@
             <li>Apparel Production Engineering</li>
             <li>Applied Statistics</li>
             <li>Automation Engineering</li>
-            <!-- <li>Big Data, Machine Learning, and Cloud Computing</li> -->
+            <li>Big Data, Machine Learning, and Cloud Computing</li> 
             <li>Biomedical Engineering</li>
             <li>Ceramic Engineering</li>
             <li>Chemical Engineering</li>
@@ -126,7 +145,7 @@
             <li>Mineral Exploration</li>
             <li>Mining Engineering</li>
             <li>Mineral Processing and Extractive Metallurgy </li>
-            <!-- <li>Mobile & Cloud Computing</li> -->
+             <li>Mobile & Cloud Computing</li> 
             <li>Nano Science & Technology</li>
             <li>Numerical Methods In Engineering</li>
             <li>Ocean Resources Engineering</li>
@@ -147,7 +166,51 @@
             <li>Transportation Engineering</li>
           </ul>
         </div>
+    </div>
+
+</section>
+    
+
+    <footer id="footer">
+      <div class="footer-top">
+        <div class="container">
+          <div>
+            <div class="footer-contact">
+              <h2>Contact Us</h2>
+              <p>
+                Engineering Research Unit, Faculty of Engineering, University of
+                Moratuwa, Sri Lanka<br />
+                <strong>Telephone:</strong> +94 11 265 0286,
+                <strong> ext:</strong> 3044, <strong> Facsimile:</strong> +94 11
+                265 0622, <strong> Email:</strong> mercon@uom.lk
+              </p>
+
+              <div class="social-links">
+                <a
+                  href="https://twitter.com/merconeru"
+                  target="_blank"
+                  class="twitter"
+                  ><i class="fa fa-twitter"></i
+                ></a>
+                <a
+                  href="https://www.facebook.com/pg/erumercon"
+                  target="_blank"
+                  class="facebook"
+                  ><i class="fa fa-facebook"></i
+                ></a>
+
+                <a
+                  href="https://www.linkedin.com/showcase/erumercon"
+                  target="_blank"
+                  class="linkedin"
+                  ><i class="fa fa-linkedin"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
     </section>
     <footer class="mercon-footer">
       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -193,5 +256,6 @@
 
     <script src="./scripts/navbar.js"></script>
     <script src="./scripts/navColorChange.js"></script>
+
   </body>
 </html>

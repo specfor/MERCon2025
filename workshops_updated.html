@@ -5,24 +5,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="author" content="NativeCode" />
+    <link rel="stylesheet" href="./css/footer.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
       rel="stylesheet"
     />
-    
     <link
       rel="stylesheet"
       href="path/to/font-awesome/css/font-awesome.min.css"
     />
-    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <script
       src="https://kit.fontawesome.com/a24a7503cf.js"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -50,470 +47,147 @@
     <link rel="icon" type="image/x-icon" href="./img/logos/UOMlogo.ico" />
 
     <link rel="stylesheet" href="./css/style.min.css" />
-    <link rel="stylesheet" href="./css/Nav.css" />
     <script src="./scripts/components.js"></script>
-    <style>
-      body {
-        background-image: url('./img/Frame4.png'); /* Replace with your image path */
-        background-size: cover; /* Makes the image cover the entire page */
-        background-position: center; /* Centers the image */
-        background-repeat: no-repeat; /* Ensures the image doesn't repeat */
-        background-attachment: fixed; /* Keeps the background fixed during scrolling */
-        padding: 80px 0;
-      }
-      /* Correct styling for ul and li inside .tinted */
-      
-      /* Default styling for .ul */
-        .ul {
-          text-align: left;
-          padding-left: 170px; /* Default padding for larger screens */
-          padding-right: 250px;
-          display: flex;
-          flex-direction: column;
-          justify-content: flex-start;
-          align-items: flex-start;
-        }
-
-        /* Specific class for special padding adjustments */
-        .ul.special-padding {
-          padding-left: 500px; /* Larger padding for larger screens by default */
-        }
-
-        /* Responsive adjustments for medium-sized screens */
-        @media (max-width: 1200px) {
-          .ul {
-            padding-left: 100px; /* Adjust padding for medium-large screens */
-            padding-right: 150px;
-          }
-          .ul.special-padding {
-            padding-left: 500px; /* Adjusted padding for special ul on medium-large screens */
-          }
-        }
-
-        @media (max-width: 768px) {
-          .ul {
-            padding-left: 50px; /* Adjust padding for medium screens */
-            padding-right: 50px;
-          }
-          .ul.special-padding {
-            padding-left: 350px; /* Default smaller padding for special ul on medium screens */
-          }
-        }
-
-        /* Responsive adjustments for small screens */
-        @media (max-width: 480px) {
-          .ul {
-            padding-left: 20px; /* Minimal padding for smaller screens */
-            padding-right: 20px;
-          }
-          .ul.special-padding {
-            padding-left: 20px; /* Consistent minimal padding for special ul */
-          }
-        }
-
-      
-      /* End of styling for ul and li inside .tinted */
-
-      
-
-      .workshops-heading {
-          font-size: 2.5rem; /* Default size for larger screens */
-          text-align: center;
-          color: #fff;
-          margin: 20px 0;
-          position: relative;
-        }
-
-        .workshops-heading::before,
-        .workshops-heading::after {
-          content: "";
-          position: absolute;
-          top: 50%;
-          width: 39%; /* Line width adjusted for balance */
-          height: 2px;
-          background-color: #fff;
-        }
-
-        .workshops-heading::before {
-          left: 0;
-        }
-
-        .workshops-heading::after {
-          right: 0;
-        }
-
-        /* Responsive adjustments for medium screens */
-        @media (max-width: 768px) {
-          .workshops-heading {
-            font-size: 1.8rem; /* Slightly smaller font */
-          }
-
-          .workshops-heading::before,
-          .workshops-heading::after {
-            width: 20%; /* Reduce line width */
-            height: 1.5px;
-          }
-        }
-
-        /* Responsive adjustments for small screens */
-        @media (max-width: 480px) {
-          .workshops-heading {
-            font-size: 1.5rem; /* Smaller font for compact screens */
-          }
-
-          .workshops-heading::before,
-          .workshops-heading::after {
-            width: 25%; /* Further reduce line width */
-            height: 1.2px;
-          }
-        }
-
-      .li {
-        color: #f2f2f2; /* Light text color */
-        font-size: 1rem; /* Adjust text size */
-        font-family: 'Arial', sans-serif; /* Adjust font if needed */
-        margin-bottom: 5px; /* Space between list items */
-        line-height: 1.5; /* Improve readability */
-      }
-
-      .p {
-        color: #f2f2f2; /* Same light text color for consistency */
-        font-size: 0.95rem; /* Slightly smaller size for the paragraph */
-        font-family: 'Arial', sans-serif;
-        padding: 0;
-        margin-left: 20px; /* Add left margin for proper alignment */
-        line-height: 1.5; /* Match list line height */
-      }
-
-      .li::marker {
-        color: #ffcc33; /* Change bullet point color to gold (#ffcc33) */
-        font-size: 1.2rem; /* Slightly larger bullets */
-      }
-
-      .li + p {
-        margin-top: 5px; /* Ensure consistent spacing between <li> and <p> */
-      }
-      .tinted {
-        width: 90%; /* Makes the box 80% of the parent div's width */
-        margin: 20px auto; /* Centers the box and adds spacing */
-        padding: 20px; /* Adds padding inside the box */
-        background: linear-gradient(to bottom, #0000009d, #0000009d); /* Subtle gradient effect */
-        border-radius: 30px; /* Rounded corners */
-        text-align: center; /* Centers text inside the box */
-        color: #ffffff; /* White text for contrast */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adds a slight shadow for depth */
-      }
-      .encode-sans-semi-expanded-bold {
-        font-family: "Encode Sans Semi Expanded", serif;
-        font-weight: 700;
-        font-style: normal;
-      }
-      h3.text-heading {
-        text-align: center;
-        margin: 40px auto;
-        border-top: #ffffff solid 3px;
-        border-bottom: #ffffff solid 3px;
-        width: fit-content;
-        margin-top: 60px;
-        margin-bottom: 60px;
-        padding-top: 5px;
-        padding-bottom: 5px;
-        font-family: 'Arial', sans-serif; /* Default font */
-        text-transform: none; /* Ensure no transformation is applied */
-      }
 
 
-      /* Default button styling for larger screens */
-      .btn.btn-primary {
-        background-color: #b98f5e;
-        color: #000000;
-        border-radius: 40px;
-        width: 250px;
-        text-align: center; /* Center text */
-        font-size: 1.2rem;
-        font-weight: bold;
-        padding: 10px 20px; /* Add padding for better appearance */
-      }
-
-      /* Responsive adjustments for medium-sized screens */
-      @media (max-width: 768px) {
-        .btn.btn-primary {
-          width: 200px; /* Reduce width for medium screens */
-          font-size: 1rem; /* Decrease font size */
-          padding: 8px 16px; /* Adjust padding */
-        }
-      }
-
-      /* Responsive adjustments for small screens */
-      @media (max-width: 480px) {
-        .btn.btn-primary {
-          width: 150px; /* Further reduce width for small screens */
-          font-size: 0.9rem; /* Adjust font size */
-          padding: 6px 12px; /* Adjust padding */
-        }
-      }
-
-      .btn.btn-primary:hover {
-        background-color: rgb(64, 64, 64);
-        color: #fff;
-      }
-      .text-yellow {
-        color: #ffc700;
-      }
-      h5 {
-        padding: 0px 10px; /* Default padding for smaller screens */
-        padding-left: 20px; /* Smaller left padding by default */
-        text-align: left;
-        font-size: 0.7rem; /* Increase font size */
-      }
-
-      /* Larger screen styling using media query */
-      @media (min-width: 1200px) {
-        h5 {
-          padding-left: 150px; /* Larger padding for bigger screens */
-          font-size: 1.1rem; /* Increase font size for larger screens */
-        }
-      }
-
-      /* Default styling for the paragraph */
-      .workshop-intro {
-        padding-left: 200px;
-        padding-right: 200px;
-        text-align:center; /* Optional for improved readability */
-      }
-
-      /* Responsive adjustments for medium screens */
-      @media (max-width: 768px) {
-        .workshop-intro {
-          padding-left: 50px;
-          padding-right: 50px;
-        }
-      }
-
-      /* Responsive adjustments for small screens */
-      @media (max-width: 480px) {
-        .workshop-intro {
-          padding-left: 20px;
-          padding-right: 20px;
-        }
-      }
-
-
-
-
-    </style>
     <title>Mercon 2025</title>
   </head>
-  
-  <body >
-    <nav>
-      <div class="navbar bx">
-        <i class='bx bx-menu'></i>
-        <div class="logo"><a href="#">
-  
-  <img class="logo " src="./img/logo2025.png" alt=""/>
-  
-        </a></div>
-        <div class="nav-links">
-          <div class="sidebar-logo">
-            <span class="logo-name">Mercon 2025</span>
-           
-            <i class='bx bx-x' ></i>
-          </div>
-          <ul class="links">
-            <li><a href="./">Home</a></li>
-            <li><a href="./keynote-speakers.html">Keynotes</a></li>
-            <li>
-              <a href="#">For Attendees</a>
-              <i class='bx bxs-chevron-down htmlcss-arrow arrow  '></i>
-              <ul class="htmlCss-sub-menu sub-menu">
-                <li><a href="./program.html">Program</a></li>
-                <!--  <li><a href="./uc.html">Travel Information</a></li> -->
-                <li><a href="./registration.html">Registration</a></li>
-                <!-- <li class="more">
-                  <span><a href="#">More</a>
-                  <i class='bx bxs-chevron-right arrow more-arrow'></i>
-                </span>
-                  <ul class="more-sub-menu sub-menu">
-                    <li><a href="#">Neumorphism</a></li>
-                    <li><a href="#">Pre-loader</a></li>
-                    <li><a href="#">Glassmorphism</a></li>
-                  </ul>
-                </li> -->
-              </ul>
-            </li>
-  <li>
-              <a href="#">Committee</a>
-              <i class='bx bxs-chevron-down js-arrow arrow '></i>
-              <ul class="js-sub-menu sub-menu">
-                <li>
-                  <a href="./organizing-committee.html">Organizing Committee</a>
-                </li>
-                <li>
-                  <a href="./technical-programming-committee.html">Technical Program Committee</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">  For Authors</a>
-              <i class='bx bxs-chevron-down js-arrow arrow '></i>
-              <ul class="js-sub-menu sub-menu">
-                <li>
-                  <a href="./call-for-papers.html">Call for Papers</a>
-                </li>
-                 <li><a href="./important_dates.html">Important Dates</a></li>
-                <li><a href="./author-instructions.html">Author Instruction</a></li>
-                <li>
-                  <a href="./camera_ready_paper_instructions.html">Camera Ready Paper Instructions</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <a href="#">  Explore Programs</a>
-              <i class='bx bxs-chevron-down js-arrow arrow '></i>
-              <ul class="js-sub-menu sub-menu">
-                <li>
-                  <a href="./workshops_updated.html">Workshops</a>
-                </li>
-                <li><a href="./special_sessions.html">Special Sessions</a></li>
-              </ul>
-            </li>
-            <li>
-              <a href="#"> Past Proceedings</a>
-              <i class='bx bxs-chevron-down js-arrow arrow '></i>
-              <ul class="js-sub-menu sub-menu">
-              
-                  <li class="yr">
-                    <a  href="https://ieeexplore.ieee.org/xpl/conhome/10355380/proceeding"
-                      >2024</a
-                    >
-                    <a  href="https://ieeexplore.ieee.org/xpl/conhome/9906100/proceeding"
-                      >2023</a
-                    >
-                  </li>
-            
-        
-                  <li class="yr">
-                    <a href="https://ieeexplore.ieee.org/xpl/conhome/9525629/proceeding"
-                      >2021</a
-                    >
-                    <a href="https://ieeexplore.ieee.org/xpl/conhome/9179991/proceeding"
-                      >2020</a
-                    >
-                  </li>
-               
-                  <li class="yr">
-                    <a href="https://ieeexplore.ieee.org/xpl/conhome/8807126/proceeding"
-                      >2019</a
-                    >
-                    <a href="https://ieeexplore.ieee.org/xpl/conhome/8410204/proceeding"
-                      >2018</a
-                    >
-                  </li>
-                 
-                  <li class="yr">
-                    <a href="https://ieeexplore.ieee.org/xpl/conhome/7972818/proceeding"
-                      >2017</a
-                    >
-                    <a href="https://ieeexplore.ieee.org/xpl/conhome/7469533/proceeding"
-                      >2016</a
-                    >
-                  </li>
-               
-                  <li class="yr">
-                    <a href="https://ieeexplore.ieee.org/xpl/conhome/7105793/proceeding"
-                      >2015</a
-                    >
-                    <a href="https://ieeexplore.ieee.org/xpl/conhome/7469533/proceeding"
-                    >2016</a
-                  >
-                  </li>
-                </ul>
-            </li>
-          </ul>
-        </div>
+
+
+  <body class="custom-page" > <!-- Ensure use Frame4.png -->
+    <header>
+    </header>
+    <section class="bg-custom">
+      <div class="heading-with-line">
+        <span class="text">
+          <p>&nbsp;&nbsp;&nbsp;WORKSHOPS&nbsp;&nbsp;&nbsp;</p>
+        </span>
       </div>
-    </nav>
+      
+      <div class="">
+        <div>
 
-    <section class="">
-      <div class=" ">
-        <div class="">
-          <div class="heading-with-line ">
-            <span class="text   ">
-                 WORKSHOP 
-            </span>
-          </div>
           
-
-           <div class=" tinted ">
+          
+      
+        <div class="tinted">
+          <div class="text-heading">  
+            <h1>MERCon 2024 - Call for Workshops</h1>
+          </div>
             
-            <h3 class="text-heading ">MERCon 2024 - Call for Workshops</h3>
-            <p>As MERCon 2024 organizing committee, we invite proposals for workshops</p>
-            <div style="margin-top: 20px; margin-bottom: 30px;"> 
-              <p >
-                <ul class="ul special-padding" >
-                <li>Call for workshops- deadline: 5<sup>th</sup> May 2024</li>
-                <li>Submit your proposals to the Workshops Chairs below:</li>
+            <p class="margin-20">As MERCon 2024 organizing committee, we invite proposals for workshops</p>
+            <p class="">  
+              <div class="flex-wrap " style="text-align: left;">
+                <ul class=" wrap-list li  ">
+                  <li ><p>Call for workshops- deadline: 5<sup>th</sup> May 2024</p></li>
+                    <li>Submit your proposals to the Workshops Chairs below:</li>
+                    <p>Dr. Thushara Subasinghe: thusharas@uom.lk<p>
                 </ul>
-                <p>Dr. Thushara Subasinghe: thusharas@uom.lk</p>
-              </p>
-            </div>
-            <p >Please refer the details below</p>
-            <p >Workshops:</p>
-            <p  class="margin-20">
-              <p class="workshop-intro">As MERCon 2024 organizing committee, we invite proposals for workshops with the aim of exposing our participants to expert knowledge and the opportunity to discuss novel trends and scientific contributions in all engineering disciplines. We strongly encourage the workshops to be highly interactive and in high demand. It is preferred to have foreign collaborators. </p>
-               <div style="margin-top: 60px; margin-bottom: 60px;"> 
-                <div class="center">
-                
-                  <button
-                    class="btn btn-primary" 
-                    onclick='location.href="./assets/pdf/Workshops Flyer.pdf";'
-                  >
-                    Workshops Flyer
-                  </button>
-                </div>
               </div>
-              <h3 class="text-heading encode-sans-semi-expanded-bold"><b>Proposal details</b></h4>
-              <h5>Proposals are limited to no more than five pages and should contain the following information:</h5> 
-
-              <ul class="ul">
-                <li>Organizers' names, affiliations, and email addresses with one person identified as the primary contact person.</li>
-                <li>Description of the workshop in terms of abstract, objectives, goals, relevance to Engineering discipline and expected outcomes</li>
-                <li>Motivation for why MERCon 2024 workshop on this topic will be effective</ulil>
-                <li>Description of target audience, estimated number of participants, and how the participants will be attracted</li>
-                <li>Workshop duration, format, activities, and schedule</li>
-                <li>List of program committee members and their short biographies describing relevant of qualifications and experience • Preliminary list of invited speakers (if any) and their brief profiles</li>
-              </ul>
-              <h3 class="text-heading encode-sans-semi-expanded-bold"><b>Evaluation criteria</b></h4>
-                <h5 >All workshop proposals will be evaluated based on the following criteria:</h5>
-                 
-                  <ul class=" ul">
-                  <li>Relevance of the workshop to the engineering disciplines</li>
-                  <li>Interest in the community on the important technical topic of concern</li>
-                  <li>Novelty concerning other conference forums</li>
-                  <li>Likelihood of strong participation</li>
-                  <li>Strength of the profile of researchers in the program committee</li>
-                  <li>Profiles of the keynote speaker or tutorial presenter</li>
-                  <li>Letters of support from colleagues/researchers indicating their interest and intent to participate in this workshop</li>
-                  </ul>
-                
-                  <div style="color: #b98f5e; margin-bottom: 30px; margin-top: 20px; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; text-align: left; width: fit-content; margin-left: auto; margin-right: auto;">
-                  <ul>
-                    <li>Call for workshops - deadline: 5th May 2024</li>
-                    <li>Submit your proposals to the Workshop Chair below:</li>
-                    <p>Dr. Thushara Subasinghe: thusharas@uom.lk</p>
+            </p>
+            <p class="margin-20">Please refer the details below</p>
+            <p class="margin-20">Workshops:</p>
+            <p>
+              <p class="center" style="padding-inline: 15%;">As MERCon 2024 organizing committee, we invite proposals for workshops with the aim of exposing our participants to expert knowledge and the opportunity to discuss novel trends and scientific contributions in all engineering disciplines. We strongly encourage the workshops to be highly interactive and in high demand. It is preferred to have foreign collaborators. </p>
+              <div class="center">
+              
+                <button
+                  class="btn btn-primary"
+                  onclick='location.href="./assets/pdf/Workshops Flyer.pdf";'
+                  style="margin-top:15% ; margin-bottom: 5%;"
+                >
+                <h2>Workshops Flyer</h2>
+                </button>
+              </div>
+              <div class="text-heading">  
+                <h1>Proposal details</h1>
+              </div>
+              
+              <p style="padding-left: 14%; text-align: left;">Proposals are limited to no more than five pages and should contain the following information:</p>
+              <div class="flex-wrap" style="text-align: left; padding-inline: 16%;">
+                <ul class="  ">
+                  <li>Organizers' names, affiliations, and email addresses with one person identified as the primary contact person.</li>
+                  <li>Description of the workshop in terms of abstract, objectives, goals, relevance to Engineering discipline and expected outcomes</li>
+                  <li>Motivation for why MERCon 2024 workshop on this topic will be effective</ulil>
+                  <li>Description of target audience, estimated number of participants, and how the participants will be attracted</li>
+                  <li>Workshop duration, format, activities, and schedule</li>
+                  <li>List of program committee members and their short biographies describing relevant of qualifications and experience • Preliminary list of invited speakers (if any) and their brief profiles</li>
+                </ul>
+              </div>
+              <div class="text-heading">  
+                <h1>Evaluation criteria</h1>
+              </div>
+              <p style="padding-left: 14%; text-align: left;">All workshop proposals will be evaluated based on the following criteria</p>
+                <div class="flex-wrap" style="text-align: left; padding-inline: 16%;">
+                  <ul class="  ">
+                    <li>Relevance of the workshop to the engineering disciplines</li>
+                    <li>Interest in the community on the important technical topic of concern</li>
+                    <li>Novelty concerning other conference forums</li>
+                    <li>Likelihood of strong participation</li>
+                    <li>Strength of the profile of researchers Confirmation program committee members</li>
+                    <li>Profiles of the keynote speaker or a tutorial presenter</li>
+                    <li>Letters of support from colleagues/researchers indicating their interest and intent to participate in this workshop</li>
                   </ul>
                 </div>
-                
+                <div class="flex-wrap" style="text-align: left;">
+                  <ul class="text-primary">
+                  <li><p  style="padding: 0" >Deadline: 05th May 2024</p></li>
+                  <li><p class="text-primary" style="padding: 0" >Submit your proposals to the Workshop Chair below:</p></li>
+
+                  <p class="text-primary" style="padding: 0 ; margin-left: 8px;" >Dr. Thushara Subasinghe: thusharas@uom.lk</p>
+                  </ul>
+                </div>
+
             </p>
             <br>
+          
           </div>
-
         </div>
       </div>
     </section>
-    <footer>
-    </footer>
+    
+    <footer class="mercon-footer">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+      
+      <div class="mercon-container">
+          <div class="mercon-footer-section">
+              <h3>Contact Us</h3>
+              <p>Email: <a href="mailto:mercon@uom.lk">mercon@uom.lk</a></p>
+              <p>Phone: <a href="https://wa.me/94112650301">+94112650301</a></p>
+              <p>Engineering Research Unit,<br> Faculty of Engineering,<br> University of Moratuwa,<br> Sri Lanka</p>
+          </div>
+  
+          <div class="mercon-footer-section mercon-middle-section">
+              <h3>Quick Links</h3>
+              <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./program.html">Program</a></li>
+                <li><a href="./registration.html">Registration</a></li>
+                <li><a href="./call-for-papers.html">Call For Papers</a></li>
+                <li><a href="./workshops_updated.html">Workshops</a></li>
+                <li><a href="./special_sessions.html">Special Sessions</a></li>
+                <li><a href="./author-instructions.html">Author Instructions</a></li>
+              </ul>
+          </div>
+  
+          <div class="mercon-footer-section">
+              <h3>Follow Us</h3>
+              <div class="mercon-social-icons">
+                  <a href="https://www.facebook.com/pg/erumercon"><i class="fab fa-facebook"></i></a>
+                  <a href="https://twitter.com/merconeru"><i class="fab fa-twitter"></i></a>
+                  <a href="https://www.linkedin.com/showcase/erumercon"><i class="fab fa-linkedin"></i></a>
+              </div>
+              <div class="mercon-footer-logo">
+                  <img src="./img/logo2025.png" alt="Mercon2025">
+              </div>
+          </div>
+      </div>
+  
+      <div class="mercon-footer-bottom">
+          <p>&copy; 2025 NativeCode All rights reserved.</p>
+      </div>
+  </footer>
+
     <script src="./scripts/navColorChange.js"></script>
     <script src="./scripts/navbar.js"></script>
   </body>

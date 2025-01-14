@@ -32,6 +32,8 @@
   border: #ffffff solid 2px;
   transition: all 0.5s ease-in-out;
 }
+
+
 .btn.btn-secondary {
   background-color: #21334b;
   color: #fff;
@@ -201,11 +203,12 @@ body {
   font-family: "Gorgia", sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-image: url("../img/Frame2.jpg");
+  background-image: url("../img/Frame4.png");
   background-size: 100%;
   color: #ffffff;
   background-repeat: repeat;
-  background-position: center;
+  background-attachment:scroll;
+  background-position:center;
   background-color: #000000;
 
 }
@@ -1283,6 +1286,7 @@ background-color:  transparent;
 
 .box-container {
   padding-top: 70px; 
+  background: linear-gradient(to bottom, black 10px, transparent 115px);
 }
 
 
@@ -1380,6 +1384,7 @@ body.custom-page {
   flex: 1;
   height: 2px;
   background-color: white;
+  
 }
 
 .text {

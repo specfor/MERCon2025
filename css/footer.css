@@ -1,0 +1,76 @@
+
+.mercon-footer {
+    background-color: black;
+    color: #e5a84d;
+    padding: 20px 0;
+    font-family: Arial, sans-serif;
+}
+.mercon-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.mercon-footer-section {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.mercon-middle-section {
+    border-left: 2px solid #e5a84d;
+    padding-left: 15px; 
+}
+
+@media (min-width: 768px) {
+    .mercon-footer-section {
+        width: 30%;
+    }
+}
+.mercon-footer h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+.mercon-footer p,
+.mercon-footer a {
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: white;
+    text-decoration: none;
+}
+.mercon-footer a:hover {
+    color: gray;
+}
+.mercon-footer ul {
+    list-style: none;
+    padding: 0;
+}
+.mercon-footer ul li {
+    margin-bottom: 10px;
+}
+.mercon-social-icons {
+    display: flex;
+    gap: 10px;
+}
+.mercon-social-icons a {
+    font-size: 1.5rem;
+    color: white;
+}
+.mercon-social-icons a:hover {
+    color: gray;
+}
+.mercon-footer-logo img {
+    max-width: 80%; 
+    height: auto;
+    display: block;
+    margin: 0px -7px;
+}
+.mercon-footer-bottom {
+    background-color: #e5a84d;
+    color: black;
+    text-align: center;
+    padding: 2px 0;
+    margin-top: 2px;
+    height: 30px;
+}
+    

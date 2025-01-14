@@ -204,10 +204,9 @@ body {
   background-image: url("../img/Frame2.jpg");
   background-size: 100%;
   color: #ffffff;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-position: center;
-background-color: #000000;
+  background-color: #000000;
 
 }
 p,
@@ -575,6 +574,7 @@ background-color:  transparent;
   height:200px; display: flex; justify-content: center;
 }
 .grid-sponsor .img-container {
+  grid-column: 2;     /* Position the image in the second column */
   display: flex;
   justify-content: center;
   align-items: center;

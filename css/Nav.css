@@ -41,7 +41,7 @@ nav .navbar{
 }
 .navbar .logo img{
   width: 200px;
-  height: fit-content;
+  height: 56px;
 }
 nav .navbar .nav-links{
   line-height: 70px;
@@ -185,7 +185,7 @@ nav .navbar .links li .sub-menu a:hover {
 
   nav .navbar .logo img{
     width: 150px;
-    height: fit-content;
+    height: 44px;
   }
 
   .navbar .nav-links .sidebar-logo {
@@ -288,7 +288,7 @@ justify-content: flex-start;
   } */
   nav .navbar .logo img{
     width: 120px;
-    height: fit-content;
+    height: 36px;
   }
   
 }

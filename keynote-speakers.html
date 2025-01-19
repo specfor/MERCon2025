@@ -7,6 +7,7 @@
     <meta name="author" content="NativeCode" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="./css/footer.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Inter&display=swap"
       rel="stylesheet"
@@ -26,6 +27,15 @@
       rel="stylesheet"
     />
 
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
     <!-- carousel styles and scripts -->
     <link
       rel="stylesheet"
@@ -43,25 +53,72 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <link rel="stylesheet" href="./css/carousel.css" />
     <link rel="icon" type="image/x-icon" href="./img/logos/UOMlogo.ico" />
 
     <link rel="stylesheet" href="./css/style.min.css" />
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="./scripts/components.js"></script>
-    <script src="./scripts/keynoteScroll.js"></script>
 
-    <title>Mercon 2023</title>
+
+    <link rel="stylesheet" type="text/css" href="./css/feestable.css">
+    <link rel="stylesheet" type="text/css" href="./css/authors.css">
+
+
+
+    <title>Mercon 2025</title>
   </head>
 
-  <body>
-    <header></header>
-    <section class="keynotes-hero">
-      <div class="keynote-hero-text">
-        <h1>KEYNOTE SPEAKERS PROFILES MERCON 2024</h1>
-        <hr />
+  <body class="custom-page">
+    <header class="bg-secondary" ></header>
+    <section class="mainProgram">
+      <span class="heading-with-line">
+        <h2 class="text">Keynote Speakers</h2>
+      </span>
+      <div class="coming-soon .encode-sans-semi-expanded-bold">
+        <p>Coming Soon</p>
+
+
+      <!-- <div style="display: flex; justify-content: center;">
+        <section class="keynote-section">
+          <div class="keynote-cards">
+            
+            
+            <div class="keynote-card">
+              <div class="flex-wrap">
+                <div class="member-card">
+                  <div class="image-container">
+                    <img src="./img/commitee/Dr.Sulochana.png" alt="Keynote Speaker" class="profile-image">
+                  </div>
+                  <div class="parent-container" style="border: none;  width: 300px;">
+                    <p class="name">DR. SULOCHANA SOORIYAARACHI</p>
+                  </div>
+                </div>
+              </div>
+              
+              <button>Read More</button>
+              <div class="keynote-details">
+                <!-- Speaker details here -->
+                <p >
+                  <!-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. 
+                  Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
+                  when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                  It has survived not only five centuries, but also the leap into electronic typesetting, 
+                  remaining essentially unchanged. It was popularised in the 1960s with the release of 
+                  Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing 
+                  software like Aldus PageMaker including versions of Lorem Ipsum. -->
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
-      <div class="keynote-hero-profiles">
-        <!-- Prof. Michael Pecht -->
+    </section> 
+
+
+      <!-- <div class="keynote-hero-profiles">
+        
         <div class="keynote-hero-profiles-card">
           <div class="keynote-image">
             <img src="./img/keynote-speakers/Dr. Pecht.png" alt="" />
@@ -69,7 +126,7 @@
           <h1>PROF. MICHAEL PECHT</h1>
           <button class="read-more-link">Read More</button>
           <section style="display: none">
-            <!-- Biographical content for Prof. Michael Pecht goes here -->
+            
             <p>Professor Michael Pecht is a world-renowned expert in strategic planning, design, testing, and risk assessment of electronics and information systems. He is currently a Chair Professor in Mechanical Engineering and a Professor in Applied Mathematics, Statistics, and Scientific Computation at the University of Maryland. Prof. Pecht holds a BS in Physics, an MS in Electrical Engineering, and an MS and PhD in Engineering Mechanics from the University of Wisconsin, Madison.</p> 
              <p> He founded the Center for Advanced Life Cycle Engineering (CALCE) at the University of Maryland. CALCE is a pioneering research hub supported by over 150 leading electronics firms worldwide and has won numerous awards, including the NSF Innovation Award and the National Defense Industries Association Award.</p>
               <p>In addition, his work has earned him numerous accolades, including the PHM Lifetime Achievement Award, the Chinese Academy of Sciences President’s International Fellowship, and the IEEE Reliability Society’s Lifetime Achievement Award, among others.</p>
@@ -78,7 +135,7 @@
           </section>
         </div>
 
-        <!-- Prof. Amin Abbosh -->
+  
         <div class="keynote-hero-profiles-card">
           <div class="keynote-image">
             <img src="./img/keynote-speakers/Amin Abbosh 02.jpeg" alt="" />
@@ -111,7 +168,6 @@
           </section>
         </div>
 
-        <!-- Prof. Mohan Rajesh Elara -->
         <div class="keynote-hero-profiles-card">
           <div class="keynote-image">
             <img src="./img/keynote-speakers/Mohan Rajesh Elara.png" alt="" />
@@ -154,143 +210,64 @@
             </p>
           </section>
         </div>
-      </div>
+      </div> -->
     </section>
 
     <script>
-      document.querySelectorAll(".read-more-link").forEach(function (button) {
-        button.addEventListener("click", function () {
-          var section = this.nextElementSibling;
-          if (section.style.display === "none") {
-            section.style.display = "block";
-            this.textContent = "Read Less";
-          } else {
-            section.style.display = "none";
-            this.textContent = "Read More";
-          }
+
+      document.querySelectorAll('.keynote-card button').forEach(button => {
+        button.addEventListener('click', () => {
+          const card = button.closest('.keynote-card');
+          card.classList.toggle('active');
+          card.classList.toggle('expanded');
+          button.textContent = card.classList.contains('active') ? 'Read Less' : 'Read More';
         });
       });
     </script>
 
-    <!-- <section id="section1" class="keynote-one">
-      <hr />
-    </section> -->
-    <!--        <h1>SPEAKERS TOPIC SPEAKERS TOPIC</h1> 
-        <div class="keynote-one-profile">
-            <div class="img-one">
-                <img src="./img/keynote-speakers/Picture1.jpg" alt="">
-            </div>
-            <div class="text-section">
-                <h2>PROF. JASON MARS</h2>
-                <p>Jason Mars is a professor of computer science at the University of Michigan where he directs Clarity Lab,
-                    one of the best places in the world to be trained in A.I. and system design. Jason is also co-founder and
-                    CEO of Clinc, the cutting-edge A.I. startup that developed the world’s most advanced conversational AI.
-                    Jason has devoted his career to solving difficult real-world problems, building some of the worlds most
-                    sophisticated salable systems for A.I., computer vision, and natural language processing. Prior to
-                    University of Michigan, Jason was a professor at UCSD. He also worked at Google and Intel.
-                    Jason’s work constructing large-scale A.I. and deep learning-based systems and technology has been
-                    recognized globally and continues to have a significant impact on industry and academia. Jason holds a
-                    PhD in Computer Science from UVA.</p>
-              
-                    <br>
-                    <button
-                    class="btn btn-alt"
-                    onclick="window.open('./assets/pdf/Keynote_01_Mercon.pdf', '_blank');"
-                  	>
-                    Download Flyer
-                  </button>
-              
-            </div>
-        </div>
-    </section>
-    <section id="section2" class="keynote-two">
-        <div class="keynote-two-profile">
-            <div class="img-two">
-                <img src="./img/keynote-speakers/Picture2.jpg" alt="">
-            </div>
-            <div class="text-section">
-                <h2>PROF. SHANIKA KARUNASEKARA</h2>
-                <p>Shanika Karunasekera is a Professor in the School of Computing and Information Systems and the
-                    Deputy Dean (Academic) in the Faculty of Engineeering and IT.
-                    Shanika completed a BSc in Electronics and Telecommunication Engineering at the University of
-                    Moratuwa, Sri Lanka with a First Class Honours in 1990. She was the recipient of the UNESCO Gold
-                    Medal for the Best Engineering Undergraduate at the University in 1990.She completed a PhD in Electrical Engineering at the University of Cambridge, UK in 1994. From 1995 to
-                    2002 she worked for Lucent Technologies, Bell Labs Innovation, USA where she was a Distinguished
-                    Member of Technical Staff.
-                    Shanika joined the University of Melbourne in 2003. Her current research focusses on real-time analytics
-                    and data stream mining, with applications in Social Media Analytics and Autonomous Traffic
-                    Management. Shanika has extensive research interests in distributed computing, network intrusion
-                    detection, sensor networks, social network analysis and mining, mobile computing, software
-                    engineering and STEM education. Shanika has published widely in high ranking journals and conferences
-                    in her research discipline. Shanika has also established research collaborations with many industries and
-                    government bodies.
-                    Shanika is a passionate educator who has won several excellence in teaching awards including a
-                    National Carrick Citation in 2007, and Kelvin Medal and Excellence in teaching award from the
-                    Melbourne School of Engineering in 2006.</p>
-              
-                    <br>
-                    <button
-                    class="btn btn-alt"
-                    onclick="window.open('./assets/pdf/Keynote_02_Mercon.pdf', '_blank');"
-                  	>
-                    Download Flyer
-                  </button>
-              
-            </div>
-        </div>
-    </section> -->
-    <footer id="footer">
-      <div class="footer-top">
-        <div class="container">
-          <div>
-            <div class="footer-contact">
-              <h2>Contact Us</h2>
-              <p>
-                Engineering Research Unit, Faculty of Engineering, University of
-                Moratuwa, Sri Lanka<br />
-                <strong>Telephone:</strong> +94 11 265 0286,
-                <strong> ext:</strong> 3044, <strong> Facsimile:</strong> +94 11
-                265 0622, <strong> Email:</strong> mercon@uom.lk
-              </p>
 
-              <div class="social-links">
-                <a
-                  href="https://twitter.com/merconeru"
-                  target="_blank"
-                  class="twitter"
-                  ><i class="fa fa-twitter"></i
-                ></a>
-                <a
-                  href="https://www.facebook.com/pg/erumercon"
-                  target="_blank"
-                  class="facebook"
-                  ><i class="fa fa-facebook"></i
-                ></a>
-
-                <a
-                  href="https://www.linkedin.com/showcase/erumercon"
-                  target="_blank"
-                  class="linkedin"
-                  ><i class="fa fa-linkedin"></i
-                ></a>
-              </div>
-            </div>
+    <footer class="mercon-footer">
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+  
+      <div class="mercon-container">
+          <div class="mercon-footer-section">
+              <h3>Contact Us</h3>
+              <p>Email: <a href="mailto:mercon@uom.lk">mercon@uom.lk</a></p>
+              <p>Phone: <a href="https://wa.me/94112650301">+94112650301</a></p>
+              <p>Engineering Research Unit,<br> Faculty of Engineering,<br> University of Moratuwa,<br> Sri Lanka</p>
           </div>
-        </div>
-      </div>
+  
+          <div class="mercon-footer-section mercon-middle-section">
+              <h3>Quick Links</h3>
+              <ul>
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./program.html">Program</a></li>
+                <li><a href="./registration.html">Registration</a></li>
+                <li><a href="./call-for-papers.html">Call For Papers</a></li>
+                <li><a href="./workshops_updated.html">Workshops</a></li>
+                <li><a href="./special_sessions.html">Special Sessions</a></li>
+                <li><a href="./author-instructions.html">Author Instructions</a></li>
+              </ul>
+          </div>
+  
+          <div class="mercon-footer-section">
+              <h3>Follow Us</h3>
+              <div class="mercon-social-icons">
+                <a href="https://www.facebook.com/pg/erumercon"><i class="fab fa-facebook"></i></a>
+                <a href="https://twitter.com/merconeru"><i class="fab fa-twitter"></i></a>
+                <a href="https://www.linkedin.com/showcase/erumercon"><i class="fab fa-linkedin"></i></a>
+              </div>
+              <div class="mercon-footer-logo">
+                  <img src="./img/logo2025.png" alt="Mercon2025">
 
-      <div class="container">
-        <div class="copyright">
-          &copy;<strong> 2023 University of Moratuwa,</strong> developed by
-          <a
-            style="font-style: italic; color: rgba(255, 255, 255, 0.89)"
-            href="mailto:mailtonativecode@gmail.com"
-            target="_blank"
-            ><strong>NativeCode</strong></a
-          >
-          All Rights Reserved
-        </div>
+              </div>
+          </div>
       </div>
-    </footer>
+  
+      <div class="mercon-footer-bottom">
+          <p>&copy; 2025 NativeCode All rights reserved.</p>
+      </div>
+  </footer>
+
   </body>
 </html>

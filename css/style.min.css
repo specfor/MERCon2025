@@ -325,9 +325,8 @@ nav #check {
 } */
 .hero {
   background-image: url("../img/Frame1.png");
-  background-size: cover;
   background-position: fixed;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   background-attachment: fixed;
   text-align: center;
   color: #fff;
@@ -335,12 +334,20 @@ nav #check {
   padding-top: 30vh;
   position: relative;
   background-color: #000;
+  background-size: cover;
 }
 /* Media query for smaller screens (e.g., mobile devices) */
 @media only screen and (max-width: 767px) {
   .hero {
     background-image: url("../img/Frame3.png"); /* Specify the path to your mobile image */
     padding-top: 20vh; /* Adjust padding as needed for mobile layout */
+    background-position: fixed;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    position: relative;
+    height: 100vh;
+    background-size: contain;
+    
   }
 }
 
@@ -358,6 +365,8 @@ nav #check {
     margin: 0px 0px;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
+    
+    
   }
   .btn.btn-primary {
     background-color:#ffc700;

@@ -586,7 +586,7 @@ background-color:  transparent;
   height:200px; display: flex; justify-content: center;
 }
 .grid-sponsor .img-container {
-  grid-column: 2;     /* Position the image in the second column */
+  
   display: flex;
   justify-content: center;
   align-items: center;

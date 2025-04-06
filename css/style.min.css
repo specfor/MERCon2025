@@ -831,7 +831,7 @@ background-color:  transparent;
 .keynote-details {
   display: none;
   padding: 15px;
-  text-align: left;
+  text-align: center;
   font-size: 14px;
   color: #ffffff;
   margin-top: 15px;
@@ -858,12 +858,12 @@ background-color:  transparent;
   }
   
   .keynote-card h1 {
-    font-size: 12px;
+    font-size: 15px;
     padding: 6px 15px;
   }
   
   .keynote-details {
-    font-size: 13px;
+    font-size: 15px;
   }
 }
 

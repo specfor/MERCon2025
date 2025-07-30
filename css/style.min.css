@@ -1576,3 +1576,25 @@ body.custom-page {
                 padding: 0 1rem;
             }
         }
+
+.page_container {
+  text-align: center;
+}
+
+.register_button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #e5a84d;
+  color: #000;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  text-align: center;
+}
+
+.reg_instructions {
+  margin-top: 10px;
+  text-align: center;
+  font-weight: 600;
+}

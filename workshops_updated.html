@@ -54,9 +54,301 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="./scripts/components.js"></script>
     
+    
 
 
     <title>Mercon 2025</title>
+
+    
+    <style>
+    .workshop-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(3, auto); 
+      gap: 2rem;
+      padding: 2rem 1rem;
+      max-width: 1000px;
+      margin: 0 auto;
+      justify-items: center; /* Horizontally center grid items */
+    }
+
+    .workshop-card {
+      position: relative;
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      border: 2px solid transparent;
+      width: 60%;
+      height: auto;
+      aspect-ratio: 1;
+      border-color: #c0c0c0; 
+      
+      
+    }
+
+    .image-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .workshop-image {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: center;
+        transition: all 0.4s ease;
+        z-index: 2;
+    }
+
+    
+    .workshop-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 1;
+        border-radius: 14px;
+        border-color: #a8a8a8;
+    }
+
+    .workshop-card:hover::before {
+        opacity: 0.1;
+    }
+
+    .workshop-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(229, 168, 77, 0.2);
+        border-color: #e5a84d;
+    }
+
+    .workshop-card:hover .workshop-image {
+        transform: scale(1.02);
+        
+    }
+
+    .workshop-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: linear-gradient(135deg, rgba(229, 168, 77, 0.95), rgba(244, 196, 48, 0.95));
+        color: #000;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        z-index: 5;
+        opacity: 0;
+        transform: scale(0.7) rotate(-5deg);
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        box-shadow: 0 4px 15px rgba(229, 168, 77, 0.3);
+        backdrop-filter: blur(10px);
+    }
+
+    .workshop-card:hover .workshop-badge {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+
+    .workshop-registration {
+      text-align: center;
+      padding: 0.1rem;
+      z-index: 6;
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.4s ease;
+      background: rgba(0,0,0,0.7);
+    }
+
+    .register-btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background: linear-gradient(135deg, rgba(229, 168, 77, 0.95), rgba(244, 196, 48, 0.95));
+      color: #000;
+      border: none;
+      border-radius: 30px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(229, 168, 77, 0.4);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+
+    .register-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(229, 168, 77, 0.6);
+    }
+
+    .content-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(
+            to top,
+            rgba(0,0,0,0.9) 0%,
+            rgba(0,0,0,0.7) 50%,
+            transparent 100%
+        );
+        padding: 1.5rem;
+        padding-bottom: 4rem;
+        z-index: 4;
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 0.4s ease;
+    }
+
+    .workshop-card:hover .content-overlay {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .workshop-card:hover::after {
+        width: 200%;
+        height: 200%;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+        .workshop-grid {
+            grid-template-rows: repeat(3, auto);
+            gap: 1rem;
+            padding: 1rem 0.5rem;
+            max-width: 100%;
+        }
+        
+        .workshop-badge {
+            top: 0.75rem;
+            right: 0.75rem;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.8rem;
+        }
+        
+        .content-overlay {
+            padding: 1rem;
+        }
+        
+        .workshop-title {
+            font-size: 1rem;
+        }
+        
+        .workshop-subtitle {
+            font-size: 0.8rem;
+        }
+        .register-btn {
+          font-size: 0.85rem;
+          padding: 0.6rem 1.2rem;
+        }
+
+        .workshop-registration {
+          padding: 0.8rem 0;
+        }
+    }
+
+    /* Stagger animation */
+    .workshop-card:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+    
+    .workshop-card:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+    
+    .workshop-card:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .workshop-card {
+        animation: fadeInUp 0.6s ease forwards;
+        opacity: 0;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      padding-top: 30px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      
+      overflow: auto;
+      background-color: rgba(0,0,0,0.9);
+      
+
+    }
+
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 10px;
+
+    }
+
+    #caption {
+      margin: auto;
+      display: block;
+      width: 80%;
+      max-width: 700px;
+      text-align: center;
+      color: rgba(244, 196, 48, 0.95);
+      padding: 10px 0;
+      height: 150px;
+      letter-spacing: 0.08em; /* tracking wider */
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #ed0d0d;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    
+    .section-intro {
+      color: #f9f9f9;
+      margin-bottom: 2rem;
+      font-size: 1.16rem;
+      line-height: 1.6;
+    }
+</style>
+
+
   </head>
 
 
@@ -78,15 +370,17 @@
       
       <div class="">
         
-
+          
           <div class=" tinted">
+
+<!--             
           <h2 class="">Kindly note that the proposal submission is now <span style="color: red;">closed</span>. Submissions are no longer accepted.</h2></del>
 
           </div>
           
       
         <div class="tinted encode-sans-semi-expanded-regular">
-          <div class="text-heading">  
+           <div class="text-heading">  
             <h1>MERCon 2025 - Call for Workshops</h1>
           </div>
             
@@ -115,8 +409,93 @@
                 >
                 Workshops Flyer
                 </button>
+              </div> -->
+
+              <div class="workshop-grid">
+                  <div class="workshop-card">
+                      <div class="workshop-badge">Workshop 1</div>
+                      <div class="image-container">
+                          <img
+                              src="./img/workshop/workshop1.jpg"
+                              alt="Workshop 1"
+                              class="workshop-image"
+                          />
+                          <div class="image-overlay"></div>
+                      </div>
+                    </div>
+                      <div class="workshop-registration">
+                        <a href="https://forms.gle/PzZVgTBmUbPsWFMn6" class="register-btn">Register For Workshop 1</a>
+                      </div>
+                      
+                  
+                  
+                  <div class="workshop-card">
+                      <div class="workshop-badge">Workshop 2</div>
+                      <div class="image-container">
+                          <img
+                              src="./img/workshop/workshop2.jpg"
+                              alt="Workshop 2"
+                              class="workshop-image"
+                          />
+                          <div class="image-overlay"></div>
+                      </div>
+                    </div>
+                      <div class="workshop-registration">
+                        <a href="http://bit.ly/4mjOj4T" class="register-btn">Register For Workshop 2</a>
+                      </div>
+                      
+                  
+                  
+                  <div class="workshop-card">
+                      <div class="workshop-badge">Workshop 3</div>
+                      <div class="image-container">
+                          <img
+                              src="./img/workshop/workshop3.jpg"
+                              alt="Workshop 3"
+                              class="workshop-image"
+                          />
+                          <div class="image-overlay"></div>
+                      </div>
+                    </div>
+                      <div class="workshop-registration">
+                        <a href="http://bit.ly/40VBCoG" class="register-btn">Register For Workshop 3</a>
+                      </div>
+
+                      <div class="workshop-card">
+                      <div class="workshop-badge">Workshop 4</div>
+                      <div class="image-container">
+                          <img
+                              src="./img/workshop/workshop4.jpg"
+                              alt="Workshop 3"
+                              class="workshop-image"
+                          />
+                          <div class="image-overlay"></div>
+                      </div>
+                    </div>
+                      <div class="workshop-registration">
+                        <a href="https://forms.gle/ArXykmfp8C38qNaL7" class="register-btn">Register For Workshop 4</a>
+                      </div>
+
+                      <div class="workshop-card">
+                      <div class="workshop-badge">Workshop 5</div>
+                      <div class="image-container">
+                          <img
+                              src="./img/workshop/workshop5.jpg"
+                              alt="Workshop 3"
+                              class="workshop-image"
+                          />
+                          <div class="image-overlay"></div>
+                      </div>
+                    </div>
+                      <div class="workshop-registration">
+                        <a href="https://forms.gle/suykEXzA83spNZBQ6" class="register-btn">Register For Workshop 5</a>
+                      </div>
+                      
+                  
               </div>
-              <div class="text-heading">  
+
+
+              <!-- <div class="text-heading">  
                 <h1>Proposal details</h1>
               </div>
               
@@ -157,12 +536,19 @@
 
             </p>
             <br>
-          
+           -->
           </div>
         </div>
         
       </div>
     </section>
+
+     <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+      <span class="close">&times;</span>
+      <img class="modal-content" id="modalImage">
+      <div id="caption"></div>
+    </div>
     
     <footer class="mercon-footer">
       <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
@@ -208,5 +594,49 @@
 
     <script src="./scripts/navColorChange.js"></script>
     <script src="./scripts/navbar.js"></script>
+     <script>
+      // Image Modal Functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        // Get the modal
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        const captionText = document.getElementById('caption');
+        const closeBtn = document.getElementsByClassName('close')[0];
+
+        // Get all workshop images
+        const workshopImages = document.querySelectorAll('.workshop-image');
+
+        // Add click event to each workshop image
+        workshopImages.forEach(img => {
+          img.addEventListener('click', function() {
+            modal.style.display = 'block';
+            modalImg.src = this.src;
+            // Get the workshop title from the badge
+            const card = this.closest('.workshop-card');
+            const title = card.querySelector('.workshop-badge').textContent;
+            captionText.innerHTML = `<h3>${title}</h3>`;
+          });
+        });
+
+        // Close modal when clicking the close button
+        closeBtn.addEventListener('click', function() {
+          modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside the image
+        modal.addEventListener('click', function(event) {
+          if (event.target === modal) {
+            modal.style.display = 'none';
+          }
+        });
+
+        // Close modal when pressing the Escape key
+        document.addEventListener('keydown', function(event) {
+          if (event.key === 'Escape' && modal.style.display === 'block') {
+            modal.style.display = 'none';
+          }
+        });
+      });
+    </script>
   </body>
 </html>

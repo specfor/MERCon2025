@@ -1600,3 +1600,50 @@ body.custom-page {
   text-align: center;
   font-weight: 600;
 }
+
+
+
+
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto; /* enables horizontal scroll on small screens */
+  -webkit-overflow-scrolling: touch; /* smooth scrolling for iOS */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border-radius: 16px;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  text-align: center;
+  min-width: 800px; /* ensures table doesn’t shrink too much */
+}
+
+th, td {
+  padding: 12px 10px;
+}
+
+th:first-child {
+  border-radius: 16px 0 0 0;
+}
+
+th:last-child {
+  border-radius: 0 16px 0 0;
+}
+
+tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 16px;
+}
+
+tbody tr:last-child td:last-child {
+  border-radius: 0 0 16px 0;
+}
+
+@media screen and (max-width: 768px) {
+  th, td {
+    padding: 8px;
+    font-size: 14px;
+  }
+}

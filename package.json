@@ -1,0 +1,40 @@
+{
+  "name": "mercon2026",
+  "version": "1.0.0",
+  "private": true,
+  "description": "mercon2026",
+  "author": "Vihanga Nimsara",
+  "keywords": [
+    "gatsby"
+  ],
+  "scripts": {
+    "develop": "gatsby develop",
+    "start": "gatsby develop",
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@tailwindcss/postcss": "^4.1.17",
+    "autoprefixer": "^10.4.22",
+    "gatsby": "^5.14.6",
+    "gatsby-plugin-image": "^3.15.0",
+    "gatsby-plugin-manifest": "^5.15.0",
+    "gatsby-plugin-postcss": "^6.15.0",
+    "gatsby-plugin-sharp": "^5.15.0",
+    "gatsby-plugin-sitemap": "^6.15.0",
+    "gatsby-source-filesystem": "^5.15.0",
+    "gatsby-transformer-sharp": "^5.15.0",
+    "postcss": "^8.5.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^4.1.17"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.19",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "typescript": "^5.3.3"
+  }
+}

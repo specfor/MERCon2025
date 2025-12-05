@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link as GatsbyLink } from "gatsby";
 import { ChevronDown, Menu, X } from "lucide-react";
-import "../styles/header.css";
 import { StaticImage } from "gatsby-plugin-image";
 
 interface NavLink {
@@ -146,15 +145,35 @@ interface SubmenuProps {
 
 const Submenu: React.FC<SubmenuProps> = ({ items, isOpen }) => {
   return (
-    <div className={`sub-menu ${isOpen ? "show" : ""}`}>
+    <div
+      className={`absolute top-[70px] left-0 min-w-full bg-black/95 opacity-0 invisible transform -translate-y-2.5 transition-all duration-300 cubic-bezier-400 z-50 py-2 border-t-2 border-yellow-400 rounded-b-lg ${
+        isOpen ? "opacity-100 visible translate-y-0" : ""
+      }`}
+    >
       {items.map((item, index) => (
-        <div key={index} className="sub-menu-item" style={{ "--item-index": index } as React.CSSProperties}>
+        <div
+          key={index}
+          className={`px-6 py-3 opacity-0 transform -translate-x-2.5 transition-all duration-300 ${
+            isOpen ? `opacity-100 translate-x-0` : ""
+          }`}
+          style={{ transitionDelay: isOpen ? `${0.05 * index}s` : "0s" }}
+        >
           {item.href?.startsWith("http") ? (
-            <a href={item.href} target="_blank" rel="noopener noreferrer">
+            <a
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white text-sm font-medium hover:text-yellow-400 transition-colors"
+            >
               {item.label}
             </a>
           ) : (
-            <GatsbyLink to={item.href || "#"}>{item.label}</GatsbyLink>
+            <GatsbyLink
+              to={item.href || "#"}
+              className="text-white text-sm font-medium hover:text-yellow-400 transition-colors"
+            >
+              {item.label}
+            </GatsbyLink>
           )}
         </div>
       ))}
@@ -171,23 +190,37 @@ const NavItem: React.FC<NavItemProps> = ({ link }) => {
 
   if (!link.submenu) {
     return (
-      <li className="nav-item">
+      <li className="relative flex items-center h-full list-none">
         {link.href?.startsWith("http") ? (
-          <a href={link.href} target="_blank" rel="noopener noreferrer">
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-white text-sm font-medium px-3 h-full flex items-center hover:text-yellow-400 transition-colors"
+          >
             {link.label}
           </a>
         ) : (
-          <GatsbyLink to={link.href || "#"}>{link.label}</GatsbyLink>
+          <GatsbyLink
+            to={link.href || "#"}
+            className="text-white text-sm font-medium px-3 h-full flex items-center hover:text-yellow-400 transition-colors"
+          >
+            {link.label}
+          </GatsbyLink>
         )}
       </li>
     );
   }
 
   return (
-    <li className="nav-item with-submenu" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
-      <button className="nav-link-with-arrow">
+    <li
+      className="relative flex items-center h-full list-none"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <button className="text-white text-sm font-medium px-3 h-full flex items-center gap-1.5 hover:text-yellow-400 transition-colors bg-none border-none cursor-pointer font-poppins">
         {link.label}
-        <ChevronDown size={16} className={`arrow ${isOpen ? "rotate" : ""}`} />
+        <ChevronDown size={16} className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
       </button>
       <Submenu items={link.submenu} isOpen={isOpen} />
     </li>
@@ -198,18 +231,18 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="navbar-container">
-      <div className="navbar">
+    <nav className="fixed top-0 left-0 w-full h-[70px] bg-black/80 z-50 shadow-md">
+      <div className="h-full w-full flex items-center justify-between px-6">
         {/* Logo */}
-        <div className="logo">
-          <GatsbyLink to="/">
-            <StaticImage src="../images/logo2025.png" alt="MERCon 2025 Logo" className="logo-image" />
+        <div className="flex items-center cursor-pointer hover:scale-102 transition-transform">
+          <GatsbyLink to="/" className="flex items-center">
+            <StaticImage src="../images/logo2025.png" alt="MERCon 2025 Logo" className="w-52 h-14 object-contain" />
           </GatsbyLink>
         </div>
 
         {/* Desktop Navigation */}
-        <div className="nav-links">
-          <ul className="links">
+        <div className="hidden md:flex flex-1 justify-end h-full">
+          <ul className="flex gap-2 list-none items-center h-full">
             {navLinks.map((link, index) => (
               <NavItem key={index} link={link} />
             ))}
@@ -217,15 +250,19 @@ export default function Header() {
         </div>
 
         {/* Mobile Menu Toggle */}
-        <button className="menu-toggle" onClick={() => setMobileMenuOpen(!mobileMenuOpen)} aria-label="Toggle menu">
+        <button
+          className="md:hidden bg-none border-none text-white cursor-pointer p-2 transition-colors hover:text-yellow-400 z-50"
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
       {/* Mobile Navigation */}
       {mobileMenuOpen && (
-        <div className="mobile-menu">
-          <ul className="mobile-links">
+        <div className="md:hidden fixed top-[70px] left-0 w-full max-h-[calc(100vh-70px)] bg-black/95 overflow-y-auto z-40 animate-slideDown">
+          <ul className="list-none p-2">
             {navLinks.map((link, index) => (
               <MobileNavItem key={index} link={link} onNavigate={() => setMobileMenuOpen(false)} />
             ))}
@@ -246,13 +283,23 @@ const MobileNavItem: React.FC<MobileNavItemProps> = ({ link, onNavigate }) => {
 
   if (!link.submenu) {
     return (
-      <li className="mobile-nav-item">
+      <li className="border-b border-yellow-400/10">
         {link.href?.startsWith("http") ? (
-          <a href={link.href} target="_blank" rel="noopener noreferrer" onClick={onNavigate}>
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={onNavigate}
+            className="block px-4 py-4 text-white text-sm font-medium hover:bg-yellow-400/10 transition-colors"
+          >
             {link.label}
           </a>
         ) : (
-          <GatsbyLink to={link.href || "#"} onClick={onNavigate}>
+          <GatsbyLink
+            to={link.href || "#"}
+            onClick={onNavigate}
+            className="block px-4 py-4 text-white text-sm font-medium hover:bg-yellow-400/10 transition-colors"
+          >
             {link.label}
           </GatsbyLink>
         )}
@@ -261,21 +308,34 @@ const MobileNavItem: React.FC<MobileNavItemProps> = ({ link, onNavigate }) => {
   }
 
   return (
-    <li className="mobile-nav-item with-submenu">
-      <button className="mobile-nav-toggle" onClick={() => setIsOpen(!isOpen)}>
+    <li className="border-b border-yellow-400/10">
+      <button
+        className="w-full flex items-center justify-between px-4 py-4 text-white text-sm font-medium hover:bg-yellow-400/10 transition-colors bg-none border-none cursor-pointer font-poppins text-left"
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {link.label}
-        <ChevronDown size={16} className={`arrow ${isOpen ? "rotate" : ""}`} />
+        <ChevronDown size={16} className={`transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`} />
       </button>
       {isOpen && (
-        <ul className="mobile-submenu">
+        <ul className="list-none bg-yellow-400/5 border-l-4 border-yellow-400 animate-slideDown">
           {link.submenu.map((subitem, index) => (
-            <li key={index} className="mobile-submenu-item">
+            <li key={index} className="border-b border-yellow-400/5">
               {subitem.href?.startsWith("http") ? (
-                <a href={subitem.href} target="_blank" rel="noopener noreferrer" onClick={onNavigate}>
+                <a
+                  href={subitem.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={onNavigate}
+                  className="block px-6 py-3 text-gray-300 text-xs font-medium hover:text-yellow-400 transition-colors"
+                >
                   {subitem.label}
                 </a>
               ) : (
-                <GatsbyLink to={subitem.href || "#"} onClick={onNavigate}>
+                <GatsbyLink
+                  to={subitem.href || "#"}
+                  onClick={onNavigate}
+                  className="block px-6 py-3 text-gray-300 text-xs font-medium hover:text-yellow-400 transition-colors"
+                >
                   {subitem.label}
                 </GatsbyLink>
               )}

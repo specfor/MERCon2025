@@ -147,12 +147,12 @@ const trackImages = {
 
 const ResearchFields: React.FC = () => (
   <div className="max-w-5xl mx-auto">
-    <h3 className="text-base md:text-lg text-center text-gray-200 mb-12">
+    <h3 className="text-base md:text-lg text-center text-gray-900 mb-12">
       MERCon 2025 solicits research papers describing significant & innovative research contributions to following areas
       of engineering. We will invite submissions on a wide range of research topics.
     </h3>
 
-    <h3 className="text-2xl font-bold text-center text-white mb-12">
+    <h3 className="text-2xl font-bold text-center text-black mb-12">
       Papers can be submitted to the conference under the following regular tracks.
     </h3>
 
@@ -181,12 +181,12 @@ const ResearchFields: React.FC = () => (
       ].map((track, index) => (
         <GatsbyLink key={index} to="/call-for-papers" className="block">
           <div className="flex flex-col items-center">
-            <div className="border-2 w-full max-w-32 md:max-w-48 h-fit border-primary-800 rounded-3xl hover:border-primary-500 transition-all">
+            <div className="border-2 w-full max-w-32 md:max-w-48 h-fit border-primary-800 rounded-3xl hover:border-primary-500 transition-all duration-700">
               <div className="w-full h-auto p-10 aspect-square rounded-4xl hover:scale-110">
                 {trackImages[track.key as keyof typeof trackImages]}
               </div>
             </div>
-            <p className="p-4 text-center text-gray-300 text-sm font-medium group-hover:text-primary-500 transition-colors grow flex items-start justify-center">
+            <p className="p-4 text-center text-gray-700 text-sm font-medium group-hover:text-primary-500 transition-colors grow flex items-start justify-center">
               {track.title}
             </p>
           </div>

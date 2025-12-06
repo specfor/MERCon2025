@@ -68,7 +68,7 @@ const IndexPage: React.FC<PageProps> = () => {
       </section>
 
       {/* Main Content */}
-      <div className="grow w-full bg-black">
+      <div className="grow w-full bg-gray-300">
         {/* Call for Papers Section */}
         <section id="call-for-papers" className="w-full py-20 px-6 md:px-12">
           <ResearchFields />

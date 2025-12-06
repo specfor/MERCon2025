@@ -68,9 +68,9 @@ const IndexPage: React.FC<PageProps> = () => {
       </section>
 
       {/* Main Content */}
-      <div className="grow w-full bg-gray-300">
+      <div className="grow w-full bg-black">
         {/* Call for Papers Section */}
-        <section id="call-for-papers" className="w-full py-20 px-6 md:px-12">
+        <section id="call-for-papers" className="w-full py-20 px-6 md:px-12 bg-gray-300">
           <ResearchFields />
         </section>
 
@@ -102,11 +102,6 @@ const IndexPage: React.FC<PageProps> = () => {
                   src="https://maps.google.com/maps?q=university of moratuwa&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 ></iframe>
               </div>
-            </div>
-
-            {/* Venue Info Card */}
-            <div className="bg-dark-800 border-2 border-accent-gold rounded-lg p-6 mb-12 text-center">
-              <h2 className="text-2xl font-bold text-accent-gold">Beauty of University of Moratuwa</h2>
             </div>
 
             <UniGallery />

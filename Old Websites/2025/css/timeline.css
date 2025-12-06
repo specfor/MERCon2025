@@ -1,0 +1,186 @@
+/* The timeline container */
+.timeline {
+  position: relative;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 80px;
+  overflow: hidden;
+}
+
+/* The vertical timeline line */
+/* The vertical timeline line */
+.timeline::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  margin-left: -3px;
+  border-radius: 10px;
+
+}
+
+
+/* The individual timeline items */
+.time {
+  padding: 10px 40px;
+  position: relative;
+  background-color: inherit;
+  width: 50%;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.time::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  right: -10px;
+  background: linear-gradient(45deg, #ffc700, #ffc700);
+  top: 15px;
+  border-radius: 50%;
+  z-index: 1;
+  transition: transform 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(128, 125, 121, 0.8);
+  border: #fff solid 2px;  
+}
+
+/* Remove circle outline */
+.time:hover::after {
+  transform: scale(1.2);
+}
+
+/* Position the left-side items */
+.left {
+  left: 0;
+}
+
+/* Position the right-side items */
+.right {
+  left: 50%;
+}
+
+/* Add arrows to the left items */
+.left::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 0;
+  right: 30px;
+  border: medium solid white;
+  border-width: 10px 0 10px 10px;
+  border-color: transparent transparent transparent white;
+}
+
+/* Add arrows to the right items */
+.right::before {
+  content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 0;
+  left: 32px;
+  border: medium solid white;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent white transparent transparent;
+}
+
+/* Adjust circle position for the right items */
+.right::after {
+  left: -12px;
+}
+
+/* The content box styling */
+/* The content box styling */
+.content {
+  cursor: pointer;
+  position: relative;
+  padding: 20px 30px;
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.63), rgba(0, 0, 0, 0.6));
+  color: white;
+  font-weight: bold;
+  border-radius: 12px;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  border: #ffc700 solid 2px;
+}
+
+/* Hover effect for content */
+.content:hover {
+  transform: translateY(-5px);
+}
+
+/* Diagonal hover effect */
+.content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg,#ffc700, #ffc700);
+  transform: scale(0);
+  transform-origin: top right; /* Start the animation from the top-left corner */
+  transition: transform 0.4s ease-in-out;
+  border-radius: 12px;
+  z-index: 0;
+  color: black !important;
+  
+}
+
+/* Trigger the hover transition */
+.content:hover::before {
+  transform: scale(1);
+}
+
+/* Ensuring the content stays above the hover effect */
+.content h3,
+.content p {
+  position: relative;
+  z-index: 1;
+}
+
+/* Responsive design for screens smaller than 600px */
+@media screen and (max-width: 600px) {
+  /* Align the vertical line */
+  .timeline::after {
+    left: 31px;
+  }
+
+  /* Full-width timeline items */
+  .time {
+    width: 100%;
+    padding-left: 70px;
+    padding-right: 25px;
+  }
+
+  /* Ensure all arrows point left */
+  .time::before {
+    left: 60px;
+    border: medium solid rgb(209, 172, 9);
+    border-width: 10px 10px 10px 0;
+    border-color: transparent white transparent transparent;
+  }
+
+  /* Position circles consistently */
+  .left::after,
+  .right::after {
+    left: 15px;
+  }
+
+  /* All items behave like left items */
+  .right {
+    left: 0%;
+  }
+}

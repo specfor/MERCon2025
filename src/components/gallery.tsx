@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { StaticImage } from "gatsby-plugin-image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import SectionHeader from "./sectionHeader";
 
 // --- CSS Styles ---
 const galleryStyles = `
@@ -170,8 +171,7 @@ const Gallery: React.FC = () => {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Our Gallery</h1>
-            <div className="w-24 h-1 bg-primary-500 mx-auto rounded-full"></div>
+            <SectionHeader headerText="Gallery" />
           </div>
 
           {/* 3D Carousel Container */}
@@ -252,10 +252,6 @@ const Gallery: React.FC = () => {
                   aria-label={`Go to image ${index + 1}`}
                 />
               ))}
-            </div>
-
-            <div className="text-gray-400 text-sm font-mono">
-              {String(currentIndex + 1).padStart(2, "0")} / {String(totalImages).padStart(2, "0")}
             </div>
           </div>
         </div>

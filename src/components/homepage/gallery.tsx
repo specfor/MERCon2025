@@ -79,24 +79,24 @@ const galleryStyles = `
 const galleryImages = [
   {
     id: 1,
-    image: <StaticImage src="../images/img/gallery/m1.jpg" alt="Gallery 1" className="w-full h-full object-cover" />,
+    image: <StaticImage src="../../images/img/gallery/m1.jpg" alt="Gallery 1" className="w-full h-full object-cover" />,
   },
   {
     id: 2,
-    image: <StaticImage src="../images/img/gallery/m2.jpg" alt="Gallery 2" className="w-full h-full object-cover" />,
+    image: <StaticImage src="../../images/img/gallery/m2.jpg" alt="Gallery 2" className="w-full h-full object-cover" />,
   },
   {
     id: 3,
-    image: <StaticImage src="../images/img/gallery/m3.jpg" alt="Gallery 3" className="w-full h-full object-cover" />,
+    image: <StaticImage src="../../images/img/gallery/m3.jpg" alt="Gallery 3" className="w-full h-full object-cover" />,
   },
   // ... add the rest of your images here
   {
     id: 4,
-    image: <StaticImage src="../images/img/gallery/m4.jpg" alt="Gallery 4" className="w-full h-full object-cover" />,
+    image: <StaticImage src="../../images/img/gallery/m4.jpg" alt="Gallery 4" className="w-full h-full object-cover" />,
   },
   {
     id: 5,
-    image: <StaticImage src="../images/img/gallery/m5.jpg" alt="Gallery 5" className="w-full h-full object-cover" />,
+    image: <StaticImage src="../../images/img/gallery/m5.jpg" alt="Gallery 5" className="w-full h-full object-cover" />,
   },
 ];
 

@@ -33,3 +33,12 @@
   --color-dark-800: rgba(0, 0, 0, 0.8);
   --color-dark-900: rgba(0, 0, 0, 0.9);
 }
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+.animate-shimmer {
+  animation: shimmer 1.5s infinite;
+}

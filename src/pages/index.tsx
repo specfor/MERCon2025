@@ -3,6 +3,7 @@ import type { HeadFC, PageProps } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import { Link as GatsbyLink } from "gatsby";
 import Gallery from "../components/gallery";
+import OrganizerSection from "../components/homepage/organizer";
 
 // Hero background image
 const heroBackground = (
@@ -175,24 +176,7 @@ const IndexPage: React.FC<PageProps> = () => {
         <Gallery />
 
         {/* Organized By Section */}
-        <section className="w-full py-16 px-6 md:px-12 bg-dark-800">
-          <div className="max-w-5xl mx-auto">
-            <h1 className="text-4xl font-bold text-center mb-4 text-white border-b-2 border-primary-500 pb-4 inline-block w-full">
-              Organized By
-            </h1>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
-              {[1, 2, 3].map((_, i) => (
-                <div key={i} className="bg-white p-6 rounded-lg flex items-center justify-center h-40">
-                  <div className="text-gray-400 text-center">
-                    <i className="fas fa-image text-4xl mb-2"></i>
-                    <p className="text-sm">Sponsor Logo {i + 1}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <OrganizerSection />
 
         {/* Technical Sponsors Section */}
         <section className="w-full py-16 px-6 md:px-12 bg-dark-900">

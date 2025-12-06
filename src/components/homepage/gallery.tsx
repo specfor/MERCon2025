@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { StaticImage } from "gatsby-plugin-image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import SectionHeader from "./sectionHeader";
+import SectionHeader from "../sectionHeader";
 
 // --- CSS Styles ---
 const galleryStyles = `

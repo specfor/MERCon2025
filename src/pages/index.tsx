@@ -4,6 +4,8 @@ import { StaticImage } from "gatsby-plugin-image";
 import { Link as GatsbyLink } from "gatsby";
 import Gallery from "../components/homepage/gallery";
 import OrganizerSection from "../components/homepage/organizer";
+import SectionHeader from "../components/sectionHeader";
+import UniGallery from "../components/homepage/uniGallery";
 
 // Hero background image
 const heroBackground = (
@@ -178,83 +180,28 @@ const IndexPage: React.FC<PageProps> = () => {
         {/* Organized By Section */}
         <OrganizerSection />
 
-        {/* Technical Sponsors Section */}
-        <section className="w-full py-16 px-6 md:px-12 bg-dark-900">
-          <div className="max-w-5xl mx-auto">
-            <h1 className="text-4xl font-bold text-center mb-12 text-white">TECHNICAL CO-SPONSORS</h1>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-              {[1, 2, 3, 4, 5, 6].map((_, i) => (
-                <div key={i} className="bg-white p-6 rounded-lg flex items-center justify-center h-40">
-                  <div className="text-gray-400 text-center">
-                    <i className="fas fa-image text-4xl mb-2"></i>
-                    <p className="text-sm">Sponsor {i + 1}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              {[1, 2, 3, 4].map((_, i) => (
-                <div key={i} className="bg-white p-6 rounded-lg flex items-center justify-center h-40">
-                  <div className="text-gray-400 text-center">
-                    <i className="fas fa-image text-4xl mb-2"></i>
-                    <p className="text-sm">Sponsor {i + 7}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Sponsors Sections */}
-        {[
-          { title: "Official Merchandizing Partner", cols: 1 },
-          { title: "Gold Sponsor", cols: 1 },
-          { title: "Silver Sponsor", cols: 1 },
-          { title: "Bronze Sponsor", cols: 1 },
-        ].map((sponsor, idx) => (
-          <section key={idx} className={`w-full py-16 px-6 md:px-12 ${idx % 2 === 0 ? "bg-dark-800" : "bg-dark-900"}`}>
-            <div className="max-w-5xl mx-auto">
-              <h1 className="text-4xl font-bold text-center mb-12 text-white">{sponsor.title}</h1>
-              <div className="flex justify-center">
-                <div className="bg-white p-6 rounded-lg flex items-center justify-center h-40 w-64">
-                  <div className="text-gray-400 text-center">
-                    <i className="fas fa-image text-4xl mb-2"></i>
-                    <p className="text-sm">{sponsor.title}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        ))}
-
         {/* Event Venue Section */}
         <section id="venue" className="w-full py-16 px-6 md:px-12 bg-dark-900">
-          <div className="max-w-5xl mx-auto">
-            <h1 className="text-4xl font-bold text-center mb-2 text-white border-b-2 border-primary-500 pb-4 inline-block w-full">
-              Event Venue
-            </h1>
+          <div className="container mx-auto">
+            <SectionHeader headerText="Event Venue" />
 
             <h3 className="text-3xl font-bold text-center text-primary-500 mt-12 mb-8">University Of Moratuwa</h3>
 
-            <h3 className="text-lg text-center text-gray-200 mb-8">
+            <h3 className="text-lg text-center text-gray-300 mb-8">
               University of Moratuwa, a leading technological university in the region welcomes you to witness a truly
               unique experience!
             </h3>
 
-            <h3 className="text-lg font-semibold text-center text-white mb-12">
-              Event venue location info and gallery
-            </h3>
-
             {/* Map */}
-            <div className="mb-12 rounded-lg overflow-hidden border border-accent-gold/50">
-              <iframe
-                width="100%"
-                height="500"
-                frameBorder="0"
-                src="https://maps.google.com/maps?q=university of moratuwa&t=&z=15&ie=UTF8&iwloc=&output=embed"
-              ></iframe>
+            <div className="flex w-full justify-center">
+              <div className="max-w-4xl w-full mb-12 rounded-lg overflow-hidden border border-accent-gold/50">
+                <iframe
+                  width="100%"
+                  height="500"
+                  frameBorder="0"
+                  src="https://maps.google.com/maps?q=university of moratuwa&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                ></iframe>
+              </div>
             </div>
 
             {/* Venue Info Card */}
@@ -262,20 +209,7 @@ const IndexPage: React.FC<PageProps> = () => {
               <h2 className="text-2xl font-bold text-accent-gold">Beauty of University of Moratuwa</h2>
             </div>
 
-            {/* Venue Gallery Placeholder */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {[1, 2, 3, 4, 5, 6, 7, 8].map((_, i) => (
-                <div
-                  key={i}
-                  className="bg-dark-800 rounded-lg overflow-hidden aspect-square flex items-center justify-center border border-dark-700"
-                >
-                  <div className="text-gray-400 text-center">
-                    <i className="fas fa-image text-4xl mb-2"></i>
-                    <p className="text-xs">Gallery {i + 1}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <UniGallery />
           </div>
         </section>
       </div>

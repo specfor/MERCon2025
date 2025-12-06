@@ -9,10 +9,12 @@ const OrganizerSection = () => {
     overflow-hidden
     rounded-2xl
     border border-white/20
-    bg-white/5
+    bg-white/20
+    md:bg-white/10
     backdrop-blur-md
     p-2
-    h-72
+    h-64
+    md:h-72
     flex items-center justify-center
     shadow-xl shadow-black/20
     transition-all duration-500
@@ -63,7 +65,7 @@ const OrganizerSection = () => {
         <SectionHeader headerText="Organized By" />
 
         {/* Glass Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
           {organizers.map((org) => (
             <div className={glassCardClasses}>
               <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer"></div>
@@ -76,7 +78,7 @@ const OrganizerSection = () => {
         <div className="mt-32">
           <SectionHeader headerText="Technical Co-Sponsors" />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
           {techSponsors.map((sponsor) => (
             <div className={glassCardClasses}>
               <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer"></div>
@@ -89,7 +91,7 @@ const OrganizerSection = () => {
         <div className="mt-32">
           <SectionHeader headerText="Gold Sponsors" />
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
           {goldSponsors.map((sponsor) => (
             <div className={glassCardClasses}>
               <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer"></div>

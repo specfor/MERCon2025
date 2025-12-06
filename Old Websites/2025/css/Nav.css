@@ -1,0 +1,389 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+body{
+  min-height: 100vh;
+}
+nav{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  height: 70px;
+  background: rgba(0, 0, 0, 0.8); /* Black with 80% opacity */
+  /* box-shadow: 0 1px 2px rgba(229, 227, 227, 0.2); */
+  z-index: 1000;
+}
+nav .navbar{
+  height: 100%;
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+  padding: 0 25px;
+}
+.navbar .logo a{
+  font-size: 30px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.navbar .logo{
+  display: flex;
+  align-items: center;
+}
+.navbar .logo img{
+  width: 200px;
+  height: 56px;
+}
+nav .navbar .nav-links{
+  line-height: 70px;
+  height: 100%;
+
+}
+nav .navbar .links{
+  display: flex;
+  gap: 20px;
+
+}
+
+nav .navbar .links li{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  list-style: none;
+  
+
+ 
+  
+}
+nav .navbar .links li a{
+  height: 100%;
+  text-decoration: none;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-around;
+ 
+}
+.yr {
+  display: flex;
+  justify-content: space-between;
+width: 100%;
+gap: 10px;
+
+
+}
+
+.yr a {
+  display: flex; /* Enables flexbox for centering */
+  align-items: center; /* Centers content vertically */
+  justify-content: center; /* Centers content horizontally */
+  color: #fff; /* Text color */
+ 
+  width: 90%; /* Adjusts link width */
+
+  padding: 10px; /* Optional: Adds space inside the link */
+  margin: 0 auto; /* Centers the link block if needed */
+}
+
+.yr a:hover {
+ 
+  color: #c4be12; /* Text color on hover */
+}
+.links li:hover .htmlcss-arrow,
+.links li:hover .js-arrow{
+  transform: rotate(180deg);
+
+}
+
+
+.navbar .links li:hover .htmlCss-sub-menu,
+.navbar .links li:hover .js-sub-menu{
+  display: block;
+  align-self:baseline;
+
+justify-items: start;
+
+}
+nav .navbar .links li:hover .submenu {
+  display: block; /* Show submenu on hover */
+}
+nav .navbar .links li .sub-menu a:hover {
+  color: #fbec6d; /* Change text color on hover */
+
+  
+}
+
+
+
+
+
+.navbar .links li .sub-menu {
+  position: absolute;
+  top: 70px;
+  width: max-content;
+  min-width: 100%;
+  left: 0;
+  background: rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+}
+
+/* Update the hover state */
+.navbar .links li:hover .htmlCss-sub-menu,
+.navbar .links li:hover .js-sub-menu,
+.navbar .links li .sub-menu.show {
+  opacity: 1;
+  visibility: visible;
+
+  transform: translateY(0);
+  animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Add smooth rotation for arrows */
+.navbar .links li .arrow {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #fff;
+}
+
+.navbar .links li:hover .arrow,
+.navbar .links li .arrow.rotate {
+  animation: rotateArrow 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+
+
+
+
+
+/* .navbar .links li .sub-menu li {
+  
+} */
+
+.navbar .links li:hover .sub-menu li,
+.navbar .links li .sub-menu.show li {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+
+
+
+
+
+.navbar .links li .sub-menu li{
+ display: flex;
+ align-items: start;
+  justify-content: start;
+  width: 100%;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-delay: calc(0.05s * var(--item-index));
+
+}
+.navbar .links li .sub-menu a {
+  color: #fff;
+  width: 100%;
+  font-size: 15px;
+  font-weight: 500;
+  border-bottom: 1px solid #e4e4e3; /* Full-width bottom border */
+  height: 40px; /* Set a specific height */
+  line-height: 50px; /* Vertically align text inside the height */
+  display: block; /* Ensure full width */
+  padding: 0 10px; /* Horizontal padding */
+  text-decoration: none; /* Remove underline if present */
+  box-sizing: border-box; /* Include border and padding in the width */
+}
+.navbar .nav-links .sidebar-logo{
+  display: none;
+}
+.navbar .bx-menu{
+  display: none;
+  width: 40px;
+
+}
+@media (max-width: 1440px) {
+  nav .navbar{
+    width: 100%;
+    
+    padding: 0 25px;
+    
+  }
+  .navbar .bx-menu{
+    display: block;
+
+  }
+
+  nav .navbar .logo img{
+    width: 150px;
+    height: 44px;
+  }
+
+  .navbar .links li .sub-menu {
+    position: static;
+    display: none;
+    opacity: 1;
+    visibility: visible;
+   
+    top: 50px !important;
+    width:max-content;
+    min-width: 300px;
+    left: 0;
+    background-color: rgba(0, 0, 0,);
+  
+    z-index: 2;
+    transform: none;
+    transition: none;
+  }
+
+  .navbar .links li .sub-menu.show {
+    display: block;
+  }
+
+  .navbar .nav-links .sidebar-logo {
+    display: flex; /* Make the sidebar-logo visible */
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.navbar .nav-links .sidebar-logo .bx-x {
+    font-size: 25px;
+    cursor: pointer; /* Makes the close icon interactive */
+}
+  nav .navbar .nav-links{
+    position: fixed;
+    top: 0;
+    left: -100%;
+    display: block;
+    background: rgba(15, 15, 15, 0.8);
+    line-height: 30px;
+    padding: 20px;
+    box-shadow: 0 5px 10px rgba(96, 3, 162, 0.2);
+    transition: all 0.5s ease;
+    border-bottom: #fbec6d;
+    border: 2px;
+    z-index: 1000;
+    width:100%;
+    min-width: 200px;
+    
+  
+  }
+  .navbar .nav-links li{
+   
+    background-color: transparent;
+    font-size: 20px;
+    min-height: 50px !important;
+    max-height: 50px;
+  }
+  .navbar .nav-links li a{
+    font-size: 20px;
+  }
+  .navbar .links li .sub-menu{
+    position: absolute;
+    top: 70px;
+    width:max-content;
+    min-width: 300px;
+    left: 0;
+    background-color: rgba(0, 0, 0,);
+    display: none;
+    z-index: 2;
+  }
+  .sidebar-logo .logo-name{
+    font-size: 25px;
+    color: #fff;
+    display: block;
+    
+  }
+  .sidebar-logo i,
+  .navbar .bx-menu{
+    font-size: 25px;
+    color: #fff;
+
+  }
+  nav .navbar .links{
+    display: block;
+   
+    margin-top: 20px;
+    width: 100%;
+  }
+  nav .navbar .links li{
+    display: flex;
+
+justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .navbar .links  li a{
+    font-size: 20px;
+  }
+}
+
+.sub-menu {
+  display: none;
+  opacity: 0;
+  transform: scaleY(0);
+  transition: all 0.3s  ease-in-out;
+}
+.sub-menu.show {
+  display: block;
+  width: max-content;
+  opacity: 1;
+  transform: scaleY(1);
+}
+@media (max-width:370px){
+  /* nav .navbar{
+    justify-content: space-between;
+    width: max-content;
+  } */
+  nav .navbar .logo img{
+    width: 120px;
+    height: 36px;
+  }
+  
+}
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes rotateArrow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}

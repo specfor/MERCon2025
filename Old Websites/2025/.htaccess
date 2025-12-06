@@ -1,0 +1,29 @@
+<IfModule mod_rewrite.c>
+      RewriteEngine on
+  
+    # file not found error sites redirect to not_found.html
+      RewriteCond %{REQUEST_FILENAME} !-f
+      RewriteCond %{REQUEST_FILENAME} !-d
+      RewriteRule . https://mercon.uom.lk/not_found.html [R=301,L]
+  
+    # RewriteRule . https://mercon.uom.lk/
+  
+  
+    # under construction sites redirect to uc.html
+     RewriteRule contact.html uc.html [L]
+     RewriteRule important-days.html uc.html
+     RewriteRule programming-commitee.html uc.html [L]
+     #RewriteRule registration.html uc.html [L]
+  
+  
+</IfModule>
+# General setting to properly handle LimeSurvey paths
+# AcceptPathInfo on
+
+RewriteEngine On
+
+RewriteCond %{SERVER_PORT} !^443$
+RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [QSA,R=301,L]
+<IfModule !mod_ssl.c>
+Redirect permanent / https://mercon.uom.lk/
+</IfModule>

@@ -22,7 +22,7 @@ const IndexPage: React.FC<PageProps> = () => {
   return (
     <div className="w-full min-h-screen flex flex-col bg-dark-950">
       {/* Hero Section */}
-      <section className="relative w-full h-screen z-10 overflow-\">
+      <section className="relative w-full h-screen z-10">
         {/* Background Image */}
         {heroBackground}
 
@@ -31,15 +31,15 @@ const IndexPage: React.FC<PageProps> = () => {
 
         {/* Content */}
         <div className="max-w-5xl mx-auto items-center text-center flex flex-col justify-center h-full relative z-40">
-          <div className="mb-10">
+          <div className="mb-10 pt-10">
             <StaticImage
               src="../images/logo2025.png"
               alt="MERCon 2025 Logo"
-              className="w-full max-w-[600px] h-auto mx-auto"
+              className="w-full max-w-64 md:max-w-[400px] lg:max-w-[600px] h-auto mx-auto"
             />
           </div>
 
-          <h3 className="text-base md:text-md font-normal leading-relaxed max-w-3xl text-gray-200 mb-8">
+          <h3 className="px-5 text-sm md:text-md font-normal leading-relaxed max-w-3xl text-gray-200 mb-8">
             Moratuwa Engineering Research Conference 2025 (MERCon 2025) is the 11<sup>th</sup> international conference
             organized by the Engineering Research Unit, University of Moratuwa. MERCon solicits research papers
             describing significant and innovative research contributions in all disciplines of engineering.

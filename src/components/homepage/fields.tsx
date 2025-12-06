@@ -147,7 +147,7 @@ const trackImages = {
 
 const ResearchFields: React.FC = () => (
   <div className="max-w-5xl mx-auto">
-    <h3 className="text-lg text-center text-gray-200 mb-12">
+    <h3 className="text-base md:text-lg text-center text-gray-200 mb-12">
       MERCon 2025 solicits research papers describing significant & innovative research contributions to following areas
       of engineering. We will invite submissions on a wide range of research topics.
     </h3>
@@ -157,7 +157,7 @@ const ResearchFields: React.FC = () => (
     </h3>
 
     {/* Tracks Grid */}
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 justify-items-center gap-10">
       {[
         { title: "Data Science and Artificial Intelligence", key: "track1" },
         { title: "Biomedical Engineering", key: "track2" },
@@ -180,14 +180,16 @@ const ResearchFields: React.FC = () => (
         { title: "Transportation Engineering and Logistics", key: "track19" },
       ].map((track, index) => (
         <GatsbyLink key={index} to="/call-for-papers" className="block">
-          <div className="border-2 w-full h-fit border-primary-800 rounded-3xl hover:border-primary-500 transition-all">
-            <div className="w-full h-auto p-10 aspect-square rounded-4xl hover:scale-110">
-              {trackImages[track.key as keyof typeof trackImages]}
+          <div className="flex flex-col items-center">
+            <div className="border-2 w-full max-w-32 md:max-w-48 h-fit border-primary-800 rounded-3xl hover:border-primary-500 transition-all">
+              <div className="w-full h-auto p-10 aspect-square rounded-4xl hover:scale-110">
+                {trackImages[track.key as keyof typeof trackImages]}
+              </div>
             </div>
+            <p className="p-4 text-center text-gray-300 text-sm font-medium group-hover:text-primary-500 transition-colors grow flex items-start justify-center">
+              {track.title}
+            </p>
           </div>
-          <p className="p-4 text-center text-gray-300 text-sm font-medium group-hover:text-primary-500 transition-colors grow flex items-start justify-center">
-            {track.title}
-          </p>
         </GatsbyLink>
       ))}
     </div>

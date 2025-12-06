@@ -10,7 +10,7 @@ export default function Footer() {
     <footer className="bg-black/95 text-white pt-16 border-t-2 border-primary-400">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 container justify-items-center mx-auto px-6 mb-10">
         {/* Contact Section */}
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center text-center md:items-start md:text-left">
           <h3 className="text-lg font-bold mb-5 text-primary-500 uppercase tracking-wider">Contact Us</h3>
           <p className="text-sm leading-relaxed text-gray-200 mb-3">
             Email:{" "}
@@ -38,7 +38,7 @@ export default function Footer() {
         </div>
 
         {/* Quick Links Section */}
-        <div className="flex flex-col lg:text-left">
+        <div className="flex flex-col text-center md:text-left">
           <h3 className="text-lg font-bold mb-5 text-primary-500 uppercase tracking-wider">Quick Links</h3>
           <ul className="flex flex-col gap-3 lg:items-left">
             <li>
@@ -108,7 +108,7 @@ export default function Footer() {
         </div>
 
         {/* Social Media & Logo Section */}
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center md:items-start">
           <h3 className="text-lg font-bold mb-5 text-primary-500 uppercase tracking-wider">Follow Us</h3>
           <div className="flex gap-5 mb-6 lg:justify-start">
             <a

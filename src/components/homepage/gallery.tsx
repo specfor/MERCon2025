@@ -175,7 +175,7 @@ const Gallery: React.FC = () => {
           </div>
 
           {/* 3D Carousel Container */}
-          <div className="relative h-[400px] md:h-[550px] w-full perspective-container flex items-center justify-center">
+          <div className="relative h-[300px] md:h-[500px] w-full perspective-container flex items-center justify-center">
             {/* Navigation Buttons (Placed absolutely to be on top) */}
             <button
               onClick={handleManualPrev}
@@ -205,7 +205,7 @@ const Gallery: React.FC = () => {
                 return (
                   <div
                     key={item.id}
-                    className={`gallery-card w-[280px] h-[350px] md:w-[600px] md:h-[450px] rounded-2xl overflow-hidden ${positionClass}`}
+                    className={`gallery-card w-[280px] h-[250px] md:w-[600px] md:h-[450px] rounded-2xl overflow-hidden ${positionClass}`}
                     onClick={() => {
                       if (isLeft) handleManualPrev();
                       if (isRight) handleManualNext();

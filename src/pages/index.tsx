@@ -2,7 +2,7 @@ import * as React from "react";
 import type { HeadFC, PageProps } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import { Link as GatsbyLink } from "gatsby";
-import Gallery from "../components/gallery";
+import Gallery from "../components/homepage/gallery";
 import OrganizerSection from "../components/homepage/organizer";
 
 // Hero background image

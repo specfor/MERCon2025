@@ -43,7 +43,6 @@ const speakersData: (Speaker & { desc?: string[] })[] = [
         placeholder="blurred"
       />
     ),
-    links: { linkedin: "#" },
   },
 ];
 

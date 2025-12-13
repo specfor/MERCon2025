@@ -9,12 +9,13 @@ const speakerLevels: SpeakerLevel[] = [
     rank: 1,
     speakers: [
       {
-        name: "Prof. John Doe",
+        name: "Prof. Lidula N. Widanagama Arachchige",
         image: (
           <StaticImage
-            src="../images/keynote-speakers/lingjia.png"
-            alt="Speaker 1"
-            className="w-full h-full object-cover"
+            src="../images/committee/Prof.Lidula.N.Widanagama.Arachchige.png"
+            alt="Prof. Lidula N. Widanagama Arachchige"
+            className="w-full h-full"
+            objectFit="contain"
           />
         ),
       },
@@ -25,58 +26,81 @@ const speakerLevels: SpeakerLevel[] = [
     rank: 2,
     speakers: [
       {
-        name: "Dr. Sarah Smith",
+        name: "Dr. Chamira Edussooriya ",
         image: (
           <StaticImage
-            src="../images/keynote-speakers/lingjia.png"
-            alt="Speaker 2"
-            className="w-full h-full object-cover"
-          />
-        ),
-      },
-      {
-        name: "Prof. A. Kumar",
-        image: (
-          <StaticImage
-            src="../images/keynote-speakers/lingjia.png"
-            alt="Speaker 3"
-            className="w-full h-full object-cover"
+            src="../images/committee/Dr.Chamira.Edussooriya.png"
+            alt="Dr. Chamira Edussooriya "
+            className="w-full h-full"
+            objectFit="contain"
           />
         ),
       },
     ],
   },
   {
-    levelName: "Organizing Committee Chair",
+    levelName: "Program Committee Chairs",
     rank: 3,
     speakers: [
       {
-        name: "Dr. Emily Chen",
+        name: "Dr. Biman Hettiarachchi",
         image: (
           <StaticImage
-            src="../images/keynote-speakers/lingjia.png"
-            alt="Speaker 4"
-            className="w-full h-full object-cover"
+            src="../images/committee/Dr.Biman.Hettiarachchi.png"
+            alt="Dr. Biman Hettiarachchi"
+            className="w-full h-full"
+            objectFit="cover"
           />
         ),
       },
+    ],
+  },
+  {
+    levelName: "Financial and Registration Committee Chair",
+    rank: 3,
+    speakers: [
       {
-        name: "Prof. Michael Ross",
+        name: "Dr. Aruna Bandara",
         image: (
           <StaticImage
-            src="../images/keynote-speakers/lingjia.png"
-            alt="Speaker 5"
-            className="w-full h-full object-cover"
+            src="../images/committee/Dr.Aruna.Bandara.png"
+            alt="Dr. Aruna Bandara"
+            className="w-full h-full"
+            objectFit="cover"
           />
         ),
       },
+    ],
+  },
+  {
+    levelName: "Publicity Committee Chair",
+    rank: 4,
+    speakers: [
       {
-        name: "Dr. Yuki Tanaka",
+        name: "Dr. Dumith Jayathilaka",
         image: (
           <StaticImage
-            src="../images/keynote-speakers/lingjia.png"
-            alt="Speaker 6"
-            className="w-full h-full object-cover"
+            src="../images/committee/Dr.Dumith.Jayathilake.png"
+            alt="Dr. Dumith Jayathilaka"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+    ],
+  },
+  {
+    levelName: "Conference secretary",
+    rank: 5,
+    speakers: [
+      {
+        name: "Ms. Chamodi Thisara",
+        image: (
+          <StaticImage
+            src="../images/committee/Ms.Chamodi.Thisara.png"
+            alt="Ms. Chamodi Thisara"
+            className="w-full h-full"
+            objectFit="cover"
           />
         ),
       },

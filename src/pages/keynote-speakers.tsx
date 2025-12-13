@@ -17,7 +17,7 @@ const speakersData: (Speaker & { desc?: string[] })[] = [
     ],
     image: (
       <StaticImage
-        src="../images/keynote-speakers/Dr.Guohong.Tian.jpg"
+        src="../images/keynote-speakers/Dr.Guohong.Tian.png"
         alt="Dr Guohong Tian"
         objectFit="contain"
         className="w-full h-full"

@@ -33,7 +33,7 @@ const IndexPage: React.FC<PageProps> = () => {
         <div className="max-w-5xl mx-auto items-center text-center flex flex-col justify-center h-full relative z-40">
           <div className="mb-10 pt-10">
             <StaticImage
-              src="../images/logo2025.png"
+              src="../images/logo2026.png"
               alt="MERCon 2025 Logo"
               className="w-full max-w-64 md:max-w-[400px] lg:max-w-[600px] h-auto mx-auto"
             />

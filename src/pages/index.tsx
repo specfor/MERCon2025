@@ -40,7 +40,7 @@ const IndexPage: React.FC<PageProps> = () => {
           </div>
 
           <h3 className="px-5 text-sm md:text-md font-normal leading-relaxed max-w-3xl text-gray-200 mb-8">
-            Moratuwa Engineering Research Conference 2025 (MERCon 2025) is the 11<sup>th</sup> international conference
+            Moratuwa Engineering Research Conference 2026 (MERCon 2026) is the 12<sup>th</sup> international conference
             organized by the Engineering Research Unit, University of Moratuwa. MERCon solicits research papers
             describing significant and innovative research contributions in all disciplines of engineering.
           </h3>
@@ -49,7 +49,7 @@ const IndexPage: React.FC<PageProps> = () => {
             <div className="px-6 py-4 bg-primary-500/10 border border-primary-500 rounded-4xl">
               <div className="flex items-center gap-2 text-white font-semibold">
                 <i className="fas fa-calendar text-primary-500"></i>
-                14<sup>th</sup> and 15<sup>th</sup> August 2025
+                14<sup>th</sup> and 15<sup>th</sup> August 2026
               </div>
             </div>
 

@@ -3,7 +3,7 @@ import { StaticImage } from "gatsby-plugin-image";
 import SectionHeader from "../components/sectionHeader";
 import SpeakerRankGraph, { SpeakerLevel } from "../components/speakerRankGraph";
 
-const speakerLevels: SpeakerLevel[] = [
+const trackCoChairLevels: SpeakerLevel[] = [
   {
     levelName: "Mechanical Engineering Systems",
     rank: 1,
@@ -814,6 +814,111 @@ const speakerLevels: SpeakerLevel[] = [
   },
 ];
 
+const conferenceChairLevels: SpeakerLevel[] = [
+  {
+    rank: 1,
+    levelName: "Conference Chair",
+    speakers: [
+      {
+        name: "Prof. Lidula N. Widanagama Arachchige",
+        university: "University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Prof.Lidula.N.Widanagama.Arachchige.png"
+            alt="Prof. Lidula N. Widanagama Arachchige"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+    ],
+  },
+  {
+    rank: 2,
+    levelName: "Technical Program Committee Chair",
+    speakers: [
+      {
+        name: "Dr. Chamira Edussooriya",
+        university: "University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Chamira.Edussooriya.png"
+            alt="Dr. Chamira Edussooriya"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+    ],
+  },
+  {
+    rank: 3,
+    levelName: "Publication Committee Chair",
+    speakers: [
+      {
+        name: "Dr. Dumith Jayathilaka",
+        university: "University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Dumith.Jayathilaka.png"
+            alt="Dr. Dumith Jayathilaka"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+    ],
+  },
+  {
+    rank: 4,
+    levelName: "IEEE Sri Lanka Section Representatives",
+    speakers: [],
+  },
+];
+
+const ieeeSriLankaChapterMembers: SpeakerLevel[] = [
+  {
+    rank: 1,
+    levelName: "IEEE Computer Society Sri Lanka",
+    speakers: [],
+  },
+  {
+    rank: 2,
+    levelName: ["IEEE Council on Electronic Design Automation", "IEEE Circuits and Systems Society Sri Lanka"],
+    speakers: [],
+  },
+  {
+    rank: 3,
+    levelName: "IEEE Engineering in Medicine and Biology Society Sri Lanka",
+    speakers: [],
+  },
+  {
+    rank: 4,
+    levelName: "IEEE Geoscience and Remote Sensing Society Sri Lanka",
+    speakers: [],
+  },
+  {
+    rank: 5,
+    levelName: "IEEE Industrial Electronics Society Sri Lanka",
+    speakers: [],
+  },
+  {
+    rank: 6,
+    levelName: "IEEE Industry Applications Society Sri Lanka",
+    speakers: [],
+  },
+  {
+    rank: 7,
+    levelName: "IEEE Power & Energy Society Sri Lanka",
+    speakers: [],
+  },
+  {
+    rank: 8,
+    levelName: "IEEE Signal Processing Society Sri Lanka",
+    speakers: [],
+  },
+];
+
 // --- Main Section Component ---
 const TechnicalProgrammingCommittee = () => {
   return (
@@ -822,7 +927,15 @@ const TechnicalProgrammingCommittee = () => {
         {/* Main Page Title */}
         <SectionHeader headerText="Technical Programming Committee" textClass="text-black" />
 
-        <SpeakerRankGraph speakerLevels={speakerLevels} />
+        <SpeakerRankGraph speakerLevels={conferenceChairLevels} />
+
+        <div className="my-16"></div>
+        <SpeakerRankGraph speakerLevels={trackCoChairLevels} />
+
+        <div className="my-20"></div>
+        <SectionHeader headerText="IEEE Sri Lanka Section Chapter Members" textClass="text-black" />
+
+        <SpeakerRankGraph speakerLevels={ieeeSriLankaChapterMembers} />
       </div>
     </section>
   );

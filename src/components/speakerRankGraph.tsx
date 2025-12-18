@@ -2,7 +2,7 @@ import React from "react";
 import SpeakerCard, { Speaker } from "./speakerCard";
 
 export interface SpeakerLevel {
-  levelName: string; // e.g. "Keynote Speakers", "Plenary Speakers"
+  levelName: string | string[]; // e.g. "Keynote Speakers", "Plenary Speakers"
   rank: number; // For sorting if needed
   speakers: Speaker[];
 }
@@ -12,11 +12,24 @@ const SpeakerRankGraph: React.FC<{ speakerLevels: SpeakerLevel[] }> = ({ speaker
     {speakerLevels.map((level, index) => (
       <div key={index} className="w-full">
         {/* Level Header (with lines on side) */}
-        <div className="flex items-center gap-4 mb-12">
+        <div className="flex items-center gap-4 mb-12 font-sans">
           <div className="h-px bg-gray-200 flex-1"></div>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 uppercase tracking-widest text-center px-4">
-            {level.levelName}
-          </h2>
+          <div className="flex flex-col items-center gap-2 px-4">
+            {Array.isArray(level.levelName) ? (
+              level.levelName.map((name, idx) => (
+                <h2
+                  key={idx}
+                  className="text-2xl md:text-3xl font-bold text-gray-800 uppercase tracking-widest text-center"
+                >
+                  {name}
+                </h2>
+              ))
+            ) : (
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 uppercase tracking-widest text-center">
+                {level.levelName}
+              </h2>
+            )}
+          </div>
           <div className="h-px bg-gray-200 flex-1"></div>
         </div>
 

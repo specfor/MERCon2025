@@ -118,7 +118,6 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Natural Language Processing",
     rank: 4,
@@ -872,7 +871,15 @@ const conferenceChairLevels: SpeakerLevel[] = [
   {
     rank: 4,
     levelName: "IEEE Sri Lanka Section Representatives",
-    speakers: [],
+    speakers: [
+      {
+        name: "",
+        university: "",
+        image: (
+          <StaticImage src="../images/programming-committee/.png" alt="" className="w-full h-full" objectFit="cover" />
+        ),
+      },
+    ],
   },
 ];
 
@@ -880,42 +887,106 @@ const ieeeSriLankaChapterMembers: SpeakerLevel[] = [
   {
     rank: 1,
     levelName: "IEEE Computer Society Sri Lanka",
-    speakers: [],
+    speakers: [
+      {
+        name: "",
+        university: "",
+        image: (
+          <StaticImage src="../images/programming-committee/.png" alt="" className="w-full h-full" objectFit="cover" />
+        ),
+      },
+    ],
   },
   {
     rank: 2,
     levelName: ["IEEE Council on Electronic Design Automation", "IEEE Circuits and Systems Society Sri Lanka"],
-    speakers: [],
+    speakers: [
+      {
+        name: "",
+        university: "",
+        image: (
+          <StaticImage src="../images/programming-committee/.png" alt="" className="w-full h-full" objectFit="cover" />
+        ),
+      },
+    ],
   },
   {
     rank: 3,
     levelName: "IEEE Engineering in Medicine and Biology Society Sri Lanka",
-    speakers: [],
+    speakers: [
+      {
+        name: "",
+        university: "",
+        image: (
+          <StaticImage src="../images/programming-committee/.png" alt="" className="w-full h-full" objectFit="cover" />
+        ),
+      },
+    ],
   },
   {
     rank: 4,
     levelName: "IEEE Geoscience and Remote Sensing Society Sri Lanka",
-    speakers: [],
+    speakers: [
+      {
+        name: "",
+        university: "",
+        image: (
+          <StaticImage src="../images/programming-committee/.png" alt="" className="w-full h-full" objectFit="cover" />
+        ),
+      },
+    ],
   },
   {
     rank: 5,
     levelName: "IEEE Industrial Electronics Society Sri Lanka",
-    speakers: [],
+    speakers: [
+      {
+        name: "",
+        university: "",
+        image: (
+          <StaticImage src="../images/programming-committee/.png" alt="" className="w-full h-full" objectFit="cover" />
+        ),
+      },
+    ],
   },
   {
     rank: 6,
     levelName: "IEEE Industry Applications Society Sri Lanka",
-    speakers: [],
+    speakers: [
+      {
+        name: "",
+        university: "",
+        image: (
+          <StaticImage src="../images/programming-committee/.png" alt="" className="w-full h-full" objectFit="cover" />
+        ),
+      },
+    ],
   },
   {
     rank: 7,
     levelName: "IEEE Power & Energy Society Sri Lanka",
-    speakers: [],
+    speakers: [
+      {
+        name: "",
+        university: "",
+        image: (
+          <StaticImage src="../images/programming-committee/.png" alt="" className="w-full h-full" objectFit="cover" />
+        ),
+      },
+    ],
   },
   {
     rank: 8,
     levelName: "IEEE Signal Processing Society Sri Lanka",
-    speakers: [],
+    speakers: [
+      {
+        name: "",
+        university: "",
+        image: (
+          <StaticImage src="../images/programming-committee/.png" alt="" className="w-full h-full" objectFit="cover" />
+        ),
+      },
+    ],
   },
 ];
 
@@ -929,7 +1000,9 @@ const TechnicalProgrammingCommittee = () => {
 
         <SpeakerRankGraph speakerLevels={conferenceChairLevels} />
 
-        <div className="my-16"></div>
+        <div className="my-20"></div>
+        <SectionHeader headerText="Track Co-Chairs" textClass="text-black" />
+
         <SpeakerRankGraph speakerLevels={trackCoChairLevels} />
 
         <div className="my-20"></div>

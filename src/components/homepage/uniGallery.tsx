@@ -37,7 +37,7 @@ const UniGallery = () => {
         {/* Section Header */}
         <div className="mb-12 text-center">
           <SectionHeader headerText="Explore the Campus" />
-          <p className="text-gray-500 text-lg">
+          <p className="text-white/80 para text-lg">
             A look inside our world-class facilities designed for innovation and collaboration.
           </p>
         </div>

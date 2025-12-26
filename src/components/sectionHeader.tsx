@@ -2,7 +2,7 @@ import * as React from "react";
 
 const SectionHeader: React.FC<{ headerText: string; textClass?: string }> = ({
   headerText,
-  textClass = "text-white",
+  textClass = "text-white para",
 }) => (
   <div className="text-center mb-16">
     <h1 className={`text-4xl md:text-5xl font-bold inline-block relative ${textClass}`}>

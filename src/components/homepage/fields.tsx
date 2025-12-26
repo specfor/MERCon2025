@@ -3,7 +3,7 @@ import { StaticImage } from "gatsby-plugin-image";
 import { Link as GatsbyLink } from "gatsby";
 
 const iconClass: string =
-  "w-full h-full filter-[invert(53%)_sepia(68%)_saturate(466%)_hue-rotate(99deg)_brightness(93%)_contrast(88%)]";
+  "w-full h-full text-white para filter-[invert(53%)_sepia(68%)_saturate(466%)_hue-rotate(99deg)_brightness(93%)_contrast(88%)]";
 
 const trackImages = {
   track1: (
@@ -146,18 +146,18 @@ const trackImages = {
 };
 
 const ResearchFields: React.FC = () => (
-  <div className="max-w-5xl mx-auto">
-    <h3 className="text-base md:text-lg text-center text-gray-900 mb-12">
+  <div className="max-w-5xl mx-auto z-4">
+    <h3 className="text-base para md:text-xl text-xl text-white text-center mb-12">
       MERCon 2025 solicits research papers describing significant & innovative research contributions to following areas
       of engineering. We will invite submissions on a wide range of research topics.
     </h3>
 
-    <h3 className="text-2xl font-bold text-center text-black mb-12">
+    <h3 className="text-2xl para font-bold text-white text-center mb-12">
       Papers can be submitted to the conference under the following regular tracks.
     </h3>
 
     {/* Tracks Grid */}
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 justify-items-center gap-10">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 text-white xl:grid-cols-5 justify-items-center gap-10">
       {[
         { title: "Data Science and Artificial Intelligence", key: "track1" },
         { title: "Biomedical Engineering", key: "track2" },
@@ -186,7 +186,7 @@ const ResearchFields: React.FC = () => (
                 {trackImages[track.key as keyof typeof trackImages]}
               </div>
             </div>
-            <p className="p-4 text-center text-gray-700 text-sm font-medium group-hover:text-primary-500 transition-colors grow flex items-start justify-center">
+            <p className="p-4 text-center text-white font-white para text-sm font-medium group-hover:text-primary-500 transition-colors grow flex items-start justify-center">
               {track.title}
             </p>
           </div>

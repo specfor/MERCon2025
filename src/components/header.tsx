@@ -82,7 +82,7 @@ const DesktopSubmenu: React.FC<{ items: NavLink[]; isOpen: boolean }> = ({ items
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="block px-4 py-2.5 text-sm text-gray-200 hover:text-primary-500 hover:bg-white/5 transition-colors"
+              className="block px-4 py-2.5  text-gray-200 hover:text-primary-500 hover:bg-white/5 transition-colors"
             >
               {item.label}
             </a>
@@ -106,7 +106,7 @@ const DesktopNavItem: React.FC<{ link: NavLink }> = ({ link }) => {
 
   return (
     <li
-      className="relative h-full flex items-center group"
+      className="relative h-full  flex items-center group"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
@@ -123,14 +123,14 @@ const DesktopNavItem: React.FC<{ link: NavLink }> = ({ link }) => {
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="px-3 py-2 text-sm font-medium text-white hover:text-primary-500 transition-colors"
+          className="px-3 py-2  text-white hover:text-primary-500 transition-colors"
         >
           {link.label}
         </a>
       ) : (
         <GatsbyLink
           to={link.href || "#"}
-          className="px-3 py-2 text-sm font-medium text-white hover:text-primary-500 transition-colors"
+          className="px-3 py-2 font-medium text-white hover:text-primary-500 transition-colors"
         >
           {link.label}
         </GatsbyLink>
@@ -178,7 +178,7 @@ const MobileNavItem: React.FC<{ link: NavLink; onNavigate: () => void }> = ({ li
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={onNavigate}
-                      className="block px-4 py-2 text-sm text-gray-300 hover:text-primary-500 hover:translate-x-1 transition-all"
+                      className="block px-4 py-2 text-sm para text-gray-300 hover:text-primary-500 hover:translate-x-1 transition-all"
                     >
                       {subitem.label}
                     </a>
@@ -186,7 +186,7 @@ const MobileNavItem: React.FC<{ link: NavLink; onNavigate: () => void }> = ({ li
                     <GatsbyLink
                       to={subitem.href || "#"}
                       onClick={onNavigate}
-                      className="block px-4 py-2 text-sm text-gray-300 hover:text-primary-500 hover:translate-x-1 transition-all"
+                      className="block px-4 py-2 text-sm para text-gray-300 hover:text-primary-500 hover:translate-x-1 transition-all"
                     >
                       {subitem.label}
                     </GatsbyLink>
@@ -203,7 +203,7 @@ const MobileNavItem: React.FC<{ link: NavLink; onNavigate: () => void }> = ({ li
           target="_blank"
           rel="noopener noreferrer"
           onClick={onNavigate}
-          className="block px-4 py-4 text-white text-base font-medium hover:bg-white/5 hover:text-primary-500 transition-colors"
+          className="block px-4 py-4 text-white para text-base font-medium hover:bg-white/5 hover:text-primary-500 transition-colors"
         >
           {link.label}
         </a>
@@ -211,7 +211,7 @@ const MobileNavItem: React.FC<{ link: NavLink; onNavigate: () => void }> = ({ li
         <GatsbyLink
           to={link.href || "#"}
           onClick={onNavigate}
-          className="block px-4 py-4 text-white text-base font-medium hover:bg-white/5 hover:text-primary-500 transition-colors"
+          className="block px-4 py-4 text-white para text-base font-medium hover:bg-white/5 hover:text-primary-500 transition-colors"
         >
           {link.label}
         </GatsbyLink>
@@ -244,14 +244,14 @@ export default function Header() {
             <StaticImage
               src="../images/logo2026.png"
               alt="MERCon 2025 Logo"
-              className="w-40 md:w-52 h-auto object-contain"
+              className="w-40 md:w-52 text-md para h-auto object-contain"
               placeholder="none"
               loading="eager"
             />
           </GatsbyLink>
 
           {/* Desktop Navigation (Hidden on Mobile) */}
-          <div className="hidden lg:flex flex-1 justify-end h-full">
+          <div className="hidden lg:flex flex-1 text-md para justify-end h-full">
             <ul className="flex gap-1 items-center h-full">
               {navLinks.map((link, index) => (
                 <DesktopNavItem key={index} link={link} />

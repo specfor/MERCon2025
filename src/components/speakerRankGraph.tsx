@@ -19,13 +19,13 @@ const SpeakerRankGraph: React.FC<{ speakerLevels: SpeakerLevel[] }> = ({ speaker
               level.levelName.map((name, idx) => (
                 <h2
                   key={idx}
-                  className="text-2xl md:text-3xl font-bold text-gray-800 uppercase tracking-widest text-center"
+                  className="text-2xl md:text-3xl font-bold text-white uppercase topic tracking-widest text-center"
                 >
                   {name}
                 </h2>
               ))
             ) : (
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-800 uppercase tracking-widest text-center">
+              <h2 className="text-2xl md:text-3xl font-bold topic text-white uppercase tracking-widest text-center">
                 {level.levelName}
               </h2>
             )}

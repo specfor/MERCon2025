@@ -44,7 +44,7 @@ const IndexPage: React.FC<PageProps> = () => {
             />
           </div>
 
-          <h3 className="px-5 text-sm md:text-md font-normal leading-relaxed max-w-3xl text-gray-200 mb-8">
+          <h3 className="px-5 text-md md:text-lg font-normal leading-relaxed max-w-3xl text-gray-200 mb-8">
             Moratuwa Engineering Research Conference 2026 (MERCon 2026) is the 12<sup>th</sup> international conference
             organized by the Engineering Research Unit, University of Moratuwa. MERCon solicits research papers
             describing significant and innovative research contributions in all disciplines of engineering.
@@ -54,7 +54,7 @@ const IndexPage: React.FC<PageProps> = () => {
             <div className="px-6 py-4 bg-primary-500/10 border border-primary-500 rounded-4xl">
               <div className="flex items-center gap-2 text-white font-semibold">
                 <i className="fas fa-calendar text-primary-500"></i>
-                13<sup>th</sup> and 14<sup>th</sup> August 2026
+                13<sup className="-ml-2">th</sup> and 14<sup className="-ml-2">th</sup> August 2026
               </div>
             </div>
 

@@ -25,7 +25,7 @@ const GridTile: React.FC<{
           {category}
         </span>
       )}
-      <h3 className="text-xl font-bold text-white font-sans">{title}</h3>
+      <h3 className="text-xl font-bold text-white para">{title}</h3>
     </div>
   </div>
 );

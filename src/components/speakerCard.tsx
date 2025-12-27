@@ -15,7 +15,7 @@ export interface Speaker {
 
 const SpeakerCard: React.FC<{ speaker: Speaker }> = ({ speaker }) => {
   return (
-    <div className="group relative flex flex-col items-center">
+    <div className="group relative para flex flex-col items-center">
       {/* 1. Image Wrapper with "Curved Sector" Background */}
       <div className="relative w-64 h-64 mb-8">
         {/* The Decorative Curved Sector (Behind) */}
@@ -56,14 +56,14 @@ const SpeakerCard: React.FC<{ speaker: Speaker }> = ({ speaker }) => {
 
       {/* 2. Content Info */}
       <div className="text-center px-4 max-w-sm">
-        <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">
+        <h3 className="text-2xl font-bold text-gray-900 my-4 para text-xl text-white transition-colors">
           {speaker.name}
         </h3>
 
         {speaker.university && (
-          <div className="flex items-center justify-center gap-2 text-primary-600 font-medium mb-3 text-sm">
+          <div className="flex items-center justify-center para gap-2 text-primary-500 font-medium mb-3 text-sm">
             <MapPin size={14} />
-            <span className="uppercase tracking-wide">{speaker.university}</span>
+            <span className="uppercase para tracking-wide">{speaker.university}</span>
           </div>
         )}
 
@@ -74,7 +74,7 @@ const SpeakerCard: React.FC<{ speaker: Speaker }> = ({ speaker }) => {
           </div>
         )}
 
-        {speaker.bio && <p className="text-gray-500 leading-relaxed text-sm">{speaker.bio}</p>}
+        {speaker.bio && <p className="text-gray-500 para leading-relaxed text-sm">{speaker.bio}</p>}
       </div>
     </div>
   );

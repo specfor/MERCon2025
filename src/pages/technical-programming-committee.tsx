@@ -811,7 +811,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-];
+].sort((a, b) => a.levelName.localeCompare(b.levelName));
 
 const conferenceChairLevels: SpeakerLevel[] = [
   {

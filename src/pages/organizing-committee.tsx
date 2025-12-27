@@ -168,7 +168,7 @@ const speakerLevels: SpeakerLevel[] = [
         name: "Dr. Aruna Bandara",
         image: (
           <StaticImage
-            src="../images/committee/Dr.Aruna.Bandara.png"
+            src="../images\committee\Dr.Aruna.Bandara.png"
             alt="Dr. Aruna Bandara"
             className="w-full h-full"
             objectFit="cover"
@@ -340,10 +340,23 @@ const speakerLevels: SpeakerLevel[] = [
 // --- Main Section Component ---
 const OrganizingCommittee = () => {
   return (
-    <section className="w-full py-24 px-4 md:px-8 mt-10 bg-white">
+    <section className="w-full py-24 px-4 md:px-8 mt-16">
+      <div
+        className="fixed inset-0 -z-20"
+        style={{
+          background: `
+          radial-gradient(
+            circle at center,
+            rgb(14, 46, 32) 0%,
+            rgb(8, 26, 18) 45%,
+            rgb(2, 6, 4) 80%
+          )
+          `,
+        }}
+      />
       <div className="max-w-7xl mx-auto">
         {/* Main Page Title */}
-        <SectionHeader headerText="Organizing Committee" textClass="text-black" />
+        <SectionHeader headerText="Organizing Committee" textClass="text-white" />
 
         <SpeakerRankGraph speakerLevels={speakerLevels} />
       </div>

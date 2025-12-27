@@ -1085,15 +1085,28 @@ const ieeeSriLankaChapterMembers: SpeakerLevel[] = [
 // --- Main Section Component ---
 const TechnicalProgrammingCommittee = () => {
   return (
-    <section className="w-full py-24 px-4 md:px-8 mt-10 bg-white">
+    <section className="w-full py-24 px-4 md:px-8 mt-16">
+      <div
+        className="fixed inset-0 -z-20"
+        style={{
+          background: `
+          radial-gradient(
+            circle at center,
+            rgb(14, 46, 32) 0%,
+            rgb(8, 26, 18) 45%,
+            rgb(2, 6, 4) 80%
+          )
+          `,
+        }}
+      />
       <div className="max-w-7xl mx-auto">
         {/* Main Page Title */}
-        <SectionHeader headerText="Technical Programming Committee" textClass="text-black" />
+        <SectionHeader headerText="Technical Programming Committee" textClass="text-white" />
 
         <SpeakerRankGraph speakerLevels={conferenceChairLevels} />
 
         <div className="my-20"></div>
-        <SectionHeader headerText="Track Co-Chairs" textClass="text-black" />
+        <SectionHeader headerText="Track Co-Chairs" textClass="text-white" />
 
         <SpeakerRankGraph speakerLevels={trackCoChairLevels} />
 

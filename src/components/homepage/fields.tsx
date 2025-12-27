@@ -147,6 +147,10 @@ const trackImages = {
 
 const ResearchFields: React.FC = () => (
   <div className="max-w-5xl mx-auto z-4">
+    <div
+  className="absolute top-0 left-0 w-full h-[40vh] pointer-events-none z-0"
+  style={{ background: "linear-gradient(to bottom, rgb(25,25,25), transparent)" }}
+></div>
     <h3 className="text-base para md:text-xl text-xl text-white text-center mb-12">
       MERCon 2025 solicits research papers describing significant & innovative research contributions to following areas
       of engineering. We will invite submissions on a wide range of research topics.

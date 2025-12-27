@@ -4,27 +4,23 @@ import SectionHeader from "../sectionHeader";
 
 const OrganizerSection = () => {
   const glassCardClasses = `
-    group
-    relative
-    overflow-hidden
-    rounded-2xl
-    border border-white/20
-    bg-white/40
-    md:bg-white/40
-    backdrop-blur-md
-    p-2
-    h-64
-    md:h-72
-    flex items-center justify-center
-    shadow-xl shadow-black/20
-    transition-all duration-500
-    ease-out
-    hover:scale-[1.02]
-    hover:bg-white/80
-    hover:shadow-2xl
-    hover:shadow-primary-500/20
-    hover:border-white/30
-  `;
+  group
+  relative
+  overflow-hidden
+  rounded-2xl
+  border border-white/20
+  bg-white/20
+  backdrop-blur-xl
+  p-2
+  h-64
+  md:h-72
+  flex items-center justify-center
+  shadow-xl shadow-black/20
+  transition-all duration-500 ease-out
+  hover:bg-white/30
+  hover:border-white/40
+`;
+
 
   const imageProps: { className: string; objectFit: "contain"; placeholder?: "blurred" } = {
     className:
@@ -57,7 +53,12 @@ const OrganizerSection = () => {
   return (
     <section className="w-full py-24 px-6 bg-transparent md:px-12 relative overflow-hidden">
     {/* Bottom Gradient Overlay */}
-    <div className="absolute bottom-0 left-0 w-full h-[40vh] bg-gradient-to-t from-black/90 to-transparent pointer-events-none z-0"></div>
+    <div
+  className="absolute bottom-0 left-0 w-full h-[40vh] pointer-events-none -z-20"
+  style={{ background: "linear-gradient(to top, rgb(25,25,25), transparent)" }}
+></div>
+
+
 
       {/* Colorful blurred blobs in background */}
       {/* <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-500/30 rounded-full mix-blend-overlay filter blur-3xl opacity-30 animate-pulse-slow"></div>

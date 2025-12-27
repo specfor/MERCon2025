@@ -30,7 +30,7 @@ const navLinks: NavLink[] = [
     label: "For Authors",
     submenu: [
       { label: "Call for Papers", href: "/call-for-papers" },
-      { label: "Important Dates", href: "/important_dates" },
+      { label: "Important Dates", href: "/important-dates" },
       { label: "Author Instructions", href: "/author-instructions" },
       { label: "Camera Ready Paper Instructions", href: "/camera_ready_paper_instructions" },
     ],

@@ -45,10 +45,17 @@ const navLinks: NavLink[] = [
   {
     label: "Past Proceedings",
     submenu: [
+      { label: "2025", href: "https://ieeexplore.ieee.org/xpl/conhome/11216964/proceeding" },
       { label: "2024", href: "https://ieeexplore.ieee.org/xpl/conhome/10688402/proceeding" },
       { label: "2023", href: "https://ieeexplore.ieee.org/xpl/conhome/10355380/proceeding" },
       { label: "2022", href: "https://ieeexplore.ieee.org/xpl/conhome/9906100/proceeding" },
-      // ... allow more items
+      { label: "2021", href: "https://ieeexplore.ieee.org/xpl/conhome/9525629/proceeding" },
+      { label: "2020", href: "https://ieeexplore.ieee.org/xpl/conhome/9179991/proceeding" },
+      { label: "2019", href: "https://ieeexplore.ieee.org/xpl/conhome/8807126/proceeding" },
+      { label: "2018", href: "https://ieeexplore.ieee.org/xpl/conhome/8410204/proceeding" },
+      { label: "2017", href: "https://ieeexplore.ieee.org/xpl/conhome/7972818/proceeding" },
+      { label: "2016", href: "https://ieeexplore.ieee.org/xpl/conhome/7469533/proceeding" },
+      { label: "2015", href: "https://ieeexplore.ieee.org/xpl/conhome/7105793/proceeding" },
     ],
   },
   {

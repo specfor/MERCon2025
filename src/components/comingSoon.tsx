@@ -18,9 +18,9 @@ interface ComingSoonProps {
 
 const ComingSoon: React.FC<ComingSoonProps> = ({
   title = "Coming Soon",
-  subtitle = "Something exciting is on the way",
+  subtitle = "This section is currently under development",
   targetDate,
-  description = "We're working hard to bring you something amazing. Stay tuned!",
+  description = "We are currently preparing comprehensive information for this section. Please check back soon or subscribe to our updates to be notified when new content becomes available. For immediate inquiries, please contact our organizing committee.",
   showCountdown = true,
   className = "",
 }) => {
@@ -73,7 +73,9 @@ const ComingSoon: React.FC<ComingSoonProps> = ({
   );
 
   return (
-    <div className={`relative w-full min-h-[600px] flex items-center justify-center overflow-hidden ${className}`}>
+    <div
+      className={`relative w-full min-h-[600px] flex items-center justify-center overflow-hidden py-32 ${className}`}
+    >
       {/* Animated Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-slate-900 to-gray-950">
         {/* Animated Gradient Orbs */}

@@ -30,9 +30,9 @@ const speakersData: (Speaker & { desc?: string[] })[] = [
     university:
       "FortisBC Smart Energy Chair; Associate Director, Clean Energy Research Centre (CERC), University of British Columbia (UBC), Canada",
     desc: [
-      "Prof. Kasun Hewage is a Full-Professor and FortisBC Smart Energy Chair in the School of Engineering at the University of British Columbia (UBC). He is also the Associate Director of UBC’s Clean Energy Research Centre (CERC) and Director of the Life Cycle Management Laboratory (LCML).  Prof. Hewage has multidisciplinary industrial experience in Canada and internationally. Before joining UBC in 2008, Professor Hewage worked as a business management cost specialist in the oil and gas industry and as a civil engineer on hydropower and infrastructure development projects.",
-      "Prof. Hewage’s research specifically focuses on integrating life cycle thinking into urban development, energy policy, and infrastructure planning. The uniqueness of his research lies in its ability to go beyond standard assessments by analyzing products and processes from material extraction through end-of-life. His research team has assisted governments and infrastructure developers in achieving low-impact, net-zero development in existing and planned communities. He currently leads collaborative research projects on the life-cycle management of built assets, green construction, and smart energy options. Dr. Hewage’s novel contributions to the body of knowledge in integrated sustainable community planning, with life cycle thinking, are defining key benchmarks and pathways for the Canadian and global construction industry. Prof. Hewage has authored/co-authored more than 300 publications in peer-reviewed academic journals, as well as numerous book chapters and conference proceedings at national/international conferences.",
-      "Prof. Hewage is registered as a Professional Engineer in British Columbia, Canada. He is also a Fellow of the Canadian Society of Civil Engineering (FCSCE) and a Fellow of the Engineering Institute of Canada (FEIC).",
+      "Prof. Kasun Hewage is a Full-Professor and FortisBC Smart Energy Chair in the School of Engineering at the University of British Columbia (UBC). He is also the Associate Director of UBC’s Clean Energy Research Centre (CERC) and Director of the Life Cycle Management Laboratory (LCML).",
+      "His research focuses on integrating life cycle thinking into urban development, energy policy, and infrastructure planning, enabling governments and infrastructure developers to achieve low-impact, net-zero development.",
+      "Prof. Hewage has authored over 300 publications in peer-reviewed journals, book chapters, and international conference proceedings. He is a Professional Engineer in British Columbia, Canada, and a Fellow of multiple engineering institutions.",
     ],
     image: (
       <StaticImage
@@ -48,49 +48,89 @@ const speakersData: (Speaker & { desc?: string[] })[] = [
 
 const KeynoteSpeakersPage = () => {
   return (
-    <section className="w-full py-20 px-6 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center my-16">
-          <SectionHeader headerText="Keynote Speakers" textClass="text-black" />
-          <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-            We are honored to host distinguished experts who are shaping the future of technology and engineering.
-          </p>
-        </div>
+    <div className="relative w-full min-h-screen overflow-hidden">
+      
+      {/* ===== FIXED GREEN BACKGROUND ===== */}
+      <div
+        className="fixed inset-0 -z-20"
+        style={{
+          background: `
+          radial-gradient(
+            circle at center,
+            rgb(14, 46, 32) 0%,
+            rgb(8, 26, 18) 45%,
+            rgb(2, 6, 4) 80%
+          )
+          `,
+        }}
+      />
 
-        {/* Speakers Alternating Layout */}
-        <div className="flex flex-col gap-20">
-          {speakersData.map((speaker, idx) => {
-            const isEven = idx % 2 === 0;
-            return (
-              <div
-                key={speaker.name}
-                className={`flex flex-col md:flex-row justify-center items-start md:items-center gap-10 ${
-                  isEven ? "md:flex-row" : "md:flex-row-reverse"
-                }`}
-              >
-                <SpeakerCard speaker={speaker} />
-
-                {/* Description */}
-                <div className="w-full md:w-1/2">
-                  {speaker.desc && speaker.desc.length ? (
-                    <div className="space-y-4 text-justify">
-                      {speaker.desc.map((para, i) => (
-                        <p key={i} className="text-gray-700 leading-relaxed">
-                          {para}
-                        </p>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-gray-700 leading-relaxed">Details will be announced soon.</p>
-                  )}
-                </div>
-              </div>
-            );
-          })}
-        </div>
+      {/* Optional image background (commented safely) */}
+      {/*
+      <div className="fixed inset-0 -z-10">
+        <StaticImage
+          src="../images/hero-back.png"
+          alt="Background"
+          className="w-full h-full object-cover"
+          quality={90}
+          formats={["auto", "webp", "avif"]}
+          placeholder="blurred"
+          loading="eager"
+        />
       </div>
-    </section>
+      */}
+      {/* ===== CONTENT ===== */}
+      <section className="relative w-full py-24 px-6 overflow-hidden z-40">
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center my-16">
+            <SectionHeader headerText="Keynote Speakers" textClass="text-white" />
+            <p className="text-gray-400 text-lg max-w-4xl para mx-auto mt-4">
+              We are honored to host distinguished experts who are shaping the future of technology and engineering.
+            </p>
+          </div>
+
+          {/* Speakers */}
+          <div className="flex flex-col gap-24">
+            {speakersData.map((speaker, idx) => {
+              const isEven = idx % 2 === 0;
+
+              return (
+                <div
+                  key={speaker.name}
+                  className={`flex flex-col md:flex-row gap-12 items-start md:items-center ${
+                    isEven ? "md:flex-row" : "md:flex-row-reverse"
+                  }`}
+                >
+                  {/* Speaker Card */}
+                  <SpeakerCard speaker={speaker} />
+
+                  {/* Description */}
+                  <div className="w-full para md:w-1/2">
+                    {speaker.desc && speaker.desc.length ? (
+                      <div className="space-y-5 text-justify">
+                        {speaker.desc.map((para, i) => (
+                          <p
+                            key={i}
+                            className="text-gray-300 para leading-relaxed text-sm md:text-base"
+                          >
+                            {para}
+                          </p>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-gray-400 para leading-relaxed">
+                        Details will be announced soon.
+                      </p>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
 

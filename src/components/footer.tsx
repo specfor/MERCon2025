@@ -151,9 +151,7 @@ export default function Footer() {
 
       {/* Copyright Section */}
       <div className="border-t border-primary-500/20 px-6 py-4 bg-black/80">
-        <p className="text-center text-xs text-gray-400 tracking-wide">
-          &copy; {currentYear} MERCon 2026 All rights reserved.
-        </p>
+        <p className="text-center text-xs text-gray-400 tracking-wide">&copy;MERCon 2026 All rights reserved.</p>
       </div>
     </footer>
   );

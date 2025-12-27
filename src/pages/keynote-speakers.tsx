@@ -49,9 +49,24 @@ const speakersData: (Speaker & { desc?: string[] })[] = [
 const KeynoteSpeakersPage = () => {
   return (
     <div className="relative w-full min-h-screen overflow-hidden">
-      {/* ===== FIXED BACKGROUND (SAME AS HOME) ===== */}
-      <div className="fixed inset-0 bg-black -z-20"></div>
+      
+      {/* ===== FIXED GREEN BACKGROUND ===== */}
+      <div
+        className="fixed inset-0 -z-20"
+        style={{
+          background: `
+          radial-gradient(
+            circle at center,
+            rgb(14, 46, 32) 0%,
+            rgb(8, 26, 18) 45%,
+            rgb(2, 6, 4) 80%
+          )
+          `,
+        }}
+      />
 
+      {/* Optional image background (commented safely) */}
+      {/*
       <div className="fixed inset-0 -z-10">
         <StaticImage
           src="../images/hero-back.png"
@@ -63,13 +78,13 @@ const KeynoteSpeakersPage = () => {
           loading="eager"
         />
       </div>
-
+      */}
       {/* ===== CONTENT ===== */}
       <section className="relative w-full py-24 px-6 overflow-hidden z-40">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center my-16">
-            <SectionHeader headerText="Keynote Speakers" textClass="text-gray-200" />
+            <SectionHeader headerText="Keynote Speakers" textClass="text-white" />
             <p className="text-gray-400 text-lg max-w-4xl para mx-auto mt-4">
               We are honored to host distinguished experts who are shaping the future of technology and engineering.
             </p>

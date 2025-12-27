@@ -109,7 +109,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
         university: "Queensland University of Technology",
         image: (
           <StaticImage
-            src="../images/programming-committee/Dr.Akila.Pemasiri.png"
+            src="../images\programming-committee\Dr.Akila.Pemasiri.png"
             alt="Dr. Akila Pemasiri"
             className="w-full h-full"
             objectFit="cover"
@@ -139,7 +139,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
         university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
-            src="../images/programming-committee/Dr.Nisansa.de.Silva.png"
+            src="../images/programming-committee/Dr.Nisansa.png"
             alt="Dr. Nisansa de Silva"
             className="w-full h-full"
             objectFit="cover"
@@ -151,7 +151,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
         university: "Senior AI (NLP) Engineer, MathWorks",
         image: (
           <StaticImage
-            src="../images/programming-committee/Dr.Mokanarangan.Thayaparan.png"
+            src="../images/programming-committee/Dr.Mohan.png"
             alt="Dr. Mokanarangan  Thayaparan"
             className="w-full h-full"
             objectFit="cover"
@@ -163,7 +163,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
         university: "Mathematical and Computational Sciences,  Massey University",
         image: (
           <StaticImage
-            src="../images/programming-committee/Dr.Surangika.Ranathunga.png"
+            src="../images\programming-committee\Dr.Surangika.png" 
             alt="Dr Surangika Ranathunga"
             className="w-full h-full"
             objectFit="cover"
@@ -379,10 +379,10 @@ const trackCoChairLevels: SpeakerLevel[] = [
         university: "Chief AI Scientist, EyRIS",
         image: (
           <StaticImage
-            src="../images/programming-committee/Dr.Gilbert.Lim.png"
+            src="../images\programming-committee\Dr.Gilbert.Lim.png"
             alt="Dr Gilbert Lim"
             className="w-full h-full"
-            objectFit="cover"
+            objectFit="contain"
           />
         ),
       },
@@ -580,7 +580,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
             src="../images/programming-committee/Dr.Wageesha.Manamperi.png"
             alt="Dr. Wageesha Manamperi"
             className="w-full h-full"
-            objectFit="cover"
+            objectFit="contain"
           />
         ),
       },

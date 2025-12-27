@@ -4,16 +4,16 @@ import SectionHeader from "../components/sectionHeader";
 import SpeakerRankGraph, { SpeakerLevel } from "../components/speakerRankGraph";
 
 const speakerLevels: SpeakerLevel[] = [
-  {
-    levelName: "Honorary Chair",
-    rank: 1,
-    speakers: [
-      {
-        name: "",
-        image: <StaticImage src="../images/committee/Prof..png" alt="" className="w-full h-full" objectFit="contain" />,
-      },
-    ],
-  },
+  // {
+  //   levelName: "Honorary Chair",
+  //   rank: 1,
+  //   speakers: [
+  //     {
+  //       name: "",
+  //       image: <StaticImage src="../images/committee/Prof..png" alt="" className="w-full h-full" objectFit="contain" />,
+  //     },
+  //   ],
+  // },
   {
     levelName: "Conference Chair",
     rank: 1,

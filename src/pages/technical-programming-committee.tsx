@@ -105,6 +105,18 @@ const trackCoChairLevels: SpeakerLevel[] = [
         ),
       },
       {
+        name: "Dr. Akila Pemasiri",
+        university: "Department of Computer Science & Engineering, University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Akila.Pemasiri.png"
+            alt="Dr. Akila Pemasiri"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
         name: "Dr. Bhagya Samarakon",
         university: "Department of Computer Science & Engineering, University of Moratuwa, Sri Lanka",
         image: (
@@ -129,6 +141,30 @@ const trackCoChairLevels: SpeakerLevel[] = [
           <StaticImage
             src="../images/programming-committee/Dr.Nisansa.de.Silva.png"
             alt="Dr. Nisansa de Silva"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Dr Mokanarangan  Thayaparan",
+        university: "Department of Computer Science & Engineering, University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Mokanarangan.Thayaparan.png"
+            alt="Dr Mokanarangan  Thayaparan"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Dr Surangika Ranathunga",
+        university: "",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Surangika.Ranathunga.png"
+            alt="Dr Surangika Ranathunga"
             className="w-full h-full"
             objectFit="cover"
           />
@@ -281,7 +317,6 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Robotics and Intelligent Systems",
     rank: 9,
@@ -324,13 +359,48 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Image Processing and Computer Vision",
     rank: 10,
-    speakers: [],
+    speakers: [
+      {
+        name: "Dr. Thanuja Ambegoda",
+        university: "University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Thanuja.Ambegoda.png"
+            alt="Dr. Thanuja Ambegoda"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Dr Gilbert Lim",
+        university: "University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Gilbert.Lim.png"
+            alt="Dr Gilbert Lim"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Dr. Sanka Rasnayaka",
+        university: "",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Sanka.Rasnayaka.png"
+            alt="Dr. Sanka Rasnayaka"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+    ],
   },
-
   {
     levelName: "Materials Science and Engineering",
     rank: 11,
@@ -361,7 +431,6 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Construction Engineering and Risk Management",
     rank: 12,
@@ -404,7 +473,6 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Mining, Earth Resources Engineering",
     rank: 13,
@@ -447,7 +515,6 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Communication and Signal Processing",
     rank: 14,
@@ -465,12 +532,24 @@ const trackCoChairLevels: SpeakerLevel[] = [
         ),
       },
       {
-        name: "Dr Samiru Gayan",
+        name: "Dr. Samiru Gayan",
         university: "Department of Electronic And Telecommunication Engineering, University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Samiru.Gayan.png"
-            alt="Dr Samiru Gayan"
+            alt="Dr. Samiru Gayan"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Prof. Madhusanka Liyanage",
+        university: "Department of Electronic And Telecommunication Engineering, University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Prof.Madhusanka.Liyanage.png"
+            alt="Prof. Madhusanka Liyanage"
             className="w-full h-full"
             objectFit="cover"
           />
@@ -478,18 +557,17 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Electronics, Control, and Instrumentation",
     rank: 15,
     speakers: [
       {
-        name: "Dr Sampath Perera",
+        name: "Dr. Sampath Perera",
         university: "Department of Electronic And Telecommunication Engineering, University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Sampath.Perera.png"
-            alt="Dr Sampath Perera"
+            alt="Dr. Sampath Perera"
             className="w-full h-full"
             objectFit="cover"
           />
@@ -521,7 +599,6 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Structural Engineering and Building Materials",
     rank: 16,
@@ -552,7 +629,6 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Hydraulics and Environmental Engineering",
     rank: 17,
@@ -595,7 +671,6 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Engineering Mathematics, Statistics",
     rank: 18,
@@ -626,7 +701,6 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Transportation Engineering",
     rank: 19,
@@ -669,13 +743,11 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Biomedical Engineering",
     rank: 20,
     speakers: [],
   },
-
   {
     levelName: "Geotechnical Engineering",
     rank: 21,
@@ -718,7 +790,6 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Micro/Nano Electro Mechanical Systems, Mechatronics, and Micromechatronics",
     rank: 22,
@@ -761,7 +832,6 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Software Engineering and Cloud Computing",
     rank: 23,
@@ -778,9 +848,32 @@ const trackCoChairLevels: SpeakerLevel[] = [
           />
         ),
       },
+      {
+        name: "Prof. Indika Perera",
+        university: "Department Of Computer Science & Engineering, University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Prof.Indika.Perera.png"
+            alt="Prof. Indika Perera"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Dr. Ridwan Shariffdeen",
+        university: "",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Ridwan.Shariffdeen.png"
+            alt="Dr. Ridwan Shariffdeen"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
     ],
   },
-
   {
     levelName: "Technology Management",
     rank: 24,
@@ -859,7 +952,7 @@ const conferenceChairLevels: SpeakerLevel[] = [
         university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
-            src="../images/programming-committee/Dr.Dumith.Jayathilaka.png"
+            src="../images/programming-committee/Dr.Dumith.Jayathilake.png"
             alt="Dr. Dumith Jayathilaka"
             className="w-full h-full"
             objectFit="cover"

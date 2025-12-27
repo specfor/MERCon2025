@@ -16,7 +16,7 @@ const navLinks: NavLink[] = [
     label: "For Attendees",
     submenu: [
       { label: "Registration", href: "/registration" },
-      { label: "Program", href: "/conferenceSchedule" },
+      { label: "Program", href: "/conference-schedule" },
     ],
   },
   {
@@ -30,32 +30,39 @@ const navLinks: NavLink[] = [
     label: "For Authors",
     submenu: [
       { label: "Call for Papers", href: "/call-for-papers" },
-      { label: "Important Dates", href: "/important_dates" },
+      { label: "Important Dates", href: "/important-dates" },
       { label: "Author Instructions", href: "/author-instructions" },
-      { label: "Camera Ready Paper Instructions", href: "/camera_ready_paper_instructions" },
+      { label: "Camera Ready Paper Instructions", href: "/camera-ready-paper-instructions" },
     ],
   },
   {
     label: "Explore Programs",
     submenu: [
-      { label: "Workshops", href: "/workshops_updated" },
-      { label: "Special Sessions", href: "/special_sessions" },
+      { label: "Workshops", href: "/workshops" },
+      { label: "Special Sessions", href: "/special-sessions" },
     ],
   },
   {
     label: "Past Proceedings",
     submenu: [
+      { label: "2025", href: "https://ieeexplore.ieee.org/xpl/conhome/11216964/proceeding" },
       { label: "2024", href: "https://ieeexplore.ieee.org/xpl/conhome/10688402/proceeding" },
       { label: "2023", href: "https://ieeexplore.ieee.org/xpl/conhome/10355380/proceeding" },
       { label: "2022", href: "https://ieeexplore.ieee.org/xpl/conhome/9906100/proceeding" },
-      // ... allow more items
+      { label: "2021", href: "https://ieeexplore.ieee.org/xpl/conhome/9525629/proceeding" },
+      { label: "2020", href: "https://ieeexplore.ieee.org/xpl/conhome/9179991/proceeding" },
+      { label: "2019", href: "https://ieeexplore.ieee.org/xpl/conhome/8807126/proceeding" },
+      { label: "2018", href: "https://ieeexplore.ieee.org/xpl/conhome/8410204/proceeding" },
+      { label: "2017", href: "https://ieeexplore.ieee.org/xpl/conhome/7972818/proceeding" },
+      { label: "2016", href: "https://ieeexplore.ieee.org/xpl/conhome/7469533/proceeding" },
+      { label: "2015", href: "https://ieeexplore.ieee.org/xpl/conhome/7105793/proceeding" },
     ],
   },
   {
     label: "Destination",
     submenu: [
       { label: "Things to see in Sri Lanka", href: "/things-to-see" },
-      { label: "Visa Information", href: "#" },
+      // { label: "Visa Information", href: "#" },
     ],
   },
 ];

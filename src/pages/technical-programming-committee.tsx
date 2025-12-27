@@ -10,7 +10,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
     speakers: [
       {
         name: "Dr. Thamasha Samarasinghe",
-        university: "Department of Mechanical Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Thamasha.Samarasinghe.png"
@@ -22,7 +22,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Prof. R.A.R.C. Gopura",
-        university: "Department of Mechanical Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/R.A.R.C.Gopura.png"
@@ -34,7 +34,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr Guohong Tian",
-        university: "Senior Lecturer in Automotive Engineering, University of Surrey, UK",
+        university: "University of Surrey, UK",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Guohong.Tian.png"
@@ -52,7 +52,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
     speakers: [
       {
         name: "Dr. Manuja Gunawardana",
-        university: "Department of Electrical Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Manuja.Gunawardane.png"
@@ -64,7 +64,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr. Charithri Yapa",
-        university: "Department of Electrical Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Charithri.Yapa.png"
@@ -76,7 +76,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr. Mohasha Sampath",
-        university: "Department of Electrical Engineering, University of Moratuwa, Sri Lanka",
+        university: "Nanyang Technological University, Singapore",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Mohasha.Sampath.png"
@@ -94,7 +94,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
     speakers: [
       {
         name: "Dr. Sandareka Wickramanayake",
-        university: "Department of Computer Science & Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Sandareka.Wickramanayake.png"
@@ -105,8 +105,20 @@ const trackCoChairLevels: SpeakerLevel[] = [
         ),
       },
       {
+        name: "Dr. Akila Pemasiri",
+        university: "Queensland University of Technology",
+        image: (
+          <StaticImage
+            src="../images\programming-committee\Dr.Akila.Pemasiri.png"
+            alt="Dr. Akila Pemasiri"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
         name: "Dr. Bhagya Samarakon",
-        university: "Department of Computer Science & Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Bhagya.Samarakon.png"
@@ -124,11 +136,35 @@ const trackCoChairLevels: SpeakerLevel[] = [
     speakers: [
       {
         name: "Dr. Nisansa de Silva",
-        university: "Department of Computer Science & Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
-            src="../images/programming-committee/Dr.Nisansa.de.Silva.png"
+            src="../images/programming-committee/Dr.Nisansa.png"
             alt="Dr. Nisansa de Silva"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Dr. Mokanarangan  Thayaparan",
+        university: "Senior AI (NLP) Engineer, MathWorks",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Mohan.png"
+            alt="Dr. Mokanarangan  Thayaparan"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Dr Surangika Ranathunga",
+        university: "Mathematical and Computational Sciences,  Massey University",
+        image: (
+          <StaticImage
+            src="../images\programming-committee\Dr.Surangika.png" 
+            alt="Dr Surangika Ranathunga"
             className="w-full h-full"
             objectFit="cover"
           />
@@ -142,7 +178,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
     speakers: [
       {
         name: "Prof. E. A. S. K. Fernando",
-        university: "Department of Textile & Apparel Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Prof.E.A.S.K.Fernando.png"
@@ -154,7 +190,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Prof. (Mr.) S.A. Ariadurai",
-        university: "Department of Textile & Apparel Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Prof.S.A.Ariadurai.png"
@@ -166,7 +202,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr. Nandula Wanasekara",
-        university: "Xplora Ventures Ltd., 69 Gracefield Road, Lower Hutt, New Zealand",
+        university: "Xplora Ventures Ltd., New Zealand",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Nandula.Wanasekara.png"
@@ -184,7 +220,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
     speakers: [
       {
         name: "Dr. Hiran Chathuranga",
-        university: "Department Of Chemical & Process Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Hiran.Chathuranga.png"
@@ -196,8 +232,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr. Valentina Zaccaria",
-        university:
-          "Division of Sustainable Energy Systems, School of Business Society and Engineering, Mälardalen University, Eskilstuna, Sweden",
+        university: "Mälardalen University, Sweden",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Valentina.Zaccaria.png"
@@ -215,7 +250,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
     speakers: [
       {
         name: "Prof. H. Niles Perera",
-        university: "Department Of Transport Management & Logistics Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Prof.H.Niles.Perera.png"
@@ -227,7 +262,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Prof. Behnam Fahimnia",
-        university: "",
+        university: "University of Sydney, Australia",
         image: (
           <StaticImage
             src="../images/programming-committee/Prof.Behnam.Fahimnia.png"
@@ -269,7 +304,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr. Rajeev Ruparathna",
-        university: "",
+        university: "University of Windsor, Canada",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Rajeev.Ruparathna.png"
@@ -281,7 +316,6 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Robotics and Intelligent Systems",
     rank: 9,
@@ -312,7 +346,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr Viraj Muthugala",
-        university: "",
+        university: "Singapore University of Technology and Design, Singapore",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Viraj.Muthugala.png"
@@ -324,20 +358,55 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Image Processing and Computer Vision",
     rank: 10,
-    speakers: [],
+    speakers: [
+      {
+        name: "Dr. Thanuja Ambegoda",
+        university: "University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Thanuja.Ambegoda.png"
+            alt="Dr. Thanuja Ambegoda"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Dr Gilbert Lim",
+        university: "Chief AI Scientist, EyRIS",
+        image: (
+          <StaticImage
+            src="../images\programming-committee\Dr.Gilbert.Lim.png"
+            alt="Dr Gilbert Lim"
+            className="w-full h-full"
+            objectFit="contain"
+          />
+        ),
+      },
+      {
+        name: "Dr. Sanka Rasnayaka",
+        university: "National University of Singapore, Singapore",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Sanka.Rasnayaka.png"
+            alt="Dr. Sanka Rasnayaka"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+    ],
   },
-
   {
     levelName: "Materials Science and Engineering",
     rank: 11,
     speakers: [
       {
         name: "Dr Aravinda Abeygunawardane",
-        university: "Department Of Materials Science & Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr. A.A.G.A.Abeygunawardane.png"
@@ -349,7 +418,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr Dinesh Attygalle",
-        university: "Department Of Materials Science & Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Dinesh.Attygalle.png"
@@ -361,14 +430,13 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Construction Engineering and Risk Management",
     rank: 12,
     speakers: [
       {
         name: "Dr. Mohamed Nihaaj",
-        university: "Department Of Civil Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Mohamed.Nihaaj.png"
@@ -380,7 +448,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Prof. Rangika Halwatura",
-        university: "Department Of Civil Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Prof.Rangika.Halwatura.png"
@@ -392,7 +460,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr. Piyaruwan Kaluthantirige",
-        university: "",
+        university: "Southern Alberta Institute of Technology, Calgary",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Piyaruwan.Kaluthantirige.png"
@@ -404,14 +472,13 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Mining, Earth Resources Engineering",
     rank: 13,
     speakers: [
       {
         name: "Dr. Sureka Thiruchittampalam",
-        university: "Department Of Earth Resources Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Sureka.Thiruchittampalam.png"
@@ -423,7 +490,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Prof. Chulantha Jayawardena",
-        university: "Department Of Earth Resources Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Prof.Chulantha.Jayawardena.png"
@@ -435,7 +502,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "A/Prof. Simit Raval",
-        university: "",
+        university: "UNSW Sydney, Australia",
         image: (
           <StaticImage
             src="../images/programming-committee/Prof.Simit.Raval.png"
@@ -447,14 +514,13 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Communication and Signal Processing",
     rank: 14,
     speakers: [
       {
         name: "Prof. Tharaka Samarasinghe",
-        university: "Department of Electronic And Telecommunication Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Prof.Tharaka.Samarasinghe.png"
@@ -465,12 +531,24 @@ const trackCoChairLevels: SpeakerLevel[] = [
         ),
       },
       {
-        name: "Dr Samiru Gayan",
-        university: "Department of Electronic And Telecommunication Engineering, University of Moratuwa, Sri Lanka",
+        name: "Dr. Samiru Gayan",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Samiru.Gayan.png"
-            alt="Dr Samiru Gayan"
+            alt="Dr. Samiru Gayan"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Prof. Madhusanka Liyanage",
+        university: "",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Prof.Madhusanka.Liyanage.png"
+            alt="Prof. Madhusanka Liyanage"
             className="w-full h-full"
             objectFit="cover"
           />
@@ -478,18 +556,17 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Electronics, Control, and Instrumentation",
     rank: 15,
     speakers: [
       {
-        name: "Dr Sampath Perera",
-        university: "Department of Electronic And Telecommunication Engineering, University of Moratuwa, Sri Lanka",
+        name: "Dr. Sampath Perera",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Sampath.Perera.png"
-            alt="Dr Sampath Perera"
+            alt="Dr. Sampath Perera"
             className="w-full h-full"
             objectFit="cover"
           />
@@ -497,19 +574,19 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr. Wageesha Manamperi",
-        university: "Department of Electronic And Telecommunication Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Wageesha.Manamperi.png"
             alt="Dr. Wageesha Manamperi"
             className="w-full h-full"
-            objectFit="cover"
+            objectFit="contain"
           />
         ),
       },
       {
         name: "Dr. Chamith Wijenayake",
-        university: "",
+        university: "University Of Queensland, Australia",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Chamith.Wijenayake.png"
@@ -521,14 +598,13 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Structural Engineering and Building Materials",
     rank: 16,
     speakers: [
       {
         name: "Dr. Chathura Rajapakse",
-        university: "Department Of Civil Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Chathura.Rajapakse.png"
@@ -540,7 +616,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr. Lakshitha Fernando",
-        university: "Department Of Civil Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Lakshitha.Fernando.png"
@@ -552,14 +628,13 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Hydraulics and Environmental Engineering",
     rank: 17,
     speakers: [
       {
         name: "Dr. Chamal Perera",
-        university: "Department Of Civil Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Chamal.Perera.png"
@@ -571,7 +646,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr. (Mrs.) Sachithra Imbulana",
-        university: "Department Of Civil Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Sachithra.Imbulana.png"
@@ -583,7 +658,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr. Janaka Bamunawala",
-        university: "",
+        university: "Tohoku University, Japan",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Janaka.Bamunawala.png"
@@ -595,14 +670,13 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Engineering Mathematics, Statistics",
     rank: 18,
     speakers: [
       {
         name: "Dr. (Ms.) J.A.B.U. Jayasinghe",
-        university: "Department of Mathematics, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.J.A.B.U.Jayasinghe.png"
@@ -614,7 +688,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Ms. D.R.T. Jayasundara",
-        university: "Department of Mathematics, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.D.R.T.Jayasundara.png"
@@ -626,14 +700,13 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Transportation Engineering",
     rank: 19,
     speakers: [
       {
         name: "Dr. Chamod Hettiarachchi",
-        university: "Department Of Civil Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Chamod.Hettiarachchi.png"
@@ -645,7 +718,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr. Nalaka Jayantha",
-        university: "Department Of Civil Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Nalaka.Jayantha.png"
@@ -657,7 +730,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Prof. Wasantha Mampearachchi",
-        university: "",
+        university: "University of South Florida, US",
         image: (
           <StaticImage
             src="../images/programming-committee/Prof.Wasantha.Mampearachchi.png"
@@ -669,20 +742,18 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Biomedical Engineering",
     rank: 20,
     speakers: [],
   },
-
   {
     levelName: "Geotechnical Engineering",
     rank: 21,
     speakers: [
       {
         name: "Dr. Sampath Hewage",
-        university: "Department Of Civil Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Sampath.Hewage.png"
@@ -694,7 +765,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Prof. Nalin De Silva",
-        university: "Department Of Civil Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Prof.Nalin.De.Silva.png"
@@ -706,7 +777,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr. Dilan Robert",
-        university: "",
+        university: "RMIT University, Australia",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Dilan.Robert.png"
@@ -718,7 +789,6 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Micro/Nano Electro Mechanical Systems, Mechatronics, and Micromechatronics",
     rank: 22,
@@ -749,7 +819,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr. Dzung Viet Dao",
-        university: "",
+        university: "Griffith School Of Engineering, Australia",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Dzung.Viet.Dao.png"
@@ -761,14 +831,13 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-
   {
     levelName: "Software Engineering and Cloud Computing",
     rank: 23,
     speakers: [
       {
         name: "Dr. Kutila Gunasekara",
-        university: "Department Of Computer Science & Engineering, University of Moratuwa, Sri Lanka",
+        university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Kutila.Gunasekara.png"
@@ -778,9 +847,32 @@ const trackCoChairLevels: SpeakerLevel[] = [
           />
         ),
       },
+      {
+        name: "Prof. Indika Perera",
+        university: "University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Prof.Indika.Perera.png"
+            alt="Prof. Indika Perera"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Dr. Ridwan Shariffdeen",
+        university: "National University Of Singapore, Singapore",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Ridwan.Shariffdeen.png"
+            alt="Dr. Ridwan Shariffdeen"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
     ],
   },
-
   {
     levelName: "Technology Management",
     rank: 24,
@@ -811,7 +903,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
     ],
   },
-];
+].sort((a, b) => a.levelName.localeCompare(b.levelName));
 
 const conferenceChairLevels: SpeakerLevel[] = [
   {
@@ -859,7 +951,7 @@ const conferenceChairLevels: SpeakerLevel[] = [
         university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
-            src="../images/programming-committee/Dr.Dumith.Jayathilaka.png"
+            src="../images/programming-committee/Dr.Dumith.Jayathilake.png"
             alt="Dr. Dumith Jayathilaka"
             className="w-full h-full"
             objectFit="cover"
@@ -1005,10 +1097,10 @@ const TechnicalProgrammingCommittee = () => {
 
         <SpeakerRankGraph speakerLevels={trackCoChairLevels} />
 
-        <div className="my-20"></div>
+        {/* <div className="my-20"></div>
         <SectionHeader headerText="IEEE Sri Lanka Section Chapter Members" textClass="text-black" />
 
-        <SpeakerRankGraph speakerLevels={ieeeSriLankaChapterMembers} />
+        <SpeakerRankGraph speakerLevels={ieeeSriLankaChapterMembers} /> */}
       </div>
     </section>
   );

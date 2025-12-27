@@ -62,7 +62,6 @@ const SpeakerCard: React.FC<{ speaker: Speaker }> = ({ speaker }) => {
 
         {speaker.university && (
           <div className="flex items-center justify-center para gap-2 text-primary-500 font-medium mb-3 text-sm">
-            <MapPin size={14} />
             <span className="uppercase para tracking-wide">{speaker.university}</span>
           </div>
         )}

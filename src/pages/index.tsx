@@ -55,7 +55,7 @@ const IndexPage: React.FC<PageProps> = () => {
             <div className="px-6 py-4 bg-primary-500/10 border border-primary-500 rounded-4xl">
               <div className="flex items-center justify-center para text-xl gap-2 text-white font-semibold">
                 <i className="fas fa-calendar text-primary-500"></i>
-                2026
+                13<sup className="-ml-2">th</sup> and 14<sup className="-ml-2">th</sup> August 2026
               </div>
             </div>
 

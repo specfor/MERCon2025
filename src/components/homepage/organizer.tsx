@@ -9,8 +9,8 @@ const OrganizerSection = () => {
     overflow-hidden
     rounded-2xl
     border border-white/20
-    bg-white/20
-    md:bg-white/10
+    bg-white/40
+    md:bg-white/40
     backdrop-blur-md
     p-2
     h-64
@@ -20,7 +20,7 @@ const OrganizerSection = () => {
     transition-all duration-500
     ease-out
     hover:scale-[1.02]
-    hover:bg-white/20
+    hover:bg-white/80
     hover:shadow-2xl
     hover:shadow-primary-500/20
     hover:border-white/30

@@ -82,7 +82,7 @@ const DesktopSubmenu: React.FC<{ items: NavLink[]; isOpen: boolean }> = ({ items
               href={item.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="block px-4 py-2.5  text-gray-200 hover:text-primary-500 hover:bg-white/5 transition-colors"
+              className="block px-4 py-2.5 text-sm text-gray-200 hover:text-primary-500 hover:bg-white/5 transition-colors"
             >
               {item.label}
             </a>
@@ -130,8 +130,7 @@ const DesktopNavItem: React.FC<{ link: NavLink }> = ({ link }) => {
       ) : (
         <GatsbyLink
           to={link.href || "#"}
-          className="px-3 py-2 font-medium text-white hover:text-primary-500 transition-colors"
-        >
+          className="px-3 py-2 text-sm font-medium text-white hover:text-primary-500 transition-colors">
           {link.label}
         </GatsbyLink>
       )}
@@ -152,7 +151,7 @@ const MobileNavItem: React.FC<{ link: NavLink; onNavigate: () => void }> = ({ li
         <div>
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="w-full flex items-center justify-between px-4 py-4 text-white text-base font-medium hover:bg-white/5 transition-colors"
+            className="w-full flex items-center justify-between px-4 py-4 text-white text-sm font-medium hover:bg-white/5 transition-colors"
           >
             {link.label}
             <ChevronDown
@@ -203,8 +202,8 @@ const MobileNavItem: React.FC<{ link: NavLink; onNavigate: () => void }> = ({ li
           target="_blank"
           rel="noopener noreferrer"
           onClick={onNavigate}
-          className="block px-4 py-4 text-white para text-base font-medium hover:bg-white/5 hover:text-primary-500 transition-colors"
-        >
+          className="block px-4 py-4 text-white text-sm font-medium hover:bg-white/5 hover:text-primary-500 transition-colors"
+          >
           {link.label}
         </a>
       ) : (

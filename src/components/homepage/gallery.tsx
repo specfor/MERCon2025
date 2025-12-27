@@ -167,7 +167,7 @@ const Gallery: React.FC = () => {
   return (
     <>
       <style>{galleryStyles}</style>
-      <section id="gallery" className="w-full py-20 px-4 bg-dark-900 overflow-hidden">
+      <section id="gallery" className="w-full py-20 px-4 overflow-hidden">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">

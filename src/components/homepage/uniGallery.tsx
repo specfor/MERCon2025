@@ -25,7 +25,7 @@ const GridTile: React.FC<{
           {category}
         </span>
       )}
-      <h3 className="text-xl font-bold text-white font-sans">{title}</h3>
+      <h3 className="text-xl font-bold text-white para">{title}</h3>
     </div>
   </div>
 );
@@ -37,7 +37,7 @@ const UniGallery = () => {
         {/* Section Header */}
         <div className="mb-12 text-center">
           <SectionHeader headerText="Explore the Campus" />
-          <p className="text-gray-500 text-lg">
+          <p className="text-white/80 para text-lg">
             A look inside our world-class facilities designed for innovation and collaboration.
           </p>
         </div>

@@ -9,30 +9,31 @@ import ResearchFields from "../components/homepage/fields";
 
 // Hero background image
 const heroBackground = (
-  <div className="absolute w-full h-full">
+  <div className="fixed inset-0 -z-10">
     <StaticImage
       src="../images/hero-back.png"
       alt="Hero Background"
-      className="absolute inset-0 w-full h-full object-cover"
+      className="w-full h-full object-cover"
       quality={90}
       formats={["auto", "webp", "avif"]}
       placeholder="blurred"
-      layout="fullWidth"
       loading="eager"
     />
   </div>
 );
 
+
 const IndexPage: React.FC<PageProps> = () => {
   return (
-    <div className="w-full min-h-screen flex flex-col bg-dark-950">
+    <div className="w-full min-h-screen flex flex-col">
       {/* Hero Section */}
-      <section className="relative w-full h-screen z-10">
-        {/* Background Image */}
+      <section className="relative w-full h-screen overflow-hidden">
+        
+        {/* Fixed Background Image */}
         {heroBackground}
 
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black -z-10"></div>
+        {/* Fixed Dark Overlay */}
+        <div className="fixed w-full h-full bg-black -z-20"></div>
 
         {/* Content */}
         <div className="max-w-5xl mx-auto items-center text-center flex flex-col justify-center h-full relative z-40">
@@ -44,7 +45,7 @@ const IndexPage: React.FC<PageProps> = () => {
             />
           </div>
 
-          <h3 className="px-5 text-md md:text-lg font-normal leading-relaxed max-w-3xl text-gray-200 mb-8">
+          <h3 className="px-5 text-xl md:text-xl font-normal leading-relaxed max-w-3xl para text-gray-200 mt-4 mb-12">
             Moratuwa Engineering Research Conference 2026 (MERCon 2026) is the 12<sup>th</sup> international conference
             organized by the Engineering Research Unit, University of Moratuwa. MERCon solicits research papers
             describing significant and innovative research contributions in all disciplines of engineering.
@@ -52,14 +53,14 @@ const IndexPage: React.FC<PageProps> = () => {
 
           <div className="flex flex-col md:flex-row gap-6 justify-center items-center mb-12">
             <div className="px-6 py-4 bg-primary-500/10 border border-primary-500 rounded-4xl">
-              <div className="flex items-center gap-2 text-white font-semibold">
+              <div className="flex items-center justify-center para text-xl gap-2 text-white font-semibold">
                 <i className="fas fa-calendar text-primary-500"></i>
                 13<sup className="-ml-2">th</sup> and 14<sup className="-ml-2">th</sup> August 2026
               </div>
             </div>
 
             <div className="px-6 py-4 bg-primary-500/10 border border-primary-500 rounded-4xl">
-              <div className="flex items-center gap-2 text-white font-semibold">
+              <div className="flex items-center gap-2 text-white para text-xl font-semibold">
                 <i className="fas fa-map-marker-alt text-primary-500"></i>
                 University of Moratuwa
               </div>
@@ -73,9 +74,9 @@ const IndexPage: React.FC<PageProps> = () => {
       </section>
 
       {/* Main Content */}
-      <div className="grow w-full bg-black">
+      <div className="grow w-full ">
         {/* Call for Papers Section */}
-        <section id="call-for-papers" className="w-full py-20 px-6 md:px-12 bg-gray-300">
+        <section id="call-for-papers" className="w-full py-20 px-6 md:px-12">
           <ResearchFields />
         </section>
 
@@ -90,9 +91,9 @@ const IndexPage: React.FC<PageProps> = () => {
           <div className="container mx-auto">
             <SectionHeader headerText="Event Venue" />
 
-            <h3 className="text-3xl font-bold text-center text-primary-500 mt-12 mb-8">University Of Moratuwa</h3>
+            <h3 className="text-3xl font-bold text-center para text-primary-500 mt-12 mb-8">University Of Moratuwa</h3>
 
-            <h3 className="text-lg text-center text-gray-300 mb-8">
+            <h3 className="text-lg para text-center text-gray-300 mb-12">
               University of Moratuwa, a leading technological university in the region welcomes you to witness a truly
               unique experience!
             </h3>

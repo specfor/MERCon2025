@@ -55,48 +55,74 @@ const OrganizerSection = () => {
   ];
 
   return (
-    <section className="w-full py-24 px-6 md:px-12 bg-gray-900 relative overflow-hidden">
-      <div className="absolute inset-0 bg-linear-to-br from-gray-900 via-green-900 to-black"></div>
+    <section className="w-full py-24 px-6 bg-transparent md:px-12 relative overflow-hidden">
+    {/* Bottom Gradient Overlay */}
+    <div className="absolute bottom-0 left-0 w-full h-[40vh] bg-gradient-to-t from-black/90 to-transparent pointer-events-none z-0"></div>
+
       {/* Colorful blurred blobs in background */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-500/30 rounded-full mix-blend-overlay filter blur-3xl opacity-30 animate-pulse-slow"></div>
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600/30 rounded-full mix-blend-overlay filter blur-3xl opacity-30 animate-pulse-slow delay-1000"></div>
+      {/* <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-500/30 rounded-full mix-blend-overlay filter blur-3xl opacity-30 animate-pulse-slow"></div>
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-600/30 rounded-full mix-blend-overlay filter blur-3xl opacity-30 animate-pulse-slow delay-1000"></div> */}
 
       <div className="container mx-auto relative mb-10 z-10">
         <SectionHeader headerText="Organized By" />
 
         {/* Glass Grid */}
+        {/* Glass Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-          {organizers.map((org) => (
-            <div className={glassCardClasses}>
-              <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer"></div>
+      {organizers.map((org, index) => (
+        <div key={index} className={`${glassCardClasses} group relative`}>
+          {/* Shimmer */}
+          <div className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer rounded-3xl z-30"></div>
 
+          {/* White rectangle container */}
+          <div className="absolute inset-0 p-3 z-10">
+            <div className="w-full h-full bg-white rounded-xl flex items-center justify-center">
               {org.image}
             </div>
-          ))}
+          </div>
         </div>
+      ))}
+    </div>
+
+
+
 
         <div className="mt-32">
           <SectionHeader headerText="Technical Co-Sponsors" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-          {techSponsors.map((sponsor) => (
-            <div className={glassCardClasses}>
-              <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer"></div>
+          {techSponsors.map((sponsor, index) => (
+            <div key={index} className={`${glassCardClasses} relative group`}>
+              {/* Shimmer / overlay */}
+              <div className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer rounded-3xl z-20"></div>
 
-              {sponsor.image}
+              {/* White rectangle container */}
+              <div className="absolute inset-0 p-3 z-10">
+                <div className="w-full h-full bg-white rounded-xl flex items-center justify-center">
+                  {sponsor.image}
+                </div>
+              </div>
             </div>
           ))}
         </div>
+
+
 
         <div className="mt-32">
           <SectionHeader headerText="Gold Sponsors" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-          {goldSponsors.map((sponsor) => (
-            <div className={glassCardClasses}>
-              <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer"></div>
+          {goldSponsors.map((sponsor, index) => (
+            <div key={index} className={`${glassCardClasses} relative group`}>
+              {/* Shimmer / overlay */}
+              <div className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer rounded-3xl z-20"></div>
 
-              {sponsor.image}
+              {/* White rectangle container */}
+              <div className="absolute inset-0 p-3 z-10">
+                <div className="w-full h-full bg-white rounded-xl flex items-center justify-center">
+                  {sponsor.image}
+                </div>
+              </div>
             </div>
           ))}
         </div>

@@ -16,7 +16,7 @@ const navLinks: NavLink[] = [
     label: "For Attendees",
     submenu: [
       { label: "Registration", href: "/registration" },
-      { label: "Program", href: "/conferenceSchedule" },
+      { label: "Program", href: "/conference-schedule" },
     ],
   },
   {
@@ -32,14 +32,14 @@ const navLinks: NavLink[] = [
       { label: "Call for Papers", href: "/call-for-papers" },
       { label: "Important Dates", href: "/important-dates" },
       { label: "Author Instructions", href: "/author-instructions" },
-      { label: "Camera Ready Paper Instructions", href: "/camera_ready_paper_instructions" },
+      { label: "Camera Ready Paper Instructions", href: "/camera-ready-paper-instructions" },
     ],
   },
   {
     label: "Explore Programs",
     submenu: [
-      { label: "Workshops", href: "/workshops_updated" },
-      { label: "Special Sessions", href: "/special_sessions" },
+      { label: "Workshops", href: "/workshops" },
+      { label: "Special Sessions", href: "/special-sessions" },
     ],
   },
   {
@@ -55,7 +55,7 @@ const navLinks: NavLink[] = [
     label: "Destination",
     submenu: [
       { label: "Things to see in Sri Lanka", href: "/things-to-see" },
-      { label: "Visa Information", href: "#" },
+      // { label: "Visa Information", href: "#" },
     ],
   },
 ];

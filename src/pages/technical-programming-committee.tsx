@@ -944,20 +944,20 @@ const conferenceChairLevels: SpeakerLevel[] = [
   },
   {
     rank: 3,
-    levelName: "Publication Co-Chairs",
+    levelName: "Publication Chair",
     speakers: [
-      {
-        name: "Dr. Jayani Sudusinghe",
-        university: "University of Moratuwa, Sri Lanka",
-        image: (
-          <StaticImage
-            src="../images/programming-committee/Dr.Jayani.Sudusinghe.png"
-            alt="Dr. Jayani Sudusinghe"
-            className="w-full h-full"
-            objectFit="cover"
-          />
-        ),
-      },
+      // {
+      //   name: "Dr. Jayani Sudusinghe",
+      //   university: "University of Moratuwa, Sri Lanka",
+      //   image: (
+      //     <StaticImage
+      //       src="../images/programming-committee/Dr.Jayani.Sudusinghe.png"
+      //       alt="Dr. Jayani Sudusinghe"
+      //       className="w-full h-full"
+      //       objectFit="cover"
+      //     />
+      //   ),
+      // },
       {
         name: "Dr. Dumith Jayathilaka",
         university: "University of Moratuwa, Sri Lanka",
@@ -970,18 +970,18 @@ const conferenceChairLevels: SpeakerLevel[] = [
           />
         ),
       },
-      {
-        name: "Dr. Sampath Perera",
-        university: "University of Moratuwa, Sri Lanka",
-        image: (
-          <StaticImage
-            src="../images/programming-committee/Dr.Sampath.Perera.png"
-            alt="Dr. Sampath Perera"
-            className="w-full h-full"
-            objectFit="cover"
-          />
-        ),
-      },
+      // {
+      //   name: "Dr. Sampath Perera",
+      //   university: "University of Moratuwa, Sri Lanka",
+      //   image: (
+      //     <StaticImage
+      //       src="../images/programming-committee/Dr.Sampath.Perera.png"
+      //       alt="Dr. Sampath Perera"
+      //       className="w-full h-full"
+      //       objectFit="cover"
+      //     />
+      //   ),
+      // },
     ],
   },
   {

@@ -1,11 +1,12 @@
 import React from "react";
-import { Book, Code, Cpu, Database, Map, Zap } from "lucide-react";
+import { ArrowRight, Book, Code, Cpu, Database, Map, Zap } from "lucide-react";
 import SectionHeader from "../components/sectionHeader";
 import WorkshopCard from "../components/workshopCard";
 import type { Workshop } from "../components/workshopCard";
 
 interface WorkshopDetails extends Workshop {
   paragraphs?: string[];
+  targetAudience?: string[];
   subtopics?: {
     title: string;
     points: string[];
@@ -25,6 +26,10 @@ const workshopsData: WorkshopDetails[] = [
   },
   {
     topic: "Modern Research Paper Writing for Engineering and Computing Researchers",
+    targetAudience: [
+      "Undergraduate and postgraduate students",
+      "Early-career researchers, PhD candidates, academics, and industry researchers",
+    ],
     date: "TBA",
     icon: <Book size={120} className="text-primary-500" />,
     color: "bg-green-500/20",
@@ -122,6 +127,26 @@ const WorkshopsPage = () => {
                             {para}
                           </p>
                         ))}
+                      </div>
+                    )}
+
+                    {/* Target Audience */}
+                    {workshop.targetAudience && workshop.targetAudience.length > 0 && (
+                      <div className="mb-6 bg-gray-800/30 border border-primary-500/20 rounded-lg p-5 backdrop-blur-sm">
+                        <h4 className="text-primary-400 font-semibold text-lg para mb-4 flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 bg-primary-400 rounded-full"></span>
+                          Target Audience
+                        </h4>
+                        <ul className="space-y-3 pl-1">
+                          {workshop.targetAudience.map((audience, i) => (
+                            <li key={i} className="text-gray-200 para text-sm md:text-base flex items-start gap-3">
+                              <span className="text-primary-400 mt-1.5 text-lg">
+                                <ArrowRight className="w-4 h-4" />
+                              </span>
+                              <span>{audience}</span>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     )}
 

@@ -9,7 +9,7 @@ const OrganizerSection = () => {
   overflow-hidden
   rounded-2xl
   border border-white/20
-  bg-white/20
+  bg-white/70
   backdrop-blur-xl
   p-2
   h-64
@@ -17,14 +17,13 @@ const OrganizerSection = () => {
   flex items-center justify-center
   shadow-xl shadow-black/20
   transition-all duration-500 ease-out
-  hover:bg-white/30
+  hover:bg-white
   hover:border-white/40
 `;
 
-
   const imageProps: { className: string; objectFit: "contain"; placeholder?: "blurred" } = {
     className:
-      "w-full h-full transition-all duration-500 opacity-80 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110",
+      "w-full h-full transition-all duration-500 opacity-90 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110",
     objectFit: "contain",
     // placeholder: "blurred" as const,
   };
@@ -52,13 +51,11 @@ const OrganizerSection = () => {
 
   return (
     <section className="w-full py-24 px-6 bg-transparent md:px-12 relative overflow-hidden">
-    {/* Bottom Gradient Overlay */}
-    <div
-  className="absolute bottom-0 left-0 w-full h-[40vh] pointer-events-none -z-20"
-  style={{ background: "linear-gradient(to top, rgb(25,25,25), transparent)" }}
-></div>
-
-
+      {/* Bottom Gradient Overlay */}
+      <div
+        className="absolute bottom-0 left-0 w-full h-[40vh] pointer-events-none -z-20"
+        style={{ background: "linear-gradient(to top, rgb(25,25,25), transparent)" }}
+      ></div>
 
       {/* Colorful blurred blobs in background */}
       {/* <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-500/30 rounded-full mix-blend-overlay filter blur-3xl opacity-30 animate-pulse-slow"></div>
@@ -70,23 +67,18 @@ const OrganizerSection = () => {
         {/* Glass Grid */}
         {/* Glass Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-      {organizers.map((org, index) => (
-        <div key={index} className={`${glassCardClasses} group relative`}>
-          {/* Shimmer */}
-          <div className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer rounded-3xl z-30"></div>
+          {organizers.map((org, index) => (
+            <div key={index} className={`${glassCardClasses} group relative`}>
+              {/* Shimmer */}
+              <div className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer rounded-3xl z-30"></div>
 
-          {/* White rectangle container */}
-          <div className="absolute inset-0 p-3 z-10">
-            <div className="w-full h-full bg-white rounded-xl flex items-center justify-center">
-              {org.image}
+              {/* White rectangle container */}
+              <div className="absolute inset-0 p-3 z-10">
+                <div className="w-full h-full rounded-xl flex items-center justify-center">{org.image}</div>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-      ))}
-    </div>
-
-
-
 
         <div className="mt-32">
           <SectionHeader headerText="Technical Co-Sponsors" />
@@ -99,15 +91,11 @@ const OrganizerSection = () => {
 
               {/* White rectangle container */}
               <div className="absolute inset-0 p-3 z-10">
-                <div className="w-full h-full bg-white rounded-xl flex items-center justify-center">
-                  {sponsor.image}
-                </div>
+                <div className="w-full h-full rounded-xl flex items-center justify-center">{sponsor.image}</div>
               </div>
             </div>
           ))}
         </div>
-
-
 
         <div className="mt-32">
           <SectionHeader headerText="Gold Sponsors" />
@@ -120,9 +108,7 @@ const OrganizerSection = () => {
 
               {/* White rectangle container */}
               <div className="absolute inset-0 p-3 z-10">
-                <div className="w-full h-full bg-white rounded-xl flex items-center justify-center">
-                  {sponsor.image}
-                </div>
+                <div className="w-full h-full rounded-xl flex items-center justify-center">{sponsor.image}</div>
               </div>
             </div>
           ))}

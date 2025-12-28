@@ -14,10 +14,8 @@ import bg2 from "../images/bg2.jpg";
 const IndexPage: React.FC<PageProps> = () => {
   return (
     <div className="w-full min-h-screen flex flex-col">
-
       {/* HERO SECTION */}
       <section className="relative w-full h-screen overflow-hidden">
-
         {/* Background Image */}
         <div
           className="absolute inset-0 bg-center bg-cover bg-no-repeat z-0"
@@ -35,7 +33,6 @@ const IndexPage: React.FC<PageProps> = () => {
 
         {/* HERO CONTENT */}
         <div className="relative z-20 flex flex-col justify-center items-center h-full text-center px-6 md:px-12">
-
           <div className="mb-10 pt-10">
             <StaticImage
               src="../images/logo2026.png"
@@ -51,7 +48,7 @@ const IndexPage: React.FC<PageProps> = () => {
 
           <div className="flex flex-col md:flex-row gap-6 justify-center items-center mb-12">
             <div className="px-6 py-4 bg-primary-500/10 border border-primary-500 rounded-4xl text-white font-semibold">
-              13<sup className="-ml-2">th</sup> & 14<sup className="-ml-2">th</sup> August 2026
+              13<sup className="">th</sup> & 14<sup className="">th</sup> August 2026
             </div>
 
             <div className="px-6 py-4 bg-primary-500/10 border border-primary-500 rounded-4xl text-white font-semibold">
@@ -67,7 +64,6 @@ const IndexPage: React.FC<PageProps> = () => {
 
       {/* CONTENT SECTION WITH BG2 */}
       <div className="relative w-full">
-
         {/* Background */}
         <div
           className="absolute inset-0 bg-center bg-cover bg-no-repeat z-0"
@@ -114,4 +110,3 @@ const IndexPage: React.FC<PageProps> = () => {
 
 export default IndexPage;
 export const Head: HeadFC = () => <title>MERCon 2026 - Home</title>;
-

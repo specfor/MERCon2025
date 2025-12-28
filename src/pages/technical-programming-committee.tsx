@@ -163,7 +163,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
         university: "Mathematical and Computational Sciences,  Massey University",
         image: (
           <StaticImage
-            src="../images\programming-committee\Dr.Surangika.png" 
+            src="../images\programming-committee\Dr.Surangika.png"
             alt="Dr Surangika Ranathunga"
             className="w-full h-full"
             objectFit="cover"
@@ -944,8 +944,20 @@ const conferenceChairLevels: SpeakerLevel[] = [
   },
   {
     rank: 3,
-    levelName: "Publication Committee Chair",
+    levelName: "Publication Co-Chairs",
     speakers: [
+      {
+        name: "Dr. Jayani Sudusinghe",
+        university: "University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Jayani.Sudusinghe.png"
+            alt="Dr. Jayani Sudusinghe"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
       {
         name: "Dr. Dumith Jayathilaka",
         university: "University of Moratuwa, Sri Lanka",
@@ -953,6 +965,18 @@ const conferenceChairLevels: SpeakerLevel[] = [
           <StaticImage
             src="../images/programming-committee/Dr.Dumith.Jayathilake.png"
             alt="Dr. Dumith Jayathilaka"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Dr. Sampath Perera",
+        university: "University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Sampath.Perera.png"
+            alt="Dr. Sampath Perera"
             className="w-full h-full"
             objectFit="cover"
           />

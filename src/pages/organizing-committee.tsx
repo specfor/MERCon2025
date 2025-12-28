@@ -66,7 +66,7 @@ const speakerLevels: SpeakerLevel[] = [
     ],
   },
   {
-    levelName: "Program Committee Chairs",
+    levelName: "Program Co-Chairs",
     rank: 4,
     speakers: [
       {
@@ -105,7 +105,7 @@ const speakerLevels: SpeakerLevel[] = [
     ],
   },
   {
-    levelName: "Publication Committee Chairs",
+    levelName: "Publication Co-Chairs",
     rank: 5,
     speakers: [
       {
@@ -144,7 +144,7 @@ const speakerLevels: SpeakerLevel[] = [
     ],
   },
   {
-    levelName: "International Relations Committee Chair",
+    levelName: "International Relations Chair",
     rank: 6,
     speakers: [
       {
@@ -161,7 +161,7 @@ const speakerLevels: SpeakerLevel[] = [
     ],
   },
   {
-    levelName: "Finance Committee Chair",
+    levelName: "Finance Chair",
     rank: 7,
     speakers: [
       {
@@ -178,7 +178,7 @@ const speakerLevels: SpeakerLevel[] = [
     ],
   },
   {
-    levelName: "Publicity Committee Chair",
+    levelName: "Publicity Chair",
     rank: 8,
     speakers: [
       {
@@ -195,7 +195,7 @@ const speakerLevels: SpeakerLevel[] = [
     ],
   },
   {
-    levelName: "Special Sessions Committee Chair",
+    levelName: "Special Sessions Chair",
     rank: 9,
     speakers: [
       {
@@ -212,7 +212,7 @@ const speakerLevels: SpeakerLevel[] = [
     ],
   },
   {
-    levelName: "Workshop Committee Chair",
+    levelName: "Workshop Chair",
     rank: 10,
     speakers: [
       {
@@ -229,7 +229,7 @@ const speakerLevels: SpeakerLevel[] = [
     ],
   },
   {
-    levelName: "Local Organizing Committee Chair",
+    levelName: "Local Organizing Chairs",
     rank: 11,
     speakers: [
       {
@@ -268,7 +268,7 @@ const speakerLevels: SpeakerLevel[] = [
     ],
   },
   {
-    levelName: "Registration Committee Chair",
+    levelName: "Registration Chair",
     rank: 12,
     speakers: [
       {
@@ -285,7 +285,7 @@ const speakerLevels: SpeakerLevel[] = [
     ],
   },
   {
-    levelName: "Awards Committee Chair",
+    levelName: "Awards Chair",
     rank: 13,
     speakers: [
       {

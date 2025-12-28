@@ -51,13 +51,7 @@ const OrganizerSection = () => {
   return (
     <section className="w-full py-24 px-6 md:px-12 relative overflow-hidden">
 
-      {/* Background as StaticImage */}
-      <StaticImage
-        src="../../images/bg1.png"
-        alt="Organizer Section Background"
-        className="absolute inset-0 w-full h-full object-cover -z-20"
-        placeholder="blurred"
-      />
+      
 
       {/* Bottom Gradient Overlay */}
       <div

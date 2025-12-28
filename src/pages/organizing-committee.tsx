@@ -168,7 +168,7 @@ const speakerLevels: SpeakerLevel[] = [
         name: "Dr. Aruna Bandara",
         image: (
           <StaticImage
-            src="../images\committee\Dr.Aruna.Bandara.png"
+            src="../images/committee/Dr.Aruna.Bandara.png"
             alt="Dr. Aruna Bandara"
             className="w-full h-full"
             objectFit="cover"

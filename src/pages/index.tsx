@@ -8,19 +8,40 @@ import SectionHeader from "../components/sectionHeader";
 import UniGallery from "../components/homepage/uniGallery";
 import ResearchFields from "../components/homepage/fields";
 
-import bg1 from "../images/bg1.png";
-import bg2 from "../images/bg2.jpg";
+const heroBackground = (
+  <div className="absolute inset-0 -z-10">
+    <StaticImage
+      src="../images/bg1.png"
+      alt="Hero Background"
+      className="w-full h-full object-cover"
+      quality={90}
+      formats={["auto", "webp", "avif"]}
+      placeholder="blurred"
+      loading="eager"
+    />
+  </div>
+);
+
+const homeBackground = (
+  <div className="absolute inset-0 -z-20">
+    <StaticImage
+      src="../images/bg2.jpg"
+      alt="Hero Background"
+      className="w-full h-full object-cover"
+      quality={90}
+      formats={["auto", "webp", "avif"]}
+      placeholder="blurred"
+      loading="eager"
+    />
+  </div>
+);
 
 const IndexPage: React.FC<PageProps> = () => {
   return (
     <div className="w-full min-h-screen flex flex-col">
       {/* HERO SECTION */}
       <section className="relative w-full h-screen overflow-hidden">
-        {/* Background Image */}
-        <div
-          className="absolute inset-0 bg-center bg-cover bg-no-repeat z-0"
-          style={{ backgroundImage: `url(${bg1})` }}
-        />
+        {heroBackground}
 
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-black/40 z-10 pointer-events-none" />
@@ -65,10 +86,7 @@ const IndexPage: React.FC<PageProps> = () => {
       {/* CONTENT SECTION WITH BG2 */}
       <div className="relative w-full">
         {/* Background */}
-        <div
-          className="absolute inset-0 bg-center bg-cover bg-no-repeat z-0"
-          style={{ backgroundImage: `url(${bg2})` }}
-        />
+        {homeBackground}
 
         {/* Top gradient */}
         <div

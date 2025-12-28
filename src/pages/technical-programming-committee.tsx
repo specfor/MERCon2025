@@ -163,7 +163,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
         university: "Mathematical and Computational Sciences,  Massey University",
         image: (
           <StaticImage
-            src="../images\programming-committee\Dr.Surangika.png" 
+            src="../images\programming-committee\Dr.Surangika.png"
             alt="Dr Surangika Ranathunga"
             className="w-full h-full"
             objectFit="cover"
@@ -944,8 +944,20 @@ const conferenceChairLevels: SpeakerLevel[] = [
   },
   {
     rank: 3,
-    levelName: "Publication Committee Chair",
+    levelName: "Publication Co-Chairs",
     speakers: [
+      {
+        name: "Dr. Jayani Sudusinghe",
+        university: "University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Jayani.Sudusinghe.png"
+            alt="Dr. Jayani Sudusinghe"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
       {
         name: "Dr. Dumith Jayathilaka",
         university: "University of Moratuwa, Sri Lanka",
@@ -953,6 +965,18 @@ const conferenceChairLevels: SpeakerLevel[] = [
           <StaticImage
             src="../images/programming-committee/Dr.Dumith.Jayathilake.png"
             alt="Dr. Dumith Jayathilaka"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Dr. Sampath Perera",
+        university: "University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Sampath.Perera.png"
+            alt="Dr. Sampath Perera"
             className="w-full h-full"
             objectFit="cover"
           />
@@ -1085,15 +1109,28 @@ const ieeeSriLankaChapterMembers: SpeakerLevel[] = [
 // --- Main Section Component ---
 const TechnicalProgrammingCommittee = () => {
   return (
-    <section className="w-full py-24 px-4 md:px-8 mt-10 bg-white">
+    <section className="w-full py-24 px-4 md:px-8 mt-16">
+      <div
+        className="fixed inset-0 -z-20"
+        style={{
+          background: `
+          radial-gradient(
+            circle at center,
+            rgb(14, 46, 32) 0%,
+            rgb(8, 26, 18) 45%,
+            rgb(2, 6, 4) 80%
+          )
+          `,
+        }}
+      />
       <div className="max-w-7xl mx-auto">
         {/* Main Page Title */}
-        <SectionHeader headerText="Technical Programming Committee" textClass="text-black" />
+        <SectionHeader headerText="Technical Programming Committee" textClass="text-white" />
 
         <SpeakerRankGraph speakerLevels={conferenceChairLevels} />
 
         <div className="my-20"></div>
-        <SectionHeader headerText="Track Co-Chairs" textClass="text-black" />
+        <SectionHeader headerText="Track Co-Chairs" textClass="text-white" />
 
         <SpeakerRankGraph speakerLevels={trackCoChairLevels} />
 

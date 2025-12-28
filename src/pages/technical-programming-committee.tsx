@@ -64,7 +64,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr. Charithri Yapa",
-        university: "University of Moratuwa, Sri Lanka",
+        university: "University of Sri Jayawardanapura, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Charithri.Yapa.png"
@@ -286,13 +286,13 @@ const trackCoChairLevels: SpeakerLevel[] = [
             src="../images/programming-committee/Dr.Thushara.Rathnayake.png"
             alt="Dr. Thushara Rathnayake"
             className="w-full h-full"
-            objectFit="cover"
+            objectFit="contain"
           />
         ),
       },
       {
         name: "Dr. Shakila Pathirana",
-        university: "University of Moratuwa, Sri Lanka",
+        university: "University of Kelaniya, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Shakila.Pathirana.png"
@@ -352,7 +352,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
             src="../images/programming-committee/Dr.Viraj.Muthugala.png"
             alt="Dr Viraj Muthugala"
             className="w-full h-full"
-            objectFit="cover"
+            objectFit="contain"
           />
         ),
       },

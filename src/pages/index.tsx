@@ -49,7 +49,7 @@ const IndexPage: React.FC<PageProps> = () => {
         {/* Bottom gradient */}
         <div
           className="absolute bottom-0 left-0 w-full h-[40vh] z-10 pointer-events-none"
-          style={{ background: "linear-gradient(to top, rgb(25,25,25), transparent)" }}
+          style={{ background: "linear-gradient(to top, rgb(0,0,0), transparent)" }}
         />
 
         {/* HERO CONTENT */}
@@ -91,7 +91,7 @@ const IndexPage: React.FC<PageProps> = () => {
         {/* Top gradient */}
         <div
           className="absolute top-0 left-0 w-full h-[40vh] z-10 pointer-events-none"
-          style={{ background: "linear-gradient(to bottom, rgb(25,25,25), transparent)" }}
+          style={{ background: "linear-gradient(to bottom, rgb(0,0,0), transparent)" }}
         />
 
         <div className="relative z-20">

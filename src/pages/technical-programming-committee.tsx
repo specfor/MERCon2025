@@ -163,7 +163,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
         university: "Mathematical and Computational Sciences,  Massey University",
         image: (
           <StaticImage
-            src="../images\programming-committee\Dr.Surangika.png"
+            src="../images/programming-committee/Dr.Surangika.png"
             alt="Dr Surangika Ranathunga"
             className="w-full h-full"
             objectFit="cover"

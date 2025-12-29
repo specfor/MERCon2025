@@ -79,24 +79,88 @@ const galleryStyles = `
 const galleryImages = [
   {
     id: 1,
-    image: <StaticImage src="../../images/img/gallery/m1.jpg" alt="Gallery 1" className="w-full h-full object-cover" />,
+    image: <StaticImage src="../../images/gallery/img1.jpg" alt="Gallery 1" className="w-full h-full object-cover" />,
   },
   {
     id: 2,
-    image: <StaticImage src="../../images/img/gallery/m2.jpg" alt="Gallery 2" className="w-full h-full object-cover" />,
+    image: <StaticImage src="../../images/gallery/img2.jpg" alt="Gallery 2" className="w-full h-full object-cover" />,
   },
   {
     id: 3,
-    image: <StaticImage src="../../images/img/gallery/m3.jpg" alt="Gallery 3" className="w-full h-full object-cover" />,
+    image: <StaticImage src="../../images/gallery/img3.jpg" alt="Gallery 3" className="w-full h-full object-cover" />,
   },
-  // ... add the rest of your images here
   {
     id: 4,
-    image: <StaticImage src="../../images/img/gallery/m4.jpg" alt="Gallery 4" className="w-full h-full object-cover" />,
+    image: <StaticImage src="../../images/gallery/img4.jpg" alt="Gallery 4" className="w-full h-full object-cover" />,
   },
   {
     id: 5,
-    image: <StaticImage src="../../images/img/gallery/m5.jpg" alt="Gallery 5" className="w-full h-full object-cover" />,
+    image: <StaticImage src="../../images/gallery/img5.jpg" alt="Gallery 5" className="w-full h-full object-cover" />,
+  },
+  {
+    id: 6,
+    image: <StaticImage src="../../images/gallery/img6.jpg" alt="Gallery 6" className="w-full h-full object-cover" />,
+  },
+  {
+    id: 7,
+    image: <StaticImage src="../../images/gallery/img7.jpg" alt="Gallery 7" className="w-full h-full object-cover" />,
+  },
+  {
+    id: 8,
+    image: <StaticImage src="../../images/gallery/img8.jpg" alt="Gallery 8" className="w-full h-full object-cover" />,
+  },
+  {
+    id: 9,
+    image: <StaticImage src="../../images/gallery/img9.jpg" alt="Gallery 9" className="w-full h-full object-cover" />,
+  },
+  {
+    id: 10,
+    image: <StaticImage src="../../images/gallery/img10.jpg" alt="Gallery 10" className="w-full h-full object-cover" />,
+  },
+
+  {
+    id: 11,
+    image: <StaticImage src="../../images/gallery/1.jpg" alt="Gallery 11" className="w-full h-full object-cover" />,
+  },
+  {
+    id: 12,
+    image: <StaticImage src="../../images/gallery/2.jpg" alt="Gallery 12" className="w-full h-full object-cover" />,
+  },
+  {
+    id: 13,
+    image: <StaticImage src="../../images/gallery/3.jpg" alt="Gallery 13" className="w-full h-full object-cover" />,
+  },
+  {
+    id: 14,
+    image: <StaticImage src="../../images/gallery/4.jpg" alt="Gallery 14" className="w-full h-full object-cover" />,
+  },
+  {
+    id: 15,
+    image: <StaticImage src="../../images/gallery/5.jpg" alt="Gallery 15" className="w-full h-full object-cover" />,
+  },
+  {
+    id: 16,
+    image: <StaticImage src="../../images/gallery/6.jpg" alt="Gallery 16" className="w-full h-full object-cover" />,
+  },
+  {
+    id: 17,
+    image: <StaticImage src="../../images/gallery/7.jpg" alt="Gallery 17" className="w-full h-full object-cover" />,
+  },
+  {
+    id: 18,
+    image: <StaticImage src="../../images/gallery/8.jpg" alt="Gallery 18" className="w-full h-full object-cover" />,
+  },
+  {
+    id: 19,
+    image: <StaticImage src="../../images/gallery/9.jpg" alt="Gallery 19" className="w-full h-full object-cover" />,
+  },
+  {
+    id: 20,
+    image: <StaticImage src="../../images/gallery/10.jpg" alt="Gallery 20" className="w-full h-full object-cover" />,
+  },
+  {
+    id: 21,
+    image: <StaticImage src="../../images/gallery/11.jpg" alt="Gallery 21" className="w-full h-full object-cover" />,
   },
 ];
 

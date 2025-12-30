@@ -28,7 +28,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
             src="../images/programming-committee/R.A.R.C.Gopura.png"
             alt="Prof. R.A.R.C. Gopura"
             className="w-full h-full"
-            objectFit="cover"
+            objectFit="contain"
           />
         ),
       },
@@ -70,7 +70,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
             src="../images/programming-committee/Dr.Charithri.Yapa.png"
             alt="Dr. Charithri Yapa"
             className="w-full h-full"
-            objectFit="cover"
+            objectFit="contain"
           />
         ),
       },
@@ -82,7 +82,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
             src="../images/programming-committee/Dr.Mohasha.Sampath.png"
             alt="Dr. Mohasha Sampath"
             className="w-full h-full"
-            objectFit="cover"
+            objectFit="contain"
           />
         ),
       },
@@ -918,7 +918,7 @@ const conferenceChairLevels: SpeakerLevel[] = [
             src="../images/programming-committee/Prof.Lidula.N.Widanagama.Arachchige.png"
             alt="Prof. Lidula N. Widanagama Arachchige"
             className="w-full h-full"
-            objectFit="cover"
+            objectFit="contain"
           />
         ),
       },

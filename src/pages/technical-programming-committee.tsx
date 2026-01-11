@@ -28,7 +28,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
             src="../images/programming-committee/R.A.R.C.Gopura.png"
             alt="Prof. R.A.R.C. Gopura"
             className="w-full h-full"
-            objectFit="cover"
+            objectFit="contain"
           />
         ),
       },
@@ -70,7 +70,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
             src="../images/programming-committee/Dr.Charithri.Yapa.png"
             alt="Dr. Charithri Yapa"
             className="w-full h-full"
-            objectFit="cover"
+            objectFit="contain"
           />
         ),
       },
@@ -82,7 +82,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
             src="../images/programming-committee/Dr.Mohasha.Sampath.png"
             alt="Dr. Mohasha Sampath"
             className="w-full h-full"
-            objectFit="cover"
+            objectFit="contain"
           />
         ),
       },
@@ -109,7 +109,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
         university: "Queensland University of Technology",
         image: (
           <StaticImage
-            src="../images\programming-committee\Dr.Akila.Pemasiri.png"
+            src="../images/programming-committee/Dr.Akila.Pemasiri.png"
             alt="Dr. Akila Pemasiri"
             className="w-full h-full"
             objectFit="cover"
@@ -379,7 +379,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
         university: "Chief AI Scientist, EyRIS",
         image: (
           <StaticImage
-            src="../images\programming-committee\Dr.Gilbert.Lim.png"
+            src="../images/programming-committee/Dr.Gilbert.Lim.png"
             alt="Dr Gilbert Lim"
             className="w-full h-full"
             objectFit="contain"
@@ -745,7 +745,44 @@ const trackCoChairLevels: SpeakerLevel[] = [
   {
     levelName: "Biomedical Engineering",
     rank: 20,
-    speakers: [],
+    speakers: [
+      {
+        name: "Dr. Rukshani Liyanaarachchi",
+        university: "University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Rukshani.Liyanaarachchi.png"
+            alt="Dr. Rukshani Liyanaarachchi"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Dr. Pranjeevan Kulasingham",
+        university: "University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Pranjeevan.Kulasingham.png"
+            alt="Dr. Pranjeevan Kulasingham"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Dr. Anusha Withana",
+        university: "University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Anusha.Withana.png"
+            alt="Dr. Anusha Withana"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+    ],
   },
   {
     levelName: "Geotechnical Engineering",
@@ -918,7 +955,7 @@ const conferenceChairLevels: SpeakerLevel[] = [
             src="../images/programming-committee/Prof.Lidula.N.Widanagama.Arachchige.png"
             alt="Prof. Lidula N. Widanagama Arachchige"
             className="w-full h-full"
-            objectFit="cover"
+            objectFit="contain"
           />
         ),
       },

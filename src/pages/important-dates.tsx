@@ -10,7 +10,7 @@ const timelineEvents: TimelineEvent[] = [
   {
     id: 1,
     title: "Paper Submission Open",
-    date: "January 2026",
+    date: "February 2026",
   },
   {
     id: 2,

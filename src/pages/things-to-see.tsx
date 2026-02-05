@@ -486,11 +486,12 @@ const CategorySection: React.FC<{ category: Category }> = ({ category }) => {
   return (
     <div className="w-full mb-16">
       {/* Category Header */}
-      <div className="bg-dark-800/80 backdrop-blur-sm border border-secondary-500/30 rounded-2xl p-8 mb-8">
-        <h2 className="text-2xl md:text-3xl font-bold text-white topic text-center uppercase tracking-wider mb-4">
+      {/* Category Header */}
+      <div className="mb-8 border-b border-green-500/30 pb-6 w-full max-w-4xl mx-auto">
+        <h2 className="text-2xl md:text-3xl font-bold text-white topic text-center uppercase tracking-wider mb-4 drop-shadow-md">
           {category.title}
         </h2>
-        <p className="text-gray-400 para text-center max-w-4xl mx-auto leading-relaxed">
+        <p className="text-green-100 para text-center leading-relaxed">
           {category.description}
         </p>
       </div>
@@ -525,8 +526,8 @@ const ThingsToSeePage = () => {
 
       {/* Decorative Lines */}
       <div className="fixed top-0 left-0 w-full h-16 -z-10">
-        <div className="absolute top-4 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-secondary-500/50 to-transparent" />
-        <div className="absolute top-8 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-secondary-500/30 to-transparent" />
+        <div className="absolute top-4 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-green-500/50 to-transparent" />
+        <div className="absolute top-8 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-green-500/30 to-transparent" />
       </div>
 
       {/* Content */}

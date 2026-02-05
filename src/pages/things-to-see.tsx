@@ -20,7 +20,7 @@ const colomboPlaces: Place[] = [
     travelTime: "30-45 minutes from Moratuwa",
     image: (
       <StaticImage
-        src="../images/places/unawatuna.png"
+        src="../images/places/colombo/gangaramaya.jpg"
         alt="Gangaramaya Temple"
         className="w-full h-full"
         objectFit="cover"
@@ -35,7 +35,7 @@ const colomboPlaces: Place[] = [
     travelTime: "30-45 minutes from Moratuwa",
     image: (
       <StaticImage
-        src="../images/places/unawatuna.png"
+        src="../images/places/colombo/seema-malaka.jpg"
         alt="Seema Malaka Temple"
         className="w-full h-full"
         objectFit="cover"
@@ -50,7 +50,7 @@ const colomboPlaces: Place[] = [
     travelTime: "30-45 minutes from Moratuwa",
     image: (
       <StaticImage
-        src="../images/places/unawatuna.png"
+        src="../images/places/colombo/national-museum.jpeg"
         alt="Colombo National Museum"
         className="w-full h-full"
         objectFit="cover"
@@ -65,7 +65,7 @@ const colomboPlaces: Place[] = [
     travelTime: "30-45 minutes from Moratuwa",
     image: (
       <StaticImage
-        src="../images/places/unawatuna.png"
+        src="../images/places/colombo/independence-hall.jpeg"
         alt="Independence Memorial Hall"
         className="w-full h-full"
         objectFit="cover"
@@ -80,7 +80,7 @@ const colomboPlaces: Place[] = [
     travelTime: "30-45 minutes from Moratuwa",
     image: (
       <StaticImage
-        src="../images/places/unawatuna.png"
+        src="../images/places/colombo/dutch-hospital.jpg"
         alt="Old Dutch Hospital"
         className="w-full h-full"
         objectFit="cover"
@@ -95,7 +95,7 @@ const colomboPlaces: Place[] = [
     travelTime: "30-45 minutes from Moratuwa",
     image: (
       <StaticImage
-        src="../images/places/unawatuna.png"
+        src="../images/places/colombo/galle-face.jpeg"
         alt="Galle Face Green"
         className="w-full h-full"
         objectFit="cover"
@@ -110,7 +110,7 @@ const colomboPlaces: Place[] = [
     travelTime: "30-45 minutes from Moratuwa",
     image: (
       <StaticImage
-        src="../images/places/unawatuna.png"
+        src="../images/places/colombo/lotus-tower.jpeg"
         alt="Colombo Lotus Tower"
         className="w-full h-full"
         objectFit="cover"
@@ -253,7 +253,7 @@ const beachesPlaces: Place[] = [
     travelTime: "1-2 hours from Colombo",
     image: (
       <StaticImage
-        src="../images/places/unawatuna.png"
+        src="../images/places/beaches/unawatuna.png"
         alt="Unawatuna Beach"
         className="w-full h-full"
         objectFit="cover"
@@ -362,7 +362,7 @@ const culturalSitesPlaces: Place[] = [
     travelTime: "4.5-5 hours from Colombo",
     image: (
       <StaticImage
-        src="../images/places/unawatuna.png"
+        src="../images/places/cultural/anuradhapura.jpeg"
         alt="Ancient City of Anuradhapura"
         className="w-full h-full"
         objectFit="cover"
@@ -377,7 +377,7 @@ const culturalSitesPlaces: Place[] = [
     travelTime: "5-6 hours from Colombo",
     image: (
       <StaticImage
-        src="../images/places/unawatuna.png"
+        src="../images/places/cultural/polonnaruwa.jpeg"
         alt="Ancient City of Polonnaruwa"
         className="w-full h-full"
         objectFit="cover"
@@ -392,7 +392,7 @@ const culturalSitesPlaces: Place[] = [
     travelTime: "3-3.5 hours from Colombo",
     image: (
       <StaticImage
-        src="../images/places/unawatuna.png"
+        src="../images/places/cultural/kandy.jpeg"
         alt="Sacred City of Kandy"
         className="w-full h-full"
         objectFit="cover"
@@ -407,7 +407,7 @@ const culturalSitesPlaces: Place[] = [
     travelTime: "1-1.5 hours from Colombo",
     image: (
       <StaticImage
-        src="../images/places/unawatuna.png"
+        src="../images/places/cultural/galle-fort.jpeg"
         alt="Old Town of Galle"
         className="w-full h-full"
         objectFit="cover"
@@ -422,7 +422,7 @@ const culturalSitesPlaces: Place[] = [
     travelTime: "3.5-4 hours from Colombo",
     image: (
       <StaticImage
-        src="../images/places/unawatuna.png"
+        src="../images/places/cultural/dambulla.jpeg"
         alt="Dambulla Cave Temple"
         className="w-full h-full"
         objectFit="cover"
@@ -437,7 +437,7 @@ const culturalSitesPlaces: Place[] = [
     travelTime: "4-4.5 hours from Colombo",
     image: (
       <StaticImage
-        src="../images/places/unawatuna.png"
+        src="../images/places/cultural/sigiriya.png"
         alt="Sigiriya"
         className="w-full h-full"
         objectFit="cover"

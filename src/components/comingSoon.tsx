@@ -77,7 +77,19 @@ const ComingSoon: React.FC<ComingSoonProps> = ({
       className={`relative w-full min-h-[600px] flex items-center justify-center overflow-hidden py-32 ${className}`}
     >
       {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-gray-950 via-slate-900 to-gray-950">
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `
+            radial-gradient(
+              circle at center,
+              rgb(14, 46, 32) 0%,
+              rgb(8, 26, 18) 45%,
+              rgb(2, 6, 4) 80%
+            )
+          `,
+        }}
+      >
         {/* Animated Gradient Orbs */}
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-green-600/15 rounded-full blur-3xl animate-pulse"></div>
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-600/15 rounded-full blur-3xl animate-pulse delay-1000"></div>

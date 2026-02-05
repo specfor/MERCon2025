@@ -7,6 +7,7 @@ import OrganizerSection from "../components/homepage/organizer";
 import SectionHeader from "../components/sectionHeader";
 import UniGallery from "../components/homepage/uniGallery";
 import ResearchFields from "../components/homepage/fields";
+import UpcomingTimeline from "../components/homepage/upcomingTimeline";
 
 const heroBackground = (
   <div className="absolute inset-0 -z-10">
@@ -98,6 +99,8 @@ const IndexPage: React.FC<PageProps> = () => {
           <section id="call-for-papers" className="w-full py-20 px-6 md:px-12">
             <ResearchFields />
           </section>
+
+          <UpcomingTimeline />
 
           <Gallery />
           <OrganizerSection />

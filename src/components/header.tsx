@@ -11,14 +11,16 @@ interface NavLink {
 
 const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
-  { label: "Keynotes", href: "/keynote-speakers" },
   {
-    label: "For Attendees",
+    label: "For Authors",
     submenu: [
-      { label: "Registration", href: "/registration" },
-      { label: "Program", href: "/conference-schedule" },
+      { label: "Call for Papers", href: "/call-for-papers" },
+      { label: "Important Dates", href: "/important-dates" },
+      { label: "Camera Ready Paper Instructions", href: "/camera-ready-paper-instructions" },
     ],
   },
+  { label: "Registration", href: "/registration" },
+  { label: "Program", href: "/conference-schedule" },
   {
     label: "Committee",
     submenu: [
@@ -27,17 +29,9 @@ const navLinks: NavLink[] = [
     ],
   },
   {
-    label: "For Authors",
-    submenu: [
-      { label: "Call for Papers", href: "/call-for-papers" },
-      { label: "Important Dates", href: "/important-dates" },
-      { label: "Author Instructions", href: "/author-instructions" },
-      { label: "Camera Ready Paper Instructions", href: "/camera-ready-paper-instructions" },
-    ],
-  },
-  {
     label: "Explore Programs",
     submenu: [
+      { label: "Keynotes", href: "/keynote-speakers" },
       { label: "Workshops", href: "/workshops" },
       { label: "Special Sessions", href: "/special-sessions" },
     ],

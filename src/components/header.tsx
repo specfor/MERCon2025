@@ -16,7 +16,6 @@ const navLinks: NavLink[] = [
     submenu: [
       { label: "Call for Papers", href: "/call-for-papers" },
       { label: "Important Dates", href: "/important-dates" },
-      { label: "Author Instructions", href: "/author-instructions" },
       { label: "Camera Ready Paper Instructions", href: "/camera-ready-paper-instructions" },
     ],
   },

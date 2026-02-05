@@ -13,7 +13,7 @@ const SpeakerRankGraph: React.FC<{ speakerLevels: SpeakerLevel[] }> = ({ speaker
       <div key={index} className="w-full">
         {/* Level Header (with lines on side) */}
         <div className="flex items-center gap-4 mb-12 font-sans">
-          <div className="h-px bg-gray-200 flex-1"></div>
+          <div className="h-px bg-gradient-to-r from-transparent via-green-500/50 to-transparent flex-1"></div>
           <div className="flex flex-col items-center gap-2 px-4">
             {Array.isArray(level.levelName) ? (
               level.levelName.map((name, idx) => (
@@ -30,7 +30,7 @@ const SpeakerRankGraph: React.FC<{ speakerLevels: SpeakerLevel[] }> = ({ speaker
               </h2>
             )}
           </div>
-          <div className="h-px bg-gray-200 flex-1"></div>
+          <div className="h-px bg-gradient-to-l from-transparent via-green-500/50 to-transparent flex-1"></div>
         </div>
 
         {/* Use Flexbox with justify-center. 

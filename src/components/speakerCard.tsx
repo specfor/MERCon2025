@@ -36,7 +36,7 @@ const SpeakerCard: React.FC<{ speaker: Speaker }> = ({ speaker }) => {
               {speaker.links.linkedin && (
                 <a
                   href={speaker.links.linkedin}
-                  className="p-2 bg-white rounded-full text-blue-700 hover:scale-110 transition-transform"
+                  className="p-2 bg-white rounded-full text-green-600 hover:scale-110 transition-transform"
                 >
                   <Linkedin size={20} />
                 </a>
@@ -56,7 +56,7 @@ const SpeakerCard: React.FC<{ speaker: Speaker }> = ({ speaker }) => {
 
       {/* 2. Content Info */}
       <div className="text-center px-4 max-w-sm">
-        <h3 className="text-2xl font-bold text-gray-900 my-4 para text-xl text-white transition-colors">
+        <h3 className="text-xl font-bold text-white my-4 para transition-colors">
           {speaker.name}
         </h3>
 
@@ -68,7 +68,7 @@ const SpeakerCard: React.FC<{ speaker: Speaker }> = ({ speaker }) => {
 
         {/* Topic Badge */}
         {speaker.topic && (
-          <div className="inline-block px-3 py-1 bg-gray-100 rounded-full text-xs font-semibold text-gray-600 mb-4 border border-gray-200">
+          <div className="inline-block px-3 py-1 bg-green-500/10 rounded-full text-xs font-semibold text-green-400 mb-4 border border-green-500/30">
             Keynote: {speaker.topic}
           </div>
         )}

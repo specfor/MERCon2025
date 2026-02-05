@@ -41,7 +41,21 @@ export const timelineEvents: TimelineEvent[] = [
 
 const ImportantDatesPage: React.FC = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-slate-900 to-gray-950 py-16 px-4">
+    <div className="relative min-h-screen py-16 px-4">
+      {/* Fixed Green Background */}
+      <div
+        className="fixed inset-0 -z-20"
+        style={{
+          background: `
+            radial-gradient(
+              circle at center,
+              rgb(14, 46, 32) 0%,
+              rgb(8, 26, 18) 45%,
+              rgb(2, 6, 4) 80%
+            )
+          `,
+        }}
+      />
       <div className="max-w-6xl mx-auto pt-30">
         {/* Header */}
         <div className="text-center mb-16">

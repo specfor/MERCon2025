@@ -6,7 +6,7 @@ interface TimelineEvent {
   date: string;
 }
 
-const timelineEvents: TimelineEvent[] = [
+export const timelineEvents: TimelineEvent[] = [
   {
     id: 1,
     title: "Paper Submission Open",

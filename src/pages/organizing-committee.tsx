@@ -73,7 +73,7 @@ const speakerLevels: SpeakerLevel[] = [
         name: "Dr. Lihil Uthpala",
         image: (
           <StaticImage
-            src="../images/committee/Dr.Lihil.Uthpala.png"
+            src="../images/committee/Dr.Lihil.png"
             alt="Dr. Lihil Uthpala"
             className="w-full h-full"
             objectFit="cover"
@@ -195,32 +195,26 @@ const speakerLevels: SpeakerLevel[] = [
     ],
   },
   {
-    levelName: "Special Sessions Chair",
+    levelName: "Workshops and Special Sessions Co-Chairs",
     rank: 9,
     speakers: [
+     {
+        name: "Dr. Hiran Chathuranga",
+        image: (
+          <StaticImage
+            src="../images/committee/Dr.Hiran.Chathuranga.png"
+            alt="Dr. Hiran Chathuranga"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
       {
         name: "Dr. Wageesha Manamperi",
         image: (
           <StaticImage
             src="../images/committee/Dr.Wageesha.Manamperi.png"
             alt="Dr. Wageesha Manamperi"
-            className="w-full h-full"
-            objectFit="cover"
-          />
-        ),
-      },
-    ],
-  },
-  {
-    levelName: "Workshop Chair",
-    rank: 10,
-    speakers: [
-      {
-        name: "Dr. Thushara Subasinghe",
-        image: (
-          <StaticImage
-            src="../images/committee/Dr.Thushara.Subasinghe.png"
-            alt="Dr. Thushara Subasinghe"
             className="w-full h-full"
             objectFit="cover"
           />

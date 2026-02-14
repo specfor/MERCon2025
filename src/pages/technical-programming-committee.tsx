@@ -13,7 +13,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
         university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
-            src="../images/programming-committee/Thamasha.Samarasinghe.png"
+            src="../images/programming-committee/Dr.Thamasha.Samarasinghe.png"
             alt="Dr. Thamasha Samarasinghe"
             className="w-full h-full"
             objectFit="cover"
@@ -193,7 +193,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
         university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
-            src="../images/programming-committee/Prof.S.A.Ariadurai.png"
+            src="../images/programming-committee/Prof.(Mr.)S.A.Ariadurai.png"
             alt="Prof. (Mr.) S.A. Ariadurai"
             className="w-full h-full"
             objectFit="cover"

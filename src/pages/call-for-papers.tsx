@@ -85,7 +85,7 @@ const CallForPapersPage: React.FC = () => {
               <span>
                 All paper submissions are through{" "}
                 <a
-                  href="https://edas.info/N33802"
+                  href="https://mercon2026.edas.info/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-amber-400 hover:text-amber-300 underline underline-offset-2 transition-colors font-semibold"

@@ -33,14 +33,25 @@ const SpeakerRankGraph: React.FC<{ speakerLevels: SpeakerLevel[] }> = ({ speaker
           <div className="h-px bg-gradient-to-l from-transparent via-green-500/50 to-transparent flex-1"></div>
         </div>
 
-        {/* Use Flexbox with justify-center. 
-                  This ensures that if there is 1 person, they are centered.
-                  If there are 2, they are side-by-side centered.
-                  If there are 3+, they wrap nicely.
-              */}
-        <div className="flex flex-wrap gap-x-28 gap-y-16 justify-center items-start">
+        {/* We use CSS grid to ensure items align vertically across rows.
+            The dynamic grid-cols classes ensure that if there are 1, 2, or 3 people,
+            the grid is sized exactly to fit them, keeping them centered on screen.
+        */}
+        <div
+          className={`grid gap-x-8 md:gap-x-16 lg:gap-x-28 gap-y-16 justify-items-center items-start mx-auto w-fit ${
+            level.speakers.length === 1
+              ? "grid-cols-1"
+              : level.speakers.length === 2
+              ? "grid-cols-1 md:grid-cols-2"
+              : level.speakers.length === 3
+              ? "grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+              : "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+          }`}
+        >
           {level.speakers.map((speaker) => (
-            <SpeakerCard key={speaker.name} speaker={speaker} />
+            <div key={speaker.name} className="flex justify-center w-full max-w-[350px]">
+              <SpeakerCard speaker={speaker} />
+            </div>
           ))}
         </div>
       </div>

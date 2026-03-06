@@ -50,43 +50,120 @@ const RegistrationPage = () => {
               <thead>
                 <tr className="bg-white/10 text-white">
                   <th className="py-4 px-6 text-left font-semibold border-r border-white/10">
-                    Author Category
+                    Category
+                  </th>
+                  <th className="py-4 px-6 text-left font-semibold border-r border-white/10">
+                    Early Bird Registration
                   </th>
                   <th className="py-4 px-6 text-left font-semibold">
-                    Fee
+                    Normal Registration
                   </th>
                 </tr>
               </thead>
               <tbody>
-                <tr className="border-b border-white/10">
-                  <td className="py-4 px-6 border-r border-white/10">
-                    Presenting authors with local affiliations and IEEE membership
+                {/* Author Registration - Local Authors */}
+                <tr className="bg-white/10 text-white font-semibold">
+                  <td colSpan={3} className="py-3 px-6">
+                    Author Registration - Local Authors
                   </td>
-                  <td className="py-4 px-6">LKR 20,000 / paper</td>
-                </tr>
-                <tr className="border-b border-white/10 bg-white/5">
-                  <td className="py-4 px-6 border-r border-white/10">
-                    Presenting authors with local affiliations without IEEE membership
-                  </td>
-                  <td className="py-4 px-6">LKR 22,000 / paper</td>
                 </tr>
                 <tr className="border-b border-white/10">
-                  <td className="py-4 px-6 border-r border-white/10">
-                    Non-presenting authors / other participants
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">
+                    IEEE Members
                   </td>
-                  <td className="py-4 px-6">LKR 2,000 / person</td>
+                  <td className="py-4 px-6 border-r border-white/10">22,500 LKR</td>
+                  <td className="py-4 px-6">25,000 LKR</td>
                 </tr>
                 <tr className="border-b border-white/10 bg-white/5">
-                  <td className="py-4 px-6 border-r border-white/10">
-                    International authors with IEEE membership
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">
+                    Non-IEEE Members
                   </td>
-                  <td className="py-4 px-6">USD 100 / paper</td>
+                  <td className="py-4 px-6 border-r border-white/10">30,000 LKR</td>
+                  <td className="py-4 px-6">35,000 LKR</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">
+                    IEEE Student Member
+                  </td>
+                  <td className="py-4 px-6 border-r border-white/10">15,000 LKR</td>
+                  <td className="py-4 px-6">17,500 LKR</td>
+                </tr>
+                <tr className="border-b border-white/10 bg-white/5">
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">
+                    Student Non-IEEE Member
+                  </td>
+                  <td className="py-4 px-6 border-r border-white/10">20,000 LKR</td>
+                  <td className="py-4 px-6">25,000 LKR</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">
+                    Non-Presenting Authors
+                  </td>
+                  <td className="py-4 px-6 border-r border-white/10">5,000 LKR</td>
+                  <td className="py-4 px-6">7,500 LKR</td>
+                </tr>
+
+                {/* Author Registration - International Authors */}
+                <tr className="bg-white/10 text-white font-semibold">
+                  <td colSpan={3} className="py-3 px-6">
+                    Author Registration - International Authors
+                  </td>
+                </tr>
+                <tr className="border-b border-white/10 bg-white/5">
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">
+                    IEEE Members
+                  </td>
+                  <td className="py-4 px-6 border-r border-white/10">200 USD</td>
+                  <td className="py-4 px-6">250 USD</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">
+                    Non-IEEE Members
+                  </td>
+                  <td className="py-4 px-6 border-r border-white/10">300 USD</td>
+                  <td className="py-4 px-6">350 USD</td>
+                </tr>
+                <tr className="border-b border-white/10 bg-white/5">
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">
+                    Student – IEEE Member
+                  </td>
+                  <td className="py-4 px-6 border-r border-white/10">100 USD</td>
+                  <td className="py-4 px-6">175 USD</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">
+                    Student Non-IEEE Member
+                  </td>
+                  <td className="py-4 px-6 border-r border-white/10">150 USD</td>
+                  <td className="py-4 px-6">250 USD</td>
+                </tr>
+                <tr className="border-b border-white/10 bg-white/5">
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">
+                    Non-Presenting Authors
+                  </td>
+                  <td className="py-4 px-6 border-r border-white/10">50 USD</td>
+                  <td className="py-4 px-6">75 USD</td>
+                </tr>
+
+                {/* Participant Registration */}
+                <tr className="bg-white/10 text-white font-semibold">
+                  <td colSpan={3} className="py-3 px-6">
+                    Participant Registration
+                  </td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">
+                    Local Participants
+                  </td>
+                  <td className="py-4 px-6 border-r border-white/10">5,000 LKR</td>
+                  <td className="py-4 px-6">7,500 LKR</td>
                 </tr>
                 <tr>
-                  <td className="py-4 px-6 border-r border-white/10">
-                    International authors without IEEE membership
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">
+                    Foreign Participants
                   </td>
-                  <td className="py-4 px-6">USD 120 / paper</td>
+                  <td className="py-4 px-6 border-r border-white/10">50 USD</td>
+                  <td className="py-4 px-6">75 USD</td>
                 </tr>
               </tbody>
             </table>
@@ -123,7 +200,7 @@ const RegistrationPage = () => {
               </ul>
 
               <p className="para text-gray-400 mt-4 text-sm">
-                Use “MERCon 2025 – EDAS paper ID” as the payment reference.
+                Use “MERCon 2026 - EDAS paper ID” as the payment reference.
               </p>
             </div>
 

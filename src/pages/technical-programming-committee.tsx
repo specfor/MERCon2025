@@ -417,12 +417,12 @@ const trackCoChairLevels: SpeakerLevel[] = [
         ),
       },
       {
-        name: "Dr Dinesh Attygalle",
+        name: "Prof. Dinesh Attygalle",
         university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
-            src="../images/programming-committee/Dr.Dinesh.Attygalle.png"
-            alt="Dr Dinesh Attygalle"
+            src="../images/programming-committee/Prof.Dinesh.Attygalle.png"
+            alt="Prof. Dinesh Attygalle"
             className="w-full h-full"
             objectFit="cover"
           />
@@ -580,7 +580,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
             src="../images/programming-committee/Dr.Wageesha.Manamperi.png"
             alt="Dr. Wageesha Manamperi"
             className="w-full h-full"
-            objectFit="contain"
+            objectFit="cover"
           />
         ),
       },

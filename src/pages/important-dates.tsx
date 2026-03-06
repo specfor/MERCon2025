@@ -10,7 +10,7 @@ export const timelineEvents: TimelineEvent[] = [
   {
     id: 1,
     title: "Paper Submission Open",
-    date: "February 2026",
+    date: "March 2026",
   },
   {
     id: 2,

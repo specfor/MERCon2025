@@ -19,14 +19,14 @@ const GridTile: React.FC<{
     <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-80" />
 
     {/* Text Content - slides up slightly on hover */}
-    <div className="absolute bottom-0 left-0 p-6 translate-y-2 transform transition-transform duration-300 group-hover:translate-y-0">
+    {/* <div className="absolute bottom-0 left-0 p-6 translate-y-2 transform transition-transform duration-300 group-hover:translate-y-0">
       {category && (
         <span className="mb-2 block text-xs font-bold uppercase tracking-wider text-primary-500 opacity-0 transition-opacity duration-300 delay-100 group-hover:opacity-100">
           {category}
         </span>
       )}
       <h3 className="text-xl font-bold text-white para">{title}</h3>
-    </div>
+    </div> */}
   </div>
 );
 

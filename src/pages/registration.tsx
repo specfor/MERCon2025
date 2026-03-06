@@ -234,17 +234,20 @@ const RegistrationPage = () => {
             </h3>
 
             <p className="para text-gray-300 mb-8 text-lg">
-              Click the button below to proceed with registration.
+              Coming Soon
             </p>
+            {/* <p className="para text-gray-300 mb-8 text-lg">
+              Click the button below to proceed with registration.
+            </p> */}
 
-            <a
+            {/* <a
               href="https://forms.gle/bnYtSPhywcDxGE5D6"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-12 py-4 bg-primary-500 text-white font-semibold text-lg rounded-full hover:bg-primary-600 transition-all duration-300 shadow-lg hover:scale-105"
             >
               Register Here
-            </a>
+            </a> */}
           </div>
         </div>
       </section>

@@ -178,49 +178,13 @@ const RegistrationPage = () => {
             Payment Method
           </h3>
 
-          <p className="para text-gray-300 mb-8">
-            You can pay via one of the following options:
-          </p>
-
-          <div className="space-y-10">
-            {/* Local Authors */}
-            <div className="bg-white/5 backdrop-blur-md rounded-lg p-8 border-l-4 border-primary-500">
-              <h4 className="text-xl font-bold text-white mb-4">
-                For Authors with Local Affiliations
-              </h4>
-
-              <p className="para text-gray-300 mb-4">
-                Option 1: Pay to any Bank of Ceylon branch or via online banking.
-              </p>
-
-              <ul className="para text-gray-300 space-y-2 ml-4">
-                <li><strong>Account No:</strong> 307829</li>
-                <li><strong>Account Name:</strong> Bursar, University of Moratuwa</li>
-                <li><strong>Bank:</strong> Bank of Ceylon, Katubedda Branch</li>
-              </ul>
-
-              <p className="para text-gray-400 mt-4 text-sm">
-                Use “MERCon 2026 - EDAS paper ID” as the payment reference.
-              </p>
-            </div>
-
-            {/* Foreign Authors */}
-            <div className="bg-white/5 backdrop-blur-md rounded-lg p-8 border-l-4 border-primary-600">
-              <h4 className="text-xl font-bold text-white mb-4">
-                For Authors with Foreign Affiliations
-              </h4>
-
-              <p className="para text-gray-300 mb-4">
-                Payment must be completed as a bank transfer.
-              </p>
-
-              <ul className="para text-gray-300 space-y-2 ml-4">
-                <li><strong>Account No:</strong> 307829</li>
-                <li><strong>Account Name:</strong> Bursar, University of Moratuwa</li>
-                <li><strong>SWIFT Code:</strong> BCEYLKLX</li>
-                <li><strong>Branch Code:</strong> 030</li>
-              </ul>
-            </div>
+          <div className="bg-white/5 backdrop-blur-md rounded-lg p-8 border border-white/10 text-center">
+            <p className="para text-gray-300 mb-4 text-lg">
+              Payments will be accepted via <strong>Visa, Mastercard, and UnionPay</strong> cards.
+            </p>
+            <p className="para text-primary-400 font-semibold text-lg">
+              Payment gateway will be linked soon.
+            </p>
           </div>
         </div>
       </section>

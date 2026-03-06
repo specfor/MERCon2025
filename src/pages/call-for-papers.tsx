@@ -21,7 +21,7 @@ const CallForPapersPage: React.FC = () => {
       />
       <div className="max-w-4xl mx-auto pt-20">
         {/* Header */}
-        <SectionHeader headerText="Author Instructions" />
+        <SectionHeader headerText="MERCon 2026 – Author Guidelines" />
 
         {/* Paper Submissions Section */}
         <div className="mt-12 bg-gradient-to-br from-green-600/10 to-emerald-600/5 backdrop-blur-sm border border-green-500/20 rounded-2xl p-8">
@@ -40,7 +40,7 @@ const CallForPapersPage: React.FC = () => {
             <li className="flex items-start gap-3">
               <span className="mt-1.5 w-2 h-2 bg-green-500 rounded-full shrink-0" />
               <span>
-                Maximum length of a paper is limited to 6 printed A4 pages in given format.{" "}
+                All submissions must follow the official IEEE conference paper template and formatting guidelines.{" "}
                 <a
                   href="https://www.ieee.org/conferences/publishing/templates.html"
                   target="_blank"
@@ -53,7 +53,11 @@ const CallForPapersPage: React.FC = () => {
             </li>
             <li className="flex items-start gap-3">
               <span className="mt-1.5 w-2 h-2 bg-green-500 rounded-full shrink-0" />
-              <span>Review process is Double-blind. Follow the following instructions in your first submission.</span>
+              <span>Maximum length of a paper is limited to 6 printed A4 pages in given format.</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 w-2 h-2 bg-green-500 rounded-full shrink-0" />
+              <span>Manuscripts must comply with <b>double-blind submission requirements.</b></span>
             </li>
             <li className="flex items-start gap-3">
               <span className="mt-1.5 w-2 h-2 bg-green-500 rounded-full shrink-0" />
@@ -76,7 +80,7 @@ const CallForPapersPage: React.FC = () => {
             <svg className="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
             </svg>
-            Guidelines for Submitting Full Papers
+            USE THE FOLLOWING GUIDELINES WHILE SUBMITTING FULL PAPERS:
           </h3>
 
           <ul className="space-y-4 text-gray-300">
@@ -92,8 +96,12 @@ const CallForPapersPage: React.FC = () => {
                 >
                   EDAS
                 </a>
-                . Please note that 1st time users need to create a new EDAS account. Please use your institutional e-mail address while registering.
+                .
               </span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 w-2 h-2 bg-emerald-500 rounded-full shrink-0" />
+              <span>Please note that 1st time users need to create a new EDAS account. Please use your institutional e-mail address while registering.</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="mt-1.5 w-2 h-2 bg-emerald-500 rounded-full shrink-0" />
@@ -101,7 +109,7 @@ const CallForPapersPage: React.FC = () => {
             </li>
             <li className="flex items-start gap-3">
               <span className="mt-1.5 w-2 h-2 bg-emerald-500 rounded-full shrink-0" />
-              <span>Manuscript submission should be in Adobe Portable Document Format (PDF) only. Once accepted, all Camera Ready papers should be in IEEE compliant format.</span>
+              <span>Manuscript submission should be in Adobe Portable Document Format (PDF) only. Once accepted, all Camera-Ready papers should be in IEEE compliant format.</span>
             </li>
             <li className="flex items-start gap-3">
               <span className="mt-1.5 w-2 h-2 bg-emerald-500 rounded-full shrink-0" />
@@ -133,8 +141,101 @@ const CallForPapersPage: React.FC = () => {
                 MERCon strongly discourages changes and, in particular, withdrawals of papers once submitted and included in the program. To avoid the likelihood of this, authors are strongly encouraged to get all necessary company and/or government approvals prior to submitting the paper to the conference.
               </p>
               <p>
-                If under any circumstances it becomes necessary for the author(s) to withdraw or change a paper, MERCon policy dictates that proper procedures must be followed.
+                If under any circumstances it becomes necessary for the author(s) to withdraw or change a paper, MERCon policy dictates.
               </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Desk Rejection Criteria */}
+        <div className="mt-8 bg-red-500/10 border border-red-500/30 rounded-xl p-6">
+          <h3 className="text-xl font-bold text-red-500 mb-4 flex items-center gap-2">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Desk Rejection Criteria
+          </h3>
+          <ul className="space-y-3 text-gray-300">
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 w-2 h-2 bg-red-500 rounded-full shrink-0" />
+              <span>Manuscripts exceeding the <b>6-page limit</b> (including references) or violating <b>double-blind</b> submission will be desk-rejected.</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 w-2 h-2 bg-red-500 rounded-full shrink-0" />
+              <span><b>All authors must be added in EDAS</b> before submission; additions afterward are <b>not allowed.</b></span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 w-2 h-2 bg-red-500 rounded-full shrink-0" />
+              <span><b>Do not apply security settings</b> to the PDF.</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 w-2 h-2 bg-red-500 rounded-full shrink-0" />
+              <span>Submissions that are primarily <b>review papers, survey articles, literature summaries, tutorial-style manuscripts, or project reports</b> will not be accepted for MERCon.</span>
+            </li>
+            <li className="flex items-start gap-3">
+              <span className="mt-1.5 w-2 h-2 bg-red-500 rounded-full shrink-0" />
+              <span><b>Deviations from these specifications</b> may impede review and result in desk-rejection.</span>
+            </li>
+          </ul>
+        </div>
+
+        {/* Policy on Using Large Language Models (LLMs) */}
+        <div className="mt-8 bg-blue-500/10 border border-blue-500/30 rounded-xl p-6">
+          <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
+            <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            Policy on Using Large Language Models (LLMs)
+          </h3>
+          <p className="text-gray-300 mb-4">
+            When submitting a manuscript, authors confirm they have read, understood, and followed the rules for acceptable use of LLMs.
+          </p>
+          
+          <div className="grid md:grid-cols-2 gap-6 mt-6">
+            <div className="space-y-3">
+              <h4 className="font-semibold text-green-400 flex items-center gap-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                Acceptable Uses
+              </h4>
+              <ul className="space-y-2 text-gray-300 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 w-1.5 h-1.5 bg-green-500 rounded-full shrink-0" />
+                  <span>Improving language and clarity during editing.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 w-1.5 h-1.5 bg-green-500 rounded-full shrink-0" />
+                  <span>Accelerating core development and visualization.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 w-1.5 h-1.5 bg-green-500 rounded-full shrink-0" />
+                  <span>Supporting research and ideation, such as identifying related work or reviewing ideas.</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="space-y-3">
+              <h4 className="font-semibold text-red-500 flex items-center gap-2">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                Unacceptable Uses
+              </h4>
+              <ul className="space-y-2 text-gray-300 text-sm">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 w-1.5 h-1.5 bg-red-500 rounded-full shrink-0" />
+                  <span>Using an LLM to generate most or significant parts of a manuscript.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 w-1.5 h-1.5 bg-red-500 rounded-full shrink-0" />
+                  <span>Directly using LLM-generated content without verification of correctness.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1.5 w-1.5 h-1.5 bg-red-500 rounded-full shrink-0" />
+                  <span>Using LLM-generated text in any section (e.g., introduction, related work, or prior work summaries) without thorough checking.</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -142,7 +243,7 @@ const CallForPapersPage: React.FC = () => {
         {/* Submit Button */}
         <div className="mt-12 flex justify-center">
           <a
-            href="https://edas.info/N33802"
+            href="https://mercon2026.edas.info/"
             target="_blank"
             rel="noopener noreferrer"
             className="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 rounded-full text-white font-bold text-lg shadow-lg shadow-green-500/30 hover:shadow-xl hover:shadow-green-500/40 hover:scale-105 transition-all duration-300"

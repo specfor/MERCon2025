@@ -243,7 +243,7 @@ export default function Header() {
           <GatsbyLink to="/" className="shrink-0 relative z-50">
             <StaticImage
               src="../images/logo2026.png"
-              alt="MERCon 2025 Logo"
+              alt="MERCon 2026 Logo"
               className="w-40 md:w-52 text-md para h-auto object-contain"
               placeholder="none"
               loading="eager"

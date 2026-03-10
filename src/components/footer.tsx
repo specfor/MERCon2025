@@ -142,7 +142,7 @@ export default function Footer() {
           <div className="mt-5">
             <StaticImage
               src="../images/logo2026.png"
-              alt="MERCon 2025 Logo"
+              alt="MERCon 2026 Logo"
               className="max-w-44 h-auto opacity-90 hover:opacity-100 transition-opacity"
             />
           </div>

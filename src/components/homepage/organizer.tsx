@@ -33,6 +33,10 @@ const OrganizerSection = () => {
     { image: <StaticImage src="../../images/logos/3.png" alt="Sponsor 1 Logo" {...imageProps} /> },
   ];
 
+  const financialSponsors = [
+    { image: <StaticImage src="../../images/logos/1.png" alt="Sponsor 1 Logo" {...imageProps} /> },
+  ]
+
   const techSponsors = [
     { image: <StaticImage src="../../images/logos/1.png" alt="Sponsor 1 Logo" {...imageProps} /> },
     { image: <StaticImage src="../../images/logos/1.png" alt="Sponsor 1 Logo" {...imageProps} /> },
@@ -47,6 +51,11 @@ const OrganizerSection = () => {
     { image: <StaticImage src="../../images/logos/1.png" alt="Sponsor 1 Logo" {...imageProps} /> },
     { image: <StaticImage src="../../images/logos/1.png" alt="Sponsor 1 Logo" {...imageProps} /> },
   ];
+
+  const getSingleItemClass = (length: number) =>
+    length === 1
+      ? "md:col-span-2 md:w-[calc(50%-1rem)] md:justify-self-center lg:col-span-1 lg:col-start-2 lg:w-full"
+      : "";
 
   return (
     <section className="w-full py-24 px-6 md:px-12 relative overflow-hidden">
@@ -65,7 +74,7 @@ const OrganizerSection = () => {
         {/* Glass Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
           {organizers.map((org, index) => (
-            <div key={index} className={`${glassCardClasses} group relative`}>
+            <div key={index} className={`${glassCardClasses} group relative ${getSingleItemClass(organizers.length)}`}>
               <div className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer rounded-3xl z-30"></div>
               <div className="absolute inset-0 p-3 z-10">
                 <div className="w-full h-full rounded-xl flex items-center justify-center">{org.image}</div>
@@ -75,11 +84,11 @@ const OrganizerSection = () => {
         </div>
 
         <div className="mt-32">
-          <SectionHeader headerText="Technical Co-Sponsors" />
+          <SectionHeader headerText="Financial Co-Sponsors" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
-          {techSponsors.map((sponsor, index) => (
-            <div key={index} className={`${glassCardClasses} relative group`}>
+          {financialSponsors.map((sponsor, index) => (
+            <div key={index} className={`${glassCardClasses} relative group ${getSingleItemClass(financialSponsors.length)}`}>
               <div className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer rounded-3xl z-20"></div>
               <div className="absolute inset-0 p-3 z-10">
                 <div className="w-full h-full rounded-xl flex items-center justify-center">{sponsor.image}</div>
@@ -89,11 +98,25 @@ const OrganizerSection = () => {
         </div>
 
         {/* <div className="mt-32">
+          <SectionHeader headerText="Technical Co-Sponsors" />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+          {techSponsors.map((sponsor, index) => (
+            <div key={index} className={`${glassCardClasses} relative group ${getSingleItemClass(techSponsors.length)}`}>
+              <div className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer rounded-3xl z-20"></div>
+              <div className="absolute inset-0 p-3 z-10">
+                <div className="w-full h-full rounded-xl flex items-center justify-center">{sponsor.image}</div>
+              </div>
+            </div>
+          ))}
+        </div> */}
+
+        {/* <div className="mt-32">
           <SectionHeader headerText="Gold Sponsors" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
           {goldSponsors.map((sponsor, index) => (
-            <div key={index} className={`${glassCardClasses} relative group`}>
+            <div key={index} className={`${glassCardClasses} relative group ${getSingleItemClass(goldSponsors.length)}`}>
               <div className="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/10 to-transparent group-hover:animate-shimmer rounded-3xl z-20"></div>
               <div className="absolute inset-0 p-3 z-10">
                 <div className="w-full h-full rounded-xl flex items-center justify-center">{sponsor.image}</div>

@@ -25,7 +25,7 @@ const RegistrationPage = () => {
           <SectionHeader headerText="Registration" textClass="text-white" />
 
           <p className="para text-gray-200 text-lg max-w-4xl mx-auto leading-relaxed mt-6">
-            MERCon 2025 will be held at the University of Moratuwa physically and
+            MERCon 2026 will be held at the University of Moratuwa physically and
             will facilitate foreign participants via online platforms. The
             following fee categories will be charged to cover IEEE payments,
             paper management systems, online conference platforms, and meals and

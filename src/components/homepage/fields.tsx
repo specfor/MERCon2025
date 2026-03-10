@@ -42,7 +42,7 @@ const ResearchFields: React.FC = () => (
     <div className="relative z-10">
 
       <h3 className="para text-base md:text-xl text-white text-center mb-12">
-        MERCon 2025 solicits research papers describing significant & innovative
+        MERCon 2026 solicits research papers describing significant & innovative
         research contributions to following areas of engineering. We will invite
         submissions on a wide range of research topics.
       </h3>

@@ -161,7 +161,7 @@ const speakerLevels: SpeakerLevel[] = [
     ],
   },
   {
-    levelName: "Finance Chair",
+    levelName: "Finance Co-Chairs",
     rank: 7,
     speakers: [
       {
@@ -170,6 +170,17 @@ const speakerLevels: SpeakerLevel[] = [
           <StaticImage
             src="../images/committee/Dr.Aruna.Bandara.png"
             alt="Dr. Aruna Bandara"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Ms. Warunika Hippola",
+        image: (
+          <StaticImage
+            src="../images/committee/Ms.Warunika.Hippola.png"
+            alt="Ms. Warunika Hippola"
             className="w-full h-full"
             objectFit="cover"
           />

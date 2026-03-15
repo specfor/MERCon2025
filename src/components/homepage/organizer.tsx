@@ -35,15 +35,20 @@ const OrganizerSection = () => {
 
   const financialSponsors = [
     { image: <StaticImage src="../../images/logos/1.png" alt="Sponsor 1 Logo" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/IEEE-SL-Logo.png" alt="IEEE-SL-Logo" {...imageProps} /> },
   ]
 
   const techSponsors = [
-    { image: <StaticImage src="../../images/logos/1.png" alt="Sponsor 1 Logo" {...imageProps} /> },
-    { image: <StaticImage src="../../images/logos/1.png" alt="Sponsor 1 Logo" {...imageProps} /> },
-    { image: <StaticImage src="../../images/logos/1.png" alt="Sponsor 1 Logo" {...imageProps} /> },
-    { image: <StaticImage src="../../images/logos/1.png" alt="Sponsor 1 Logo" {...imageProps} /> },
-    { image: <StaticImage src="../../images/logos/1.png" alt="Sponsor 1 Logo" {...imageProps} /> },
-    { image: <StaticImage src="../../images/logos/1.png" alt="Sponsor 1 Logo" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/IEEE-SL-CASS_CEDA.jpg" alt="IEEE-SL-CASS_CEDA" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/IEEE-SL-COMPUTER-SOCIETY.png" alt="IEEE-SL-COMPUTER-SOCIETY" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/IEEE-SL-ComSoc.jpg" alt="IEEE-SL-ComSoc" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/IEEE-SL-GRSS.png" alt="IEEE-SL-GRSS" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/IEEE-SL-IAS.png" alt="IEEE-SL-IAS" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/IEEE-SL-IES.png" alt="IEEE-SL-IES" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/IEEE-SL-PES.jpeg" alt="IEEE-SL-PES" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/IEEE-SL-RAS.png" alt="IEEE-SL-RAS" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/IEEE-SL-SPS.jpg" alt="IEEE-SL-SPS" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/MTT-S-SL.jpg" alt="MTT-S-SL" {...imageProps} /> },
   ];
 
   const goldSponsors = [
@@ -97,7 +102,7 @@ const OrganizerSection = () => {
           ))}
         </div>
 
-        {/* <div className="mt-32">
+        <div className="mt-32">
           <SectionHeader headerText="Technical Co-Sponsors" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
@@ -109,7 +114,7 @@ const OrganizerSection = () => {
               </div>
             </div>
           ))}
-        </div> */}
+        </div>
 
         {/* <div className="mt-32">
           <SectionHeader headerText="Gold Sponsors" />

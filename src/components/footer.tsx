@@ -52,7 +52,7 @@ export default function Footer() {
             </li>
             <li>
               <GatsbyLink
-                to="/conferenceSchedule"
+                to="/conference-schedule"
                 className="text-gray-200 text-sm hover:text-primary-500 transition-colors inline-flex items-center gap-2 hover:gap-3 group"
               >
                 <span className="text-primary-500 opacity-0 group-hover:opacity-100 transition-opacity">›</span>
@@ -79,29 +79,20 @@ export default function Footer() {
             </li>
             <li>
               <GatsbyLink
-                to="/workshops_updated"
+                to="/workshops"
                 className="text-gray-200 text-sm hover:text-primary-500 transition-colors inline-flex items-center gap-2 hover:gap-3 group"
               >
                 <span className="text-primary-500 opacity-0 group-hover:opacity-100 transition-opacity">›</span>
-                Workshops
+                Workshops & Special Sessions
               </GatsbyLink>
             </li>
             <li>
               <GatsbyLink
-                to="/special_sessions"
+                to="/important-dates"
                 className="text-gray-200 text-sm hover:text-primary-500 transition-colors inline-flex items-center gap-2 hover:gap-3 group"
               >
                 <span className="text-primary-500 opacity-0 group-hover:opacity-100 transition-opacity">›</span>
-                Special Sessions
-              </GatsbyLink>
-            </li>
-            <li>
-              <GatsbyLink
-                to="/author-instructions"
-                className="text-gray-200 text-sm hover:text-primary-500 transition-colors inline-flex items-center gap-2 hover:gap-3 group"
-              >
-                <span className="text-primary-500 opacity-0 group-hover:opacity-100 transition-opacity">›</span>
-                Author Instructions
+                Important Dates
               </GatsbyLink>
             </li>
           </ul>

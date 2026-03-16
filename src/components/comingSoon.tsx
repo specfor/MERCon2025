@@ -9,7 +9,6 @@ interface TimeLeft {
 
 interface ComingSoonProps {
   title?: string;
-  subtitle?: string;
   targetDate?: string;
   description?: string;
   showCountdown?: boolean;
@@ -18,7 +17,6 @@ interface ComingSoonProps {
 
 const ComingSoon: React.FC<ComingSoonProps> = ({
   title = "Coming Soon",
-  subtitle = "This section is currently under development",
   targetDate,
   description = "We are currently preparing comprehensive information for this section. Please check back soon or subscribe to our updates to be notified when new content becomes available. For immediate inquiries, please contact our organizing committee.",
   showCountdown = true,
@@ -139,9 +137,6 @@ const ComingSoon: React.FC<ComingSoonProps> = ({
         <h1 className="text-5xl md:text-7xl font-bold mb-4 bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent animate-slideDown">
           {title}
         </h1>
-
-        {/* Subtitle */}
-        <p className="text-xl md:text-2xl text-gray-300 mb-8 animate-slideDown delay-200">{subtitle}</p>
 
         {/* Description */}
         <p className="text-base md:text-lg text-gray-400 max-w-2xl mx-auto mb-12 leading-relaxed animate-slideDown delay-300">

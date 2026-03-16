@@ -49,6 +49,7 @@ const OrganizerSection = () => {
     { image: <StaticImage src="../../images/logos/IEEE-SL-RAS.png" alt="IEEE-SL-RAS" {...imageProps} /> },
     { image: <StaticImage src="../../images/logos/IEEE-SL-SPS.jpg" alt="IEEE-SL-SPS" {...imageProps} /> },
     { image: <StaticImage src="../../images/logos/MTT-S-SL.jpg" alt="MTT-S-SL" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/IEEE-SL-EMBS.png" alt="IEEE-SL-EMBS" {...imageProps} /> },
   ];
 
   const goldSponsors = [

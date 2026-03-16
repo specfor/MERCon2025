@@ -1026,10 +1026,10 @@ const conferenceChairLevels: SpeakerLevel[] = [
     levelName: "IEEE Sri Lanka Section Representatives",
     speakers: [
       {
-        name: "Prof. S. Vasantha Priyan",
+        name: "Prof. Shanmuganathan Vasanthapriyan",
         university: "",
         image: (
-          <StaticImage src="../images/programming-committee/Prof.S.Vasantha.Priyan.png" alt="" className="w-full h-full" objectFit="cover" />
+          <StaticImage src="../images/programming-committee/Prof.Shanmuganathan.Vasanthapriyan.png" alt="" className="w-full h-full" objectFit="cover" />
         ),
       },
       {

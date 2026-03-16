@@ -32,8 +32,7 @@ const navLinks: NavLink[] = [
     label: "Explore Programs",
     submenu: [
       { label: "Keynotes", href: "/keynote-speakers" },
-      { label: "Workshops", href: "/workshops" },
-      { label: "Special Sessions", href: "/special-sessions" },
+      { label: "Workshops & Special Sessions", href: "/workshops" },
     ],
   },
   {

@@ -30,9 +30,10 @@ const workshopsData: WorkshopDetails[] = [
       "Undergraduate and postgraduate students",
       "Early-career researchers, PhD candidates, academics, and industry researchers",
     ],
-    date: "TBA",
+    date: "13th march 2026",
     icon: <Book size={120} className="text-primary-500" />,
     color: "bg-green-500/20",
+    detailsLink: "/workshop-paper-writing-details",
     paragraphs: [
       "This workshop is designed to equip researchers with practical, up-to-date skills for writing high-quality research papers aligned with international conference and journal standards. With increasing expectations on clarity, reproducibility, visual quality, and ethical use of AI tools, effective research communication has become as critical as technical novelty. Aligned with the requirements of major engineering and computing conferences, the workshop provides a hands-on, end-to-end guide to research paper preparation from structuring ideas to producing camera-ready manuscripts using professional tools.",
     ],

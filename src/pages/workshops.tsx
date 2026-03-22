@@ -30,7 +30,7 @@ const workshopsData: WorkshopDetails[] = [
       "Undergraduate and postgraduate students",
       "Early-career researchers, PhD candidates, academics, and industry researchers",
     ],
-    date: "13th march 2026",
+    date: "30th march 2026",
     icon: <Book size={120} className="text-primary-500" />,
     color: "bg-green-500/20",
     detailsLink: "/workshop-paper-writing-details",

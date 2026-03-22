@@ -45,7 +45,7 @@ const WorkshopPaperWritingDetailsPage: React.FC = () => {
             <div className="flex flex-wrap justify-center gap-4 mt-8">
               <div className="flex items-center gap-2 bg-gray-800/30 border border-primary-500/20 rounded-full px-6 py-3">
                 <Calendar className="w-5 h-5 text-primary-400" />
-                <span className="text-gray-200 para font-semibold">13th March 2026</span>
+                <span className="text-gray-200 para font-semibold">30th March 2026</span>
               </div>
               <div className="flex items-center gap-2 bg-gray-800/30 border border-primary-500/20 rounded-full px-6 py-3">
                 <Book className="w-5 h-5 text-primary-400" />
@@ -65,10 +65,15 @@ const WorkshopPaperWritingDetailsPage: React.FC = () => {
                   Workshop Overview
                 </h3>
                 <p className="text-gray-300 para leading-relaxed text-sm md:text-base mb-6">
-                  This workshop is designed to equip researchers with practical, up-to-date skills for writing high-quality research papers aligned with international conference and journal standards.
+                  This workshop is designed to equip researchers with practical, up-to-date skills for writing
+                  high-quality research papers aligned with international conference and journal standards.
                 </p>
                 <p className="text-gray-300 para leading-relaxed text-sm md:text-base">
-                  With increasing expectations on clarity, reproducibility, visual quality, and ethical use of AI tools, effective research communication has become as critical as technical novelty. Aligned with the requirements of major engineering and computing conferences, the workshop provides a hands-on, end-to-end guide to research paper preparation from structuring ideas to producing camera-ready manuscripts using professional tools.
+                  With increasing expectations on clarity, reproducibility, visual quality, and ethical use of AI tools,
+                  effective research communication has become as critical as technical novelty. Aligned with the
+                  requirements of major engineering and computing conferences, the workshop provides a hands-on,
+                  end-to-end guide to research paper preparation from structuring ideas to producing camera-ready
+                  manuscripts using professional tools.
                 </p>
               </div>
 
@@ -81,7 +86,7 @@ const WorkshopPaperWritingDetailsPage: React.FC = () => {
                 <div className="flex flex-wrap items-center gap-4">
                   <div className="flex items-center gap-2 text-gray-200">
                     <Calendar className="w-5 h-5 text-primary-400" />
-                    <p className="para font-semibold text-white">13th March 2026</p>
+                    <p className="para font-semibold text-white">30th March 2026</p>
                   </div>
                   <p className="para text-sm text-gray-300">Time: 6.00 p.m</p>
                   <a
@@ -113,8 +118,6 @@ const WorkshopPaperWritingDetailsPage: React.FC = () => {
                   </li>
                 </ul>
               </div>
-
-              
             </div>
 
             {/* Right Column - Workshop Image */}
@@ -135,9 +138,7 @@ const WorkshopPaperWritingDetailsPage: React.FC = () => {
 
           {/* Workshop Topics Section */}
           <div className="mt-16 bg-gray-800/30 border border-primary-500/20 rounded-2xl p-8 md:p-12 backdrop-blur-sm">
-            <h3 className="text-primary-400 font-bold text-3xl para mb-8 text-center">
-              What You'll Learn
-            </h3>
+            <h3 className="text-primary-400 font-bold text-3xl para mb-8 text-center">What You'll Learn</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {[
                 {
@@ -165,7 +166,10 @@ const WorkshopPaperWritingDetailsPage: React.FC = () => {
                 },
                 {
                   title: "Responsible Use of AI",
-                  points: ["AI-assisted writing and limitations", "Conference/journal AI policies and ethical boundaries"],
+                  points: [
+                    "AI-assisted writing and limitations",
+                    "Conference/journal AI policies and ethical boundaries",
+                  ],
                 },
                 {
                   title: "From Draft to Submission",

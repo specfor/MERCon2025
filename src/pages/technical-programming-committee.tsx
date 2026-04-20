@@ -33,12 +33,12 @@ const trackCoChairLevels: SpeakerLevel[] = [
         ),
       },
       {
-        name: "Dr Guohong Tian",
+        name: "Dr. Guohong Tian",
         university: "University of Surrey, UK",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Guohong.Tian.png"
-            alt="Dr Guohong Tian"
+            alt="Dr. Guohong Tian"
             className="w-full h-full"
             objectFit="cover"
           />
@@ -159,12 +159,12 @@ const trackCoChairLevels: SpeakerLevel[] = [
         ),
       },
       {
-        name: "Dr Surangika Ranathunga",
+        name: "Dr. Surangika Ranathunga",
         university: "Mathematical and Computational Sciences,  Massey University",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Surangika.png"
-            alt="Dr Surangika Ranathunga"
+            alt="Dr. Surangika Ranathunga"
             className="w-full h-full"
             objectFit="cover"
           />
@@ -333,24 +333,24 @@ const trackCoChairLevels: SpeakerLevel[] = [
         ),
       },
       {
-        name: "Dr R.M.M. Ruwanthika",
+        name: "Dr. R.M.M. Ruwanthika",
         university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.R.M.M.Ruwanthika.png"
-            alt="Dr R.M.M. Ruwanthika"
+            alt="Dr. R.M.M. Ruwanthika"
             className="w-full h-full"
             objectFit="cover"
           />
         ),
       },
       {
-        name: "Dr Viraj Muthugala",
+        name: "Dr. Viraj Muthugala",
         university: "Singapore University of Technology and Design, Singapore",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Viraj.Muthugala.png"
-            alt="Dr Viraj Muthugala"
+            alt="Dr. Viraj Muthugala"
             className="w-full h-full"
             objectFit="contain"
           />
@@ -375,12 +375,12 @@ const trackCoChairLevels: SpeakerLevel[] = [
         ),
       },
       {
-        name: "Dr Gilbert Lim",
+        name: "Dr. Gilbert Lim",
         university: "Chief AI Scientist, EyRIS",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Gilbert.Lim.png"
-            alt="Dr Gilbert Lim"
+            alt="Dr. Gilbert Lim"
             className="w-full h-full"
             objectFit="contain"
           />
@@ -405,12 +405,12 @@ const trackCoChairLevels: SpeakerLevel[] = [
     rank: 11,
     speakers: [
       {
-        name: "Dr Aravinda Abeygunawardane",
+        name: "Dr. Aravinda Abeygunawardane",
         university: "University of Moratuwa, Sri Lanka",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr. A.A.G.A.Abeygunawardane.png"
-            alt="Dr Aravinda Abeygunawardane"
+            alt="Dr. Aravinda Abeygunawardane"
             className="w-full h-full"
             objectFit="cover"
           />
@@ -423,6 +423,18 @@ const trackCoChairLevels: SpeakerLevel[] = [
           <StaticImage
             src="../images/programming-committee/Prof.Dinesh.Attygalle.png"
             alt="Prof. Dinesh Attygalle"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+      {
+        name: "Dr. Hashan Peiris",
+        university: "University of Moratuwa, Sri Lanka",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Hashan.Peiris.png"
+            alt="Dr. Hashan Peiris"
             className="w-full h-full"
             objectFit="cover"
           />
@@ -1029,21 +1041,36 @@ const conferenceChairLevels: SpeakerLevel[] = [
         name: "Prof. Shanmuganathan Vasanthapriyan",
         university: "",
         image: (
-          <StaticImage src="../images/programming-committee/Prof.Shanmuganathan.Vasanthapriyan.png" alt="" className="w-full h-full" objectFit="cover" />
+          <StaticImage
+            src="../images/programming-committee/Prof.Shanmuganathan.Vasanthapriyan.png"
+            alt=""
+            className="w-full h-full"
+            objectFit="cover"
+          />
         ),
       },
       {
         name: "Prof. Roshan Ragel",
         university: "",
         image: (
-          <StaticImage src="../images/programming-committee/Prof.Roshan.Ragel.png" alt="" className="w-full h-full" objectFit="cover" />
+          <StaticImage
+            src="../images/programming-committee/Prof.Roshan.Ragel.png"
+            alt=""
+            className="w-full h-full"
+            objectFit="cover"
+          />
         ),
       },
       {
         name: "Dr. Damayanthi Herath",
         university: "",
         image: (
-          <StaticImage src="../images/programming-committee/Dr.Damayanthi.Herath.png" alt="" className="w-full h-full" objectFit="contain" />
+          <StaticImage
+            src="../images/programming-committee/Dr.Damayanthi.Herath.png"
+            alt=""
+            className="w-full h-full"
+            objectFit="contain"
+          />
         ),
       },
     ],

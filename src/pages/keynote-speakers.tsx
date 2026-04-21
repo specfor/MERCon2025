@@ -6,19 +6,19 @@ import SpeakerCard from "../components/speakerCard";
 
 const speakersData: (Speaker & { desc?: string[] })[] = [
   {
-    name: "Dr. Guohong Tian",
+    name: "Associate Prof. Guohong Tian",
     university:
       "Associate Professor (Reader) in Automotive Engineering, School of Engineering, University of Surrey, United Kingdom",
     desc: [
-      "Dr Guohong Tian is an Associate Professor (Reader) in Automotive Engineering at the School of Engineering, University of Surrey. His research focuses on advanced internal combustion engine technologies, alternative and sustainable fuels, battery thermal management, and vehicle electrification.",
-      "Dr Tian has collaborated extensively with leading organisations including Jaguar Land Rover, Cummins, BP, Shell, JCB, and Continental, bridging fundamental research with industrial applications. He leads and contributes to numerous research and development projects funded by EPSRC, Innovate UK, the EU, the Royal Society, and industry partners. Currently, he is spearheading a major demonstration project in Colombo aimed at electrifying three-wheelers.",
-      "He has published widely on topics such as alternative fuel combustion and injection, advanced engine diagnostics, free-piston engines and control optimisation, battery thermal management, and waste heat recovery. In addition to his research, Dr Tian serves as Associate Editor for Frontiers in Thermal Engineering and Energy Engineering, and as Guest Editor for several leading journals.",
-      "With extensive academic and industrial experience in sustainable and emerging automotive technologies, Dr Tian brings authoritative insights as a keynote speaker for MERCON 2026.",
+      "Associate Prof. Guohong Tian is an Associate Professor (Reader) in Automotive Engineering at the School of Engineering, University of Surrey. His research focuses on advanced internal combustion engine technologies, alternative and sustainable fuels, battery thermal management, and vehicle electrification.",
+      "Associate Prof. Tian has collaborated extensively with leading organisations including Jaguar Land Rover, Cummins, BP, Shell, JCB, and Continental, bridging fundamental research with industrial applications. He leads and contributes to numerous research and development projects funded by EPSRC, Innovate UK, the EU, the Royal Society, and industry partners. Currently, he is spearheading a major demonstration project in Colombo aimed at electrifying three-wheelers.",
+      "He has published widely on topics such as alternative fuel combustion and injection, advanced engine diagnostics, free-piston engines and control optimisation, battery thermal management, and waste heat recovery. In addition to his research, Associate Prof. Tian serves as Associate Editor for Frontiers in Thermal Engineering and Energy Engineering, and as Guest Editor for several leading journals.",
+      "With extensive academic and industrial experience in sustainable and emerging automotive technologies, Associate Prof. Tian brings authoritative insights as a keynote speaker for MERCON 2026.",
     ],
     image: (
       <StaticImage
         src="../images/keynote-speakers/Dr.Guohong.Tian.png"
-        alt="Dr Guohong Tian"
+        alt="Associate Prof. Guohong Tian"
         objectFit="contain"
         className="w-full h-full"
         placeholder="blurred"
@@ -49,7 +49,6 @@ const speakersData: (Speaker & { desc?: string[] })[] = [
 const KeynoteSpeakersPage = () => {
   return (
     <div className="relative w-full min-h-screen overflow-hidden">
-      
       {/* ===== FIXED GREEN BACKGROUND ===== */}
       <div
         className="fixed inset-0 -z-20"
@@ -110,18 +109,13 @@ const KeynoteSpeakersPage = () => {
                     {speaker.desc && speaker.desc.length ? (
                       <div className="space-y-5 text-justify">
                         {speaker.desc.map((para, i) => (
-                          <p
-                            key={i}
-                            className="text-gray-300 para leading-relaxed text-sm md:text-base"
-                          >
+                          <p key={i} className="text-gray-300 para leading-relaxed text-sm md:text-base">
                             {para}
                           </p>
                         ))}
                       </div>
                     ) : (
-                      <p className="text-gray-400 para leading-relaxed">
-                        Details will be announced soon.
-                      </p>
+                      <p className="text-gray-400 para leading-relaxed">Details will be announced soon.</p>
                     )}
                   </div>
                 </div>

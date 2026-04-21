@@ -33,12 +33,12 @@ const trackCoChairLevels: SpeakerLevel[] = [
         ),
       },
       {
-        name: "Dr. Guohong Tian",
+        name: "Associate Prof. Guohong Tian",
         university: "University of Surrey, UK",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Guohong.Tian.png"
-            alt="Dr. Guohong Tian"
+            alt="Associate Prof. Guohong Tian"
             className="w-full h-full"
             objectFit="cover"
           />
@@ -430,7 +430,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
       },
       {
         name: "Dr. Hashan Peiris",
-        university: "University of Moratuwa, Sri Lanka",
+        university: "John Hopkinson University, USA",
         image: (
           <StaticImage
             src="../images/programming-committee/Dr.Hashan.Peiris.png"

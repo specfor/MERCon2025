@@ -11,6 +11,8 @@ interface TimelineEventWithParsed {
   isPast: boolean;
 }
 
+const crossedOutEventTitles = new Set(["Paper Submission Deadline"]);
+
 const UpcomingTimeline: React.FC = () => {
   const now = new Date();
 
@@ -62,7 +64,7 @@ const UpcomingTimeline: React.FC = () => {
 
         <div className="mt-10 relative">
           {/* Connecting Line */}
-          <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-gradient-to-b from-gray-600 via-green-500 to-green-500/30 hidden sm:block" />
+          <div className="absolute left-6 top-8 bottom-8 w-0.5 bg-linear-to-b from-gray-600 via-green-500 to-green-500/30 hidden sm:block" />
 
           <div className="space-y-0">
             {displayEvents.map((event, index) => {
@@ -72,20 +74,20 @@ const UpcomingTimeline: React.FC = () => {
               return (
                 <div key={event.id} className="relative flex items-stretch group">
                   {/* Timeline Node */}
-                  <div className="flex-shrink-0 w-12 flex flex-col items-center z-10">
+                  <div className="shrink-0 w-12 flex flex-col items-center z-10">
                     {/* Dot */}
                     <div
                       className={`w-4 h-4 rounded-full border-2 transition-all duration-300 ${
                         isPastEvent
                           ? "bg-gray-600 border-gray-500"
-                          : "bg-gradient-to-br from-green-500 to-emerald-600 border-green-400 shadow-lg shadow-green-500/40 group-hover:scale-125"
+                          : "bg-linear-to-br from-green-500 to-emerald-600 border-green-400 shadow-lg shadow-green-500/40 group-hover:scale-125"
                       }`}
                     />
                     {/* Connector Line Segment */}
                     {!isLast && (
                       <div
                         className={`w-0.5 flex-1 min-h-[60px] ${
-                          isPastEvent ? "bg-gray-600" : "bg-gradient-to-b from-green-500 to-green-500/50"
+                          isPastEvent ? "bg-gray-600" : "bg-linear-to-b from-green-500 to-green-500/50"
                         }`}
                       />
                     )}
@@ -97,7 +99,7 @@ const UpcomingTimeline: React.FC = () => {
                       className={`p-5 rounded-xl border transition-all duration-300 ${
                         isPastEvent
                           ? "bg-gray-800/30 border-gray-700/50 opacity-70"
-                          : "bg-gradient-to-r from-green-600/10 to-emerald-600/5 border-green-500/20 hover:border-green-500/40 hover:shadow-lg hover:shadow-green-500/10 hover:-translate-y-0.5"
+                          : "bg-linear-to-r from-green-600/10 to-emerald-600/5 border-green-500/20 hover:border-green-500/40 hover:shadow-lg hover:shadow-green-500/10 hover:-translate-y-0.5"
                       }`}
                     >
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -112,7 +114,13 @@ const UpcomingTimeline: React.FC = () => {
                               Next
                             </span>
                           )}
-                          <h4 className={`text-lg font-semibold ${isPastEvent ? "text-gray-400" : "text-white"}`}>
+                          <h4
+                            className={`text-lg font-semibold ${isPastEvent ? "text-gray-400" : "text-white"} ${
+                              crossedOutEventTitles.has(event.title)
+                                ? "line-through decoration-red-400 decoration-2"
+                                : ""
+                            }`}
+                          >
                             {event.title}
                           </h4>
                         </div>
@@ -144,7 +152,7 @@ const UpcomingTimeline: React.FC = () => {
           <div className="mt-6 flex justify-center relative z-10">
             <Link
               to="/important-dates"
-              className="group flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-green-600/20 to-emerald-600/20 border border-green-500/30 rounded-full text-green-400 font-semibold hover:from-green-600/30 hover:to-emerald-600/30 hover:border-green-500/50 transition-all duration-300"
+              className="group flex items-center gap-3 px-6 py-3 bg-linear-to-r from-green-600/20 to-emerald-600/20 border border-green-500/30 rounded-full text-green-400 font-semibold hover:from-green-600/30 hover:to-emerald-600/30 hover:border-green-500/50 transition-all duration-300"
             >
               <span>View All Important Dates</span>
               <svg

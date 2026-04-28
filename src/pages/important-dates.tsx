@@ -40,6 +40,8 @@ export const timelineEvents: TimelineEvent[] = [
   },
 ];
 
+const crossedOutEventTitles = new Set(["Paper Submission Deadline"]);
+
 const ImportantDatesPage: React.FC = () => {
   return (
     <div className="relative min-h-screen py-16 px-4">
@@ -60,7 +62,7 @@ const ImportantDatesPage: React.FC = () => {
       <div className="max-w-6xl mx-auto pt-30">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-linear-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent">
             Important Dates
           </h1>
           <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto">
@@ -71,7 +73,7 @@ const ImportantDatesPage: React.FC = () => {
         {/* Timeline */}
         <div className="relative">
           {/* Center Line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-green-500/50 via-emerald-500/50 to-green-500/50 hidden md:block"></div>
+          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-linear-to-b from-green-500/50 via-emerald-500/50 to-green-500/50 hidden md:block"></div>
 
           {/* Timeline Events */}
           <div className="space-y-12">
@@ -84,12 +86,18 @@ const ImportantDatesPage: React.FC = () => {
                 >
                   {/* Card */}
                   <div className={`w-full md:w-5/12 ${isLeft ? "md:text-right md:pr-8" : "md:text-left md:pl-8"}`}>
-                    <div className="group relative bg-gradient-to-br from-green-600/10 to-emerald-600/5 backdrop-blur-sm border border-green-500/20 rounded-xl p-6 shadow-xl hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300 hover:scale-105">
+                    <div className="group relative bg-linear-to-br from-green-600/10 to-emerald-600/5 backdrop-blur-sm border border-green-500/20 rounded-xl p-6 shadow-xl hover:shadow-2xl hover:shadow-green-500/10 transition-all duration-300 hover:scale-105">
                       {/* Glow effect on hover */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-green-500/0 to-emerald-500/0 group-hover:from-green-500/5 group-hover:to-emerald-500/5 rounded-xl transition-all duration-300"></div>
+                      <div className="absolute inset-0 bg-linear-to-br from-green-500/0 to-emerald-500/0 group-hover:from-green-500/5 group-hover:to-emerald-500/5 rounded-xl transition-all duration-300"></div>
 
                       <div className="relative z-10">
-                        <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{event.title}</h3>
+                        <h3
+                          className={`text-xl md:text-2xl font-bold text-white mb-2 ${
+                            crossedOutEventTitles.has(event.title) ? "line-through decoration-red-400 decoration-2" : ""
+                          }`}
+                        >
+                          {event.title}
+                        </h3>
                         <div
                           className={`flex items-center gap-2 text-green-400 font-semibold ${
                             isLeft ? "justify-start md:justify-end" : "justify-start"
@@ -115,7 +123,7 @@ const ImportantDatesPage: React.FC = () => {
                       {/* Outer glow */}
                       <div className="absolute inset-0 bg-green-500/30 blur-xl rounded-full animate-pulse"></div>
                       {/* Dot */}
-                      <div className="relative w-6 h-6 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full border-4 border-gray-950 shadow-lg"></div>
+                      <div className="relative w-6 h-6 bg-linear-to-br from-green-500 to-emerald-600 rounded-full border-4 border-gray-950 shadow-lg"></div>
                     </div>
                   </div>
 

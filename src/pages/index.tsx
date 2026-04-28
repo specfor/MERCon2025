@@ -1,5 +1,5 @@
 import * as React from "react";
-import type { HeadFC, PageProps } from "gatsby";
+import type { PageProps } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 
 import Gallery from "../components/homepage/gallery";
@@ -8,6 +8,7 @@ import SectionHeader from "../components/sectionHeader";
 import UniGallery from "../components/homepage/uniGallery";
 import ResearchFields from "../components/homepage/fields";
 import UpcomingTimeline from "../components/homepage/upcomingTimeline";
+import { createPageHead } from "../components/pageHead";
 
 const heroBackground = (
   <div className="absolute inset-0 -z-10">
@@ -139,4 +140,8 @@ const IndexPage: React.FC<PageProps> = () => {
 };
 
 export default IndexPage;
-export const Head: HeadFC = () => <title>MERCon 2026 - Home</title>;
+export const Head = createPageHead({
+  title: "MERCon 2026 - Home",
+  description:
+    "MERCon 2026 is the 12th International Conference organized by the Engineering Research Unit, University of Moratuwa.",
+});

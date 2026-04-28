@@ -2,6 +2,7 @@ import React from "react";
 import { StaticImage } from "gatsby-plugin-image";
 import SectionHeader from "../components/sectionHeader";
 import SpeakerRankGraph, { SpeakerLevel } from "../components/speakerRankGraph";
+import { createPageHead } from "../components/pageHead";
 
 const speakerLevels: SpeakerLevel[] = [
   // {
@@ -209,7 +210,7 @@ const speakerLevels: SpeakerLevel[] = [
     levelName: "Workshops and Special Sessions Co-Chairs",
     rank: 9,
     speakers: [
-     {
+      {
         name: "Dr. Hiran Chathuranga",
         image: (
           <StaticImage
@@ -370,3 +371,8 @@ const OrganizingCommittee = () => {
 };
 
 export default OrganizingCommittee;
+
+export const Head = createPageHead({
+  title: "Organizing Committee - MERCon 2026",
+  description: "MERCon 2026 organizing committee.",
+});

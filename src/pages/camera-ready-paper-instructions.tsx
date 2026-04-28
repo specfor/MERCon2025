@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import type { HeadFC } from "gatsby";
 import {
   ExternalLink,
   FileCheck2,
@@ -12,6 +11,7 @@ import {
   Check,
 } from "lucide-react";
 import SectionHeader from "../components/sectionHeader";
+import { createPageHead } from "../components/pageHead";
 
 const ieeeTemplatesUrl = "https://www.ieee.org/conferences/publishing/templates";
 const ieeeSupportCenterUrl = "https://supportcenter.ieee.org/";
@@ -247,4 +247,8 @@ export default function CameraReadyPaperInstructionsPage() {
   );
 }
 
-export const Head: HeadFC = () => <title>Camera-Ready Paper Instructions - MERCon 2026</title>;
+export const Head = createPageHead({
+  title: "Camera-Ready Paper Instructions - MERCon 2026",
+  description:
+    "Camera-ready paper submission instructions for MERCon 2026, including IEEE PDF eXpress validation and page limit requirements.",
+});

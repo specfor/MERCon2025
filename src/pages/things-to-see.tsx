@@ -2,6 +2,7 @@ import React from "react";
 import { StaticImage } from "gatsby-plugin-image";
 import SectionHeader from "../components/sectionHeader";
 import PlaceCard, { type Place } from "../components/PlaceCard";
+import { createPageHead } from "../components/pageHead";
 
 // Category data structure
 interface Category {
@@ -105,8 +106,7 @@ const colomboPlaces: Place[] = [
   },
   {
     title: "Colombo Lotus Tower",
-    description:
-      "The tallest structure in South Asia, offering panoramic views of the city skyline and coastline.",
+    description: "The tallest structure in South Asia, offering panoramic views of the city skyline and coastline.",
     travelTime: "30-45 minutes from Moratuwa",
     image: (
       <StaticImage
@@ -140,7 +140,7 @@ const nationalParksPlaces: Place[] = [
   {
     title: "Wilpattu National Park",
     description:
-      "The largest national park in Sri Lanka, known for its natural lakes called \"villus.\" It is a quieter, less crowded alternative to Yala but also offers sightings of leopards and sloth bears.",
+      'The largest national park in Sri Lanka, known for its natural lakes called "villus." It is a quieter, less crowded alternative to Yala but also offers sightings of leopards and sloth bears.',
     travelTime: "3.5-4 hours from Colombo",
     image: (
       <StaticImage
@@ -170,7 +170,7 @@ const nationalParksPlaces: Place[] = [
   {
     title: "Minneriya National Park",
     description:
-      "Most famous for the \"Elephant Gathering,\" where hundreds of elephants congregate during the dry season. It's a heaven for birdlife and other mammals too.",
+      'Most famous for the "Elephant Gathering," where hundreds of elephants congregate during the dry season. It\'s a heaven for birdlife and other mammals too.',
     travelTime: "4-5 hours from Colombo",
     image: (
       <StaticImage
@@ -263,8 +263,7 @@ const beachesPlaces: Place[] = [
   },
   {
     title: "Mirissa",
-    description:
-      "Known for whale watching and beautiful crescent-shaped beach with peaceful atmosphere.",
+    description: "Known for whale watching and beautiful crescent-shaped beach with peaceful atmosphere.",
     travelTime: "1-2 hours from Colombo",
     image: (
       <StaticImage
@@ -308,8 +307,7 @@ const beachesPlaces: Place[] = [
   },
   {
     title: "Arugam Bay",
-    description:
-      "A heaven for surfers, famous for its long, sandy beach and perfect waves, with a relaxed vibe.",
+    description: "A heaven for surfers, famous for its long, sandy beach and perfect waves, with a relaxed vibe.",
     travelTime: "6-7 hours from Colombo",
     image: (
       <StaticImage
@@ -323,8 +321,7 @@ const beachesPlaces: Place[] = [
   },
   {
     title: "Nilaveli",
-    description:
-      "A quieter beach destination with white sand and turquoise waters, perfect for a relaxing beach day.",
+    description: "A quieter beach destination with white sand and turquoise waters, perfect for a relaxing beach day.",
     travelTime: "6-7 hours from Colombo",
     image: (
       <StaticImage
@@ -433,7 +430,7 @@ const culturalSitesPlaces: Place[] = [
   {
     title: "Sigiriya (Lion Rock)",
     description:
-      "Often called the \"Eighth Wonder of the World,\" featuring ancient frescoes, gardens, and royal palaces built by King Kashyapa in the 5th century AD.",
+      'Often called the "Eighth Wonder of the World," featuring ancient frescoes, gardens, and royal palaces built by King Kashyapa in the 5th century AD.',
     travelTime: "4-4.5 hours from Colombo",
     image: (
       <StaticImage
@@ -491,9 +488,7 @@ const CategorySection: React.FC<{ category: Category }> = ({ category }) => {
         <h2 className="text-2xl md:text-3xl font-bold text-white topic text-center uppercase tracking-wider mb-4 drop-shadow-md">
           {category.title}
         </h2>
-        <p className="text-green-100 para text-center leading-relaxed">
-          {category.description}
-        </p>
+        <p className="text-green-100 para text-center leading-relaxed">{category.description}</p>
       </div>
 
       {/* Places Grid */}
@@ -535,13 +530,10 @@ const ThingsToSeePage = () => {
         <div className="max-w-7xl mx-auto">
           {/* Page Header */}
           <div className="text-center my-16">
-            <SectionHeader
-              headerText="Things To See In Sri Lanka"
-              textClass="text-white"
-            />
+            <SectionHeader headerText="Things To See In Sri Lanka" textClass="text-white" />
             <p className="text-gray-400 text-lg max-w-4xl para mx-auto mt-4">
-              Discover the stunning beauty, rich culture, and incredible
-              wildlife of Sri Lanka during your visit for MERCon 2026.
+              Discover the stunning beauty, rich culture, and incredible wildlife of Sri Lanka during your visit for
+              MERCon 2026.
             </p>
           </div>
 
@@ -559,4 +551,8 @@ const ThingsToSeePage = () => {
 
 export default ThingsToSeePage;
 
-export const Head = () => <title>MERCon 2026 - Things to See in Sri Lanka</title>;
+export const Head = createPageHead({
+  title: "MERCon 2026 - Things to See in Sri Lanka",
+  description:
+    "Things to see in Sri Lanka for MERCon 2026 visitors, including culture, nature, beaches, and national parks.",
+});

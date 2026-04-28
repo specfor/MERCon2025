@@ -3,6 +3,7 @@ import { ArrowRight, Book, Code, Cpu, Database, Map, Zap } from "lucide-react";
 import SectionHeader from "../components/sectionHeader";
 import WorkshopCard from "../components/workshopCard";
 import type { Workshop } from "../components/workshopCard";
+import { createPageHead } from "../components/pageHead";
 
 interface WorkshopDetails extends Workshop {
   paragraphs?: string[];
@@ -183,3 +184,8 @@ const WorkshopsPage = () => {
 };
 
 export default WorkshopsPage;
+
+export const Head = createPageHead({
+  title: "Workshops - MERCon 2026",
+  description: "MERCon 2026 workshops and hands-on sessions led by experts.",
+});

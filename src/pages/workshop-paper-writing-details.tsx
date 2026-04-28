@@ -3,6 +3,7 @@ import { Link } from "gatsby";
 import { StaticImage } from "gatsby-plugin-image";
 import { ArrowLeft, ExternalLink, Calendar, Users, Book } from "lucide-react";
 import SectionHeader from "../components/sectionHeader";
+import { createPageHead } from "../components/pageHead";
 
 const WorkshopPaperWritingDetailsPage: React.FC = () => {
   const zoomLink = "https://learn.zoom.us/j/98271028175?pwd=7jgq90FIGYy8kIwwdRMXTpDzJW0KXI.1";
@@ -213,3 +214,9 @@ const WorkshopPaperWritingDetailsPage: React.FC = () => {
 };
 
 export default WorkshopPaperWritingDetailsPage;
+
+export const Head = createPageHead({
+  title: "Workshop Details - MERCon 2026",
+  description:
+    "Modern research paper writing workshop details for MERCon 2026, including online session information and topics covered.",
+});

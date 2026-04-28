@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
 import { Home, ArrowLeft, Search } from "lucide-react";
+import { createPageHead } from "../components/pageHead";
 
 // --- CSS for Glitch Animation ---
 const glitchStyles = `
@@ -38,7 +39,7 @@ const NotFoundPage = () => {
         <div className="relative z-10 max-w-2xl w-full bg-white/5 backdrop-blur-lg border border-white/10 rounded-3xl p-8 md:p-12 text-center shadow-2xl">
           {/* Glitchy 404 Text */}
           <div className="relative mb-6">
-            <h1 className="text-[120px] md:text-[180px] font-black leading-none tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-gray-500 select-none animate-glitch">
+            <h1 className="text-[120px] md:text-[180px] font-black leading-none tracking-tighter text-transparent bg-clip-text bg-linear-to-b from-white to-gray-500 select-none animate-glitch">
               404
             </h1>
             {/* Shadow/Echo for depth */}
@@ -88,3 +89,9 @@ const NotFoundPage = () => {
 };
 
 export default NotFoundPage;
+
+export const Head = createPageHead({
+  title: "404 - MERCon 2026",
+  description: "The requested MERCon 2026 page could not be found.",
+  noIndex: true,
+});

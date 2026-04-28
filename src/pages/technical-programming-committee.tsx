@@ -2,6 +2,7 @@ import React from "react";
 import { StaticImage } from "gatsby-plugin-image";
 import SectionHeader from "../components/sectionHeader";
 import SpeakerRankGraph, { SpeakerLevel } from "../components/speakerRankGraph";
+import { createPageHead } from "../components/pageHead";
 
 const trackCoChairLevels: SpeakerLevel[] = [
   {
@@ -1222,3 +1223,8 @@ const TechnicalProgrammingCommittee = () => {
 };
 
 export default TechnicalProgrammingCommittee;
+
+export const Head = createPageHead({
+  title: "Technical Program Committee - MERCon 2026",
+  description: "MERCon 2026 technical program committee and track chairs.",
+});

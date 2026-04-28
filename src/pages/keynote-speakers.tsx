@@ -3,6 +3,7 @@ import { StaticImage } from "gatsby-plugin-image";
 import SectionHeader from "../components/sectionHeader";
 import type { Speaker } from "../components/speakerCard";
 import SpeakerCard from "../components/speakerCard";
+import { createPageHead } from "../components/pageHead";
 
 const speakersData: (Speaker & { desc?: string[] })[] = [
   {
@@ -129,3 +130,8 @@ const KeynoteSpeakersPage = () => {
 };
 
 export default KeynoteSpeakersPage;
+
+export const Head = createPageHead({
+  title: "Keynote Speakers - MERCon 2026",
+  description: "MERCon 2026 keynote speakers and speaker profiles.",
+});

@@ -118,12 +118,12 @@ const trackCoChairLevels: SpeakerLevel[] = [
         ),
       },
       {
-        name: "Dr. Bhagya Samarakon",
-        university: "University of Moratuwa, Sri Lanka",
+        name: "Dr. Bhagya Samarakoon",
+        university: "Singapore University of Technology and Design, Singapore",
         image: (
           <StaticImage
-            src="../images/programming-committee/Dr.Bhagya.Samarakon.png"
-            alt="Dr. Bhagya Samarakon"
+            src="../images/programming-committee/Dr.Bhagya.Samarakoon.png"
+            alt="Dr. Bhagya Samarakoon"
             className="w-full h-full"
             objectFit="cover"
           />

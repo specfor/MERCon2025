@@ -2,8 +2,8 @@ import type { GatsbyConfig } from "gatsby";
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `Mercon2026`,
-    siteUrl: `https://www.yourdomain.tld`
+    title: `Mercon 2026`,
+    siteUrl: `https://www.mercon.uom.lk`
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
@@ -21,6 +21,18 @@ const config: GatsbyConfig = {
       "path": "./src/images/"
     },
     __key: "images"
+  }, {
+    resolve: 'gatsby-plugin-robots-txt',
+    options: {
+      host: 'https://www.mercon.uom.lk/',
+      sitemap: 'https://www.mercon.uom.lk/sitemap-index.xml',
+      policy: [
+        {
+          userAgent: '*',
+          allow: '/',
+        }
+      ]
+    }
   }]
 };
 

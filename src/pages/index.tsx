@@ -58,11 +58,11 @@ const IndexPage: React.FC<PageProps> = () => {
         <div className="relative z-20 flex flex-col justify-center items-center h-full text-center mt-20 px-6 md:px-12">
           <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-primary-400/40 bg-black/35 px-5 py-3 text-sm md:text-base font-semibold text-white backdrop-blur-md shadow-lg shadow-primary-500/10">
             <span className="inline-flex h-2.5 w-2.5 rounded-full bg-primary-400 animate-pulse" />
-            Deadline extension: Paper submission deadline extended to{" "}
+            Camera Ready Paper Deadline extended to{" "}
             <span className="inline-flex items-baseline whitespace-nowrap">
-              4<sup className="relative -top-1 ml-0 text-[0.7em] leading-none">th</sup>
+              29<sup className="relative -top-1 ml-0 text-[0.7em] leading-none">th</sup>
             </span>{" "}
-            May 2026
+            June 2026
           </div>
 
           <div className="mb-10 pt-10">

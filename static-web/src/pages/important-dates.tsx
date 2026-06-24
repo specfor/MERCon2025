@@ -22,7 +22,7 @@ export const timelineEvents: TimelineEvent[] = [
   {
     id: 4,
     title: "Notification of Acceptance (extended due to large number of submissions)",
-    date: "23rd June 2026",
+    date: "27th June 2026",
   },
   {
     id: 5,

@@ -46,18 +46,67 @@ const RegistrationPage = () => {
             <table className="w-full border-collapse para text-gray-200">
               <thead>
                 <tr className="bg-white/10 text-white">
-                  <th className="py-4 px-6 text-left font-semibold border-r border-white/10">Category</th>
-                  <th className="py-4 px-6 text-left font-semibold border-r border-white/10">
-                    Early Bird Registration
+                  <th className="py-4 px-6 text-left font-semibold border-r border-white/10 align-top">Category</th>
+                  <th className="py-4 px-6 text-left font-semibold border-r border-white/10 align-top">
+                    Early Bird Registration<br />
+                    <span className="text-sm font-normal text-gray-300">(29th June 2026 – 15th July 2026)</span>
                   </th>
-                  <th className="py-4 px-6 text-left font-semibold">Normal Registration</th>
+                  <th className="py-4 px-6 text-left font-semibold align-top">
+                    Normal Registration<br />
+                    <span className="text-sm font-normal text-gray-300">(16th July 2026 onwards)</span>
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {/* Author Registration - Local Authors */}
+                {/* Category 1 - Full Registration */}
                 <tr className="bg-white/10 text-white font-semibold">
                   <td colSpan={3} className="py-3 px-6">
-                    Author Registration - Local Authors
+                    Category 1 - Full Registration
+                  </td>
+                </tr>
+                {/* Category 1 - Local Authors */}
+                <tr className="bg-white/5 text-gray-300 font-medium">
+                  <td colSpan={3} className="py-2 px-6 pl-8">
+                    Local Authors
+                  </td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">IEEE Members</td>
+                  <td className="py-4 px-6 border-r border-white/10">30,000 LKR</td>
+                  <td className="py-4 px-6">32,500 LKR</td>
+                </tr>
+                <tr className="border-b border-white/10 bg-white/5">
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">Non-IEEE Members</td>
+                  <td className="py-4 px-6 border-r border-white/10">40,000 LKR</td>
+                  <td className="py-4 px-6">45,000 LKR</td>
+                </tr>
+                {/* Category 1 - International Authors */}
+                <tr className="bg-white/5 text-gray-300 font-medium border-b border-white/10 border-t border-white/10">
+                  <td colSpan={3} className="py-2 px-6 pl-8">
+                    International Authors
+                  </td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">IEEE Members</td>
+                  <td className="py-4 px-6 border-r border-white/10">240 USD</td>
+                  <td className="py-4 px-6">290 USD</td>
+                </tr>
+                <tr className="border-b border-white/10 bg-white/5">
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">Non-IEEE Members</td>
+                  <td className="py-4 px-6 border-r border-white/10">350 USD</td>
+                  <td className="py-4 px-6">400 USD</td>
+                </tr>
+
+                {/* Category 2 - Limited Registration */}
+                <tr className="bg-white/10 text-white font-semibold">
+                  <td colSpan={3} className="py-3 px-6">
+                    Category 2 - Limited Registration
+                  </td>
+                </tr>
+                {/* Category 2 - Local Authors */}
+                <tr className="bg-white/5 text-gray-300 font-medium">
+                  <td colSpan={3} className="py-2 px-6 pl-8">
+                    Local Authors
                   </td>
                 </tr>
                 <tr className="border-b border-white/10">
@@ -85,11 +134,10 @@ const RegistrationPage = () => {
                   <td className="py-4 px-6 border-r border-white/10">5,000 LKR</td>
                   <td className="py-4 px-6">7,500 LKR</td>
                 </tr>
-
-                {/* Author Registration - International Authors */}
-                <tr className="bg-white/10 text-white font-semibold">
-                  <td colSpan={3} className="py-3 px-6">
-                    Author Registration - International Authors
+                {/* Category 2 - International Authors */}
+                <tr className="bg-white/5 text-gray-300 font-medium border-b border-white/10 border-t border-white/10">
+                  <td colSpan={3} className="py-2 px-6 pl-8">
+                    International Authors
                   </td>
                 </tr>
                 <tr className="border-b border-white/10 bg-white/5">
@@ -118,24 +166,137 @@ const RegistrationPage = () => {
                   <td className="py-4 px-6">75 USD</td>
                 </tr>
 
-                {/* Participant Registration */}
+                {/* Category 3 - Participant Registration */}
                 <tr className="bg-white/10 text-white font-semibold">
                   <td colSpan={3} className="py-3 px-6">
-                    Participant Registration
+                    Category 3 - Participant Registration
                   </td>
                 </tr>
-                <tr className="border-b border-white/10">
+                <tr className="border-b border-white/10 bg-white/5">
                   <td className="py-4 px-6 border-r border-white/10 pl-10">Local Participants</td>
                   <td className="py-4 px-6 border-r border-white/10">5,000 LKR</td>
                   <td className="py-4 px-6">7,500 LKR</td>
                 </tr>
-                <tr>
+                <tr className="border-b border-white/10">
                   <td className="py-4 px-6 border-r border-white/10 pl-10">Foreign Participants</td>
                   <td className="py-4 px-6 border-r border-white/10">50 USD</td>
                   <td className="py-4 px-6">75 USD</td>
                 </tr>
+
+                {/* Extra Banquet Ticket */}
+                <tr className="bg-white/10 text-white font-semibold">
+                  <td colSpan={3} className="py-3 px-6">
+                    Extra Banquet Ticket (any registration category)
+                  </td>
+                </tr>
+                <tr className="border-b border-white/10 bg-white/5">
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">Local Participant</td>
+                  <td colSpan={2} className="py-4 px-6">10,000 LKR</td>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <td className="py-4 px-6 border-r border-white/10 pl-10">Foreign Participant</td>
+                  <td colSpan={2} className="py-4 px-6">50 USD</td>
+                </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== REGISTRATION NOTES ===== */}
+      <section className="w-full py-16 px-6 bg-black/20">
+        <div className="max-w-6xl mx-auto">
+          <h3 className="text-2xl font-bold text-white mb-8 text-center">Registration Notes</h3>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="bg-white/5 backdrop-blur-md rounded-lg p-8 border border-white/10">
+              <h4 className="text-xl font-semibold text-primary-400 mb-4">Registration Policy</h4>
+              <ul className="list-disc list-inside para text-gray-300 space-y-2">
+                <li>Each registration is valid for one (1) participant only.</li>
+                <li>All participants, including co-authors, are required to register individually if they plan to attend the conference.</li>
+                <li>For each accepted paper, at least one author must complete the appropriate conference registration for the paper to be included in the conference technical program.</li>
+              </ul>
+            </div>
+
+            <div className="bg-white/5 backdrop-blur-md rounded-lg p-8 border border-white/10">
+              <h4 className="text-xl font-semibold text-primary-400 mb-4">Additional Banquet Tickets</h4>
+              <ul className="list-disc list-inside para text-gray-300 space-y-2">
+                <li>Participants registered under any registration category may purchase additional banquet tickets separately.</li>
+              </ul>
+            </div>
+
+            <div className="bg-white/5 backdrop-blur-md rounded-lg p-8 border border-white/10 md:col-span-2 overflow-x-auto">
+              <h4 className="text-xl font-semibold text-primary-400 mb-4">Registration Benefits</h4>
+              
+              <table className="w-full min-w-[600px] border-collapse text-sm text-gray-300 mt-4">
+                <thead>
+                  <tr className="border-b border-white/10 text-white">
+                    <th className="py-3 px-4 text-left font-semibold">Benefit</th>
+                    <th className="py-3 px-4 text-center font-semibold">Full Registration</th>
+                    <th className="py-3 px-4 text-center font-semibold">Limited Author</th>
+                    <th className="py-3 px-4 text-center font-semibold">Student</th>
+                    <th className="py-3 px-4 text-center font-semibold">Participant</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-white/10 bg-white/5">
+                    <td className="py-3 px-4">Presentation of up to two (2) papers</td>
+                    <td className="py-3 px-4 text-center">
+                      <svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                    </td>
+                    <td className="py-3 px-4 text-center">
+                      <svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                    </td>
+                    <td className="py-3 px-4 text-center"></td>
+                    <td className="py-3 px-4 text-center"></td>
+                  </tr>
+                  <tr className="border-b border-white/10">
+                    <td className="py-3 px-4">Presentation of one (1) paper</td>
+                    <td className="py-3 px-4 text-center"></td>
+                    <td className="py-3 px-4 text-center"></td>
+                    <td className="py-3 px-4 text-center">
+                      <svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                    </td>
+                    <td className="py-3 px-4 text-center"></td>
+                  </tr>
+                  <tr className="border-b border-white/10 bg-white/5">
+                    <td className="py-3 px-4">Access to all conference sessions</td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                  </tr>
+                  <tr className="border-b border-white/10">
+                    <td className="py-3 px-4">Conference pack</td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                  </tr>
+                  <tr className="border-b border-white/10 bg-white/5">
+                    <td className="py-3 px-4">Morning and afternoon coffee breaks</td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                  </tr>
+                  <tr className="border-b border-white/10">
+                    <td className="py-3 px-4">Conference Lunch</td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                  </tr>
+                  <tr className="border-b border-white/10 bg-white/5">
+                    <td className="py-3 px-4">Conference banquet</td>
+                    <td className="py-3 px-4 text-center"><svg className="w-5 h-5 text-primary-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg></td>
+                    <td className="py-3 px-4 text-center"></td>
+                    <td className="py-3 px-4 text-center"></td>
+                    <td className="py-3 px-4 text-center"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </section>

@@ -12,11 +12,18 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Production BoC gateway by default; set UOM_IPG_CHECKOUT_SCRIPT to the MTF test
+  // gateway script (https://test-bankofceylon.mtf.gateway.mastercard.com/static/checkout/checkout.min.js)
+  // when using the CITeS test environment.
+  const checkoutScript =
+    process.env.UOM_IPG_CHECKOUT_SCRIPT ||
+    "https://bankofceylon.gateway.mastercard.com/static/checkout/checkout.min.js";
+
   return (
     <html lang="en" className="h-full antialiased bg-secondary-50">
       <body className="min-h-full flex flex-col para text-dark-800">
-        <Script 
-          src="https://bankofceylon.gateway.mastercard.com/static/checkout/checkout.min.js"
+        <Script
+          src={checkoutScript}
           strategy="beforeInteractive"
           data-error="errorCallback"
           data-cancel="cancelCallback"

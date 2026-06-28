@@ -1,8 +1,60 @@
 "use server";
 
-import { headers } from "next/headers";
+import { timingSafeEqual } from "crypto";
+import { eq } from "drizzle-orm";
+import { db } from "@/db";
+import { registrations } from "@/db/schema";
 
-export async function createPaymentSession(amount: number, currency: string = "LKR", customInvoiceId?: string) {
+// Base URL for the UoM IPG. Defaults to production; set UOM_IPG_BASE to
+// "https://pay.uom.lk/api/test/payments" for the CITeS test environment.
+const IPG_BASE = process.env.UOM_IPG_BASE || "https://pay.uom.lk/api/payments";
+
+// The IPG perimeter rejects requests from non-browser User-Agents (e.g. the default
+// undici/curl UA) with 403 "Access denied", so we send an explicit one. Override with
+// UOM_IPG_USER_AGENT if CITeS specifies a different value.
+const IPG_USER_AGENT =
+  process.env.UOM_IPG_USER_AGENT ||
+  "Mozilla/5.0 (compatible; MERCon2026-PaymentSystem/1.0; +https://mercon.uom.lk)";
+
+function ipgHeaders(token: string): Record<string, string> {
+  return {
+    "Content-Type": "application/json",
+    "User-Agent": IPG_USER_AGENT,
+    Authorization: authHeader(token),
+  };
+}
+
+/**
+ * Build the Authorization header value. The CITeS guide only says "Authorization
+ * header"; the scheme is configurable in case the division's token is raw rather
+ * than Bearer. UOM_IPG_AUTH_SCHEME=none sends the bare token.
+ */
+function authHeader(token: string): string {
+  const scheme = process.env.UOM_IPG_AUTH_SCHEME ?? "Bearer";
+  return scheme.toLowerCase() === "none" ? token : `${scheme} ${token}`;
+}
+
+/** Length-safe, timing-safe string comparison. */
+function safeEqual(a: string, b: string): boolean {
+  const ab = Buffer.from(a, "utf8");
+  const bb = Buffer.from(b, "utf8");
+  if (ab.length !== bb.length) return false;
+  return timingSafeEqual(ab, bb);
+}
+
+export type CreateSessionParams = {
+  amount: number;
+  currency: string; // LKR or USD
+  invoiceId: string;
+  orderId: number;
+  studentName: string;
+  phoneNo: string;
+  nicPassport?: string;
+  address?: string;
+  description?: string;
+};
+
+export async function createPaymentSession(params: CreateSessionParams) {
   try {
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
     const division = process.env.UOM_IPG_DIVISION || "TEST";
@@ -12,32 +64,31 @@ export async function createPaymentSession(amount: number, currency: string = "L
       throw new Error("Missing UOM_IPG_TOKEN in environment variables.");
     }
 
-    // Generate random order/invoice ids for testing
-    const order_id = Math.floor(Math.random() * 1000000000);
-    const invoice_id = customInvoiceId || `${division}${Math.floor(Math.random() * 1000000)}`;
+    // See plan Open item (B): whether a supplied invoice_id must already exist in the
+    // IPG database is a CITeS-specific behaviour, so the flag is configurable.
+    const invoiceFlag = (process.env.UOM_IPG_INVOICE_FLAG ?? "true").toLowerCase() === "true";
 
     const payload = {
       division,
-      studentName: "MERCon Participant",
-      phoneNo: "0000000000",
-      amount,
-      nicPassport: "N/A",
-      address: "N/A",
-      description: "MERCon 2026 Registration",
-      order_id,
-      currency,
-      returnUrl: `${baseUrl}/payment/return`,
+      studentName: params.studentName,
+      phoneNo: params.phoneNo,
+      amount: Number(params.amount),
+      nicPassport: params.nicPassport || "N/A",
+      address: params.address || "N/A",
+      description: params.description || "MERCon 2026 Registration",
+      order_id: params.orderId,
+      currency: params.currency,
+      // Carry the invoice id on the return URL so the return page can verify even
+      // without client-side storage (localStorage remains a fallback).
+      returnUrl: `${baseUrl}/payment/return?inv=${encodeURIComponent(params.invoiceId)}`,
       cancelUrl: `${baseUrl}/`,
-      invoice_id,
-      invoiceFlag: true,
+      invoice_id: params.invoiceId,
+      invoiceFlag,
     };
 
-    const res = await fetch("https://pay.uom.lk/api/payments/createSessionExternal", {
+    const res = await fetch(`${IPG_BASE}/createSessionExternal`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`, // Assuming Bearer token format
-      },
+      headers: ipgHeaders(token),
       body: JSON.stringify(payload),
     });
 
@@ -49,18 +100,27 @@ export async function createPaymentSession(amount: number, currency: string = "L
 
     const data = await res.json();
     return {
-      success: true,
-      sessionId: data.sessionId,
-      success_indicator: data.success_indicator,
-      invoice_id,
+      success: true as const,
+      sessionId: data.sessionId as string,
+      success_indicator: data.success_indicator as string,
+      invoice_id: params.invoiceId,
+      order_id: params.orderId,
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
     console.error("createPaymentSession error:", error);
-    return { success: false, error: error.message };
+    return { success: false as const, error: message };
   }
 }
 
-export async function verifyPaymentResult(sessionId: string, invoice_id: string) {
+/**
+ * Verify a payment with the IPG and persist the result on the registration row.
+ *
+ * Looks the registration up by invoice id (no reliance on client storage),
+ * compares the IPG resultIndicator against the stored success_indicator in
+ * constant time, then calls the IPG verify endpoint and marks the row paid.
+ */
+export async function verifyPaymentResult(invoiceId: string, resultIndicator?: string | null) {
   try {
     const division = process.env.UOM_IPG_DIVISION || "TEST";
     const token = process.env.UOM_IPG_TOKEN;
@@ -69,34 +129,74 @@ export async function verifyPaymentResult(sessionId: string, invoice_id: string)
       throw new Error("Missing UOM_IPG_TOKEN in environment variables.");
     }
 
-    const payload = {
-      division,
-      sessionId,
-      invoice_id,
-    };
+    const [reg] = await db
+      .select()
+      .from(registrations)
+      .where(eq(registrations.invoiceId, invoiceId))
+      .limit(1);
 
-    const res = await fetch("https://pay.uom.lk/api/payments/verifyPayment", {
+    if (!reg) {
+      return { success: false as const, error: "No registration found for this invoice." };
+    }
+
+    // Idempotent: already verified (covers IPG's "already paid" case too).
+    if (reg.paymentStatus === "completed") {
+      return {
+        success: true as const,
+        message: "Payment successful",
+        referenceTag: reg.referenceTag,
+        alreadyPaid: true,
+      };
+    }
+
+    // Confirm the redirect actually came from a successful IPG session.
+    if (
+      !reg.successIndicator ||
+      !resultIndicator ||
+      !safeEqual(resultIndicator, reg.successIndicator)
+    ) {
+      await db
+        .update(registrations)
+        .set({ paymentStatus: "failed" })
+        .where(eq(registrations.id, reg.id));
+      return { success: false as const, error: "Payment was cancelled or could not be verified." };
+    }
+
+    if (!reg.sessionId) {
+      return { success: false as const, error: "Missing payment session for this registration." };
+    }
+
+    const res = await fetch(`${IPG_BASE}/verifyPayment`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-      body: JSON.stringify(payload),
+      headers: ipgHeaders(token),
+      body: JSON.stringify({ division, sessionId: reg.sessionId, invoice_id: invoiceId }),
     });
 
     if (!res.ok) {
       const errorText = await res.text();
       console.error("Failed to verify payment:", res.status, errorText);
-      throw new Error(`Failed to verify payment: ${res.status} ${errorText}`);
+      await db
+        .update(registrations)
+        .set({ paymentStatus: "failed" })
+        .where(eq(registrations.id, reg.id));
+      return { success: false as const, error: `Payment not successful (${res.status}).` };
     }
 
     const data = await res.json();
+
+    await db
+      .update(registrations)
+      .set({ paymentStatus: "completed", paidAt: new Date() })
+      .where(eq(registrations.id, reg.id));
+
     return {
-      success: true,
-      message: data.message,
+      success: true as const,
+      message: (data?.message as string) || "Payment successful",
+      referenceTag: reg.referenceTag,
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
     console.error("verifyPaymentResult error:", error);
-    return { success: false, error: error.message };
+    return { success: false as const, error: message };
   }
 }

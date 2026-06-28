@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import { submitRegistration } from "@/actions/registration";
+import { calculateAmount } from "@/lib/pricing";
 
 export default function RegistrationPage() {
   const [step, setStep] = useState(1);
@@ -32,40 +33,8 @@ export default function RegistrationPage() {
   const isStudent = ["STUDENT_IEEE", "STUDENT_NON_IEEE"].includes(authorType);
 
   const calculatedAmount = useMemo(() => {
-    const isEarlyBird = new Date() < new Date("2026-07-16T00:00:00.000Z");
-    let amt = 0;
-
-    if (category === "FULL") {
-      if (isLocal) {
-        amt = isIeeeMember ? (isEarlyBird ? 30000 : 32500) : (isEarlyBird ? 40000 : 45000);
-      } else {
-        amt = isIeeeMember ? (isEarlyBird ? 240 : 290) : (isEarlyBird ? 350 : 400);
-      }
-    } else if (category === "LIMITED") {
-      if (authorType === "NON_PRESENTING") {
-        amt = isLocal ? (isEarlyBird ? 5000 : 7500) : (isEarlyBird ? 50 : 75);
-      } else if (isStudent) {
-        if (isLocal) {
-          amt = isIeeeMember ? (isEarlyBird ? 15000 : 17500) : (isEarlyBird ? 20000 : 25000);
-        } else {
-          amt = isIeeeMember ? (isEarlyBird ? 100 : 175) : (isEarlyBird ? 150 : 250);
-        }
-      } else {
-        if (isLocal) {
-          amt = isIeeeMember ? (isEarlyBird ? 22500 : 25000) : (isEarlyBird ? 30000 : 35000);
-        } else {
-          amt = isIeeeMember ? (isEarlyBird ? 200 : 250) : (isEarlyBird ? 300 : 350);
-        }
-      }
-    } else if (category === "PARTICIPANT") {
-      amt = isLocal ? (isEarlyBird ? 5000 : 7500) : (isEarlyBird ? 50 : 75);
-    }
-
-    const banquetPrice = isLocal ? 10000 : 50;
-    amt += extraBanquet * banquetPrice;
-    
-    return amt;
-  }, [category, authorType, isLocal, isIeeeMember, isStudent, extraBanquet]);
+    return calculateAmount(category, authorType, isLocal, extraBanquet);
+  }, [category, authorType, isLocal, extraBanquet]);
 
   const currency = isLocal ? "LKR" : "USD";
 

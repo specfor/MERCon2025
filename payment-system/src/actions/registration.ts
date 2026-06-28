@@ -6,6 +6,7 @@ import fs from "fs/promises";
 import path from "path";
 import { eq } from "drizzle-orm";
 import { createPaymentSession } from "./payment";
+import { calculateAmount } from "@/lib/pricing";
 
 export async function submitRegistration(formData: FormData) {
   try {
@@ -60,42 +61,8 @@ export async function submitRegistration(formData: FormData) {
     }
 
     // Pricing Calculation
-    const currentDate = new Date();
-    const earlyBirdDeadline = new Date("2026-07-16T00:00:00.000Z"); // July 15th EOD (using start of 16th UTC)
-    const isEarlyBird = currentDate < earlyBirdDeadline;
-    
-    let amount = 0;
+    const amount = calculateAmount(registrationCategory, authorType, isLocal, extraBanquetTickets);
     const currency = isLocal ? "LKR" : "USD";
-
-    if (registrationCategory === "FULL") {
-      if (isLocal) {
-        amount = isIeeeMember ? (isEarlyBird ? 30000 : 32500) : (isEarlyBird ? 40000 : 45000);
-      } else {
-        amount = isIeeeMember ? (isEarlyBird ? 240 : 290) : (isEarlyBird ? 350 : 400);
-      }
-    } else if (registrationCategory === "LIMITED") {
-      if (authorType === "NON_PRESENTING") {
-        amount = isLocal ? (isEarlyBird ? 5000 : 7500) : (isEarlyBird ? 50 : 75);
-      } else if (isStudent) {
-        if (isLocal) {
-          amount = isIeeeMember ? (isEarlyBird ? 15000 : 17500) : (isEarlyBird ? 20000 : 25000);
-        } else {
-          amount = isIeeeMember ? (isEarlyBird ? 100 : 175) : (isEarlyBird ? 150 : 250);
-        }
-      } else {
-        if (isLocal) {
-          amount = isIeeeMember ? (isEarlyBird ? 22500 : 25000) : (isEarlyBird ? 30000 : 35000);
-        } else {
-          amount = isIeeeMember ? (isEarlyBird ? 200 : 250) : (isEarlyBird ? 300 : 350);
-        }
-      }
-    } else if (registrationCategory === "PARTICIPANT") {
-      amount = isLocal ? (isEarlyBird ? 5000 : 7500) : (isEarlyBird ? 50 : 75);
-    }
-
-    // Add extra banquet tickets
-    const banquetPrice = isLocal ? 10000 : 50;
-    amount += (extraBanquetTickets * banquetPrice);
 
     // Ensure we don't proceed with 0 amount unless it's a mistake in logic, but here it shouldn't be.
     if (amount <= 0) {

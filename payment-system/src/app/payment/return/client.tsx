@@ -10,50 +10,45 @@ export default function ReturnPageClient() {
   
   const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
   const [message, setMessage] = useState<string>("Verifying payment...");
+  const [referenceTag, setReferenceTag] = useState<string | null>(null);
 
   useEffect(() => {
     const verify = async () => {
       const resultIndicator = searchParams.get("resultIndicator");
-      
-      const storedSuccessIndicator = localStorage.getItem("ipg_success_indicator");
-      const storedInvoiceId = localStorage.getItem("ipg_invoice_id");
-      const storedSessionId = localStorage.getItem("ipg_session_id");
+      // The invoice id is carried on the return URL; fall back to localStorage.
+      const invoiceId = searchParams.get("inv") || localStorage.getItem("ipg_invoice_id");
+
+      if (!invoiceId) {
+        setStatus("error");
+        setMessage("Could not determine which payment to verify. Please use the lookup portal with your reference.");
+        return;
+      }
 
       if (!resultIndicator) {
         setStatus("error");
-        setMessage("Payment cancelled or no result indicator found.");
-        return;
-      }
-
-      if (resultIndicator !== storedSuccessIndicator) {
-        setStatus("error");
-        setMessage("Payment failed or was cancelled by user.");
-        return;
-      }
-
-      if (!storedSessionId || !storedInvoiceId) {
-        setStatus("error");
-        setMessage("Session data missing. Please contact support.");
+        setMessage("Payment cancelled — no result indicator was returned.");
         return;
       }
 
       try {
-        const res = await verifyPaymentResult(storedSessionId, storedInvoiceId);
-        
+        // Verification (including the resultIndicator check) happens server-side.
+        const res = await verifyPaymentResult(invoiceId, resultIndicator);
+
         if (res.success) {
           setStatus("success");
-          setMessage("Payment was successful! Your invoice has been paid.");
-          // Clear storage on success
+          setMessage("Payment was successful! Your registration is confirmed.");
+          if (res.referenceTag) setReferenceTag(res.referenceTag);
+          // Clear fallback storage on success.
           localStorage.removeItem("ipg_success_indicator");
           localStorage.removeItem("ipg_invoice_id");
           localStorage.removeItem("ipg_session_id");
         } else {
           setStatus("error");
-          setMessage(`Payment verification failed: ${res.error}`);
+          setMessage(res.error || "Payment verification failed.");
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         setStatus("error");
-        setMessage(err.message || "An error occurred during verification.");
+        setMessage(err instanceof Error ? err.message : "An error occurred during verification.");
       }
     };
 
@@ -80,12 +75,28 @@ export default function ReturnPageClient() {
             </div>
             <h2 className="text-2xl font-bold text-gray-800 topic">Payment Successful</h2>
             <p className="text-gray-600 mt-2 para">{message}</p>
+
+            {referenceTag && (
+              <div className="mt-6 w-full p-4 bg-secondary-50 border border-secondary-300 rounded-xl">
+                <p className="text-xs uppercase tracking-wide text-gray-500 mb-1 para">Payment Reference</p>
+                <p className="text-lg font-bold text-primary-700" style={{ fontFamily: "Roboto Mono, monospace" }}>
+                  {referenceTag}
+                </p>
+                <p className="text-xs text-gray-500 mt-2 para">
+                  Keep this reference. Use it at the lookup portal any time to view this payment.
+                </p>
+              </div>
+            )}
+
             <button
               onClick={() => router.push("/")}
               className="mt-8 w-full py-3 px-6 bg-primary-600 hover:bg-primary-700 text-white rounded-xl font-medium transition-colors"
             >
               Return to Home
             </button>
+            <a href="/payment/status" className="mt-3 text-sm text-gray-500 hover:text-gray-700 para underline">
+              Look up this payment
+            </a>
           </div>
         )}
 

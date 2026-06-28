@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import { submitRegistration } from "@/actions/registration";
 import { calculateAmount } from "@/lib/pricing";
+import { getCheckout } from "@/lib/checkout";
 
 export default function RegistrationPage() {
   const [step, setStep] = useState(1);
@@ -28,6 +29,12 @@ export default function RegistrationPage() {
   const [studentProof, setStudentProof] = useState<File | null>(null);
   
   const [extraBanquet, setExtraBanquet] = useState(0);
+
+  // Set once the registration is saved and an IPG session is ready. We reveal the
+  // reference tag here (before redirecting) so the user can save it even if they
+  // abandon the payment.
+  const [referenceTag, setReferenceTag] = useState<string | null>(null);
+  const [pendingSessionId, setPendingSessionId] = useState<string | null>(null);
 
   const isIeeeMember = ["IEEE", "STUDENT_IEEE"].includes(authorType) || category === "FULL" && authorType === "IEEE";
   const isStudent = ["STUDENT_IEEE", "STUDENT_NON_IEEE"].includes(authorType);
@@ -83,22 +90,33 @@ export default function RegistrationPage() {
         throw new Error(res.error);
       }
 
-      // Store success_indicator and invoice_id to verify upon return
+      // Store success_indicator and invoice_id as a fallback for the return page
+      // (the return page also recovers the invoice id from the URL).
       localStorage.setItem("ipg_success_indicator", res.success_indicator!);
       localStorage.setItem("ipg_invoice_id", res.invoice_id!);
       localStorage.setItem("ipg_session_id", res.sessionId!);
+      localStorage.setItem("ipg_reference_tag", res.referenceTag!);
 
-      const checkout = (window as any).Checkout;
-      if (!checkout) throw new Error("Payment Gateway script not loaded.");
+      // Reveal the reference tag before launching the hosted payment page.
+      setReferenceTag(res.referenceTag!);
+      setPendingSessionId(res.sessionId!);
 
-      checkout.configure({ session: { id: res.sessionId } });
-      checkout.showPaymentPage();
-
-    } catch (err: any) {
-      setError(err.message);
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
     } finally {
       setLoading(false);
     }
+  };
+
+  const launchCheckout = () => {
+    setError(null);
+    const checkout = getCheckout();
+    if (!checkout || !pendingSessionId) {
+      setError("Payment Gateway script not loaded. Please refresh and try again.");
+      return;
+    }
+    checkout.configure({ session: { id: pendingSessionId } });
+    checkout.showPaymentPage();
   };
 
   return (
@@ -106,7 +124,9 @@ export default function RegistrationPage() {
       <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
         <div className="bg-primary-600 p-6 text-white text-center">
           <h1 className="text-2xl topic">MERCon 2026 Registration</h1>
-          <p className="text-primary-100 mt-2 text-sm para">Step {step} of 3</p>
+          <p className="text-primary-100 mt-2 text-sm para">
+            {referenceTag ? "Almost there" : `Step ${step} of 3`}
+          </p>
         </div>
 
         <div className="p-8">
@@ -116,7 +136,43 @@ export default function RegistrationPage() {
             </div>
           )}
 
-          {step === 1 && (
+          {referenceTag && (
+            <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 text-center">
+              <div className="h-16 w-16 mx-auto bg-primary-100 text-primary-600 rounded-full flex items-center justify-center">
+                <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                </svg>
+              </div>
+              <div>
+                <h2 className="text-xl font-semibold topic">Registration saved</h2>
+                <p className="text-gray-500 mt-2 para text-sm">
+                  Save your payment reference below. You can use it any time to check your
+                  payment status or to complete payment if you don&apos;t finish now.
+                </p>
+              </div>
+
+              <div className="p-4 bg-secondary-50 border border-secondary-300 rounded-xl">
+                <p className="text-xs uppercase tracking-wide text-gray-500 mb-1 para">Payment Reference</p>
+                <p className="text-lg font-bold text-primary-700" style={{ fontFamily: "Roboto Mono, monospace" }}>
+                  {referenceTag}
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={launchCheckout}
+                  className="w-full py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-xl"
+                >
+                  Proceed to Payment
+                </button>
+                <a href="/payment/status" className="text-sm text-gray-500 hover:text-gray-700 para underline">
+                  Pay later — look up with my reference
+                </a>
+              </div>
+            </div>
+          )}
+
+          {!referenceTag && step === 1 && (
             <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4">
               <h2 className="text-xl font-semibold topic mb-4 border-b pb-2">Personal Information</h2>
               
@@ -191,7 +247,7 @@ export default function RegistrationPage() {
             </div>
           )}
 
-          {step === 2 && (
+          {!referenceTag && step === 2 && (
             <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4">
               <h2 className="text-xl font-semibold topic mb-4 border-b pb-2">Registration Details</h2>
               
@@ -242,7 +298,7 @@ export default function RegistrationPage() {
             </div>
           )}
 
-          {step === 3 && (
+          {!referenceTag && step === 3 && (
             <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4">
               <h2 className="text-xl font-semibold topic mb-4 border-b pb-2">Proofs & Add-ons</h2>
               

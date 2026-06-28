@@ -27,10 +27,16 @@ export const registrations = mysqlTable("registrations", {
   
   ieeeProofPath: varchar("ieee_proof_path", { length: 500 }),
   studentProofPath: varchar("student_proof_path", { length: 500 }),
-  
+
+  // Unguessable lookup tag (128-bit), shown to the user and used by the status portal.
+  referenceTag: varchar("reference_tag", { length: 40 }).notNull().unique(),
+
   paymentStatus: varchar("payment_status", { length: 50 }).notNull().default("pending"), // pending, completed, failed
   sessionId: varchar("session_id", { length: 255 }), // IPG Session ID
   invoiceId: varchar("invoice_id", { length: 255 }), // Unique Invoice ID sent to IPG
-  
+  orderId: varchar("order_id", { length: 64 }), // Numeric order id sent to IPG (string-stored)
+  successIndicator: varchar("success_indicator", { length: 64 }), // IPG success_indicator for server-side verification
+  paidAt: timestamp("paid_at"), // Set when payment is verified
+
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });

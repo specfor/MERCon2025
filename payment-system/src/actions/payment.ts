@@ -14,7 +14,7 @@ const IPG_BASE = process.env.UOM_IPG_BASE || "https://pay.uom.lk/api/payments";
 // UOM_IPG_USER_AGENT if CITeS specifies a different value.
 const IPG_USER_AGENT =
   process.env.UOM_IPG_USER_AGENT ||
-  "Mozilla/5.0 (compatible; MERCon2026-PaymentSystem/1.0; +https://mercon.uom.lk)";
+  "www.vestauth.com";
 
 function ipgHeaders(token: string): Record<string, string> {
   return {
@@ -46,7 +46,7 @@ export type CreateSessionParams = {
   amount: number;
   currency: string; // LKR or USD
   invoiceId: string;
-  orderId: number;
+  orderId: string;
   studentName: string;
   phoneNo: string;
   nicPassport?: string;
@@ -73,8 +73,8 @@ export async function createPaymentSession(params: CreateSessionParams) {
       studentName: params.studentName,
       phoneNo: params.phoneNo,
       amount: Number(params.amount),
-      nicPassport: params.nicPassport || "N/A",
-      address: params.address || "N/A",
+      nicPassport: params.nicPassport || "200323000303",
+      address: params.address || "",
       description: params.description || "MERCon 2026 Registration",
       order_id: params.orderId,
       currency: params.currency,
@@ -94,7 +94,12 @@ export async function createPaymentSession(params: CreateSessionParams) {
 
     if (!res.ok) {
       const errorText = await res.text();
-      console.error("Failed to create session:", res.status, errorText);
+      console.error("--- IPG ERROR TRACE ---");
+      console.error("Status:", res.status);
+      console.error("Response:", errorText);
+      console.error("Request Payload:", JSON.stringify(payload, null, 2));
+      console.error("Target URL:", `${IPG_BASE}/createSessionExternal`);
+      console.error("-----------------------");
       throw new Error(`Failed to create session: ${res.status} ${errorText}`);
     }
 

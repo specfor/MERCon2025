@@ -10,10 +10,10 @@ export default function Home() {
         <p className="text-gray-600 para mb-8">12th International Multidisciplinary Engineering Research Conference</p>
         
         <Link 
-          href="/registration" 
+          href="/login" 
           className="block w-full py-4 px-6 rounded-xl bg-primary-600 hover:bg-primary-700 text-white font-bold text-lg transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
         >
-          Register Now
+          Register / Login
         </Link>
       </main>
     </div>

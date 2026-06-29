@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 import { timingSafeEqual } from "crypto";
 import { sql, eq } from "drizzle-orm";
 import { db } from "@/db";
-import { registrations } from "@/db/schema";
+import { registrations, users } from "@/db/schema";
 import { normalizeTag } from "@/lib/reference";
 import { createPaymentSession } from "./payment";
 
@@ -38,15 +38,19 @@ async function findByTagAndEmail(tag: string, email: string) {
   const normalized = normalizeTag(tag || "");
   if (!normalized || !email?.trim()) return null;
 
-  const [reg] = await db
-    .select()
+  const [result] = await db
+    .select({
+      reg: registrations,
+      user: users,
+    })
     .from(registrations)
+    .innerJoin(users, eq(registrations.userId, users.id))
     .where(sql`REPLACE(UPPER(${registrations.referenceTag}), '-', '') = ${normalized}`)
     .limit(1);
 
-  if (!reg) return null;
-  if (!emailMatches(reg.email, email)) return null;
-  return reg;
+  if (!result) return null;
+  if (!emailMatches(result.user.email, email)) return null;
+  return result;
 }
 
 export async function getPaymentByReference(tag: string, email: string) {
@@ -55,17 +59,19 @@ export async function getPaymentByReference(tag: string, email: string) {
       return { success: false as const, error: "Too many attempts. Please try again shortly." };
     }
 
-    const reg = await findByTagAndEmail(tag, email);
-    if (!reg) {
+    const result = await findByTagAndEmail(tag, email);
+    if (!result) {
       return { success: false as const, error: "No payment found for that reference and email." };
     }
+    
+    const { reg, user } = result;
 
     // Return only non-sensitive fields (never proof paths, NIC, session or tokens).
     return {
       success: true as const,
       payment: {
-        referenceTag: reg.referenceTag,
-        name: `${reg.title} ${reg.firstName} ${reg.lastName}`,
+        referenceTag: reg.referenceTag || "",
+        name: `${user.title} ${user.firstName} ${user.lastName}`,
         registrationCategory: reg.registrationCategory,
         authorType: reg.authorType,
         paperIds: reg.paperIds,
@@ -91,25 +97,33 @@ export async function resumePayment(tag: string, email: string) {
       return { success: false as const, error: "Too many attempts. Please try again shortly." };
     }
 
-    const reg = await findByTagAndEmail(tag, email);
-    if (!reg) {
+    const result = await findByTagAndEmail(tag, email);
+    if (!result) {
       return { success: false as const, error: "No payment found for that reference and email." };
     }
+    const { reg, user } = result;
+    
     if (reg.paymentStatus === "completed") {
       return { success: false as const, error: "This payment is already completed." };
     }
 
-    const invoiceId = reg.invoiceId || `MERCon2026_${reg.id}`;
+    const date = new Date();
+    const yy = String(date.getFullYear()).slice(-2);
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const paddedRegId = String(reg.id).padStart(5, '0');
+    const customOrderId = `2026${yy}${mm}${paddedRegId}`;
+
+    const invoiceId = customOrderId;
 
     // IPG sessions expire, so create a fresh one to resume payment.
     const ipgResult = await createPaymentSession({
       amount: Number(reg.amount),
       currency: reg.currency,
       invoiceId,
-      orderId: Number(reg.id),
-      studentName: `${reg.firstName} ${reg.lastName}`.trim(),
-      phoneNo: (reg.phone || "").trim(),
-      address: reg.affiliation,
+      orderId: customOrderId,
+      studentName: `${user.firstName} ${user.lastName}`.trim(),
+      phoneNo: (user.phone || "").trim(),
+      address: user.affiliation,
       description: "MERCon 2026 Registration",
     });
 
@@ -122,7 +136,7 @@ export async function resumePayment(tag: string, email: string) {
       .set({
         sessionId: ipgResult.sessionId,
         invoiceId: ipgResult.invoice_id,
-        orderId: String(ipgResult.order_id),
+        orderId: customOrderId,
         successIndicator: ipgResult.success_indicator,
         paymentStatus: "pending",
       })

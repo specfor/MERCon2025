@@ -5,14 +5,16 @@
   "scripts": {
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx src/db/migrate.ts",
-    "dev": "npm run db:migrate && next dev",
+    "dev": "npm run db:migrate && PORT=$(node -p \"require('fs').readFileSync('.env.local', 'utf8').match(/^PORT=(\\d+)/m)?.[1] || 3000\") next dev",
     "build": "npm run db:migrate && next build",
-    "start": "npm run db:migrate && next start",
+    "start": "npm run db:migrate && PORT=$(node -p \"require('fs').readFileSync('.env.local', 'utf8').match(/^PORT=(\\d+)/m)?.[1] || 3000\") next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.3",
     "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
+    "jose": "^6.2.3",
     "mysql2": "^3.22.5",
     "next": "16.2.9",
     "react": "19.2.4",
@@ -20,6 +22,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

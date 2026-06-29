@@ -1,25 +1,32 @@
 "use server";
 
 import { db } from "@/db";
-import { registrations } from "@/db/schema";
+import { registrations, users } from "@/db/schema";
 import fs from "fs/promises";
 import path from "path";
 import { eq } from "drizzle-orm";
 import { createPaymentSession } from "./payment";
 import { calculateAmount } from "@/lib/pricing";
 import { generateReferenceTag } from "@/lib/reference";
+import { getSession } from "@/lib/auth";
 
 export async function submitRegistration(formData: FormData) {
   try {
-    const title = formData.get("title") as string;
-    const firstName = formData.get("firstName") as string;
-    const lastName = formData.get("lastName") as string;
-    const email = formData.get("email") as string;
-    const phone = formData.get("phone") as string;
-    const affiliation = formData.get("affiliation") as string;
-    const country = formData.get("country") as string;
+    const session = await getSession();
+    if (!session || !session.userId) {
+      throw new Error("Unauthorized");
+    }
+
+    const userId = session.userId;
     
-    const isLocal = formData.get("isLocal") === "true";
+    // Check if the user already has a registration that is completed
+    const [existingRegistration] = await db.select().from(registrations).where(eq(registrations.userId, userId)).limit(1);
+    if (existingRegistration && existingRegistration.paymentStatus === "completed") {
+      throw new Error("Registration is already completed and cannot be modified.");
+    }
+    
+    const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1);
+    
     const registrationCategory = formData.get("registrationCategory") as string;
     const authorType = formData.get("authorType") as string;
     
@@ -35,8 +42,8 @@ export async function submitRegistration(formData: FormData) {
     const ieeeProofFile = formData.get("ieeeProof") as File | null;
     const studentProofFile = formData.get("studentProof") as File | null;
     
-    let ieeeProofPath = null;
-    let studentProofPath = null;
+    let ieeeProofPath = existingRegistration?.ieeeProofPath || null;
+    let studentProofPath = existingRegistration?.studentProofPath || null;
 
     const uploadsDir = path.join(process.cwd(), "uploads", "proofs");
     await fs.mkdir(uploadsDir, { recursive: true });
@@ -45,7 +52,7 @@ export async function submitRegistration(formData: FormData) {
       const arrayBuffer = await ieeeProofFile.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       const ext = path.extname(ieeeProofFile.name);
-      const filename = `${email.replace(/[^a-zA-Z0-9]/g, "_")}_ieee_${Date.now()}${ext}`;
+      const filename = `${user.email.replace(/[^a-zA-Z0-9]/g, "_")}_ieee_${Date.now()}${ext}`;
       const filepath = path.join(uploadsDir, filename);
       await fs.writeFile(filepath, buffer);
       ieeeProofPath = `uploads/proofs/${filename}`;
@@ -55,63 +62,74 @@ export async function submitRegistration(formData: FormData) {
       const arrayBuffer = await studentProofFile.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       const ext = path.extname(studentProofFile.name);
-      const filename = `${email.replace(/[^a-zA-Z0-9]/g, "_")}_student_${Date.now()}${ext}`;
+      const filename = `${user.email.replace(/[^a-zA-Z0-9]/g, "_")}_student_${Date.now()}${ext}`;
       const filepath = path.join(uploadsDir, filename);
       await fs.writeFile(filepath, buffer);
       studentProofPath = `uploads/proofs/${filename}`;
     }
 
     // Pricing Calculation
-    const amount = calculateAmount(registrationCategory, authorType, isLocal, extraBanquetTickets);
-    const currency = isLocal ? "LKR" : "USD";
+    const amount = calculateAmount(registrationCategory, authorType, user.isLocal, extraBanquetTickets);
+    const currency = user.isLocal ? "LKR" : "USD";
 
-    // Ensure we don't proceed with 0 amount unless it's a mistake in logic, but here it shouldn't be.
     if (amount <= 0) {
       throw new Error("Calculated amount is invalid.");
     }
 
-    // Unguessable lookup tag, issued at submission so the registrant can look up
-    // (and resume) the payment later even if it is abandoned.
-    const referenceTag = generateReferenceTag();
+    const referenceTag = existingRegistration?.referenceTag || generateReferenceTag();
+    let registrationId: number;
 
-    // Insert the registration first so we have a numeric id to use as the IPG order id.
-    const [result] = await db.insert(registrations).values({
-      title,
-      firstName,
-      lastName,
-      email,
-      phone,
-      affiliation,
-      country,
-      isLocal,
-      registrationCategory,
-      authorType,
-      isIeeeMember,
-      isStudent,
-      ieeeMemberNumber,
-      paperIds,
-      extraBanquetTickets,
-      amount: amount.toString(),
-      currency,
-      ieeeProofPath,
-      studentProofPath,
-      referenceTag,
-    });
+    if (existingRegistration) {
+      await db.update(registrations).set({
+        registrationCategory,
+        authorType,
+        isIeeeMember,
+        isStudent,
+        ieeeMemberNumber,
+        paperIds,
+        extraBanquetTickets,
+        amount: amount.toString(),
+        currency,
+        ieeeProofPath,
+        studentProofPath,
+      }).where(eq(registrations.id, existingRegistration.id));
+      registrationId = existingRegistration.id;
+    } else {
+      const [result] = await db.insert(registrations).values({
+        userId,
+        registrationCategory,
+        authorType,
+        isIeeeMember,
+        isStudent,
+        ieeeMemberNumber,
+        paperIds,
+        extraBanquetTickets,
+        amount: amount.toString(),
+        currency,
+        ieeeProofPath,
+        studentProofPath,
+        referenceTag,
+      });
+      registrationId = Number(result.insertId);
+    }
+  
+    // Generate custom order ID: MER{YYMM}{5 digit number}
+    const date = new Date();
+    const yy = String(date.getFullYear()).slice(-2);
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const paddedRegId = String(registrationId).padStart(5, '0');
+    const customOrderId = `MER${yy}${mm}${paddedRegId}`;
 
-    const registrationId = Number(result.insertId);
-
-    // order_id and invoice_id share the numeric registration id so they line up for
-    // the IPG verify step (see plan Open item A).
-    const invoiceId = `MERCon2026_${registrationId}`;
+    const invoiceId = customOrderId;
 
     const ipgResult = await createPaymentSession({
       amount,
       currency,
       invoiceId,
-      orderId: registrationId,
-      studentName: `${firstName} ${lastName}`.trim(),
-      phoneNo: (phone || "").trim(),
-      address: affiliation,
+      orderId: customOrderId,
+      studentName: `${user.firstName} ${user.lastName}`.trim(),
+      phoneNo: (user.phone || "").trim(),
+      address: user.affiliation,
       description: "MERCon 2026 Registration",
     });
 
@@ -119,12 +137,10 @@ export async function submitRegistration(formData: FormData) {
       throw new Error("Payment Gateway initialization failed: " + ipgResult.error);
     }
 
-    // Persist the session, invoice, order id and success indicator for server-side
-    // verification on return.
     await db.update(registrations).set({
       sessionId: ipgResult.sessionId,
       invoiceId: ipgResult.invoice_id,
-      orderId: String(ipgResult.order_id),
+      orderId: customOrderId,
       successIndicator: ipgResult.success_indicator,
     }).where(eq(registrations.id, registrationId));
 

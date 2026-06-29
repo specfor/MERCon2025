@@ -68,6 +68,13 @@ export async function submitRegistration(formData: FormData) {
       studentProofPath = `uploads/proofs/${filename}`;
     }
 
+    if (isIeeeMember && !ieeeProofPath) {
+      throw new Error("IEEE Member proof document is required.");
+    }
+    if (isStudent && !studentProofPath) {
+      throw new Error("Student ID proof document is required.");
+    }
+
     // Pricing Calculation
     const amount = calculateAmount(registrationCategory, authorType, user.isLocal, extraBanquetTickets);
     const currency = user.isLocal ? "LKR" : "USD";

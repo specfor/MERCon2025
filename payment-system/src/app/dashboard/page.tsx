@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
   const session = await getSession();
-  if (!session) redirect("/login");
+  if (!session) redirect("/");
 
   const [user] = await db.select().from(users).where(eq(users.id, session.userId)).limit(1);
   const [registration] = await db.select().from(registrations).where(eq(registrations.userId, session.userId)).limit(1);
@@ -23,7 +23,7 @@ export default async function DashboardPage() {
             const { destroySession } = await import("@/lib/auth");
             await destroySession();
             const { redirect } = await import("next/navigation");
-            redirect("/login");
+            redirect("/");
           }}>
             <button type="submit" className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
               Clear Session & Log Out

@@ -77,7 +77,7 @@ export async function createPaymentSession(params: CreateSessionParams) {
       // Carry the invoice id on the return URL so the return page can verify even
       // without client-side storage (localStorage remains a fallback).
       returnUrl: `${baseUrl}/payment/return/`,
-      cancelUrl: `${baseUrl}/payment/cancel`,
+      cancelUrl: `${baseUrl}/payment/cancel/${params.invoiceId}`,
     };
 
     const res = await fetch(`${IPG_BASE}/createSessionExternal`, {

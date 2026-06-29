@@ -19,6 +19,10 @@ export async function registerUser(formData: FormData) {
     const country = formData.get("country") as string;
     const isLocal = formData.get("isLocal") === "true";
 
+    if (!/^[0-9]+$/.test(phone)) {
+      return { success: false, error: "Phone number can contain only numbers." };
+    }
+
     // Check if user exists
     const [existingUser] = await db.select().from(users).where(eq(users.email, email)).limit(1);
     if (existingUser) {

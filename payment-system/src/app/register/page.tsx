@@ -81,7 +81,7 @@ export default function RegisterPage() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">Phone</label>
-                <input type="text" name="phone" required className="w-full p-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary-500 outline-none transition" />
+                <input type="text" name="phone" pattern="[0-9]+" title="Only numbers are allowed" required className="w-full p-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary-500 outline-none transition" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">Affiliation / Organization</label>

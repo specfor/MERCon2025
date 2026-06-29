@@ -53,8 +53,22 @@ export default function DashboardClient({ user, initialRegistration }: { user: a
       }
 
       // Start Mastercard Checkout
-      const checkout = (window as any).Checkout;
-      if (!checkout) throw new Error("Checkout script not loaded");
+      let checkout = (window as any).Checkout;
+      if (!checkout) {
+        console.warn("Checkout script not loaded statically, attempting to load dynamically...");
+        await new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = process.env.NEXT_PUBLIC_UOM_IPG_CHECKOUT_SCRIPT || "https://bankofceylon.gateway.mastercard.com/static/checkout/checkout.min.js";
+          script.setAttribute("data-error", "errorCallback");
+          script.setAttribute("data-cancel", "cancelCallback");
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+        checkout = (window as any).Checkout;
+      }
+      
+      if (!checkout) throw new Error("Checkout script failed to load. Please disable adblockers or refresh the page.");
 
       checkout.configure({ session: { id: res.sessionId } });
       checkout.showPaymentPage();
@@ -139,7 +153,18 @@ export default function DashboardClient({ user, initialRegistration }: { user: a
                 {["FULL", "LIMITED"].includes(category) && authorType !== "NON_PRESENTING" && (
                   <div>
                     <label className="block text-sm font-medium text-gray-300 mb-2">Paper ID(s)</label>
-                    <input type="text" value={paperIds} onChange={e=>setPaperIds(e.target.value)} placeholder="e.g. 1570123456" className="w-full p-3 border border-white/20 rounded-xl bg-white/5 text-white focus:ring-2 focus:ring-primary-500 outline-none transition" required />
+                    <input type="text" value={paperIds} onChange={e=>setPaperIds(e.target.value)} placeholder="e.g. 1570123456, 1570123457" className="w-full p-3 border border-white/20 rounded-xl bg-white/5 text-white focus:ring-2 focus:ring-primary-500 outline-none transition" required />
+                    
+                    {paperIds.trim().length > 0 && (
+                      <div className="flex flex-wrap gap-2 mt-3">
+                        {paperIds.split(/[\s,]+/).filter((id: string) => id.trim() !== '').map((id: string, index: number) => (
+                          <span key={index} className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-semibold bg-primary-500/20 text-primary-300 border border-primary-500/30 shadow-sm">
+                            <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                            {id}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
                 

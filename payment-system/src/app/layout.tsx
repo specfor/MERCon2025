@@ -21,16 +21,14 @@ export default function RootLayout({
 
   return (
     <html lang="en" className="h-full antialiased text-gray-200">
-      <body className="min-h-full flex flex-col para" style={{
-        background: `radial-gradient(circle at center, rgb(14, 46, 32) 0%, rgb(8, 26, 18) 45%, rgb(2, 6, 4) 80%)`
-      }}>
+      <head>
         <Script
           src={checkoutScript}
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
           data-error="errorCallback"
           data-cancel="cancelCallback"
         />
-        <Script id="ipg-callbacks" strategy="beforeInteractive">
+        <Script id="ipg-callbacks" strategy="afterInteractive">
           {`
             function errorCallback(error) {
               console.error("Mastercard Checkout Error:", error);
@@ -44,6 +42,10 @@ export default function RootLayout({
             }
           `}
         </Script>
+      </head>
+      <body className="min-h-full flex flex-col para" style={{
+        background: `radial-gradient(circle at center, rgb(14, 46, 32) 0%, rgb(8, 26, 18) 45%, rgb(2, 6, 4) 80%)`
+      }}>
         {children}
       </body>
     </html>

@@ -64,10 +64,6 @@ export async function createPaymentSession(params: CreateSessionParams) {
       throw new Error("Missing UOM_IPG_TOKEN in environment variables.");
     }
 
-    // See plan Open item (B): whether a supplied invoice_id must already exist in the
-    // IPG database is a CITeS-specific behaviour, so the flag is configurable.
-    const invoiceFlag = (process.env.UOM_IPG_INVOICE_FLAG ?? "true").toLowerCase() === "true";
-
     const payload = {
       division,
       studentName: params.studentName,
@@ -82,8 +78,6 @@ export async function createPaymentSession(params: CreateSessionParams) {
       // without client-side storage (localStorage remains a fallback).
       returnUrl: `${baseUrl}/payment/return?inv=${encodeURIComponent(params.invoiceId)}`,
       cancelUrl: `${baseUrl}/`,
-      invoice_id: params.invoiceId,
-      invoiceFlag,
     };
 
     const res = await fetch(`${IPG_BASE}/createSessionExternal`, {
@@ -94,12 +88,16 @@ export async function createPaymentSession(params: CreateSessionParams) {
 
     if (!res.ok) {
       const errorText = await res.text();
-      console.error("--- IPG ERROR TRACE ---");
-      console.error("Status:", res.status);
-      console.error("Response:", errorText);
-      console.error("Request Payload:", JSON.stringify(payload, null, 2));
-      console.error("Target URL:", `${IPG_BASE}/createSessionExternal`);
-      console.error("-----------------------");
+      if (process.env.NODE_ENV === "development") {
+        console.error("--- IPG ERROR TRACE ---");
+        console.error("Status:", res.status);
+        console.error("Response:", errorText);
+        console.error("Request Payload:", JSON.stringify(payload, null, 2));
+        console.error("Target URL:", `${IPG_BASE}/createSessionExternal`);
+        console.error("-----------------------");
+      } else {
+        console.error(`IPG Error: Status ${res.status}`);
+      }
       throw new Error(`Failed to create session: ${res.status} ${errorText}`);
     }
 
@@ -126,6 +124,12 @@ export async function createPaymentSession(params: CreateSessionParams) {
  * constant time, then calls the IPG verify endpoint and marks the row paid.
  */
 export async function verifyPaymentResult(invoiceId: string, resultIndicator?: string | null) {
+  if (process.env.NODE_ENV === "development") {
+    console.log("--- IPG REDIRECT RECEIVED ---");
+    console.log("Invoice ID:", invoiceId);
+    console.log("Result Indicator:", resultIndicator);
+  }
+  
   try {
     const division = process.env.UOM_IPG_DIVISION || "TEST";
     const token = process.env.UOM_IPG_TOKEN;
@@ -171,15 +175,30 @@ export async function verifyPaymentResult(invoiceId: string, resultIndicator?: s
       return { success: false as const, error: "Missing payment session for this registration." };
     }
 
+    const verifyPayload = { division, sessionId: reg.sessionId, invoice_id: invoiceId };
+    
+    if (process.env.NODE_ENV === "development") {
+      console.log("--- IPG VERIFY PAYMENT REQUEST ---");
+      console.log("Target URL:", `${IPG_BASE}/verifyPayment`);
+      console.log("Payload:", JSON.stringify(verifyPayload, null, 2));
+    }
+
     const res = await fetch(`${IPG_BASE}/verifyPayment`, {
       method: "POST",
       headers: ipgHeaders(token),
-      body: JSON.stringify({ division, sessionId: reg.sessionId, invoice_id: invoiceId }),
+      body: JSON.stringify(verifyPayload),
     });
 
     if (!res.ok) {
       const errorText = await res.text();
-      console.error("Failed to verify payment:", res.status, errorText);
+      if (process.env.NODE_ENV === "development") {
+        console.error("--- IPG VERIFY PAYMENT ERROR ---");
+        console.error("Status:", res.status);
+        console.error("Response:", errorText);
+        console.error("--------------------------------");
+      } else {
+        console.error("Failed to verify payment:", res.status);
+      }
       await db
         .update(registrations)
         .set({ paymentStatus: "failed" })
@@ -188,6 +207,11 @@ export async function verifyPaymentResult(invoiceId: string, resultIndicator?: s
     }
 
     const data = await res.json();
+    
+    if (process.env.NODE_ENV === "development") {
+      console.log("--- IPG VERIFY PAYMENT RESPONSE ---");
+      console.log("Response:", JSON.stringify(data, null, 2));
+    }
 
     await db
       .update(registrations)

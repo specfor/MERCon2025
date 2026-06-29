@@ -81,5 +81,5 @@ export async function loginUser(formData: FormData) {
 
 export async function logoutUser() {
   await destroySession();
-  redirect("/login");
+  redirect("/");
 }

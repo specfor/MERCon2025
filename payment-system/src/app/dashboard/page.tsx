@@ -35,10 +35,6 @@ export default async function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-secondary-50 p-4">
-      <div className="max-w-4xl mx-auto py-8">
-        <DashboardClient user={user} initialRegistration={registration || null} />
-      </div>
-    </div>
+    <DashboardClient user={user} initialRegistration={registration || null} />
   );
 }

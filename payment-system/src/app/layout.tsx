@@ -20,8 +20,10 @@ export default function RootLayout({
     "https://bankofceylon.gateway.mastercard.com/static/checkout/checkout.min.js";
 
   return (
-    <html lang="en" className="h-full antialiased bg-secondary-50">
-      <body className="min-h-full flex flex-col para text-dark-800">
+    <html lang="en" className="h-full antialiased text-gray-200">
+      <body className="min-h-full flex flex-col para" style={{
+        background: `radial-gradient(circle at center, rgb(14, 46, 32) 0%, rgb(8, 26, 18) 45%, rgb(2, 6, 4) 80%)`
+      }}>
         <Script
           src={checkoutScript}
           strategy="beforeInteractive"

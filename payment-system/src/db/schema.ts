@@ -38,13 +38,21 @@ export const registrations = mysqlTable("registrations", {
   studentProofPath: varchar("student_proof_path", { length: 500 }),
   
   paymentStatus: varchar("payment_status", { length: 50 }).notNull().default("pending"),
+  referenceTag: varchar("reference_tag", { length: 255 }),
+  
+  paidAt: timestamp("paid_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+});
+
+export const paymentAttempts = mysqlTable("payment_attempts", {
+  id: int("id").autoincrement().primaryKey(),
+  registrationId: int("registration_id").notNull(),
   sessionId: varchar("session_id", { length: 255 }),
   invoiceId: varchar("invoice_id", { length: 255 }),
   orderId: varchar("order_id", { length: 255 }),
   successIndicator: varchar("success_indicator", { length: 255 }),
-  referenceTag: varchar("reference_tag", { length: 255 }),
-  
-  paidAt: timestamp("paid_at"),
+  status: varchar("status", { length: 50 }).notNull().default("pending"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });
@@ -56,9 +64,17 @@ export const usersRelations = relations(users, ({ one }) => ({
   }),
 }));
 
-export const registrationsRelations = relations(registrations, ({ one }) => ({
+export const registrationsRelations = relations(registrations, ({ one, many }) => ({
   user: one(users, {
     fields: [registrations.userId],
     references: [users.id],
+  }),
+  paymentAttempts: many(paymentAttempts),
+}));
+
+export const paymentAttemptsRelations = relations(paymentAttempts, ({ one }) => ({
+  registration: one(registrations, {
+    fields: [paymentAttempts.registrationId],
+    references: [registrations.id],
   }),
 }));

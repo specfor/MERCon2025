@@ -3,7 +3,7 @@
 import { timingSafeEqual } from "crypto";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
-import { registrations } from "@/db/schema";
+import { registrations, paymentAttempts } from "@/db/schema";
 
 // Base URL for the UoM IPG. Defaults to production; set UOM_IPG_BASE to
 // "https://pay.uom.lk/api/test/payments" for the CITeS test environment.
@@ -69,15 +69,15 @@ export async function createPaymentSession(params: CreateSessionParams) {
       studentName: params.studentName,
       phoneNo: params.phoneNo,
       amount: Number(params.amount),
-      nicPassport: params.nicPassport || "200323000303",
+      nicPassport: params.nicPassport || "",
       address: params.address || "",
       description: params.description || "MERCon 2026 Registration",
       order_id: params.orderId,
       currency: params.currency,
       // Carry the invoice id on the return URL so the return page can verify even
       // without client-side storage (localStorage remains a fallback).
-      returnUrl: `${baseUrl}/payment/return?inv=${encodeURIComponent(params.invoiceId)}`,
-      cancelUrl: `${baseUrl}/`,
+      returnUrl: `${baseUrl}/payment/return/`,
+      cancelUrl: `${baseUrl}/payment/cancel`,
     };
 
     const res = await fetch(`${IPG_BASE}/createSessionExternal`, {
@@ -102,6 +102,11 @@ export async function createPaymentSession(params: CreateSessionParams) {
     }
 
     const data = await res.json();
+    if (process.env.NODE_ENV === "development") {
+      console.log("--- IPG SESSION CREATED ---");
+      console.log("Data:", data);
+      console.log("---------------------------");
+    }
     return {
       success: true as const,
       sessionId: data.sessionId as string,
@@ -116,6 +121,62 @@ export async function createPaymentSession(params: CreateSessionParams) {
   }
 }
 
+export type GenerateInvoiceParams = {
+  studentName: string;
+  amount: number;
+  description: string;
+};
+
+export async function generateInvoiceIdExternal(params: GenerateInvoiceParams) {
+  try {
+    const division = process.env.UOM_IPG_DIVISION || "TEST";
+    const token = process.env.UOM_IPG_TOKEN;
+    const INVOICES_BASE = process.env.UOM_IPG_INVOICE_BASE || "https://pay.uom.lk/api/invoices";
+
+    if (!token) {
+      throw new Error("Missing UOM_IPG_TOKEN in environment variables.");
+    }
+
+    const payload = {
+      division,
+      invoicePrefix: "REG",
+      studentName: params.studentName,
+      amount: Number(params.amount),
+      description: params.description || "MERCon 2026 Registration",
+    };
+
+    const res = await fetch(`${INVOICES_BASE}/getInvoiceIdExternal`, {
+      method: "POST",
+      headers: ipgHeaders(token),
+      body: JSON.stringify(payload),
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      if (process.env.NODE_ENV === "development") {
+        console.error("--- IPG INVOICE ERROR TRACE ---");
+        console.error("Status:", res.status);
+        console.error("Response:", errorText);
+        console.error("Headers:", JSON.stringify(ipgHeaders(token), null, 2));
+        console.error("Request Payload:", JSON.stringify(payload, null, 2));
+        console.error("Target URL:", `${INVOICES_BASE}/getInvoiceIdExternal`);
+        console.error("-------------------------------");
+      } else {
+        console.error(`Failed to generate invoice ID: ${res.status}`);
+      }
+      throw new Error(`Failed to generate invoice ID: ${res.status}`);
+    }
+
+    const data = await res.json();
+    return { success: true as const, invoice_id: data.invoice_id as string };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    console.error("generateInvoiceIdExternal error:", error);
+    return { success: false as const, error: message };
+  }
+}
+
+
 /**
  * Verify a payment with the IPG and persist the result on the registration row.
  *
@@ -124,9 +185,19 @@ export async function createPaymentSession(params: CreateSessionParams) {
  * constant time, then calls the IPG verify endpoint and marks the row paid.
  */
 export async function verifyPaymentResult(invoiceId: string, resultIndicator?: string | null) {
+  // IPG gateway sometimes concatenates the order ID to the return URL blindly, causing duplicated IDs.
+  let cleanInvoiceId = invoiceId;
+  if (cleanInvoiceId && cleanInvoiceId.length % 2 === 0) {
+    const half = cleanInvoiceId.length / 2;
+    if (cleanInvoiceId.slice(0, half) === cleanInvoiceId.slice(half)) {
+      cleanInvoiceId = cleanInvoiceId.slice(0, half);
+    }
+  }
+
   if (process.env.NODE_ENV === "development") {
     console.log("--- IPG REDIRECT RECEIVED ---");
-    console.log("Invoice ID:", invoiceId);
+    console.log("Invoice ID (raw):", invoiceId);
+    console.log("Invoice ID (clean):", cleanInvoiceId);
     console.log("Result Indicator:", resultIndicator);
   }
   
@@ -138,14 +209,24 @@ export async function verifyPaymentResult(invoiceId: string, resultIndicator?: s
       throw new Error("Missing UOM_IPG_TOKEN in environment variables.");
     }
 
+    const [attempt] = await db
+      .select()
+      .from(paymentAttempts)
+      .where(eq(paymentAttempts.invoiceId, cleanInvoiceId))
+      .limit(1);
+
+    if (!attempt) {
+      return { success: false as const, error: "No payment attempt found for this invoice." };
+    }
+
     const [reg] = await db
       .select()
       .from(registrations)
-      .where(eq(registrations.invoiceId, invoiceId))
+      .where(eq(registrations.id, attempt.registrationId))
       .limit(1);
 
     if (!reg) {
-      return { success: false as const, error: "No registration found for this invoice." };
+      return { success: false as const, error: "Associated registration not found." };
     }
 
     // Idempotent: already verified (covers IPG's "already paid" case too).
@@ -160,10 +241,15 @@ export async function verifyPaymentResult(invoiceId: string, resultIndicator?: s
 
     // Confirm the redirect actually came from a successful IPG session.
     if (
-      !reg.successIndicator ||
+      !attempt.successIndicator ||
       !resultIndicator ||
-      !safeEqual(resultIndicator, reg.successIndicator)
+      !safeEqual(resultIndicator, attempt.successIndicator)
     ) {
+      await db
+        .update(paymentAttempts)
+        .set({ status: "failed" })
+        .where(eq(paymentAttempts.id, attempt.id));
+
       await db
         .update(registrations)
         .set({ paymentStatus: "failed" })
@@ -171,11 +257,11 @@ export async function verifyPaymentResult(invoiceId: string, resultIndicator?: s
       return { success: false as const, error: "Payment was cancelled or could not be verified." };
     }
 
-    if (!reg.sessionId) {
-      return { success: false as const, error: "Missing payment session for this registration." };
+    if (!attempt.sessionId) {
+      return { success: false as const, error: "Missing payment session for this attempt." };
     }
 
-    const verifyPayload = { division, sessionId: reg.sessionId, invoice_id: invoiceId };
+    const verifyPayload = { division, sessionId: attempt.sessionId, invoice_id: cleanInvoiceId };
     
     if (process.env.NODE_ENV === "development") {
       console.log("--- IPG VERIFY PAYMENT REQUEST ---");
@@ -200,6 +286,11 @@ export async function verifyPaymentResult(invoiceId: string, resultIndicator?: s
         console.error("Failed to verify payment:", res.status);
       }
       await db
+        .update(paymentAttempts)
+        .set({ status: "failed" })
+        .where(eq(paymentAttempts.id, attempt.id));
+        
+      await db
         .update(registrations)
         .set({ paymentStatus: "failed" })
         .where(eq(registrations.id, reg.id));
@@ -214,6 +305,11 @@ export async function verifyPaymentResult(invoiceId: string, resultIndicator?: s
     }
 
     await db
+      .update(paymentAttempts)
+      .set({ status: "completed" })
+      .where(eq(paymentAttempts.id, attempt.id));
+
+    await db
       .update(registrations)
       .set({ paymentStatus: "completed", paidAt: new Date() })
       .where(eq(registrations.id, reg.id));
@@ -226,6 +322,42 @@ export async function verifyPaymentResult(invoiceId: string, resultIndicator?: s
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Unknown error";
     console.error("verifyPaymentResult error:", error);
+    return { success: false as const, error: message };
+  }
+}
+
+export async function cancelPaymentResult(invoiceId: string) {
+  let cleanInvoiceId = invoiceId;
+  if (cleanInvoiceId && cleanInvoiceId.length % 2 === 0) {
+    const half = cleanInvoiceId.length / 2;
+    if (cleanInvoiceId.slice(0, half) === cleanInvoiceId.slice(half)) {
+      cleanInvoiceId = cleanInvoiceId.slice(0, half);
+    }
+  }
+
+  try {
+    // First try to find the attempt to get the registration ID
+    const [attempt] = await db
+      .select()
+      .from(paymentAttempts)
+      .where(eq(paymentAttempts.invoiceId, cleanInvoiceId))
+      .limit(1);
+
+    if (attempt) {
+      await db
+        .update(paymentAttempts)
+        .set({ status: "failed" })
+        .where(eq(paymentAttempts.id, attempt.id));
+        
+      await db
+        .update(registrations)
+        .set({ paymentStatus: "failed" })
+        .where(eq(registrations.id, attempt.registrationId));
+    }
+    return { success: true as const };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Unknown error";
+    console.error("cancelPaymentResult error:", error);
     return { success: false as const, error: message };
   }
 }

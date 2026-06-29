@@ -1,3 +1,16 @@
+CREATE TABLE `payment_attempts` (
+	`id` int AUTO_INCREMENT NOT NULL,
+	`registration_id` int NOT NULL,
+	`session_id` varchar(255),
+	`invoice_id` varchar(255),
+	`order_id` varchar(255),
+	`success_indicator` varchar(255),
+	`status` varchar(50) NOT NULL DEFAULT 'pending',
+	`created_at` timestamp NOT NULL DEFAULT (now()),
+	`updated_at` timestamp NOT NULL DEFAULT (now()) ON UPDATE CURRENT_TIMESTAMP,
+	CONSTRAINT `payment_attempts_id` PRIMARY KEY(`id`)
+);
+--> statement-breakpoint
 CREATE TABLE `registrations` (
 	`id` int AUTO_INCREMENT NOT NULL,
 	`user_id` int NOT NULL,
@@ -13,10 +26,6 @@ CREATE TABLE `registrations` (
 	`ieee_proof_path` varchar(500),
 	`student_proof_path` varchar(500),
 	`payment_status` varchar(50) NOT NULL DEFAULT 'pending',
-	`session_id` varchar(255),
-	`invoice_id` varchar(255),
-	`order_id` varchar(255),
-	`success_indicator` varchar(255),
 	`reference_tag` varchar(255),
 	`paid_at` timestamp,
 	`created_at` timestamp NOT NULL DEFAULT (now()),

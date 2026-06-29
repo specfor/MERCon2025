@@ -1,11 +1,11 @@
 "use server";
 
 import { db } from "@/db";
-import { registrations, users } from "@/db/schema";
+import { registrations, users, paymentAttempts } from "@/db/schema";
 import fs from "fs/promises";
 import path from "path";
 import { eq } from "drizzle-orm";
-import { createPaymentSession } from "./payment";
+import { createPaymentSession, generateInvoiceIdExternal } from "./payment";
 import { calculateAmount } from "@/lib/pricing";
 import { generateReferenceTag } from "@/lib/reference";
 import { getSession } from "@/lib/auth";
@@ -113,14 +113,18 @@ export async function submitRegistration(formData: FormData) {
       registrationId = Number(result.insertId);
     }
   
-    // Generate custom order ID: MER{YYMM}{5 digit number}
-    const date = new Date();
-    const yy = String(date.getFullYear()).slice(-2);
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const paddedRegId = String(registrationId).padStart(5, '0');
-    const customOrderId = `MER${yy}${mm}${paddedRegId}`;
+    const invoiceReq = await generateInvoiceIdExternal({
+      studentName: `${user.firstName} ${user.lastName}`.trim(),
+      amount,
+      description: "MERCon 2026 Registration",
+    });
 
-    const invoiceId = customOrderId;
+    if (!invoiceReq.success || !invoiceReq.invoice_id) {
+      throw new Error("Failed to generate invoice ID: " + invoiceReq.error);
+    }
+
+    const invoiceId = invoiceReq.invoice_id;
+    const customOrderId = invoiceId;
 
     const ipgResult = await createPaymentSession({
       amount,
@@ -137,11 +141,18 @@ export async function submitRegistration(formData: FormData) {
       throw new Error("Payment Gateway initialization failed: " + ipgResult.error);
     }
 
-    await db.update(registrations).set({
+    // Insert into payment_attempts instead of overwriting registration fields
+    await db.insert(paymentAttempts).values({
+      registrationId,
       sessionId: ipgResult.sessionId,
       invoiceId: ipgResult.invoice_id,
       orderId: customOrderId,
       successIndicator: ipgResult.success_indicator,
+      status: "pending",
+    });
+
+    await db.update(registrations).set({
+      paymentStatus: "pending",
     }).where(eq(registrations.id, registrationId));
 
     return {

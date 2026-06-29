@@ -4,9 +4,9 @@ import { headers } from "next/headers";
 import { timingSafeEqual } from "crypto";
 import { sql, eq } from "drizzle-orm";
 import { db } from "@/db";
-import { registrations, users } from "@/db/schema";
+import { registrations, users, paymentAttempts } from "@/db/schema";
 import { normalizeTag } from "@/lib/reference";
-import { createPaymentSession } from "./payment";
+import { createPaymentSession, generateInvoiceIdExternal } from "./payment";
 
 // Naive in-memory per-IP rate limiter. Resets on restart; this is only
 // defense-in-depth since the reference tag already carries 128 bits of entropy.
@@ -66,6 +66,14 @@ export async function getPaymentByReference(tag: string, email: string) {
     
     const { reg, user } = result;
 
+    // Get the latest attempt for this registration to get invoiceId
+    const [latestAttempt] = await db
+      .select()
+      .from(paymentAttempts)
+      .where(eq(paymentAttempts.registrationId, reg.id))
+      .orderBy(sql`${paymentAttempts.createdAt} DESC`)
+      .limit(1);
+
     // Return only non-sensitive fields (never proof paths, NIC, session or tokens).
     return {
       success: true as const,
@@ -79,7 +87,7 @@ export async function getPaymentByReference(tag: string, email: string) {
         amount: reg.amount,
         currency: reg.currency,
         paymentStatus: reg.paymentStatus,
-        invoiceId: reg.invoiceId,
+        invoiceId: latestAttempt?.invoiceId || "—",
         createdAt: reg.createdAt,
         paidAt: reg.paidAt,
       },
@@ -107,13 +115,18 @@ export async function resumePayment(tag: string, email: string) {
       return { success: false as const, error: "This payment is already completed." };
     }
 
-    const date = new Date();
-    const yy = String(date.getFullYear()).slice(-2);
-    const mm = String(date.getMonth() + 1).padStart(2, '0');
-    const paddedRegId = String(reg.id).padStart(5, '0');
-    const customOrderId = `2026${yy}${mm}${paddedRegId}`;
+    const invoiceReq = await generateInvoiceIdExternal({
+      studentName: `${user.firstName} ${user.lastName}`.trim(),
+      amount: Number(reg.amount),
+      description: "MERCon 2026 Registration",
+    });
 
-    const invoiceId = customOrderId;
+    if (!invoiceReq.success || !invoiceReq.invoice_id) {
+      return { success: false as const, error: "Failed to generate invoice ID: " + invoiceReq.error };
+    }
+
+    const invoiceId = invoiceReq.invoice_id;
+    const customOrderId = invoiceId;
 
     // IPG sessions expire, so create a fresh one to resume payment.
     const ipgResult = await createPaymentSession({
@@ -131,13 +144,18 @@ export async function resumePayment(tag: string, email: string) {
       return { success: false as const, error: "Payment gateway initialization failed: " + ipgResult.error };
     }
 
+    await db.insert(paymentAttempts).values({
+      registrationId: reg.id,
+      sessionId: ipgResult.sessionId,
+      invoiceId: ipgResult.invoice_id,
+      orderId: customOrderId,
+      successIndicator: ipgResult.success_indicator,
+      status: "pending",
+    });
+
     await db
       .update(registrations)
       .set({
-        sessionId: ipgResult.sessionId,
-        invoiceId: ipgResult.invoice_id,
-        orderId: customOrderId,
-        successIndicator: ipgResult.success_indicator,
         paymentStatus: "pending",
       })
       .where(eq(registrations.id, reg.id));

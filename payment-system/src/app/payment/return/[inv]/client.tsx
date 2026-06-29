@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { verifyPaymentResult } from "@/actions/payment";
 
-export default function ReturnPageClient() {
+export default function ReturnPageClient({ inv }: { inv: string }) {
   const searchParams = useSearchParams();
   const router = useRouter();
   
@@ -15,8 +15,8 @@ export default function ReturnPageClient() {
   useEffect(() => {
     const verify = async () => {
       const resultIndicator = searchParams.get("resultIndicator");
-      // The invoice id is carried on the return URL; fall back to localStorage.
-      const invoiceId = searchParams.get("inv") || localStorage.getItem("ipg_invoice_id");
+      // The invoice id is passed via path parameter; fall back to localStorage.
+      const invoiceId = inv || localStorage.getItem("ipg_invoice_id");
 
       if (!invoiceId) {
         setStatus("error");

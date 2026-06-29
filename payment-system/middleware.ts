@@ -1,9 +1,24 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { getSession } from './src/lib/auth'
+import { jwtVerify } from 'jose'
+
+const secretKey = process.env.JWT_SECRET_KEY || "super-secret-key-for-mercon-2026-payment-system-change-me";
+const key = new TextEncoder().encode(secretKey);
 
 export async function middleware(request: NextRequest) {
-  const session = await getSession();
+  const sessionCookie = request.cookies.get("session")?.value;
+  let session = null;
+  console.log("[Middleware] Path:", request.nextUrl.pathname, "Cookie present:", !!sessionCookie);
+  if (sessionCookie) {
+    try {
+      const { payload } = await jwtVerify(sessionCookie, key, { algorithms: ["HS256"] });
+      session = payload;
+      console.log("[Middleware] Decrypted session:", !!session);
+    } catch (e) {
+      console.error("[Middleware] Decrypt error:", e);
+      session = null;
+    }
+  }
 
   // Protect /dashboard routes
   if (request.nextUrl.pathname.startsWith('/dashboard')) {

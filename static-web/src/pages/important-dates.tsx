@@ -22,20 +22,25 @@ export const timelineEvents: TimelineEvent[] = [
   {
     id: 4,
     title: "Notification of Acceptance (extended due to large number of submissions)",
-    date: "15th June 2026",
+    date: "27th June 2026",
   },
   {
     id: 5,
-    title: "Camera Ready Paper Deadline & Early Registration Date",
+    title: "Earlybird Registration Open",
     date: "29th June 2026",
   },
   {
     id: 6,
-    title: "Earlybird Registration",
-    date: "15th July 2026",
+    title: "Camera Ready Paper Deadline",
+    date: "6th July 2026",
   },
   {
     id: 7,
+    title: "Earlybird Registration Deadline",
+    date: "15th July 2026",
+  },
+  {
+    id: 8,
     title: "Conference Dates",
     date: "August 13, 14th 2026",
   },

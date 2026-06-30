@@ -129,6 +129,18 @@ const trackCoChairLevels: SpeakerLevel[] = [
           />
         ),
       },
+      {
+        name: "Dr. Dileepa Fernando",
+        university: "Singapore University of Technology and Design, Singapore",
+        image: (
+          <StaticImage
+            src="../images/programming-committee/Dr.Dileepa.Fernando.png"
+            alt="Dr. Dileepa Fernando"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
     ],
   },
   {
@@ -425,7 +437,7 @@ const trackCoChairLevels: SpeakerLevel[] = [
             src="../images/programming-committee/Prof.Dinesh.Attygalle.png"
             alt="Prof. Dinesh Attygalle"
             className="w-full h-full"
-            objectFit="cover"
+            objectFit="contain"
           />
         ),
       },

@@ -39,13 +39,24 @@ const UpcomingTimeline: React.FC = () => {
     return new Date(dateStr);
   };
 
+  // Compare two dates by calendar day (ignore time-of-day)
+  const isBeforeDay = (d1: Date, d2: Date) => {
+    const a = new Date(d1.getFullYear(), d1.getMonth(), d1.getDate()).getTime();
+    const b = new Date(d2.getFullYear(), d2.getMonth(), d2.getDate()).getTime();
+    return a < b;
+  };
+
   // Process all events
   const processedEvents: TimelineEventWithParsed[] = timelineEvents
-    .map((event) => ({
-      ...event,
-      parsedDate: parseDate(event.date),
-      isPast: parseDate(event.date) ? parseDate(event.date)! < now : false,
-    }))
+    .map((event) => {
+      const parsed = parseDate(event.date);
+      const past = parsed ? isBeforeDay(parsed, now) : false;
+      return {
+        ...event,
+        parsedDate: parsed,
+        isPast: past,
+      } as TimelineEventWithParsed;
+    })
     .sort((a, b) => (a.parsedDate?.getTime() || 0) - (b.parsedDate?.getTime() || 0));
 
   // Get the last passed event and next 3 upcoming events

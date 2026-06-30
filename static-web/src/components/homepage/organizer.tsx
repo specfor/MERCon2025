@@ -34,7 +34,6 @@ const OrganizerSection = () => {
   ];
 
   const financialSponsors = [
-    { image: <StaticImage src="../../images/logos/1.png" alt="Sponsor 1 Logo" {...imageProps} /> },
     { image: <StaticImage src="../../images/logos/IEEE-SL-Logo.png" alt="IEEE-SL-Logo" {...imageProps} /> },
   ]
 

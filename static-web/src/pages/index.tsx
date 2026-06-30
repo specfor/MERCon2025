@@ -60,9 +60,9 @@ const IndexPage: React.FC<PageProps> = () => {
             <span className="inline-flex h-2.5 w-2.5 rounded-full bg-primary-400 animate-pulse" />
             Camera Ready Paper Deadline extended to{" "}
             <span className="inline-flex items-baseline whitespace-nowrap">
-              29<sup className="relative -top-1 ml-0 text-[0.7em] leading-none">th</sup>
+              6<sup className="relative -top-1 ml-0 text-[0.7em] leading-none">th</sup>
             </span>{" "}
-            June 2026
+            July 2026
           </div>
 
           <div className="mb-10 pt-10">

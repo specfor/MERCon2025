@@ -1,0 +1,1 @@
+ALTER TABLE `registrations` ADD `invoice_id` varchar(255);

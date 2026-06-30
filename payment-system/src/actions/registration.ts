@@ -7,7 +7,6 @@ import path from "path";
 import { eq } from "drizzle-orm";
 import { createPaymentSession, generateInvoiceIdExternal } from "./payment";
 import { calculateAmount } from "@/lib/pricing";
-import { generateReferenceTag } from "@/lib/reference";
 import { getSession } from "@/lib/auth";
 
 export async function submitRegistration(formData: FormData) {
@@ -83,7 +82,19 @@ export async function submitRegistration(formData: FormData) {
       throw new Error("Calculated amount is invalid.");
     }
 
-    const referenceTag = existingRegistration?.referenceTag || generateReferenceTag();
+    const invoiceReq = await generateInvoiceIdExternal({
+      studentName: `${user.firstName} ${user.lastName}`.trim(),
+      amount,
+      description: "MERCon 2026 Registration",
+    });
+
+    if (!invoiceReq.success || !invoiceReq.invoice_id) {
+      throw new Error("Failed to generate invoice ID: " + invoiceReq.error);
+    }
+
+    const invoiceId = invoiceReq.invoice_id;
+    const customOrderId = invoiceId;
+
     let registrationId: number;
 
     if (existingRegistration) {
@@ -99,6 +110,7 @@ export async function submitRegistration(formData: FormData) {
         currency,
         ieeeProofPath,
         studentProofPath,
+        invoiceId,
       }).where(eq(registrations.id, existingRegistration.id));
       registrationId = existingRegistration.id;
     } else {
@@ -115,23 +127,10 @@ export async function submitRegistration(formData: FormData) {
         currency,
         ieeeProofPath,
         studentProofPath,
-        referenceTag,
+        invoiceId,
       });
       registrationId = Number(result.insertId);
     }
-  
-    const invoiceReq = await generateInvoiceIdExternal({
-      studentName: `${user.firstName} ${user.lastName}`.trim(),
-      amount,
-      description: "MERCon 2026 Registration",
-    });
-
-    if (!invoiceReq.success || !invoiceReq.invoice_id) {
-      throw new Error("Failed to generate invoice ID: " + invoiceReq.error);
-    }
-
-    const invoiceId = invoiceReq.invoice_id;
-    const customOrderId = invoiceId;
 
     const ipgResult = await createPaymentSession({
       amount,
@@ -165,7 +164,7 @@ export async function submitRegistration(formData: FormData) {
     return {
       success: true,
       registrationId,
-      referenceTag,
+      invoiceId,
       sessionId: ipgResult.sessionId,
       success_indicator: ipgResult.success_indicator,
       invoice_id: ipgResult.invoice_id,

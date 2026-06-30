@@ -4,6 +4,7 @@ import { useState, useMemo } from "react";
 import { submitRegistration } from "@/actions/registration";
 import { calculateAmount } from "@/lib/pricing";
 import { logoutUser } from "@/actions/auth";
+import Link from "next/link";
 
 import { useSearchParams } from "next/navigation";
 
@@ -96,9 +97,16 @@ export default function DashboardClient({ user, initialRegistration }: { user: a
           </div>
           
           {successParam && (
-             <div className="bg-green-500/20 border border-green-500/50 text-green-200 p-4 rounded-xl mb-6 flex items-center shadow-inner">
-               <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-               <span className="font-semibold">Payment was successful! Your registration is confirmed.</span>
+             <div className="bg-green-500/20 border border-green-500/50 text-green-200 p-4 rounded-xl mb-6 flex flex-col sm:flex-row items-center justify-between shadow-inner">
+               <div className="flex items-center">
+                 <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+                 <span className="font-semibold">Payment was successful! Your registration is confirmed.</span>
+               </div>
+               {initialRegistration?.invoiceId && (
+                 <div className="mt-2 sm:mt-0 text-sm font-mono bg-green-900/40 px-3 py-1 rounded border border-green-500/30">
+                   Invoice ID: {initialRegistration.invoiceId}
+                 </div>
+               )}
              </div>
           )}
 
@@ -156,8 +164,8 @@ export default function DashboardClient({ user, initialRegistration }: { user: a
                 </div>
                 
                 <div className="flex justify-between items-center text-sm border-t border-white/10 pt-4 mt-4">
-                  <span className="text-gray-400">Reference Tag</span>
-                  <span className="text-white font-mono bg-white/5 px-2 py-1 rounded">{initialRegistration.referenceTag}</span>
+                  <span className="text-gray-400">Invoice ID</span>
+                  <span className="text-white font-mono bg-white/5 px-2 py-1 rounded">{initialRegistration.invoiceId}</span>
                 </div>
                 
                 {initialRegistration.paidAt && (
@@ -166,6 +174,13 @@ export default function DashboardClient({ user, initialRegistration }: { user: a
                     <span className="text-white">{new Date(initialRegistration.paidAt).toLocaleDateString()}</span>
                   </div>
                 )}
+
+                <div className="mt-6 border-t border-white/10 pt-4">
+                  <Link href="/dashboard/receipt" target="_blank" className="w-full flex items-center justify-center py-2 px-4 rounded-lg bg-primary-600/20 text-primary-300 font-semibold hover:bg-primary-600/40 border border-primary-500/30 transition shadow-sm">
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Download Receipt
+                  </Link>
+                </div>
               </div>
               
               <div className="mt-8 p-4 bg-primary-900/20 border border-primary-500/30 rounded-xl">
@@ -252,7 +267,7 @@ export default function DashboardClient({ user, initialRegistration }: { user: a
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-300 mb-2">IEEE Member Number</label>
-                      <input type="text" value={ieeeMemberNumber} onChange={e=>setIeeeMemberNumber(e.target.value)} className="w-full p-3 border border-white/20 rounded-xl bg-white/5 text-white focus:ring-2 focus:ring-primary-500 outline-none transition" required />
+                      <input type="text" pattern="[0-9]+" title="Only numbers are allowed" value={ieeeMemberNumber} onChange={e=>setIeeeMemberNumber(e.target.value)} className="w-full p-3 border border-white/20 rounded-xl bg-white/5 text-white focus:ring-2 focus:ring-primary-500 outline-none transition" required />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-300 mb-2">Upload IEEE Proof (PDF/Image)</label>

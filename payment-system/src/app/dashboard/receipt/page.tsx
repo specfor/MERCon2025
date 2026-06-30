@@ -43,15 +43,15 @@ export default async function ReceiptPage() {
       <div id="receipt-container" className="w-full max-w-3xl bg-white rounded-xl shadow-[0_0_50px_rgba(34,197,94,0.15)] overflow-hidden print:shadow-none print:rounded-none">
         
         {/* Header */}
-        <div className="flex justify-between items-start bg-[#081a12] p-8 border-b-4 border-primary-500">
-          <div className="flex items-center gap-6">
-            <img src="/logo2026.png" alt="MERCon Logo" className="w-20 h-auto" />
+        <div className="flex flex-col sm:flex-row justify-between items-start bg-[#081a12] p-8 border-b-4 border-primary-500 gap-6 sm:gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+            <img src="/logo2026.png" alt="MERCon Logo" className="w-20 h-auto shrink-0" />
             <div>
               <h1 className="text-3xl font-bold text-white">MERCon 2026</h1>
               <p className="text-sm text-primary-200 mt-1 max-w-sm">12th International Multidisciplinary Engineering Research Conference</p>
             </div>
           </div>
-          <div className="text-right">
+          <div className="text-left sm:text-right shrink-0">
             <h2 className="text-4xl font-bold text-primary-500 mb-2">RECEIPT</h2>
             <p className="text-sm text-gray-300">Date: {paidAt}</p>
             <p className="text-sm text-gray-300 font-mono mt-1">Invoice: {invoiceId}</p>
@@ -122,13 +122,13 @@ export default async function ReceiptPage() {
             <p>Thank you for registering for MERCon 2026.</p>
             <p>This is a computer-generated receipt and requires no physical signature.</p>
           </div>
-
-          {/* Print Button (Hidden when printing/downloading) */}
-          <div id="download-btn-wrapper" className="mt-10 text-center print:hidden">
-            <PrintButton />
-            <p className="text-xs text-gray-400 mt-3">Click to securely download your payment receipt as an image.</p>
-          </div>
         </div>
+      </div>
+
+      {/* Print Button (Outside receipt container to avoid white space in captured image) */}
+      <div id="download-btn-wrapper" className="mt-8 text-center print:hidden w-full max-w-3xl">
+        <PrintButton />
+        <p className="text-xs text-gray-400 mt-3">Click to securely download your payment receipt as an image.</p>
       </div>
     </div>
   );

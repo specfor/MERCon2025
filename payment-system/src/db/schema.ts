@@ -38,7 +38,7 @@ export const registrations = mysqlTable("registrations", {
   studentProofPath: varchar("student_proof_path", { length: 500 }),
   
   paymentStatus: varchar("payment_status", { length: 50 }).notNull().default("pending"),
-  referenceTag: varchar("reference_tag", { length: 255 }),
+  invoiceId: varchar("invoice_id", { length: 255 }),
   
   paidAt: timestamp("paid_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),

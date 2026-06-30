@@ -5,11 +5,10 @@ import { timingSafeEqual } from "crypto";
 import { sql, eq } from "drizzle-orm";
 import { db } from "@/db";
 import { registrations, users, paymentAttempts } from "@/db/schema";
-import { normalizeTag } from "@/lib/reference";
 import { createPaymentSession, generateInvoiceIdExternal } from "./payment";
+import { verifyRecaptcha } from "@/lib/recaptcha";
 
-// Naive in-memory per-IP rate limiter. Resets on restart; this is only
-// defense-in-depth since the reference tag already carries 128 bits of entropy.
+// Naive in-memory per-IP rate limiter.
 const attempts = new Map<string, { count: number; resetAt: number }>();
 const WINDOW_MS = 60_000;
 const MAX_ATTEMPTS = 10;
@@ -34,9 +33,9 @@ function emailMatches(a: string, b: string): boolean {
   return timingSafeEqual(ab, bb);
 }
 
-async function findByTagAndEmail(tag: string, email: string) {
-  const normalized = normalizeTag(tag || "");
-  if (!normalized || !email?.trim()) return null;
+async function findByInvoiceIdAndEmail(invoiceId: string, email: string) {
+  if (!invoiceId?.trim() || !email?.trim()) return null;
+  const normalized = invoiceId.trim().toUpperCase();
 
   const [result] = await db
     .select({
@@ -45,7 +44,7 @@ async function findByTagAndEmail(tag: string, email: string) {
     })
     .from(registrations)
     .innerJoin(users, eq(registrations.userId, users.id))
-    .where(sql`REPLACE(UPPER(${registrations.referenceTag}), '-', '') = ${normalized}`)
+    .where(sql`UPPER(${registrations.invoiceId}) = ${normalized}`)
     .limit(1);
 
   if (!result) return null;
@@ -53,32 +52,28 @@ async function findByTagAndEmail(tag: string, email: string) {
   return result;
 }
 
-export async function getPaymentByReference(tag: string, email: string) {
+export async function getPaymentByInvoiceId(invoiceId: string, email: string, recaptchaToken: string) {
   try {
+    const isValidRecaptcha = await verifyRecaptcha(recaptchaToken);
+    if (!isValidRecaptcha) {
+      return { success: false as const, error: "reCAPTCHA validation failed. Please try again." };
+    }
+
     if (!(await rateLimitOk())) {
       return { success: false as const, error: "Too many attempts. Please try again shortly." };
     }
 
-    const result = await findByTagAndEmail(tag, email);
+    const result = await findByInvoiceIdAndEmail(invoiceId, email);
     if (!result) {
-      return { success: false as const, error: "No payment found for that reference and email." };
+      return { success: false as const, error: "No payment found for that Invoice ID and email." };
     }
     
     const { reg, user } = result;
 
-    // Get the latest attempt for this registration to get invoiceId
-    const [latestAttempt] = await db
-      .select()
-      .from(paymentAttempts)
-      .where(eq(paymentAttempts.registrationId, reg.id))
-      .orderBy(sql`${paymentAttempts.createdAt} DESC`)
-      .limit(1);
-
-    // Return only non-sensitive fields (never proof paths, NIC, session or tokens).
     return {
       success: true as const,
       payment: {
-        referenceTag: reg.referenceTag || "",
+        invoiceId: reg.invoiceId || "",
         name: `${user.title} ${user.firstName} ${user.lastName}`,
         registrationCategory: reg.registrationCategory,
         authorType: reg.authorType,
@@ -87,27 +82,31 @@ export async function getPaymentByReference(tag: string, email: string) {
         amount: reg.amount,
         currency: reg.currency,
         paymentStatus: reg.paymentStatus,
-        invoiceId: latestAttempt?.invoiceId || "—",
         createdAt: reg.createdAt,
         paidAt: reg.paidAt,
       },
     };
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Unknown error";
-    console.error("getPaymentByReference error:", error);
+    console.error("getPaymentByInvoiceId error:", error);
     return { success: false as const, error: message };
   }
 }
 
-export async function resumePayment(tag: string, email: string) {
+export async function resumePayment(invoiceIdInput: string, email: string, recaptchaToken: string) {
   try {
+    const isValidRecaptcha = await verifyRecaptcha(recaptchaToken);
+    if (!isValidRecaptcha) {
+      return { success: false as const, error: "reCAPTCHA validation failed. Please try again." };
+    }
+
     if (!(await rateLimitOk())) {
       return { success: false as const, error: "Too many attempts. Please try again shortly." };
     }
 
-    const result = await findByTagAndEmail(tag, email);
+    const result = await findByInvoiceIdAndEmail(invoiceIdInput, email);
     if (!result) {
-      return { success: false as const, error: "No payment found for that reference and email." };
+      return { success: false as const, error: "No payment found for that Invoice ID and email." };
     }
     const { reg, user } = result;
     
@@ -157,6 +156,7 @@ export async function resumePayment(tag: string, email: string) {
       .update(registrations)
       .set({
         paymentStatus: "pending",
+        invoiceId: ipgResult.invoice_id,
       })
       .where(eq(registrations.id, reg.id));
 
@@ -164,7 +164,6 @@ export async function resumePayment(tag: string, email: string) {
       success: true as const,
       sessionId: ipgResult.sessionId,
       invoiceId: ipgResult.invoice_id,
-      referenceTag: reg.referenceTag,
     };
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Unknown error";

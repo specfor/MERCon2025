@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { setSession, destroySession } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { verifyRecaptcha } from "@/lib/recaptcha";
 
 export async function registerUser(formData: FormData) {
   try {
@@ -18,6 +19,12 @@ export async function registerUser(formData: FormData) {
     const affiliation = formData.get("affiliation") as string;
     const country = formData.get("country") as string;
     const isLocal = formData.get("isLocal") === "true";
+    const recaptchaToken = formData.get("recaptchaToken") as string;
+
+    const isValidRecaptcha = await verifyRecaptcha(recaptchaToken);
+    if (!isValidRecaptcha) {
+      return { success: false, error: "reCAPTCHA validation failed. Please try again." };
+    }
 
     if (!/^[0-9]+$/.test(phone)) {
       return { success: false, error: "Phone number can contain only numbers." };
@@ -60,6 +67,12 @@ export async function loginUser(formData: FormData) {
   try {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+    const recaptchaToken = formData.get("recaptchaToken") as string;
+
+    const isValidRecaptcha = await verifyRecaptcha(recaptchaToken);
+    if (!isValidRecaptcha) {
+      return { success: false, error: "reCAPTCHA validation failed. Please try again." };
+    }
 
     const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
     

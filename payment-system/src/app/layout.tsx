@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
+import { Outfit } from "next/font/google";
+
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 export const metadata: Metadata = {
   title: "Invoice Payment | UoM",
@@ -43,9 +46,11 @@ export default function RootLayout({
           `}
         </Script>
       </head>
-      <body className="min-h-full flex flex-col para" style={{
-        background: `radial-gradient(circle at center, rgb(14, 46, 32) 0%, rgb(8, 26, 18) 45%, rgb(2, 6, 4) 80%)`
-      }}>
+      <body className={`${outfit.variable} font-sans antialiased text-white bg-[#040d09] selection:bg-primary-500/30 selection:text-primary-100`}>
+        <div className="fixed inset-0 pointer-events-none" style={{
+          background: 'radial-gradient(circle at 50% -20%, rgba(34,197,94,0.15), rgba(8,26,18,1) 60%)',
+          zIndex: -1
+        }} />
         {children}
       </body>
     </html>

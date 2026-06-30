@@ -72,6 +72,8 @@ export async function createPaymentSession(params: CreateSessionParams) {
       nicPassport: params.nicPassport || "",
       address: params.address || "",
       description: params.description || "MERCon 2026 Registration",
+      invoice_id: params.invoiceId,
+      invoiceFlag: true,
       order_id: params.orderId,
       currency: params.currency,
       // Carry the invoice id on the return URL so the return page can verify even
@@ -234,7 +236,7 @@ export async function verifyPaymentResult(invoiceId: string, resultIndicator?: s
       return {
         success: true as const,
         message: "Payment successful",
-        referenceTag: reg.referenceTag,
+        invoiceId: reg.invoiceId,
         alreadyPaid: true,
       };
     }
@@ -311,13 +313,17 @@ export async function verifyPaymentResult(invoiceId: string, resultIndicator?: s
 
     await db
       .update(registrations)
-      .set({ paymentStatus: "completed", paidAt: new Date() })
-      .where(eq(registrations.id, reg.id));
+      .set({
+        paymentStatus: "completed",
+        paidAt: new Date(),
+        invoiceId: attempt.invoiceId,
+      })
+      .where(eq(registrations.id, attempt.registrationId));
 
     return {
       success: true as const,
-      message: (data?.message as string) || "Payment successful",
-      referenceTag: reg.referenceTag,
+      message: "Payment successful",
+      invoiceId: attempt.invoiceId,
     };
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Unknown error";

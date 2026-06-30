@@ -5,11 +5,14 @@ import { loginUser } from "@/actions/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useRef } from "react";
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,6 +20,18 @@ export default function Home() {
     setError(null);
     
     const formData = new FormData(e.currentTarget);
+
+    const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+    if (siteKey) {
+      const token = recaptchaRef.current?.getValue();
+      if (!token) {
+        setError("Please verify that you are not a robot.");
+        setLoading(false);
+        return;
+      }
+      formData.append("recaptchaToken", token);
+    }
+
     const result = await loginUser(formData);
     
     if (!result.success) {
@@ -28,9 +43,15 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen">
+    <div className="flex flex-col lg:flex-row min-h-screen relative">
+      <nav className="absolute top-0 w-full p-6 z-50 flex justify-center pointer-events-none">
+         <div className="flex items-center gap-3 bg-white/5 backdrop-blur-md px-6 py-3 rounded-full border border-white/10 shadow-lg pointer-events-auto">
+            <span className="text-white font-bold tracking-widest text-sm uppercase">Secure Payment Portal</span>
+         </div>
+      </nav>
+
       {/* Left Column - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-4">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-4 pt-24">
         <main className="w-full max-w-md bg-white/5 backdrop-blur-md rounded-2xl shadow-xl border border-white/10 p-8">
           <h1 className="text-3xl topic text-white mb-2 text-center">Welcome Back</h1>
           <p className="text-gray-400 para mb-8 text-center">Login to manage your MERCon 2026 Registration</p>
@@ -50,6 +71,15 @@ export default function Home() {
               <label className="block text-sm font-medium text-gray-300 mb-1">Password</label>
               <input type="password" name="password" required className="w-full p-3 border border-white/20 rounded-xl bg-white/5 text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" />
             </div>
+            
+            {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
+              <div className="flex justify-center mt-4">
+                <ReCAPTCHA
+                  ref={recaptchaRef}
+                  sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                />
+              </div>
+            )}
             
             <button
               type="submit"

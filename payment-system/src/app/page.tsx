@@ -22,7 +22,8 @@ export default function Home() {
     const formData = new FormData(e.currentTarget);
 
     const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-    if (siteKey) {
+    const isBypassed = process.env.NEXT_PUBLIC_BYPASS_RECAPTCHA === "true";
+    if (siteKey && !isBypassed) {
       const token = recaptchaRef.current?.getValue();
       if (!token) {
         setError("Please verify that you are not a robot.");
@@ -72,7 +73,7 @@ export default function Home() {
               <input type="password" name="password" required className="w-full p-3 border border-white/20 rounded-xl bg-white/5 text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" />
             </div>
             
-            {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
+            {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && process.env.NEXT_PUBLIC_BYPASS_RECAPTCHA !== "true" && (
               <div className="flex justify-center mt-4">
                 <ReCAPTCHA
                   ref={recaptchaRef}

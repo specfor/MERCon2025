@@ -1,4 +1,11 @@
 export async function verifyRecaptcha(token: string | null): Promise<boolean> {
+  if (
+    process.env.NEXT_PUBLIC_BYPASS_RECAPTCHA === "true" 
+  ) {
+    console.log("⚠️ [DEV MODE] Bypassing reCAPTCHA verification via environment config.");
+    return true;
+  }
+
   if (!token) return false;
 
   const secretKey = process.env.RECAPTCHA_SECRET_KEY;

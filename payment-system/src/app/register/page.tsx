@@ -32,7 +32,8 @@ export default function RegisterPage() {
     const inputPassword = formData.get("password") as string;
 
     const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-    if (siteKey) {
+    const isBypassed = process.env.NEXT_PUBLIC_BYPASS_RECAPTCHA === "true";
+    if (siteKey && !isBypassed) {
       const token = recaptchaRef.current?.getValue();
       if (!token) {
         setError("Please verify that you are not a robot.");
@@ -165,7 +166,7 @@ export default function RegisterPage() {
                 </div>
               </div>
               
-              {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
+              {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && process.env.NEXT_PUBLIC_BYPASS_RECAPTCHA !== "true" && (
                 <div className="flex justify-center mt-4">
                   <ReCAPTCHA
                     ref={recaptchaRef}

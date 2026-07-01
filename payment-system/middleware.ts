@@ -20,12 +20,12 @@ export async function middleware(request: NextRequest) {
   // Protect /dashboard routes
   if (request.nextUrl.pathname.startsWith('/dashboard')) {
     if (!session) {
-      return NextResponse.redirect(new URL('/login', request.url))
+      return NextResponse.redirect(new URL('/', request.url))
     }
   }
 
-  // Redirect authenticated users away from /login and /register and /
-  if (['/login', '/register', '/'].includes(request.nextUrl.pathname)) {
+  // Redirect authenticated users away from /register and /
+  if (['/register', '/'].includes(request.nextUrl.pathname)) {
     if (session) {
       return NextResponse.redirect(new URL('/dashboard', request.url))
     }
@@ -35,5 +35,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/login', '/register', '/'],
+  matcher: ['/dashboard/:path*', '/register', '/'],
 }

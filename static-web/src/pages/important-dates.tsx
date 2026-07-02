@@ -27,7 +27,7 @@ export const timelineEvents: TimelineEvent[] = [
   {
     id: 5,
     title: "Earlybird Registration Open",
-    date: "29th June 2026",
+    date: "4th July 2026",
   },
   {
     id: 6,

@@ -1,22 +1,27 @@
 "use server";
 
 import { db } from "@/db";
-import { users, pendingRegistrations } from "@/db/schema";
+import { users, pendingRegistrations, passwordResets } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { setSession, destroySession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { verifyRecaptcha } from "@/lib/recaptcha";
-import { sendVerificationEmail } from "@/lib/email";
+import { sendVerificationEmail, sendPasswordResetEmail } from "@/lib/email";
 
 export async function initiateRegistration(formData: FormData) {
   try {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirmPassword") as string | null;
     const recaptchaToken = formData.get("recaptchaToken") as string;
 
     if (!email || !password) {
       return { success: false, error: "Email and password are required." };
+    }
+
+    if (confirmPassword !== null && password !== confirmPassword) {
+      return { success: false, error: "Passwords do not match." };
     }
 
     const isValidRecaptcha = await verifyRecaptcha(recaptchaToken);
@@ -66,10 +71,17 @@ export async function initiateRegistration(formData: FormData) {
   }
 }
 
-export async function verifyEmailCode(email: string, code: string) {
+export async function verifyEmailCode(email: string, code: string, recaptchaToken?: string) {
   try {
     if (!email || !code) {
       return { success: false, error: "Email and verification code are required." };
+    }
+
+    if (recaptchaToken !== undefined) {
+      const isValidRecaptcha = await verifyRecaptcha(recaptchaToken || null);
+      if (!isValidRecaptcha) {
+        return { success: false, error: "reCAPTCHA validation failed. Please try again." };
+      }
     }
 
     const [pending] = await db
@@ -98,6 +110,7 @@ export async function completeRegistration(formData: FormData) {
   try {
     const email = formData.get("email") as string;
     const verificationCode = formData.get("verificationCode") as string;
+    const recaptchaToken = formData.get("recaptchaToken") as string;
     const title = formData.get("title") as string;
     const firstName = formData.get("firstName") as string;
     const lastName = formData.get("lastName") as string;
@@ -105,6 +118,11 @@ export async function completeRegistration(formData: FormData) {
     const affiliation = formData.get("affiliation") as string;
     const country = formData.get("country") as string;
     const isLocal = formData.get("isLocal") === "true";
+
+    const isValidRecaptcha = await verifyRecaptcha(recaptchaToken || null);
+    if (!isValidRecaptcha) {
+      return { success: false, error: "reCAPTCHA validation failed. Please try again." };
+    }
 
     if (!/^[0-9]+$/.test(phone)) {
       return { success: false, error: "Phone number can contain only numbers." };
@@ -192,3 +210,142 @@ export async function logoutUser() {
   await destroySession();
   redirect("/");
 }
+
+export async function requestPasswordReset(formData: FormData) {
+  try {
+    const email = formData.get("email") as string;
+    const recaptchaToken = formData.get("recaptchaToken") as string;
+
+    if (!email) {
+      return { success: false, error: "Please enter your registered email address." };
+    }
+
+    const isValidRecaptcha = await verifyRecaptcha(recaptchaToken);
+    if (!isValidRecaptcha) {
+      return { success: false, error: "reCAPTCHA validation failed. Please try again." };
+    }
+
+    // Check if user exists
+    const [existingUser] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+    if (!existingUser) {
+      // For security, do not disclose whether the email exists or not
+      return { success: true };
+    }
+
+    // Generate 6-digit OTP code
+    const token = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 mins
+
+    await db
+      .insert(passwordResets)
+      .values({
+        email,
+        token,
+        expiresAt,
+      })
+      .onDuplicateKeyUpdate({
+        set: {
+          token,
+          expiresAt,
+        },
+      });
+
+    await sendPasswordResetEmail(email, token);
+
+    return { success: true };
+  } catch (error: any) {
+    console.error("Password reset request error:", error);
+    return { success: false, error: error.message || "Failed to process request." };
+  }
+}
+
+export async function verifyPasswordResetCode(email: string, code: string, recaptchaToken?: string) {
+  try {
+    if (!email || !code) {
+      return { success: false, error: "Email and verification code are required." };
+    }
+
+    if (recaptchaToken !== undefined) {
+      const isValidRecaptcha = await verifyRecaptcha(recaptchaToken || null);
+      if (!isValidRecaptcha) {
+        return { success: false, error: "reCAPTCHA validation failed. Please try again." };
+      }
+    }
+
+    const [resetRecord] = await db
+      .select()
+      .from(passwordResets)
+      .where(and(eq(passwordResets.email, email), eq(passwordResets.token, code)))
+      .limit(1);
+
+    if (!resetRecord) {
+      return { success: false, error: "Invalid verification code. Please check and try again." };
+    }
+
+    if (new Date() > new Date(resetRecord.expiresAt)) {
+      return { success: false, error: "Verification code has expired. Please request a new one." };
+    }
+
+    return { success: true };
+  } catch (error: any) {
+    console.error("Verify password reset code error:", error);
+    return { success: false, error: error.message || "Failed to verify code." };
+  }
+}
+
+export async function resetPassword(formData: FormData) {
+  try {
+    const email = formData.get("email") as string;
+    const code = formData.get("code") as string;
+    const newPassword = formData.get("newPassword") as string;
+    const confirmPassword = formData.get("confirmPassword") as string;
+    const recaptchaToken = formData.get("recaptchaToken") as string;
+
+    if (!email || !code || !newPassword || !confirmPassword) {
+      return { success: false, error: "All fields are required." };
+    }
+
+    if (newPassword !== confirmPassword) {
+      return { success: false, error: "Passwords do not match." };
+    }
+
+    if (newPassword.length < 6) {
+      return { success: false, error: "Password must be at least 6 characters long." };
+    }
+
+    const isValidRecaptcha = await verifyRecaptcha(recaptchaToken);
+    if (!isValidRecaptcha) {
+      return { success: false, error: "reCAPTCHA validation failed. Please try again." };
+    }
+
+    // Verify token
+    const [resetRecord] = await db
+      .select()
+      .from(passwordResets)
+      .where(and(eq(passwordResets.email, email), eq(passwordResets.token, code)))
+      .limit(1);
+
+    if (!resetRecord) {
+      return { success: false, error: "Invalid verification code." };
+    }
+
+    if (new Date() > new Date(resetRecord.expiresAt)) {
+      return { success: false, error: "Verification code has expired. Please request a new one." };
+    }
+
+    // Hash new password
+    const passwordHash = await bcrypt.hash(newPassword, 10);
+
+    // Update password in users table
+    await db.update(users).set({ passwordHash }).where(eq(users.email, email));
+
+    // Remove token from password_resets table
+    await db.delete(passwordResets).where(eq(passwordResets.email, email));
+
+    return { success: true };
+  } catch (error: any) {
+    console.error("Reset password error:", error);
+    return { success: false, error: error.message || "Failed to reset password." };
+  }
+}
+

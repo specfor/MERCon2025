@@ -24,8 +24,8 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  // Redirect authenticated users away from /register and /
-  if (['/register', '/'].includes(request.nextUrl.pathname)) {
+  // Redirect authenticated users away from /register, /reset-password, and /
+  if (['/register', '/reset-password', '/'].includes(request.nextUrl.pathname)) {
     if (session) {
       return NextResponse.redirect(new URL('/dashboard', request.url))
     }
@@ -35,5 +35,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/register', '/'],
+  matcher: ['/dashboard/:path*', '/register', '/reset-password', '/'],
 }

@@ -30,6 +30,13 @@ export default function RegisterPage() {
     const formData = new FormData(e.currentTarget);
     const inputEmail = formData.get("email") as string;
     const inputPassword = formData.get("password") as string;
+    const inputConfirmPassword = formData.get("confirmPassword") as string;
+
+    if (inputPassword !== inputConfirmPassword) {
+      setError("Passwords do not match. Please re-enter.");
+      setLoading(false);
+      return;
+    }
 
     const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
     const isBypassed = process.env.NEXT_PUBLIC_BYPASS_RECAPTCHA === "true";
@@ -69,11 +76,24 @@ export default function RegisterPage() {
       return;
     }
 
-    const result = await verifyEmailCode(email, codeInput.trim());
+    const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+    const isBypassed = process.env.NEXT_PUBLIC_BYPASS_RECAPTCHA === "true";
+    let token = "";
+    if (siteKey && !isBypassed) {
+      token = recaptchaRef.current?.getValue() || "";
+      if (!token) {
+        setError("Please verify that you are not a robot.");
+        setLoading(false);
+        return;
+      }
+    }
+
+    const result = await verifyEmailCode(email, codeInput.trim(), token);
 
     if (!result.success) {
       setError(result.error || "Invalid verification code.");
       setLoading(false);
+      if (siteKey && !isBypassed) recaptchaRef.current?.reset();
     } else {
       setVerificationCode(codeInput.trim());
       setStep(3);
@@ -95,11 +115,24 @@ export default function RegisterPage() {
     formData.append("email", email);
     formData.append("verificationCode", verificationCode);
 
+    const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+    const isBypassed = process.env.NEXT_PUBLIC_BYPASS_RECAPTCHA === "true";
+    if (siteKey && !isBypassed) {
+      const token = recaptchaRef.current?.getValue();
+      if (!token) {
+        setError("Please verify that you are not a robot.");
+        setLoading(false);
+        return;
+      }
+      formData.append("recaptchaToken", token);
+    }
+
     const result = await completeRegistration(formData);
 
     if (!result.success) {
       setError(result.error || "Failed to complete account registration.");
       setLoading(false);
+      if (siteKey && !isBypassed) recaptchaRef.current?.reset();
     } else {
       router.push("/dashboard");
     }
@@ -155,14 +188,18 @@ export default function RegisterPage() {
           {/* Step 1: Account Credentials */}
           {step === 1 && (
             <form onSubmit={handleStep1} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                <input type="email" name="email" defaultValue={email} required className="w-full p-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary-500 outline-none transition" placeholder="you@example.com" />
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-1">Email</label>
-                  <input type="email" name="email" defaultValue={email} required className="w-full p-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary-500 outline-none transition" placeholder="you@example.com" />
-                </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Password</label>
                   <input type="password" name="password" defaultValue={password} required className="w-full p-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary-500 outline-none transition" minLength={6} placeholder="At least 6 characters" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-1">Confirm Password</label>
+                  <input type="password" name="confirmPassword" defaultValue={password} required className="w-full p-2 border border-white/20 rounded-lg bg-white/5 text-white focus:ring-2 focus:ring-primary-500 outline-none transition" minLength={6} placeholder="Confirm your password" />
                 </div>
               </div>
               
@@ -204,6 +241,15 @@ export default function RegisterPage() {
                   Please check your inbox (and spam folder) for the confirmation email.
                 </p>
               </div>
+
+              {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && process.env.NEXT_PUBLIC_BYPASS_RECAPTCHA !== "true" && (
+                <div className="flex justify-center mt-4">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                  />
+                </div>
+              )}
 
               <button
                 type="submit"
@@ -275,6 +321,15 @@ export default function RegisterPage() {
                   </select>
                 </div>
               </div>
+
+              {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && process.env.NEXT_PUBLIC_BYPASS_RECAPTCHA !== "true" && (
+                <div className="flex justify-center mt-4">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                  />
+                </div>
+              )}
               
               <button
                 type="submit"

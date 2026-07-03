@@ -69,7 +69,10 @@ export default function Home() {
               <input type="email" name="email" required className="w-full p-3 border border-white/20 rounded-xl bg-white/5 text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Password</label>
+              <div className="flex justify-between items-center mb-1">
+                <label className="block text-sm font-medium text-gray-300">Password</label>
+                <Link href="/reset-password" className="text-xs text-primary-400 hover:text-primary-300 transition-colors">Forgot Password?</Link>
+              </div>
               <input type="password" name="password" required className="w-full p-3 border border-white/20 rounded-xl bg-white/5 text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent outline-none transition" />
             </div>
             

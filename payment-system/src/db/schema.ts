@@ -88,3 +88,11 @@ export const paymentAttemptsRelations = relations(paymentAttempts, ({ one }) => 
     references: [registrations.id],
   }),
 }));
+
+export const passwordResets = mysqlTable("password_resets", {
+  id: int("id").autoincrement().primaryKey(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  token: varchar("token", { length: 64 }).notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});

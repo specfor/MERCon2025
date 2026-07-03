@@ -49,7 +49,7 @@ const RegistrationPage = () => {
                   <th className="py-4 px-6 text-left font-semibold border-r border-white/10 align-top">Category</th>
                   <th className="py-4 px-6 text-left font-semibold border-r border-white/10 align-top">
                     Early Bird Registration<br />
-                    <span className="text-sm font-normal text-gray-300">(29th June 2026 – 15th July 2026)</span>
+                    <span className="text-sm font-normal text-gray-300">(4th July 2026 - 15th July 2026)</span>
                   </th>
                   <th className="py-4 px-6 text-left font-semibold align-top">
                     Normal Registration<br />
@@ -308,9 +308,11 @@ const RegistrationPage = () => {
 
           <div className="bg-white/5 backdrop-blur-md rounded-lg p-8 border border-white/10 text-center">
             <p className="para text-gray-300 mb-4 text-lg">
-              Payments will be accepted via <strong>Visa, Mastercard, and UnionPay</strong> cards.
+              Payments are securely processed via the official MERCon Payment Gateway.
             </p>
-            <p className="para text-primary-400 font-semibold text-lg">Payment gateway will be linked soon.</p>
+            <p className="para text-primary-400 font-semibold text-lg">
+              We accept <strong>Visa, Mastercard, and UnionPay</strong> cards.
+            </p>
           </div>
         </div>
       </section>
@@ -321,19 +323,16 @@ const RegistrationPage = () => {
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-12 border border-white/10">
             <h3 className="text-2xl font-bold text-white mb-6">Ready to Register?</h3>
 
-            <p className="para text-gray-300 mb-8 text-lg">Coming Soon</p>
-            {/* <p className="para text-gray-300 mb-8 text-lg">
-              Click the button below to proceed with registration.
-            </p> */}
+            <p className="para text-gray-300 mb-8 text-lg">
+              Click the button below to proceed to the registration and payment system.
+            </p>
 
-            {/* <a
-              href="https://forms.gle/bnYtSPhywcDxGE5D6"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-12 py-4 bg-primary-500 text-white font-semibold text-lg rounded-full hover:bg-primary-600 transition-all duration-300 shadow-lg hover:scale-105"
+            <a
+              href="https://pay.mercon.uom.lk"
+              className="inline-block px-12 py-4 bg-primary-500 text-white font-bold text-lg rounded-full hover:bg-primary-600 transition-all duration-300 shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:shadow-[0_0_25px_rgba(34,197,94,0.5)] hover:scale-105"
             >
-              Register Here
-            </a> */}
+              Proceed to Registration & Payment
+            </a>
           </div>
         </div>
       </section>

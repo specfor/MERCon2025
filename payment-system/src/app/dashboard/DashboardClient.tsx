@@ -43,6 +43,11 @@ export default function DashboardClient({ user, initialRegistration }: { user: a
     setLoading(true);
     setError(null);
     try {
+      const parsedPapers = paperIds.split(/[\s,]+/).filter((id: string) => id.trim() !== '');
+      if (["FULL", "LIMITED"].includes(category) && authorType !== "NON_PRESENTING" && parsedPapers.length > 2) {
+        throw new Error("A maximum of 2 papers is allowed per registration.");
+      }
+
       const formData = new FormData(e.currentTarget);
       // Append manually managed state
       formData.append("registrationCategory", category);
@@ -247,13 +252,33 @@ export default function DashboardClient({ user, initialRegistration }: { user: a
               <div className="space-y-6">
                 {["FULL", "LIMITED"].includes(category) && authorType !== "NON_PRESENTING" && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Paper ID(s)</label>
-                    <input type="text" value={paperIds} onChange={e=>setPaperIds(e.target.value)} placeholder="e.g. 1570123456, 1570123457" className="w-full p-3 border border-white/20 rounded-xl bg-white/5 text-white focus:ring-2 focus:ring-primary-500 outline-none transition" required />
+                    <div className="flex justify-between items-center mb-2">
+                      <label className="block text-sm font-medium text-gray-300">Paper ID(s) <span className="text-gray-400 font-normal">(Max 2 papers)</span></label>
+                      {paperIds.split(/[\s,]+/).filter((id: string) => id.trim() !== '').length > 2 && (
+                        <span className="text-xs font-semibold text-red-400">× Maximum 2 papers allowed</span>
+                      )}
+                    </div>
+                    <input
+                      type="text"
+                      value={paperIds}
+                      onChange={e=>setPaperIds(e.target.value)}
+                      placeholder="e.g. 1570123456, 1570123457"
+                      className={`w-full p-3 border rounded-xl bg-white/5 text-white focus:ring-2 outline-none transition ${
+                        paperIds.split(/[\s,]+/).filter((id: string) => id.trim() !== '').length > 2
+                          ? 'border-red-500/50 focus:ring-red-500'
+                          : 'border-white/20 focus:ring-primary-500 focus:border-transparent'
+                      }`}
+                      required
+                    />
                     
                     {paperIds.trim().length > 0 && (
                       <div className="flex flex-wrap gap-2 mt-3">
                         {paperIds.split(/[\s,]+/).filter((id: string) => id.trim() !== '').map((id: string, index: number) => (
-                          <span key={index} className="inline-flex items-center px-3 py-1 rounded-lg text-xs font-semibold bg-primary-500/20 text-primary-300 border border-primary-500/30 shadow-sm">
+                          <span key={index} className={`inline-flex items-center px-3 py-1 rounded-lg text-xs font-semibold border shadow-sm ${
+                            paperIds.split(/[\s,]+/).filter((x: string) => x.trim() !== '').length > 2
+                              ? 'bg-red-500/20 text-red-300 border-red-500/30'
+                              : 'bg-primary-500/20 text-primary-300 border-primary-500/30'
+                          }`}>
                             <svg className="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
                             {id}
                           </span>

@@ -74,6 +74,16 @@ export async function submitRegistration(formData: FormData) {
       throw new Error("Student ID proof document is required.");
     }
 
+    if (["FULL", "LIMITED"].includes(registrationCategory) && authorType !== "NON_PRESENTING") {
+      if (!paperIds || paperIds.trim() === "") {
+        throw new Error("At least one Paper ID is required.");
+      }
+      const paperList = paperIds.split(/[\s,]+/).filter((id: string) => id.trim() !== "");
+      if (paperList.length > 2) {
+        throw new Error("A maximum of 2 papers is allowed per registration.");
+      }
+    }
+
     // Pricing Calculation
     const amount = calculateAmount(registrationCategory, authorType, user.isLocal, extraBanquetTickets);
     const currency = user.isLocal ? "LKR" : "USD";
@@ -130,6 +140,20 @@ export async function submitRegistration(formData: FormData) {
         invoiceId,
       });
       registrationId = Number(result.insertId);
+    }
+
+    if (process.env.NODE_ENV === "development") {
+      console.log("==== Payment Session Payload ====")
+      console.log({
+        amount,
+        currency,
+        invoiceId,
+        orderId: customOrderId,
+        studentName: `${user.firstName} ${user.lastName}`.trim(),
+        phoneNo: (user.phone || "").trim(),
+        address: user.affiliation,
+        description: "MERCon 2026 Registration",
+      })
     }
 
     const ipgResult = await createPaymentSession({

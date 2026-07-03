@@ -6,7 +6,7 @@ export const EARLY_BIRD_DEADLINE = new Date("2026-07-16T00:00:00.000Z"); // Earl
 export const PRICING = {
   FULL: {
     LOCAL: {
-      IEEE: { earlyBird: 10, normal: 32500 },
+      IEEE: { earlyBird: 30000, normal: 32500 },
       NON_IEEE: { earlyBird: 40000, normal: 45000 },
     },
     FOREIGN: {

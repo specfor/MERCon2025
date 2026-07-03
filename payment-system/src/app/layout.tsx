@@ -6,8 +6,8 @@ import { Outfit } from "next/font/google";
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit" });
 
 export const metadata: Metadata = {
-  title: "Invoice Payment | UoM",
-  description: "Payment Gateway Integration",
+  title: "Conference Payment System | Mercon",
+  description: "Mercon Payment System",
 };
 
 export default function RootLayout({

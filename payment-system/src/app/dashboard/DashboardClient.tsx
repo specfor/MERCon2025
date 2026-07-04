@@ -361,10 +361,13 @@ export default function DashboardClient({ user, initialRegistration }: { user: a
               <span className="text-primary-400">{currency} {calculatedAmount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
             </div>
             {currency === "USD" && (
-              <div className="text-right text-xs font-medium text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 rounded-lg p-3 mb-2 shadow-inner">
-                <span className="text-gray-300">Billed LKR Amount at IPG Gateway: </span>
-                <span className="font-bold text-sm text-emerald-400">LKR {convertedLkrAmount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
-                <span className="block text-[11px] text-gray-400 mt-1">(@ Official Exchange Rate: 1 USD = {exchangeRate} LKR)</span>
+              <div className="text-right text-xs font-medium text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 rounded-lg p-3 mb-2 shadow-inner space-y-1">
+                <div>
+                  <span className="text-gray-300">Billed LKR Amount at IPG Gateway: </span>
+                  <span className="font-bold text-sm text-emerald-400">LKR {convertedLkrAmount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                </div>
+                <span className="block text-[11px] text-gray-400">(@ Official Exchange Rate: 1 USD = {exchangeRate} LKR)</span>
+                <span className="block text-[10px] text-amber-300/80 italic font-normal mt-0.5">Currently exchange fee charged by banks may apply.</span>
               </div>
             )}
             <p className="text-sm text-gray-400 text-right">Taxes and gateway fees included</p>

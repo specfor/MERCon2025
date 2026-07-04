@@ -116,11 +116,10 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
 
   if (!isEditing && completedRegistrations.length > 0) {
     return (
-      <div className="flex min-h-screen p-8 items-start justify-center pt-24">
-        <div className="w-full max-w-5xl space-y-6">
-          <div className="flex justify-between items-center mb-6">
+      <div className="max-w-7xl mx-auto w-full px-6 py-8">
+        <div className="space-y-6">
+          <div className="border-b border-white/10 pb-4">
             <h1 className="text-3xl font-bold text-white">Your Dashboard</h1>
-            <button onClick={handleLogout} className="text-gray-400 hover:text-red-400 font-medium transition">Logout</button>
           </div>
           
           {successParam && (
@@ -202,15 +201,10 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
   }
 
   return (
-    <div className="flex flex-col lg:flex-row min-h-screen">
+    <div className="flex flex-col lg:flex-row max-w-7xl mx-auto w-full py-8 gap-8 px-6">
       {/* Left Column - Form */}
-      <div className="w-full lg:w-3/5 flex flex-col p-6 lg:p-12 overflow-y-auto max-h-screen custom-scrollbar">
+      <div className="w-full lg:w-3/5 flex flex-col space-y-6">
         <div className="max-w-3xl w-full mx-auto">
-          <div className="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
-            <h1 className="text-3xl topic text-white">Conference Registration</h1>
-            <button onClick={handleLogout} className="text-gray-400 hover:text-red-400 font-medium transition">Logout</button>
-          </div>
-
           {error && (
             <div className="mb-6 p-4 bg-red-500/20 border border-red-500/50 text-red-200 rounded-lg text-sm">
               {error}
@@ -322,8 +316,8 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
       </div>
 
       {/* Right Column - Price Breakdown */}
-      <div className="w-full lg:w-2/5 border-l border-white/10 p-8 lg:p-12 overflow-y-auto max-h-screen flex flex-col custom-scrollbar bg-black/20">
-        <h2 className="text-2xl font-bold text-white mb-8">Order Summary</h2>
+      <div className="w-full lg:w-2/5 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-8 flex flex-col justify-between h-fit">
+        <h2 className="text-2xl font-bold text-white mb-6">Order Summary</h2>
         
         <div className="bg-white/5 backdrop-blur-md rounded-2xl shadow-sm border border-white/10 p-6 mb-8 flex-1">
           <h3 className="text-lg font-semibold mb-4 text-gray-200">Price Breakdown</h3>

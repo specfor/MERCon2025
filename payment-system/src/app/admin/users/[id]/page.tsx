@@ -46,6 +46,9 @@ export default function AdminUserDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Collapsible accordion state for registration cards
+  const [openRegs, setOpenRegs] = useState<Record<number, boolean>>({});
+
   // Form states
   const [userForm, setUserForm] = useState<any>({});
   const [regForm, setRegForm] = useState<any>({});
@@ -53,6 +56,13 @@ export default function AdminUserDetailPage() {
   const [savingReg, setSavingReg] = useState(false);
   const [refunding, setRefunding] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+
+  const toggleReg = (regId: number) => {
+    setOpenRegs((prev) => ({
+      ...prev,
+      [regId]: !prev[regId],
+    }));
+  };
 
   const loadData = () => {
     setLoading(true);
@@ -281,171 +291,235 @@ export default function AdminUserDetailPage() {
           </h2>
           
           {registrations && registrations.length > 0 ? (
-            <div className="space-y-8">
-              {registrations.map((registration: any) => (
-                <div key={registration.id} className="bg-black/20 rounded-2xl border border-white/10 p-5 space-y-6">
-                  <div className="flex justify-between items-center border-b border-white/10 pb-3">
-                    <h3 className="font-bold text-white text-lg">
-                      Registration #{registration.id}
-                    </h3>
-                    <Badge status={registration.paymentStatus} type="payment" />
-                  </div>
-                  
-                  <form onSubmit={(e) => handleSaveReg(registration.id, e)} className="space-y-4 text-sm">
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-gray-400 mb-1">Category</label>
-                        <select
-                          value={regForm[registration.id]?.registrationCategory || "FULL"}
-                          onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], registrationCategory: e.target.value } })}
-                          className="w-full p-2.5 bg-black/80 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500"
-                        >
-                          <option value="FULL">FULL</option>
-                          <option value="LIMITED">LIMITED</option>
-                          <option value="WORKSHOP">WORKSHOP</option>
-                          <option value="ATTENDEE">ATTENDEE</option>
-                        </select>
+            <div className="space-y-4">
+              {registrations.map((registration: any) => {
+                const isOpen = !!openRegs[registration.id];
+                return (
+                  <div key={registration.id} className="bg-white/5 rounded-2xl border border-white/10 overflow-hidden shadow-lg transition-all duration-200 hover:border-white/20">
+                    
+                    {/* Collapsible Header Accordion Bar */}
+                    <button
+                      type="button"
+                      onClick={() => toggleReg(registration.id)}
+                      className={`w-full flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 p-5 text-left focus:outline-none transition-all ${
+                        isOpen ? "bg-white/5 border-b border-white/10" : "hover:bg-white/[0.02]"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-xl bg-primary-500/10 border border-primary-500/30 flex items-center justify-center text-primary-400 text-lg">
+                          📝
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-bold text-white text-base">Registration #{registration.id}</span>
+                            <span className="text-xs text-gray-400 font-mono">({registration.registrationCategory})</span>
+                          </div>
+                          <span className="text-xs text-gray-400 block mt-0.5">
+                            Author: {registration.authorType.replace(/_/g, ' ')} {registration.paperIds ? `• Papers: ${registration.paperIds}` : ""}
+                          </span>
+                        </div>
                       </div>
-                      <div>
-                        <label className="block text-gray-400 mb-1">Author Type</label>
-                        <select
-                          value={regForm[registration.id]?.authorType || "IEEE"}
-                          onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], authorType: e.target.value } })}
-                          className="w-full p-2.5 bg-black/80 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500"
-                        >
-                          <option value="IEEE">IEEE Member</option>
-                          <option value="NON_IEEE">Non-IEEE Member</option>
-                          <option value="STUDENT_IEEE">Student IEEE</option>
-                          <option value="STUDENT_NON_IEEE">Student Non-IEEE</option>
-                          <option value="NON_PRESENTING">Non-Presenting</option>
-                        </select>
-                      </div>
-                    </div>
 
-                    <div>
-                      <label className="block text-gray-400 mb-1">Paper IDs (max 2, comma separated)</label>
-                      <input
-                        type="text"
-                        value={regForm[registration.id]?.paperIds || ""}
-                        onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], paperIds: e.target.value } })}
-                        placeholder="e.g. 101, 102"
-                        className="w-full p-2.5 bg-black/30 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500 font-mono"
-                      />
-                    </div>
+                      <div className="flex flex-wrap items-center gap-3 self-end sm:self-auto">
+                        <div className="text-right hidden sm:block">
+                          <span className="text-xs text-gray-400 block">Total Billed</span>
+                          <span className="text-sm font-bold text-emerald-400">{registration.currency} {Number(registration.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                        </div>
+                        <Badge status={registration.paymentStatus} type="payment" />
+                        <span className="text-gray-400 font-bold text-lg select-none px-2 transition-transform duration-200">
+                          {isOpen ? "▲" : "▼"}
+                        </span>
+                      </div>
+                    </button>
 
-                    <div className="grid grid-cols-3 gap-3">
-                      <div>
-                        <label className="block text-gray-400 mb-1">Extra Banquet</label>
-                        <input
-                          type="number"
-                          min={0}
-                          value={regForm[registration.id]?.extraBanquetTickets || 0}
-                          onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], extraBanquetTickets: Number(e.target.value) } })}
-                          className="w-full p-2.5 bg-black/30 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-gray-400 mb-1">Amount</label>
-                        <input
-                          type="number"
-                          step="0.01"
-                          value={regForm[registration.id]?.amount || 0}
-                          onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], amount: Number(e.target.value) } })}
-                          className="w-full p-2.5 bg-black/30 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-gray-400 mb-1">Currency</label>
-                        <select
-                          value={regForm[registration.id]?.currency || "USD"}
-                          onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], currency: e.target.value } })}
-                          className="w-full p-2.5 bg-black/80 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500"
-                        >
-                          <option value="USD">USD</option>
-                          <option value="LKR">LKR</option>
-                        </select>
-                      </div>
-                    </div>
+                    {/* Expandable Accordion Body */}
+                    {isOpen && (
+                      <div className="p-5 space-y-6 bg-black/20">
+                        <form onSubmit={(e) => handleSaveReg(registration.id, e)} className="space-y-4 text-sm">
+                          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            
+                            {/* Left Column: Form Settings */}
+                            <div className="lg:col-span-2 space-y-4">
+                              <h4 className="text-xs font-semibold text-gray-300 uppercase tracking-wider border-b border-white/5 pb-2">Registration Settings</h4>
+                              
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                  <label className="block text-gray-400 mb-1">Category</label>
+                                  <select
+                                    value={regForm[registration.id]?.registrationCategory || "FULL"}
+                                    onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], registrationCategory: e.target.value } })}
+                                    className="w-full p-2.5 bg-black/80 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500 transition"
+                                  >
+                                    <option value="FULL">FULL</option>
+                                    <option value="LIMITED">LIMITED</option>
+                                    <option value="WORKSHOP">WORKSHOP</option>
+                                    <option value="ATTENDEE">ATTENDEE</option>
+                                  </select>
+                                </div>
+                                
+                                <div>
+                                  <label className="block text-gray-400 mb-1">Author Type</label>
+                                  <select
+                                    value={regForm[registration.id]?.authorType || "IEEE"}
+                                    onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], authorType: e.target.value } })}
+                                    className="w-full p-2.5 bg-black/80 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500 transition"
+                                  >
+                                    <option value="IEEE">IEEE Member</option>
+                                    <option value="NON_IEEE">Non-IEEE Member</option>
+                                    <option value="STUDENT_IEEE">Student IEEE</option>
+                                    <option value="STUDENT_NON_IEEE">Student Non-IEEE</option>
+                                    <option value="NON_PRESENTING">Non-Presenting</option>
+                                  </select>
+                                </div>
+                              </div>
 
-                    <div className="p-3 bg-black/30 rounded-xl border border-white/10 space-y-2">
-                      <div className="text-xs font-semibold text-gray-300 uppercase tracking-wider">Verified Documents</div>
-                      <div className="flex flex-wrap gap-4 text-xs">
-                        {registration.ieeeProofPath ? (
-                          <a href={`/api/uploads?path=${encodeURIComponent(registration.ieeeProofPath)}`} target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline flex items-center gap-1">
-                            📄 View IEEE Proof
-                          </a>
-                        ) : (
-                          <span className="text-gray-500">No IEEE Proof</span>
-                        )}
-                        {registration.studentProofPath ? (
-                          <a href={`/api/uploads?path=${encodeURIComponent(registration.studentProofPath)}`} target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline flex items-center gap-1">
-                            📄 View Student Proof
-                          </a>
-                        ) : (
-                          <span className="text-gray-500">No Student Proof</span>
-                        )}
-                      </div>
-                    </div>
+                              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div className="sm:col-span-2">
+                                  <label className="block text-gray-400 mb-1">Paper IDs (comma separated)</label>
+                                  <input
+                                    type="text"
+                                    value={regForm[registration.id]?.paperIds || ""}
+                                    onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], paperIds: e.target.value } })}
+                                    placeholder="e.g. 101, 102"
+                                    className="w-full p-2.5 bg-black/30 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500 font-mono transition"
+                                  />
+                                </div>
+                                <div>
+                                  <label className="block text-gray-400 mb-1">Extra Banquet</label>
+                                  <input
+                                    type="number"
+                                    min={0}
+                                    value={regForm[registration.id]?.extraBanquetTickets || 0}
+                                    onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], extraBanquetTickets: Number(e.target.value) } })}
+                                    className="w-full p-2.5 bg-black/30 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500 transition"
+                                  />
+                                </div>
+                              </div>
 
-                    <div className="flex gap-3 pt-2">
-                      <button
-                        type="submit"
-                        disabled={savingReg}
-                        className="flex-1 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-500 text-white font-semibold transition shadow-[0_0_15px_rgba(34,197,94,0.3)] disabled:opacity-50 cursor-pointer"
-                      >
-                        {savingReg ? "Saving..." : "Save Registration Info"}
-                      </button>
-                      
-                      {registration.paymentStatus === "completed" && registration.refundStatus !== "refunded" && (
-                        <button
-                          type="button"
-                          onClick={() => handleRefund(registration.id)}
-                          disabled={refunding}
-                          className="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold transition shadow-[0_0_15px_rgba(168,85,247,0.3)] disabled:opacity-50 cursor-pointer"
-                        >
-                          {refunding ? "Refunding..." : "Refund Payment"}
-                        </button>
-                      )}
-                    </div>
-                  </form>
-                  
-                  {/* Nested Payment Attempts */}
-                  <div className="mt-6 pt-6 border-t border-white/10">
-                    <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
-                      💳 Payment Attempts ({registration.attempts?.length || 0})
-                    </h4>
-                    {registration.attempts && registration.attempts.length > 0 ? (
-                      <div className="overflow-x-auto">
-                        <table className="w-full text-left text-sm border-collapse">
-                          <thead>
-                            <tr className="border-b border-white/10 text-gray-400 text-[10px] uppercase font-semibold">
-                              <th className="py-2 px-3">Invoice ID</th>
-                              <th className="py-2 px-3">Order ID</th>
-                              <th className="py-2 px-3">Session ID</th>
-                              <th className="py-2 px-3">Status</th>
-                              <th className="py-2 px-3">Date</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-white/5 text-gray-200 text-xs">
-                            {registration.attempts.map((att: any, idx: number) => (
-                              <tr key={idx} className="hover:bg-white/[0.02]">
-                                <td className="py-2 px-3 font-mono">{att.invoiceId || "—"}</td>
-                                <td className="py-2 px-3 font-mono">{att.orderId || "—"}</td>
-                                <td className="py-2 px-3 font-mono text-[10px] text-gray-400 max-w-xs truncate">{att.sessionId || "—"}</td>
-                                <td className="py-2 px-3"><Badge status={att.status} type="payment" /></td>
-                                <td className="py-2 px-3 text-gray-400">{new Date(att.createdAt).toLocaleString()}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
+                              <div className="p-3 bg-black/30 rounded-xl border border-white/10 space-y-2">
+                                <div className="text-xs font-semibold text-gray-300 uppercase tracking-wider">Verified Documents</div>
+                                <div className="flex flex-wrap gap-4 text-xs">
+                                  {registration.ieeeProofPath ? (
+                                    <a href={`/api/uploads?path=${encodeURIComponent(registration.ieeeProofPath)}`} target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline flex items-center gap-1 font-medium">
+                                      📄 View IEEE Proof
+                                    </a>
+                                  ) : (
+                                    <span className="text-gray-500">No IEEE Proof</span>
+                                  )}
+                                  {registration.studentProofPath ? (
+                                    <a href={`/api/uploads?path=${encodeURIComponent(registration.studentProofPath)}`} target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline flex items-center gap-1 font-medium">
+                                      📄 View Student Proof
+                                    </a>
+                                  ) : (
+                                    <span className="text-gray-500">No Student Proof</span>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Right Column: Pricing details & Actions */}
+                            <div className="space-y-4 bg-white/5 p-4 rounded-xl border border-white/5 flex flex-col justify-between">
+                              <div>
+                                <h4 className="text-xs font-semibold text-gray-300 uppercase tracking-wider border-b border-white/5 pb-2 mb-3">Pricing details</h4>
+                                <div className="grid grid-cols-2 gap-3">
+                                  <div>
+                                    <label className="block text-gray-400 mb-1">Amount</label>
+                                    <input
+                                      type="number"
+                                      step="0.01"
+                                      value={regForm[registration.id]?.amount || 0}
+                                      onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], amount: Number(e.target.value) } })}
+                                      className="w-full p-2.5 bg-black/30 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500 font-mono transition"
+                                    />
+                                  </div>
+                                  <div>
+                                    <label className="block text-gray-400 mb-1">Currency</label>
+                                    <select
+                                      value={regForm[registration.id]?.currency || "USD"}
+                                      onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], currency: e.target.value } })}
+                                      className="w-full p-2.5 bg-black/85 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500 transition"
+                                    >
+                                      <option value="USD">USD</option>
+                                      <option value="LKR">LKR</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div className="mt-3 text-xs text-gray-400 space-y-1">
+                                  <div className="flex justify-between">
+                                    <span>Base LKR Billed:</span>
+                                    <span className="font-mono text-gray-200">LKR {Number(registration.lkrAmount || 0).toLocaleString()}</span>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span>Exchange Rate:</span>
+                                    <span className="font-mono text-gray-200">1 USD = {registration.exchangeRate || 300} LKR</span>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <div className="flex flex-col gap-2 pt-4 border-t border-white/5">
+                                <button
+                                  type="submit"
+                                  disabled={savingReg}
+                                  className="w-full py-2 px-4 rounded-xl bg-primary-600 hover:bg-primary-500 text-white font-semibold transition shadow-[0_0_15px_rgba(34,197,94,0.2)] disabled:opacity-50 cursor-pointer"
+                                >
+                                  {savingReg ? "Saving..." : "Save Details"}
+                                </button>
+                                
+                                {registration.paymentStatus === "completed" && registration.refundStatus !== "refunded" && (
+                                  <button
+                                    type="button"
+                                    onClick={() => handleRefund(registration.id)}
+                                    disabled={refunding}
+                                    className="w-full py-2 px-4 rounded-xl bg-purple-600/30 hover:bg-purple-600/50 text-purple-200 border border-purple-500/30 font-semibold transition disabled:opacity-50 cursor-pointer animate-pulse"
+                                  >
+                                    {refunding ? "Refunding..." : "Refund Payment"}
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+
+                          </div>
+                        </form>
+                        
+                        {/* Nested Payment Attempts Table */}
+                        <div className="mt-6 pt-6 border-t border-white/10">
+                          <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
+                            💳 Payment Attempts ({registration.attempts?.length || 0})
+                          </h4>
+                          {registration.attempts && registration.attempts.length > 0 ? (
+                            <div className="overflow-x-auto rounded-xl border border-white/5">
+                              <table className="w-full text-left text-sm border-collapse bg-black/40">
+                                <thead>
+                                  <tr className="border-b border-white/10 text-gray-400 text-[10px] uppercase font-semibold bg-white/5">
+                                    <th className="py-2 px-3">Invoice ID</th>
+                                    <th className="py-2 px-3">Order ID</th>
+                                    <th className="py-2 px-3">Session ID</th>
+                                    <th className="py-2 px-3">Status</th>
+                                    <th className="py-2 px-3 text-right">Date</th>
+                                  </tr>
+                                </thead>
+                                <tbody className="divide-y divide-white/5 text-gray-200 text-xs">
+                                  {registration.attempts.map((att: any, idx: number) => (
+                                    <tr key={idx} className="hover:bg-white/[0.02]">
+                                      <td className="py-2 px-3 font-mono">{att.invoiceId || "—"}</td>
+                                      <td className="py-2 px-3 font-mono">{att.orderId || "—"}</td>
+                                      <td className="py-2 px-3 font-mono text-[10px] text-gray-400 max-w-xs truncate">{att.sessionId || "—"}</td>
+                                      <td className="py-2 px-3"><Badge status={att.status} type="payment" /></td>
+                                      <td className="py-2 px-3 text-right text-gray-400 font-mono">{new Date(att.createdAt).toLocaleString()}</td>
+                                    </tr>
+                                  ))}
+                                </tbody>
+                              </table>
+                            </div>
+                          ) : (
+                            <p className="text-gray-400 text-xs italic bg-white/5 p-3 rounded-xl border border-white/5 text-center">No payment attempts recorded for this registration.</p>
+                          )}
+                        </div>
                       </div>
-                    ) : (
-                      <p className="text-gray-400 text-xs">No payment attempts recorded for this registration.</p>
                     )}
                   </div>
-
-                </div>
-              ))}
+                );
+              })}
             </div>
           ) : (
             <div className="text-center py-8 text-gray-400">

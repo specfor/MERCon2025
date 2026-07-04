@@ -1,7 +1,9 @@
 "use server";
 
 import { db } from "@/db";
-import { users, registrations, paymentAttempts, adminLogs, settings } from "@/db/schema";
+import { users, registrations, paymentAttempts, adminLogs, settings, passwordResets } from "@/db/schema";
+import bcrypt from "bcryptjs";
+import { sendPasswordResetEmail } from "@/lib/email";
 import { eq, desc, and } from "drizzle-orm";
 import { getSession } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
@@ -378,5 +380,106 @@ export async function updateSetting(key: string, value: string) {
   } catch (error: any) {
     console.error("updateSetting error:", error);
     return { success: false, error: error.message || "Failed to update setting." };
+  }
+}
+
+export async function enrollAdmin(email: string, details: {
+  title: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  affiliation: string;
+  country: string;
+}) {
+  const session = await verifyAdminSession();
+
+  try {
+    if (!email) {
+      return { success: false, error: "Email is required." };
+    }
+
+    const [existingUser] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+
+    if (existingUser) {
+      const oldRole = existingUser.role || "user";
+      
+      if (oldRole === "admin") {
+        return { success: true, message: `User "${email}" is already an administrator.` };
+      }
+
+      await db.update(users).set({ role: "admin" }).where(eq(users.id, existingUser.id));
+
+      const changes = {
+        role: { from: oldRole, to: "admin" }
+      };
+
+      await db.insert(adminLogs).values({
+        adminId: Number(session.userId),
+        adminEmail: String(session.email),
+        action: "ENROLL_ADMIN_EXISTING",
+        targetId: String(existingUser.id),
+        details: JSON.stringify({
+          changes,
+          message: `Promoted existing user "${email}" to admin.`,
+        }),
+      });
+
+      revalidatePath("/admin/users");
+      return { success: true, message: `Successfully promoted existing user "${email}" to administrator!` };
+    } else {
+      const tempPasswordHash = await bcrypt.hash(Math.random().toString(36) + Date.now().toString(), 10);
+      const isLocalVal = details.country.toLowerCase().includes("sri lanka") || details.country.toLowerCase() === "lk";
+
+      const [insertResult] = await db.insert(users).values({
+        email,
+        passwordHash: tempPasswordHash,
+        title: details.title,
+        firstName: details.firstName,
+        lastName: details.lastName,
+        phone: details.phone,
+        affiliation: details.affiliation,
+        country: details.country,
+        isLocal: isLocalVal,
+        role: "admin",
+      });
+
+      const newUserId = Number(insertResult.insertId);
+
+      const token = Math.floor(100000 + Math.random() * 900000).toString();
+      const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 mins
+
+      await db
+        .insert(passwordResets)
+        .values({
+          email,
+          token,
+          expiresAt,
+        })
+        .onDuplicateKeyUpdate({
+          set: {
+            token,
+            expiresAt,
+          },
+        });
+
+      await sendPasswordResetEmail(email, token);
+
+      await db.insert(adminLogs).values({
+        adminId: Number(session.userId),
+        adminEmail: String(session.email),
+        action: "ENROLL_ADMIN_NEW",
+        targetId: String(newUserId),
+        details: JSON.stringify({
+          message: `Created new admin user "${email}" and sent password reset invitation.`,
+          details,
+        }),
+      });
+
+      revalidatePath("/admin/users");
+      return { success: true, message: `Successfully created new administrator "${email}" and sent password reset invitation.` };
+    }
+  } catch (error: any) {
+    console.error("enrollAdmin error:", error);
+    return { success: false, error: error.message || "Failed to enroll admin." };
   }
 }

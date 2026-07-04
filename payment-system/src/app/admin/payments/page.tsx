@@ -67,17 +67,10 @@ export default function AdminPaymentsPage() {
     },
     {
       key: "status",
-      header: "Attempt / Reg Status",
+      header: "Payment Status",
       render: (row) => (
-        <div className="space-y-1">
-          <div className="flex items-center gap-1">
-            <span className="text-[10px] text-gray-400 w-12">Attempt:</span>
-            <Badge status={row.status} type="payment" />
-          </div>
-          <div className="flex items-center gap-1">
-            <span className="text-[10px] text-gray-400 w-12">Reg:</span>
-            <Badge status={row.paymentStatus} type="payment" />
-          </div>
+        <div className="flex flex-col gap-1 items-start">
+          <Badge status={row.status} type="payment" />
           {row.refundStatus === "refunded" && (
             <span className="inline-block px-1.5 py-0.5 bg-purple-500/20 text-purple-300 text-[10px] rounded border border-purple-500/30">
               REFUNDED

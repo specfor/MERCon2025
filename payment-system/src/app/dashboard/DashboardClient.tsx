@@ -16,8 +16,7 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
   const pendingRegistration = registrations.find(r => r.paymentStatus === "pending");
   const completedRegistrations = registrations.filter(r => r.paymentStatus === "completed" || r.paymentStatus === "refunded");
   const initialRegistration = pendingRegistration;
-  
-  const [isEditing, setIsEditing] = useState(mode === "register" || (mode === "dashboard" && completedRegistrations.length === 0));
+  const [isEditing, setIsEditing] = useState(mode === "register");
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(errorParam);
@@ -114,7 +113,7 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
     }
   };
 
-  if (!isEditing && completedRegistrations.length > 0) {
+  if (mode === "dashboard") {
     return (
       <div className="max-w-7xl mx-auto w-full px-6 py-8">
         <div className="space-y-6">
@@ -133,68 +132,90 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
 
           <div className="flex justify-between items-center mb-4 mt-8">
             <h2 className="text-xl font-bold text-white">Past Registrations</h2>
-            <Link 
-              href="/dashboard/register"
-              className="px-4 py-2 bg-primary-600 hover:bg-primary-500 text-white rounded-lg shadow font-medium transition"
-            >
-              + Start New Registration
-            </Link>
+            {completedRegistrations.length > 0 && (
+              <Link 
+                href="/dashboard/register"
+                className="px-4 py-2 bg-primary-600 hover:bg-primary-500 text-white rounded-lg shadow font-medium transition"
+              >
+                + Start New Registration
+              </Link>
+            )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {completedRegistrations.map((reg, idx) => (
-              <div key={idx} className="bg-white/5 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-white/10">
-                <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-3">
-                  <h3 className="font-bold text-lg text-white">{reg.registrationCategory.replace('_', ' ')}</h3>
-                  <span className={`px-2 py-1 text-xs font-bold uppercase rounded ${reg.refundStatus === "refunded" ? "bg-purple-900/50 text-purple-300" : "bg-emerald-900/50 text-emerald-300"}`}>
-                    {reg.refundStatus === "refunded" ? "REFUNDED" : "COMPLETED"}
-                  </span>
-                </div>
-                
-                <div className="space-y-3 text-sm">
-                  {reg.registrationCategory !== "PARTICIPANT" && (
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Author Type</span>
-                      <span className="text-white font-medium">{reg.authorType.replace(/_/g, ' ')}</span>
-                    </div>
-                  )}
-                  {reg.paperIds && (
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Paper ID(s)</span>
-                      <span className="text-white font-medium break-words text-right max-w-[60%]">{reg.paperIds}</span>
-                    </div>
-                  )}
-                  {reg.extraBanquetTickets > 0 && (
-                    <div className="flex justify-between">
-                      <span className="text-gray-400">Extra Banquet Tickets</span>
-                      <span className="text-white font-medium">{reg.extraBanquetTickets}</span>
-                    </div>
-                  )}
+          {completedRegistrations.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {completedRegistrations.map((reg, idx) => (
+                <div key={idx} className="bg-white/5 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-white/10">
+                  <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-3">
+                    <h3 className="font-bold text-lg text-white">{reg.registrationCategory.replace('_', ' ')}</h3>
+                    <span className={`px-2 py-1 text-xs font-bold uppercase rounded ${reg.refundStatus === "refunded" ? "bg-purple-900/50 text-purple-300" : "bg-emerald-900/50 text-emerald-300"}`}>
+                      {reg.refundStatus === "refunded" ? "REFUNDED" : "COMPLETED"}
+                    </span>
+                  </div>
                   
-                  <div className="border-t border-white/10 pt-3 mt-2">
-                    <div className="flex justify-between items-center mb-1">
-                      <span className="text-gray-400">Total Paid</span>
-                      <span className="text-lg font-bold text-primary-400">{reg.currency} {Number(reg.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                  <div className="space-y-3 text-sm">
+                    {reg.registrationCategory !== "PARTICIPANT" && (
+                      <div className="flex justify-between">
+                        <span className="text-gray-400">Author Type</span>
+                        <span className="text-white font-medium">{reg.authorType.replace(/_/g, ' ')}</span>
+                      </div>
+                    )}
+                    {reg.paperIds && (
+                      <div className="flex justify-between">
+                        <span className="text-gray-400">Paper ID(s)</span>
+                        <span className="text-white font-medium break-words text-right max-w-[60%]">{reg.paperIds}</span>
+                      </div>
+                    )}
+                    {reg.extraBanquetTickets > 0 && (
+                      <div className="flex justify-between">
+                        <span className="text-gray-400">Extra Banquet Tickets</span>
+                        <span className="text-white font-medium">{reg.extraBanquetTickets}</span>
+                      </div>
+                    )}
+                    
+                    <div className="border-t border-white/10 pt-3 mt-2">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-gray-400">Total Paid</span>
+                        <span className="text-lg font-bold text-primary-400">{reg.currency} {Number(reg.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                      </div>
+                      {reg.invoiceId && (
+                        <div className="flex justify-between items-center mt-2">
+                          <span className="text-gray-400 text-xs">Invoice ID</span>
+                          <span className="text-white font-mono text-xs bg-black/30 px-2 py-0.5 rounded">{reg.invoiceId}</span>
+                        </div>
+                      )}
+                      {reg.paymentStatus === "completed" && (
+                        <div className="mt-4 flex justify-end">
+                          <Link href={`/dashboard/receipt?id=${reg.id}`} className="text-sm text-primary-400 hover:text-primary-300 font-medium transition flex items-center">
+                            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            Download Receipt
+                          </Link>
+                        </div>
+                      )}
                     </div>
-                    {reg.invoiceId && (
-                      <div className="flex justify-between items-center mt-2">
-                        <span className="text-gray-400 text-xs">Invoice ID</span>
-                        <span className="text-white font-mono text-xs bg-black/30 px-2 py-0.5 rounded">{reg.invoiceId}</span>
-                      </div>
-                    )}
-                    {reg.paymentStatus === "completed" && (
-                      <div className="mt-4 flex justify-end">
-                        <Link href={`/dashboard/receipt?id=${reg.id}`} className="text-sm text-primary-400 hover:text-primary-300 font-medium transition flex items-center">
-                          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                          Download Receipt
-                        </Link>
-                      </div>
-                    )}
                   </div>
                 </div>
+              ))}
+            </div>
+          ) : (
+            <div className="bg-white/5 backdrop-blur-md rounded-2xl shadow-xl p-12 border border-white/10 text-center space-y-6 max-w-2xl mx-auto mt-12">
+              <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-3xl mx-auto">
+                📭
               </div>
-            ))}
-          </div>
+              <div className="space-y-2">
+                <h3 className="text-xl font-bold text-white">No Completed Registrations</h3>
+                <p className="text-gray-400 text-sm max-w-md mx-auto">
+                  You have not completed any conference registrations yet. Click below to start the registration and payment flow.
+                </p>
+              </div>
+              <Link
+                href="/dashboard/register"
+                className="inline-block px-6 py-3 bg-primary-600 hover:bg-primary-500 text-white rounded-xl shadow-lg font-semibold transition"
+              >
+                Start New Registration
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     );

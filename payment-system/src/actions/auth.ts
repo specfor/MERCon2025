@@ -1,13 +1,13 @@
 "use server";
 
 import { db } from "@/db";
-import { users, pendingRegistrations, passwordResets } from "@/db/schema";
+import { users, pendingRegistrations, passwordResets, adminLogins } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { setSession, destroySession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { verifyRecaptcha } from "@/lib/recaptcha";
-import { sendVerificationEmail, sendPasswordResetEmail } from "@/lib/email";
+import { sendVerificationEmail, sendPasswordResetEmail, sendAdmin2faEmail } from "@/lib/email";
 
 export async function initiateRegistration(formData: FormData) {
   try {
@@ -196,15 +196,53 @@ export async function loginUser(formData: FormData) {
       return { success: false, error: "Invalid email or password." };
     }
 
-    // Create session
-    await setSession(user.id, user.email);
+    // Check if user is an admin - require 2FA
+    if (user.role === "admin") {
+      await db.delete(adminLogins).where(eq(adminLogins.email, email));
+      const code = Math.floor(100000 + Math.random() * 900000).toString();
+      const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+      await db.insert(adminLogins).values({ email, code, expiresAt });
+      await sendAdmin2faEmail(email, code);
+      return { success: true, require2fa: true, email: user.email };
+    }
 
-    return { success: true };
+    // Create session for normal user
+    await setSession(user.id, user.email, user.role || "user");
+
+    return { success: true, role: user.role || "user" };
   } catch (error: any) {
     console.error("Login error:", error);
     return { success: false, error: error.message || "An error occurred during login." };
   }
 }
+
+export async function verifyAdmin2fa(email: string, code: string) {
+  try {
+    const [record] = await db
+      .select()
+      .from(adminLogins)
+      .where(and(eq(adminLogins.email, email), eq(adminLogins.code, code)))
+      .limit(1);
+
+    if (!record || new Date() > record.expiresAt) {
+      return { success: false, error: "Invalid or expired 2FA verification code." };
+    }
+
+    const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+    if (!user || user.role !== "admin") {
+      return { success: false, error: "Admin account not found." };
+    }
+
+    await db.delete(adminLogins).where(eq(adminLogins.email, email));
+    await setSession(user.id, user.email, "admin");
+
+    return { success: true };
+  } catch (error: any) {
+    console.error("verifyAdmin2fa error:", error);
+    return { success: false, error: error.message || "An error occurred during 2FA verification." };
+  }
+}
+
 
 export async function logoutUser() {
   await destroySession();

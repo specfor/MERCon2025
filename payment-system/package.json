@@ -5,6 +5,7 @@
   "scripts": {
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx src/db/migrate.ts",
+    "db:seed-admin": "tsx src/db/seed-admin.ts",
     "dev": "npm run db:migrate && PORT=$(node -p \"require('fs').readFileSync('.env.local', 'utf8').match(/^PORT=(\\d+)/m)?.[1] || 3000\") next dev",
     "build": "npm run db:migrate && next build",
     "start": "npm run db:migrate && PORT=$(node -p \"require('fs').readFileSync('.env.local', 'utf8').match(/^PORT=(\\d+)/m)?.[1] || 3000\") next start",

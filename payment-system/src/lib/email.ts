@@ -288,3 +288,63 @@ export async function sendPaymentConfirmationEmail(data: PaymentConfirmationData
   }
 }
 
+export async function sendAdmin2faEmail(email: string, code: string): Promise<boolean> {
+  const host = process.env.SMTP_HOST;
+  const port = parseInt(process.env.SMTP_PORT || "587", 10);
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+  const from = process.env.SMTP_FROM || '"MERCon 2026 Admin" <noreply-mercon@uom.lk>';
+  const replyTo = process.env.SMTP_REPLY_TO || "mercon@uom.lk";
+  const secure = process.env.SMTP_SECURE === "true" || port === 465;
+
+  const subject = "MERCon 2026 - Admin Portal 2FA Verification Code";
+  const text = `Your Admin Portal 2FA code is: ${code}\n\nThis code expires in 10 minutes. If you did not attempt to log in as an administrator, please report this immediately.`;
+  const html = `
+    <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #10b981; border-radius: 12px; overflow: hidden; background-color: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+      <!-- Dark Emerald Branded Header -->
+      <div style="background-color: #081a12; padding: 30px 20px; text-align: center; border-bottom: 4px solid #10b981;">
+        <h1 style="color: #ffffff; font-size: 26px; font-weight: 700; margin: 0; letter-spacing: 0.5px;">MERCon 2026</h1>
+        <p style="color: #6ee7b7; font-size: 13px; margin: 6px 0 0; text-transform: uppercase; letter-spacing: 1px;">Admin Security Portal</p>
+      </div>
+      <!-- Content Body -->
+      <div style="padding: 30px 25px; text-align: center; color: #1f2937;">
+        <span style="display: inline-block; background-color: #fef3c7; color: #b45309; font-size: 12px; font-weight: bold; padding: 6px 14px; border-radius: 20px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">Admin Two-Factor Authentication</span>
+        <h2 style="color: #111827; font-size: 22px; margin: 0 0 10px;">Admin Login Attempted</h2>
+        <p style="color: #4b5563; font-size: 15px; line-height: 1.5; margin: 0 0 25px;">Please use the following 6-digit verification code to complete your admin login:</p>
+        <div style="display: inline-block; padding: 18px 36px; background-color: #f8fafc; border: 2px dashed #b45309; border-radius: 12px; font-size: 32px; font-weight: bold; font-family: monospace; letter-spacing: 6px; color: #b45309; margin-bottom: 25px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);">
+          ${code}
+        </div>
+        <p style="color: #6b7280; font-size: 13px; line-height: 1.5; margin: 0;">This security code is valid for <strong>10 minutes</strong>.<br/>If you did not initiate this login, please change your password immediately.</p>
+      </div>
+      <!-- Footer -->
+      <div style="background-color: #f1f5f9; padding: 20px; text-align: center; border-top: 1px solid #e2e8f0; color: #64748b; font-size: 12px; line-height: 1.5;">
+        <p style="margin: 0 0 5px;">MERCon 2026 Security Notification.</p>
+        <p style="margin: 0;">&copy; ${new Date().getFullYear()} MERCon. All rights reserved.</p>
+      </div>
+    </div>
+  `;
+
+  if (!host || !user || !pass) {
+    console.log("=================================================================");
+    console.log(`🛡️ [SMTP FALLBACK - DEV MODE] Admin 2FA Code to: ${email}`);
+    console.log(`🔑 2FA Code: ${code}`);
+    console.log("=================================================================");
+    return true;
+  }
+
+  try {
+    const transporter = nodemailer.createTransport({
+      host,
+      port,
+      secure,
+      auth: { user, pass },
+      tls: { ciphers: "DEFAULT@SECLEVEL=0", rejectUnauthorized: false },
+    });
+    await transporter.sendMail({ from, to: email, replyTo, subject, text, html });
+    return true;
+  } catch (error) {
+    console.error("❌ Failed to send admin 2FA email via SMTP:", error);
+    throw new Error("Failed to send admin 2FA email.");
+  }
+}
+

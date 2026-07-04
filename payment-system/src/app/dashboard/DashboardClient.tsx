@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import { submitRegistration } from "@/actions/registration";
+import { useState, useMemo, useEffect } from "react";
+import { submitRegistration, getUsdToLkrRate } from "@/actions/registration";
 import { calculateAmount } from "@/lib/pricing";
 import { logoutUser } from "@/actions/auth";
 import Link from "next/link";
@@ -33,6 +33,22 @@ export default function DashboardClient({ user, initialRegistration }: { user: a
     return calculateAmount(category, authorType, isLocal, extraBanquet);
   }, [category, authorType, isLocal, extraBanquet]);
   const currency = isLocal ? "LKR" : "USD";
+
+  const [exchangeRate, setExchangeRate] = useState<number>(300);
+  useEffect(() => {
+    if (!isLocal) {
+      getUsdToLkrRate().then((res) => {
+        if (res && res.rate) setExchangeRate(res.rate);
+      });
+    }
+  }, [isLocal]);
+
+  const convertedLkrAmount = useMemo(() => {
+    if (currency === "USD") {
+      return Math.round(calculatedAmount * exchangeRate * 100) / 100;
+    }
+    return calculatedAmount;
+  }, [calculatedAmount, exchangeRate, currency]);
 
   const handleLogout = async () => {
     await logoutUser();
@@ -344,6 +360,13 @@ export default function DashboardClient({ user, initialRegistration }: { user: a
               <span>Total Payable</span>
               <span className="text-primary-400">{currency} {calculatedAmount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
             </div>
+            {currency === "USD" && (
+              <div className="text-right text-xs font-medium text-emerald-300 bg-emerald-950/50 border border-emerald-500/30 rounded-lg p-3 mb-2 shadow-inner">
+                <span className="text-gray-300">Billed LKR Amount at IPG Gateway: </span>
+                <span className="font-bold text-sm text-emerald-400">LKR {convertedLkrAmount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                <span className="block text-[11px] text-gray-400 mt-1">(@ Official Exchange Rate: 1 USD = {exchangeRate} LKR)</span>
+              </div>
+            )}
             <p className="text-sm text-gray-400 text-right">Taxes and gateway fees included</p>
           </div>
         </div>

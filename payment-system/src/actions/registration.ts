@@ -1,13 +1,23 @@
 "use server";
 
 import { db } from "@/db";
-import { registrations, users, paymentAttempts } from "@/db/schema";
+import { registrations, users, paymentAttempts, settings } from "@/db/schema";
 import fs from "fs/promises";
 import path from "path";
 import { eq } from "drizzle-orm";
 import { createPaymentSession, generateInvoiceIdExternal } from "./payment";
 import { calculateAmount } from "@/lib/pricing";
 import { getSession } from "@/lib/auth";
+
+export async function getUsdToLkrRate() {
+  try {
+    const [setting] = await db.select().from(settings).where(eq(settings.key, "usd_to_lkr_rate")).limit(1);
+    const rate = setting ? Number(setting.value) : 300;
+    return { success: true, rate };
+  } catch {
+    return { success: true, rate: 300 };
+  }
+}
 
 export async function submitRegistration(formData: FormData) {
   try {
@@ -92,9 +102,20 @@ export async function submitRegistration(formData: FormData) {
       throw new Error("Calculated amount is invalid.");
     }
 
+    // Currency conversion for USD payments to LKR
+    const [rateSetting] = await db.select().from(settings).where(eq(settings.key, "usd_to_lkr_rate")).limit(1);
+    const exchangeRateVal = rateSetting ? Number(rateSetting.value) : 300;
+
+    let lkrAmountVal = amount;
+    let rateVal = 1;
+    if (currency === "USD") {
+      rateVal = exchangeRateVal;
+      lkrAmountVal = Math.round(amount * rateVal * 100) / 100;
+    }
+
     const invoiceReq = await generateInvoiceIdExternal({
       studentName: `${user.firstName} ${user.lastName}`.trim(),
-      amount,
+      amount: lkrAmountVal,
       description: "MERCon 2026 Registration",
     });
 
@@ -118,6 +139,8 @@ export async function submitRegistration(formData: FormData) {
         extraBanquetTickets,
         amount: amount.toString(),
         currency,
+        lkrAmount: lkrAmountVal.toString(),
+        exchangeRate: rateVal.toString(),
         ieeeProofPath,
         studentProofPath,
         invoiceId,
@@ -135,6 +158,8 @@ export async function submitRegistration(formData: FormData) {
         extraBanquetTickets,
         amount: amount.toString(),
         currency,
+        lkrAmount: lkrAmountVal.toString(),
+        exchangeRate: rateVal.toString(),
         ieeeProofPath,
         studentProofPath,
         invoiceId,
@@ -145,8 +170,11 @@ export async function submitRegistration(formData: FormData) {
     if (process.env.NODE_ENV === "development") {
       console.log("==== Payment Session Payload ====")
       console.log({
-        amount,
-        currency,
+        originalAmount: amount,
+        originalCurrency: currency,
+        billedAmount: lkrAmountVal,
+        billedCurrency: "LKR",
+        exchangeRate: rateVal,
         invoiceId,
         orderId: customOrderId,
         studentName: `${user.firstName} ${user.lastName}`.trim(),
@@ -157,8 +185,8 @@ export async function submitRegistration(formData: FormData) {
     }
 
     const ipgResult = await createPaymentSession({
-      amount,
-      currency,
+      amount: lkrAmountVal,
+      currency: "LKR",
       invoiceId,
       orderId: customOrderId,
       studentName: `${user.firstName} ${user.lastName}`.trim(),

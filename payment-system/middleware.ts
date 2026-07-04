@@ -17,23 +17,40 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Protect /admin routes
+  if (request.nextUrl.pathname.startsWith('/admin')) {
+    if (!session) {
+      return NextResponse.redirect(new URL('/', request.url));
+    }
+    if (session.role !== 'admin') {
+      return NextResponse.redirect(new URL('/dashboard', request.url));
+    }
+  }
+
   // Protect /dashboard routes
   if (request.nextUrl.pathname.startsWith('/dashboard')) {
     if (!session) {
-      return NextResponse.redirect(new URL('/', request.url))
+      return NextResponse.redirect(new URL('/', request.url));
+    }
+    if (session.role === 'admin') {
+      return NextResponse.redirect(new URL('/admin/users', request.url));
     }
   }
 
   // Redirect authenticated users away from /register, /reset-password, and /
   if (['/register', '/reset-password', '/'].includes(request.nextUrl.pathname)) {
     if (session) {
-      return NextResponse.redirect(new URL('/dashboard', request.url))
+      if (session.role === 'admin') {
+        return NextResponse.redirect(new URL('/admin/users', request.url));
+      }
+      return NextResponse.redirect(new URL('/dashboard', request.url));
     }
   }
 
-  return NextResponse.next()
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/register', '/reset-password', '/'],
-}
+  matcher: ['/admin/:path*', '/dashboard/:path*', '/register', '/reset-password', '/'],
+};
+

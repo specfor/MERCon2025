@@ -12,6 +12,7 @@ export const users = mysqlTable("users", {
   affiliation: varchar("affiliation", { length: 255 }).notNull(),
   country: varchar("country", { length: 100 }).notNull(),
   isLocal: boolean("is_local").notNull().default(false),
+  role: varchar("role", { length: 50 }).notNull().default("user"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });
@@ -43,11 +44,14 @@ export const registrations = mysqlTable("registrations", {
   
   amount: decimal("amount", { precision: 10, scale: 2 }).notNull(),
   currency: varchar("currency", { length: 10 }).notNull(),
+  lkrAmount: decimal("lkr_amount", { precision: 10, scale: 2 }),
+  exchangeRate: decimal("exchange_rate", { precision: 10, scale: 4 }),
   
   ieeeProofPath: varchar("ieee_proof_path", { length: 500 }),
   studentProofPath: varchar("student_proof_path", { length: 500 }),
   
   paymentStatus: varchar("payment_status", { length: 50 }).notNull().default("pending"),
+  refundStatus: varchar("refund_status", { length: 50 }).default("none"),
   invoiceId: varchar("invoice_id", { length: 255 }),
   
   paidAt: timestamp("paid_at"),
@@ -96,3 +100,28 @@ export const passwordResets = mysqlTable("password_resets", {
   expiresAt: timestamp("expires_at").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+export const settings = mysqlTable("settings", {
+  key: varchar("key", { length: 100 }).primaryKey(),
+  value: varchar("value", { length: 255 }).notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
+});
+
+export const adminLogs = mysqlTable("admin_logs", {
+  id: int("id").autoincrement().primaryKey(),
+  adminId: int("admin_id").notNull(),
+  adminEmail: varchar("admin_email", { length: 255 }).notNull(),
+  action: varchar("action", { length: 100 }).notNull(),
+  targetId: varchar("target_id", { length: 255 }),
+  details: varchar("details", { length: 1000 }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const adminLogins = mysqlTable("admin_logins", {
+  id: int("id").autoincrement().primaryKey(),
+  email: varchar("email", { length: 255 }).notNull(),
+  code: varchar("code", { length: 10 }).notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+

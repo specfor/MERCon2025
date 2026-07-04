@@ -4,7 +4,7 @@ import { db } from "@/db";
 import { registrations, users, paymentAttempts, settings } from "@/db/schema";
 import fs from "fs/promises";
 import path from "path";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { createPaymentSession, generateInvoiceIdExternal } from "./payment";
 import { calculateAmount } from "@/lib/pricing";
 import { getSession } from "@/lib/auth";
@@ -28,11 +28,10 @@ export async function submitRegistration(formData: FormData) {
 
     const userId = session.userId;
     
-    // Check if the user already has a registration that is completed
-    const [existingRegistration] = await db.select().from(registrations).where(eq(registrations.userId, userId)).limit(1);
-    if (existingRegistration && existingRegistration.paymentStatus === "completed") {
-      throw new Error("Registration is already completed and cannot be modified.");
-    }
+    // Find an existing pending registration to update, otherwise a new one will be created
+    const [existingRegistration] = await db.select().from(registrations)
+      .where(and(eq(registrations.userId, userId), eq(registrations.paymentStatus, "pending")))
+      .limit(1);
     
     const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1);
     
@@ -82,6 +81,13 @@ export async function submitRegistration(formData: FormData) {
     }
     if (isStudent && !studentProofPath) {
       throw new Error("Student ID proof document is required.");
+    }
+
+    if (isStudent) {
+      const paperList = (paperIds || "").split(/[\s,]+/).filter((id: string) => id.trim() !== "");
+      if (paperList.length > 1) {
+        throw new Error("A maximum of 1 paper is allowed for student registrations.");
+      }
     }
 
     if (["FULL", "LIMITED"].includes(registrationCategory) && authorType !== "NON_PRESENTING") {

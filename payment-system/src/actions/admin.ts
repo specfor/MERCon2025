@@ -21,35 +21,18 @@ export async function getAdminUsers() {
 
   try {
     const allUsers = await db.select().from(users).orderBy(desc(users.createdAt));
-    const allRegs = await db.select().from(registrations);
 
-    const regMap = new Map();
-    for (const r of allRegs) {
-      regMap.set(r.userId, r);
-    }
-
-    const result = allUsers.map((u) => {
-      const reg = regMap.get(u.id);
-      return {
-        id: u.id,
-        email: u.email,
-        title: u.title,
-        firstName: u.firstName,
-        lastName: u.lastName,
-        affiliation: u.affiliation,
-        country: u.country,
-        role: u.role || "user",
-        createdAt: u.createdAt,
-        registrationCategory: reg?.registrationCategory || "Unregistered",
-        authorType: reg?.authorType || "N/A",
-        amount: reg?.amount || null,
-        currency: reg?.currency || "USD",
-        lkrAmount: reg?.lkrAmount || null,
-        paymentStatus: reg?.paymentStatus || "pending",
-        refundStatus: reg?.refundStatus || "none",
-        registrationId: reg?.id || null,
-      };
-    });
+    const result = allUsers.map((u) => ({
+      id: u.id,
+      email: u.email,
+      title: u.title,
+      firstName: u.firstName,
+      lastName: u.lastName,
+      affiliation: u.affiliation,
+      country: u.country,
+      role: u.role || "user",
+      createdAt: u.createdAt,
+    }));
 
     return { success: true, users: result };
   } catch (error: any) {
@@ -67,16 +50,17 @@ export async function getUserDetails(userId: number) {
       return { success: false, error: "User not found." };
     }
 
-    const [registration] = await db.select().from(registrations).where(eq(registrations.userId, userId)).limit(1);
+    const userRegistrations = await db.select().from(registrations).where(eq(registrations.userId, userId));
     
-    let attempts: any[] = [];
-    if (registration) {
-      attempts = await db
-        .select()
-        .from(paymentAttempts)
-        .where(eq(paymentAttempts.registrationId, registration.id))
-        .orderBy(desc(paymentAttempts.createdAt));
-    }
+    const attempts = await db.select().from(paymentAttempts);
+    
+    // Attach attempts to their respective registrations
+    const registrationsWithAttempts = userRegistrations.map((reg) => {
+      const regAttempts = attempts
+        .filter((a) => a.registrationId === reg.id)
+        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      return { ...reg, attempts: regAttempts };
+    });
 
     // If user is an admin, fetch actions they have performed
     let adminPerformedLogs: any[] = [];
@@ -99,8 +83,7 @@ export async function getUserDetails(userId: number) {
       success: true,
       data: {
         user,
-        registration: registration || null,
-        paymentAttempts: attempts,
+        registrations: registrationsWithAttempts,
         adminPerformedLogs,
         targetLogs,
       },

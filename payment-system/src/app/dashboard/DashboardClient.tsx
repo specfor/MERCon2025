@@ -8,22 +8,25 @@ import Link from "next/link";
 
 import { useSearchParams } from "next/navigation";
 
-export default function DashboardClient({ user, initialRegistration }: { user: any, initialRegistration: any }) {
+export default function DashboardClient({ user, registrations = [], mode = "dashboard" }: { user: any, registrations: any[], mode?: "dashboard" | "register" }) {
   const searchParams = useSearchParams();
   const successParam = searchParams.get("success");
   const errorParam = searchParams.get("error");
 
-  const isCompleted = initialRegistration?.paymentStatus === "completed";
-  const [isEditing, setIsEditing] = useState(!initialRegistration || !isCompleted);
+  const pendingRegistration = registrations.find(r => r.paymentStatus === "pending");
+  const completedRegistrations = registrations.filter(r => r.paymentStatus === "completed" || r.paymentStatus === "refunded");
+  const initialRegistration = pendingRegistration;
+  
+  const [isEditing, setIsEditing] = useState(mode === "register" || (mode === "dashboard" && completedRegistrations.length === 0));
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(errorParam);
 
-  const [category, setCategory] = useState(initialRegistration?.registrationCategory || "FULL");
-  const [authorType, setAuthorType] = useState(initialRegistration?.authorType || "IEEE");
-  const [paperIds, setPaperIds] = useState(initialRegistration?.paperIds || "");
-  const [ieeeMemberNumber, setIeeeMemberNumber] = useState(initialRegistration?.ieeeMemberNumber || "");
-  const [extraBanquet, setExtraBanquet] = useState(initialRegistration?.extraBanquetTickets || 0);
+  const [category, setCategory] = useState(pendingRegistration?.registrationCategory || "FULL");
+  const [authorType, setAuthorType] = useState(pendingRegistration?.authorType || "IEEE");
+  const [paperIds, setPaperIds] = useState(pendingRegistration?.paperIds || "");
+  const [ieeeMemberNumber, setIeeeMemberNumber] = useState(pendingRegistration?.ieeeMemberNumber || "");
+  const [extraBanquet, setExtraBanquet] = useState(pendingRegistration?.extraBanquetTickets || 0);
 
   const isIeeeMember = ["IEEE", "STUDENT_IEEE"].includes(authorType) || (category === "FULL" && authorType === "IEEE");
   const isStudent = ["STUDENT_IEEE", "STUDENT_NON_IEEE"].includes(authorType);
@@ -60,8 +63,11 @@ export default function DashboardClient({ user, initialRegistration }: { user: a
     setError(null);
     try {
       const parsedPapers = paperIds.split(/[\s,]+/).filter((id: string) => id.trim() !== '');
+      if (isStudent && parsedPapers.length > 1) {
+        throw new Error("A maximum of 1 paper is allowed for student registrations.");
+      }
       if (["FULL", "LIMITED"].includes(category) && authorType !== "NON_PRESENTING" && parsedPapers.length > 2) {
-        throw new Error("A maximum of 2 papers is allowed per registration.");
+        throw new Error("A maximum of 2 papers is allowed per reg istration.");
       }
 
       const formData = new FormData(e.currentTarget);
@@ -108,108 +114,87 @@ export default function DashboardClient({ user, initialRegistration }: { user: a
     }
   };
 
-  if (isCompleted && !isEditing) {
+  if (!isEditing && completedRegistrations.length > 0) {
     return (
-      <div className="flex min-h-screen p-8 items-start lg:items-center justify-center">
-        <div className="w-full max-w-4xl bg-white/5 backdrop-blur-md rounded-2xl shadow-xl p-8 border border-white/10">
-          <div className="flex justify-between items-center mb-6 border-b border-white/10 pb-4">
-            <h1 className="text-2xl topic text-white">Dashboard</h1>
+      <div className="flex min-h-screen p-8 items-start justify-center pt-24">
+        <div className="w-full max-w-5xl space-y-6">
+          <div className="flex justify-between items-center mb-6">
+            <h1 className="text-3xl font-bold text-white">Your Dashboard</h1>
             <button onClick={handleLogout} className="text-gray-400 hover:text-red-400 font-medium transition">Logout</button>
           </div>
           
           {successParam && (
-             <div className="bg-green-500/20 border border-green-500/50 text-green-200 p-4 rounded-xl mb-6 flex flex-col sm:flex-row items-center justify-between shadow-inner">
+             <div className="bg-green-500/20 border border-green-500/50 text-green-200 p-4 rounded-xl flex flex-col sm:flex-row items-center justify-between shadow-inner">
                <div className="flex items-center">
                  <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
                  <span className="font-semibold">Payment was successful! Your registration is confirmed.</span>
                </div>
-               {initialRegistration?.invoiceId && (
-                 <div className="mt-2 sm:mt-0 text-sm font-mono bg-green-900/40 px-3 py-1 rounded border border-green-500/30">
-                   Invoice ID: {initialRegistration.invoiceId}
-                 </div>
-               )}
              </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h2 className="text-xl font-bold mb-6 text-white border-b border-white/10 pb-2">Registration Details</h2>
-              
-              <div className="space-y-4 text-sm">
-                <div>
-                  <span className="text-gray-400 block mb-1">Registration Category</span>
-                  <span className="text-white font-medium px-3 py-1 bg-white/5 rounded-lg border border-white/5">{initialRegistration.registrationCategory.replace('_', ' ')}</span>
+          <div className="flex justify-between items-center mb-4 mt-8">
+            <h2 className="text-xl font-bold text-white">Past Registrations</h2>
+            <Link 
+              href="/dashboard/register"
+              className="px-4 py-2 bg-primary-600 hover:bg-primary-500 text-white rounded-lg shadow font-medium transition"
+            >
+              + Start New Registration
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {completedRegistrations.map((reg, idx) => (
+              <div key={idx} className="bg-white/5 backdrop-blur-md rounded-2xl shadow-xl p-6 border border-white/10">
+                <div className="flex justify-between items-center mb-4 border-b border-white/10 pb-3">
+                  <h3 className="font-bold text-lg text-white">{reg.registrationCategory.replace('_', ' ')}</h3>
+                  <span className={`px-2 py-1 text-xs font-bold uppercase rounded ${reg.refundStatus === "refunded" ? "bg-purple-900/50 text-purple-300" : "bg-emerald-900/50 text-emerald-300"}`}>
+                    {reg.refundStatus === "refunded" ? "REFUNDED" : "COMPLETED"}
+                  </span>
                 </div>
                 
-                {initialRegistration.registrationCategory !== "PARTICIPANT" && (
-                  <div>
-                    <span className="text-gray-400 block mb-1">Author Type</span>
-                    <span className="text-white font-medium px-3 py-1 bg-white/5 rounded-lg border border-white/5">{initialRegistration.authorType.replace(/_/g, ' ')}</span>
-                  </div>
-                )}
-                
-                {initialRegistration.paperIds && (
-                  <div>
-                    <span className="text-gray-400 block mb-1">Paper ID(s)</span>
-                    <div className="flex flex-wrap gap-2">
-                      {initialRegistration.paperIds.split(/[\s,]+/).filter((id: string) => id.trim() !== '').map((id: string, index: number) => (
-                        <span key={index} className="inline-flex items-center px-2 py-1 rounded-md text-xs font-semibold bg-primary-500/20 text-primary-300 border border-primary-500/30">
-                          {id}
-                        </span>
-                      ))}
+                <div className="space-y-3 text-sm">
+                  {reg.registrationCategory !== "PARTICIPANT" && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Author Type</span>
+                      <span className="text-white font-medium">{reg.authorType.replace(/_/g, ' ')}</span>
                     </div>
+                  )}
+                  {reg.paperIds && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Paper ID(s)</span>
+                      <span className="text-white font-medium break-words text-right max-w-[60%]">{reg.paperIds}</span>
+                    </div>
+                  )}
+                  {reg.extraBanquetTickets > 0 && (
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Extra Banquet Tickets</span>
+                      <span className="text-white font-medium">{reg.extraBanquetTickets}</span>
+                    </div>
+                  )}
+                  
+                  <div className="border-t border-white/10 pt-3 mt-2">
+                    <div className="flex justify-between items-center mb-1">
+                      <span className="text-gray-400">Total Paid</span>
+                      <span className="text-lg font-bold text-primary-400">{reg.currency} {Number(reg.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
+                    </div>
+                    {reg.invoiceId && (
+                      <div className="flex justify-between items-center mt-2">
+                        <span className="text-gray-400 text-xs">Invoice ID</span>
+                        <span className="text-white font-mono text-xs bg-black/30 px-2 py-0.5 rounded">{reg.invoiceId}</span>
+                      </div>
+                    )}
+                    {reg.paymentStatus === "completed" && (
+                      <div className="mt-4 flex justify-end">
+                        <Link href={`/dashboard/receipt?id=${reg.id}`} className="text-sm text-primary-400 hover:text-primary-300 font-medium transition flex items-center">
+                          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                          Download Receipt
+                        </Link>
+                      </div>
+                    )}
                   </div>
-                )}
-
-                {initialRegistration.ieeeMemberNumber && (
-                  <div>
-                    <span className="text-gray-400 block mb-1">IEEE Member Number</span>
-                    <span className="text-white font-medium font-mono">{initialRegistration.ieeeMemberNumber}</span>
-                  </div>
-                )}
-
-                <div>
-                  <span className="text-gray-400 block mb-1">Extra Banquet Tickets</span>
-                  <span className="text-white font-medium">{initialRegistration.extraBanquetTickets}</span>
                 </div>
               </div>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-bold mb-6 text-white border-b border-white/10 pb-2">Payment Summary</h2>
-              
-              <div className="bg-black/20 p-6 rounded-xl border border-white/5">
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-gray-400">Total Paid</span>
-                  <span className="text-2xl font-bold text-primary-400">{initialRegistration.currency} {Number(initialRegistration.amount).toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
-                </div>
-                
-                <div className="flex justify-between items-center text-sm border-t border-white/10 pt-4 mt-4">
-                  <span className="text-gray-400">Invoice ID</span>
-                  <span className="text-white font-mono bg-white/5 px-2 py-1 rounded">{initialRegistration.invoiceId}</span>
-                </div>
-                
-                {initialRegistration.paidAt && (
-                  <div className="flex justify-between items-center text-sm mt-3">
-                    <span className="text-gray-400">Date Paid</span>
-                    <span className="text-white">{new Date(initialRegistration.paidAt).toLocaleDateString()}</span>
-                  </div>
-                )}
-
-                <div className="mt-6 border-t border-white/10 pt-4">
-                  <Link href="/dashboard/receipt" target="_blank" className="w-full flex items-center justify-center py-2 px-4 rounded-lg bg-primary-600/20 text-primary-300 font-semibold hover:bg-primary-600/40 border border-primary-500/30 transition shadow-sm">
-                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    Download Receipt
-                  </Link>
-                </div>
-              </div>
-              
-              <div className="mt-8 p-4 bg-primary-900/20 border border-primary-500/30 rounded-xl">
-                 <p className="text-primary-200 text-sm">
-                   Your registration is confirmed. If you need to make changes, please contact the MERCon organizing committee.
-                 </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

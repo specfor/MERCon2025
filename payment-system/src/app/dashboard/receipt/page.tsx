@@ -2,11 +2,14 @@ import { redirect } from "next/navigation";
 import { getSession } from "@/lib/auth";
 import { db } from "@/db";
 import { registrations, users } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import PrintButton from "./PrintButton";
 import Link from "next/link";
 
-export default async function ReceiptPage() {
+export default async function ReceiptPage(props: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
+  const searchParams = await props.searchParams;
+  const regId = searchParams.id as string | undefined;
+
   const session = await getSession();
   if (!session || !session.userId) {
     redirect("/");
@@ -18,10 +21,15 @@ export default async function ReceiptPage() {
     .where(eq(users.id, session.userId))
     .limit(1);
 
+  const query = regId
+    ? and(eq(registrations.userId, session.userId), eq(registrations.id, Number(regId)))
+    : eq(registrations.userId, session.userId);
+
   const [registration] = await db
     .select()
     .from(registrations)
-    .where(eq(registrations.userId, session.userId))
+    .where(query)
+    .orderBy(registrations.createdAt) // Get the first one if id not provided
     .limit(1);
 
   if (!user || !registration || registration.paymentStatus !== "completed") {

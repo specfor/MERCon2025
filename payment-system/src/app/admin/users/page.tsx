@@ -97,28 +97,7 @@ export default function AdminUsersPage() {
         </div>
       ),
     },
-    {
-      key: "category",
-      header: "Registration",
-      render: (row) => (
-        <div>
-          <Badge status={row.registrationCategory} type="category" />
-          <div className="text-xs text-gray-400 mt-1">{row.authorType}</div>
-        </div>
-      ),
-    },
-    {
-      key: "paymentStatus",
-      header: "Payment",
-      render: (row) => (
-        <div className="space-y-1">
-          <Badge status={row.paymentStatus} type="payment" />
-          {row.refundStatus === "refunded" && (
-            <div className="text-[10px] text-purple-400 font-semibold uppercase">Refunded</div>
-          )}
-        </div>
-      ),
-    },
+
     {
       key: "actions",
       header: "Actions",
@@ -160,26 +139,6 @@ export default function AdminUsersPage() {
         { label: "Admin", value: "admin" },
       ],
     },
-    {
-      key: "paymentStatus",
-      label: "All Payment Statuses",
-      options: [
-        { label: "Pending", value: "pending" },
-        { label: "Completed", value: "completed" },
-        { label: "Refunded", value: "refunded" },
-      ],
-    },
-    {
-      key: "registrationCategory",
-      label: "All Categories",
-      options: [
-        { label: "FULL", value: "FULL" },
-        { label: "LIMITED", value: "LIMITED" },
-        { label: "WORKSHOP", value: "WORKSHOP" },
-        { label: "ATTENDEE", value: "ATTENDEE" },
-        { label: "Unregistered", value: "Unregistered" },
-      ],
-    },
   ];
 
   return (
@@ -204,7 +163,7 @@ export default function AdminUsersPage() {
         data={users}
         columns={columns}
         searchPlaceholder="Search by name, email, country, ID..."
-        searchKeys={["firstName", "lastName", "email", "country", "affiliation", "registrationCategory"]}
+        searchKeys={["firstName", "lastName", "email", "country", "affiliation"]}
         filters={tableFilters}
       />
 

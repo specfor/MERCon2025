@@ -68,15 +68,19 @@ export default function AdminUserDetailPage() {
           country: res.data.user.country || "",
           role: res.data.user.role || "user",
         });
-        if (res.data.registration) {
-          setRegForm({
-            registrationCategory: res.data.registration.registrationCategory || "FULL",
-            authorType: res.data.registration.authorType || "IEEE",
-            paperIds: res.data.registration.paperIds || "",
-            extraBanquetTickets: res.data.registration.extraBanquetTickets || 0,
-            amount: res.data.registration.amount || 0,
-            currency: res.data.registration.currency || "USD",
+        if (res.data.registrations && res.data.registrations.length > 0) {
+          const forms: Record<number, any> = {};
+          res.data.registrations.forEach((reg: any) => {
+            forms[reg.id] = {
+              registrationCategory: reg.registrationCategory || "FULL",
+              authorType: reg.authorType || "IEEE",
+              paperIds: reg.paperIds || "",
+              extraBanquetTickets: reg.extraBanquetTickets || 0,
+              amount: reg.amount || 0,
+              currency: reg.currency || "USD",
+            };
           });
+          setRegForm(forms);
         }
       } else {
         setError(res.error || "Failed to load user details.");
@@ -103,12 +107,11 @@ export default function AdminUserDetailPage() {
     setSavingUser(false);
   };
 
-  const handleSaveReg = async (e: React.FormEvent) => {
+  const handleSaveReg = async (regId: number, e: React.FormEvent) => {
     e.preventDefault();
-    if (!data?.registration) return;
     setSavingReg(true);
     setMessage(null);
-    const res = await updateRegistrationInfo(data.registration.id, userId, regForm);
+    const res = await updateRegistrationInfo(regId, userId, regForm[regId]);
     if (res.success) {
       setMessage("Registration details updated successfully!");
       loadData();
@@ -118,12 +121,11 @@ export default function AdminUserDetailPage() {
     setSavingReg(false);
   };
 
-  const handleRefund = async () => {
-    if (!data?.registration) return;
+  const handleRefund = async (regId: number) => {
     if (!confirm("Are you sure you want to mark this payment as refunded? This action will be logged.")) return;
     setRefunding(true);
     setMessage(null);
-    const res = await refundPayment(data.registration.id, userId);
+    const res = await refundPayment(regId, userId);
     if (res.success) {
       setMessage("Payment successfully refunded!");
       loadData();
@@ -150,7 +152,7 @@ export default function AdminUserDetailPage() {
     );
   }
 
-  const { user, registration, paymentAttempts, adminPerformedLogs, targetLogs } = data;
+  const { user, registrations, adminPerformedLogs, targetLogs } = data;
 
   return (
     <div className="space-y-8">
@@ -272,172 +274,185 @@ export default function AdminUserDetailPage() {
           </form>
         </div>
 
-        {/* Registration Details Form Card */}
-        <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-6 shadow-xl space-y-6">
-          <h2 className="text-lg font-bold text-white border-b border-white/10 pb-3 flex items-center justify-between">
-            <span>📝 Registration & Documents</span>
-            {registration ? <Badge status={registration.paymentStatus} type="payment" /> : <Badge status="Unregistered" />}
+        {/* Registrations List */}
+        <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-6 shadow-xl space-y-6 lg:col-span-2">
+          <h2 className="text-lg font-bold text-white border-b border-white/10 pb-3">
+            📝 Registrations & Payment Attempts
           </h2>
-          {registration ? (
-            <form onSubmit={handleSaveReg} className="space-y-4 text-sm">
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-gray-400 mb-1">Category</label>
-                  <select
-                    value={regForm.registrationCategory || "FULL"}
-                    onChange={(e) => setRegForm({ ...regForm, registrationCategory: e.target.value })}
-                    className="w-full p-2.5 bg-black/80 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500"
-                  >
-                    <option value="FULL">FULL</option>
-                    <option value="LIMITED">LIMITED</option>
-                    <option value="WORKSHOP">WORKSHOP</option>
-                    <option value="ATTENDEE">ATTENDEE</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-gray-400 mb-1">Author Type</label>
-                  <select
-                    value={regForm.authorType || "IEEE"}
-                    onChange={(e) => setRegForm({ ...regForm, authorType: e.target.value })}
-                    className="w-full p-2.5 bg-black/80 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500"
-                  >
-                    <option value="IEEE">IEEE Member</option>
-                    <option value="NON_IEEE">Non-IEEE Member</option>
-                    <option value="STUDENT_IEEE">Student IEEE</option>
-                    <option value="STUDENT_NON_IEEE">Student Non-IEEE</option>
-                    <option value="NON_PRESENTING">Non-Presenting</option>
-                  </select>
-                </div>
-              </div>
+          
+          {registrations && registrations.length > 0 ? (
+            <div className="space-y-8">
+              {registrations.map((registration: any) => (
+                <div key={registration.id} className="bg-black/20 rounded-2xl border border-white/10 p-5 space-y-6">
+                  <div className="flex justify-between items-center border-b border-white/10 pb-3">
+                    <h3 className="font-bold text-white text-lg">
+                      Registration #{registration.id}
+                    </h3>
+                    <Badge status={registration.paymentStatus} type="payment" />
+                  </div>
+                  
+                  <form onSubmit={(e) => handleSaveReg(registration.id, e)} className="space-y-4 text-sm">
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block text-gray-400 mb-1">Category</label>
+                        <select
+                          value={regForm[registration.id]?.registrationCategory || "FULL"}
+                          onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], registrationCategory: e.target.value } })}
+                          className="w-full p-2.5 bg-black/80 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500"
+                        >
+                          <option value="FULL">FULL</option>
+                          <option value="LIMITED">LIMITED</option>
+                          <option value="WORKSHOP">WORKSHOP</option>
+                          <option value="ATTENDEE">ATTENDEE</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-gray-400 mb-1">Author Type</label>
+                        <select
+                          value={regForm[registration.id]?.authorType || "IEEE"}
+                          onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], authorType: e.target.value } })}
+                          className="w-full p-2.5 bg-black/80 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500"
+                        >
+                          <option value="IEEE">IEEE Member</option>
+                          <option value="NON_IEEE">Non-IEEE Member</option>
+                          <option value="STUDENT_IEEE">Student IEEE</option>
+                          <option value="STUDENT_NON_IEEE">Student Non-IEEE</option>
+                          <option value="NON_PRESENTING">Non-Presenting</option>
+                        </select>
+                      </div>
+                    </div>
 
-              <div>
-                <label className="block text-gray-400 mb-1">Paper IDs (max 2, comma separated)</label>
-                <input
-                  type="text"
-                  value={regForm.paperIds || ""}
-                  onChange={(e) => setRegForm({ ...regForm, paperIds: e.target.value })}
-                  placeholder="e.g. 101, 102"
-                  className="w-full p-2.5 bg-black/30 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500 font-mono"
-                />
-              </div>
+                    <div>
+                      <label className="block text-gray-400 mb-1">Paper IDs (max 2, comma separated)</label>
+                      <input
+                        type="text"
+                        value={regForm[registration.id]?.paperIds || ""}
+                        onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], paperIds: e.target.value } })}
+                        placeholder="e.g. 101, 102"
+                        className="w-full p-2.5 bg-black/30 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500 font-mono"
+                      />
+                    </div>
 
-              <div className="grid grid-cols-3 gap-3">
-                <div>
-                  <label className="block text-gray-400 mb-1">Extra Banquet</label>
-                  <input
-                    type="number"
-                    min={0}
-                    value={regForm.extraBanquetTickets || 0}
-                    onChange={(e) => setRegForm({ ...regForm, extraBanquetTickets: Number(e.target.value) })}
-                    className="w-full p-2.5 bg-black/30 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-400 mb-1">Amount</label>
-                  <input
-                    type="number"
-                    step="0.01"
-                    value={regForm.amount || 0}
-                    onChange={(e) => setRegForm({ ...regForm, amount: Number(e.target.value) })}
-                    className="w-full p-2.5 bg-black/30 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-400 mb-1">Currency</label>
-                  <select
-                    value={regForm.currency || "USD"}
-                    onChange={(e) => setRegForm({ ...regForm, currency: e.target.value })}
-                    className="w-full p-2.5 bg-black/80 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500"
-                  >
-                    <option value="USD">USD</option>
-                    <option value="LKR">LKR</option>
-                  </select>
-                </div>
-              </div>
+                    <div className="grid grid-cols-3 gap-3">
+                      <div>
+                        <label className="block text-gray-400 mb-1">Extra Banquet</label>
+                        <input
+                          type="number"
+                          min={0}
+                          value={regForm[registration.id]?.extraBanquetTickets || 0}
+                          onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], extraBanquetTickets: Number(e.target.value) } })}
+                          className="w-full p-2.5 bg-black/30 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-400 mb-1">Amount</label>
+                        <input
+                          type="number"
+                          step="0.01"
+                          value={regForm[registration.id]?.amount || 0}
+                          onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], amount: Number(e.target.value) } })}
+                          className="w-full p-2.5 bg-black/30 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-gray-400 mb-1">Currency</label>
+                        <select
+                          value={regForm[registration.id]?.currency || "USD"}
+                          onChange={(e) => setRegForm({ ...regForm, [registration.id]: { ...regForm[registration.id], currency: e.target.value } })}
+                          className="w-full p-2.5 bg-black/80 border border-white/20 rounded-xl text-white outline-none focus:border-primary-500"
+                        >
+                          <option value="USD">USD</option>
+                          <option value="LKR">LKR</option>
+                        </select>
+                      </div>
+                    </div>
 
-              {/* Uploaded Documents display */}
-              <div className="p-3 bg-black/30 rounded-xl border border-white/10 space-y-2">
-                <div className="text-xs font-semibold text-gray-300 uppercase tracking-wider">Verified Documents</div>
-                <div className="flex flex-wrap gap-4 text-xs">
-                  {registration.ieeeProofPath ? (
-                    <a href={`/api/uploads?path=${encodeURIComponent(registration.ieeeProofPath)}`} target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline flex items-center gap-1">
-                      📄 View IEEE Proof
-                    </a>
-                  ) : (
-                    <span className="text-gray-500">No IEEE Proof</span>
-                  )}
-                  {registration.studentProofPath ? (
-                    <a href={`/api/uploads?path=${encodeURIComponent(registration.studentProofPath)}`} target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline flex items-center gap-1">
-                      📄 View Student Proof
-                    </a>
-                  ) : (
-                    <span className="text-gray-500">No Student Proof</span>
-                  )}
-                </div>
-              </div>
+                    <div className="p-3 bg-black/30 rounded-xl border border-white/10 space-y-2">
+                      <div className="text-xs font-semibold text-gray-300 uppercase tracking-wider">Verified Documents</div>
+                      <div className="flex flex-wrap gap-4 text-xs">
+                        {registration.ieeeProofPath ? (
+                          <a href={`/api/uploads?path=${encodeURIComponent(registration.ieeeProofPath)}`} target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline flex items-center gap-1">
+                            📄 View IEEE Proof
+                          </a>
+                        ) : (
+                          <span className="text-gray-500">No IEEE Proof</span>
+                        )}
+                        {registration.studentProofPath ? (
+                          <a href={`/api/uploads?path=${encodeURIComponent(registration.studentProofPath)}`} target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline flex items-center gap-1">
+                            📄 View Student Proof
+                          </a>
+                        ) : (
+                          <span className="text-gray-500">No Student Proof</span>
+                        )}
+                      </div>
+                    </div>
 
-              <div className="flex gap-3 pt-2">
-                <button
-                  type="submit"
-                  disabled={savingReg}
-                  className="flex-1 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-500 text-white font-semibold transition shadow-[0_0_15px_rgba(34,197,94,0.3)] disabled:opacity-50 cursor-pointer"
-                >
-                  {savingReg ? "Saving..." : "Save Registration"}
-                </button>
-                
-                {registration.paymentStatus === "completed" && registration.refundStatus !== "refunded" && (
-                  <button
-                    type="button"
-                    onClick={handleRefund}
-                    disabled={refunding}
-                    className="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold transition shadow-[0_0_15px_rgba(168,85,247,0.3)] disabled:opacity-50 cursor-pointer"
-                  >
-                    {refunding ? "Refunding..." : "Refund Payment"}
-                  </button>
-                )}
-              </div>
-            </form>
+                    <div className="flex gap-3 pt-2">
+                      <button
+                        type="submit"
+                        disabled={savingReg}
+                        className="flex-1 py-2.5 rounded-xl bg-primary-600 hover:bg-primary-500 text-white font-semibold transition shadow-[0_0_15px_rgba(34,197,94,0.3)] disabled:opacity-50 cursor-pointer"
+                      >
+                        {savingReg ? "Saving..." : "Save Registration Info"}
+                      </button>
+                      
+                      {registration.paymentStatus === "completed" && registration.refundStatus !== "refunded" && (
+                        <button
+                          type="button"
+                          onClick={() => handleRefund(registration.id)}
+                          disabled={refunding}
+                          className="px-4 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold transition shadow-[0_0_15px_rgba(168,85,247,0.3)] disabled:opacity-50 cursor-pointer"
+                        >
+                          {refunding ? "Refunding..." : "Refund Payment"}
+                        </button>
+                      )}
+                    </div>
+                  </form>
+                  
+                  {/* Nested Payment Attempts */}
+                  <div className="mt-6 pt-6 border-t border-white/10">
+                    <h4 className="font-semibold text-white mb-3 flex items-center gap-2">
+                      💳 Payment Attempts ({registration.attempts?.length || 0})
+                    </h4>
+                    {registration.attempts && registration.attempts.length > 0 ? (
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-left text-sm border-collapse">
+                          <thead>
+                            <tr className="border-b border-white/10 text-gray-400 text-[10px] uppercase font-semibold">
+                              <th className="py-2 px-3">Invoice ID</th>
+                              <th className="py-2 px-3">Order ID</th>
+                              <th className="py-2 px-3">Session ID</th>
+                              <th className="py-2 px-3">Status</th>
+                              <th className="py-2 px-3">Date</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-white/5 text-gray-200 text-xs">
+                            {registration.attempts.map((att: any, idx: number) => (
+                              <tr key={idx} className="hover:bg-white/[0.02]">
+                                <td className="py-2 px-3 font-mono">{att.invoiceId || "—"}</td>
+                                <td className="py-2 px-3 font-mono">{att.orderId || "—"}</td>
+                                <td className="py-2 px-3 font-mono text-[10px] text-gray-400 max-w-xs truncate">{att.sessionId || "—"}</td>
+                                <td className="py-2 px-3"><Badge status={att.status} type="payment" /></td>
+                                <td className="py-2 px-3 text-gray-400">{new Date(att.createdAt).toLocaleString()}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    ) : (
+                      <p className="text-gray-400 text-xs">No payment attempts recorded for this registration.</p>
+                    )}
+                  </div>
+
+                </div>
+              ))}
+            </div>
           ) : (
             <div className="text-center py-8 text-gray-400">
-              This user has not initiated a registration yet.
+              This user has not initiated any registrations yet.
             </div>
           )}
         </div>
-      </div>
-
-      {/* Payment Attempts Section */}
-      <div className="bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 p-6 shadow-xl space-y-4">
-        <h2 className="text-lg font-bold text-white border-b border-white/10 pb-3">
-          💳 Payment Attempts ({paymentAttempts.length})
-        </h2>
-        {paymentAttempts.length > 0 ? (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm border-collapse">
-              <thead>
-                <tr className="border-b border-white/10 text-gray-400 text-xs uppercase font-semibold">
-                  <th className="py-3 px-4">Invoice ID</th>
-                  <th className="py-3 px-4">Order ID</th>
-                  <th className="py-3 px-4">Session ID</th>
-                  <th className="py-3 px-4">Status</th>
-                  <th className="py-3 px-4">Date</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-white/5 text-gray-200">
-                {paymentAttempts.map((att: any, idx: number) => (
-                  <tr key={idx} className="hover:bg-white/[0.02]">
-                    <td className="py-3 px-4 font-mono">{att.invoiceId || "—"}</td>
-                    <td className="py-3 px-4 font-mono">{att.orderId || "—"}</td>
-                    <td className="py-3 px-4 font-mono text-xs text-gray-400 max-w-xs truncate">{att.sessionId || "—"}</td>
-                    <td className="py-3 px-4"><Badge status={att.status} type="payment" /></td>
-                    <td className="py-3 px-4 text-xs text-gray-400">{new Date(att.createdAt).toLocaleString()}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        ) : (
-          <p className="text-gray-400 text-sm">No payment attempts recorded for this user.</p>
-        )}
       </div>
 
       {/* Audit Logs Section */}

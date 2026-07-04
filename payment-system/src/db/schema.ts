@@ -71,11 +71,8 @@ export const paymentAttempts = mysqlTable("payment_attempts", {
   updatedAt: timestamp("updated_at").defaultNow().onUpdateNow().notNull(),
 });
 
-export const usersRelations = relations(users, ({ one }) => ({
-  registration: one(registrations, {
-    fields: [users.id],
-    references: [registrations.userId],
-  }),
+export const usersRelations = relations(users, ({ many }) => ({
+  registrations: many(registrations),
 }));
 
 export const registrationsRelations = relations(registrations, ({ one, many }) => ({

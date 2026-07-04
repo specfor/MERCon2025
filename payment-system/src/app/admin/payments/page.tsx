@@ -119,6 +119,18 @@ export default function AdminPaymentsPage() {
     );
   }
 
+  const tableFilters = [
+    {
+      key: "status",
+      label: "All Statuses",
+      options: [
+        { label: "Pending", value: "pending" },
+        { label: "Completed", value: "completed" },
+        { label: "Failed", value: "failed" },
+      ],
+    },
+  ];
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -133,6 +145,7 @@ export default function AdminPaymentsPage() {
         columns={columns}
         searchPlaceholder="Search invoice, order ID, user name, email..."
         searchKeys={["invoiceId", "orderId", "userName", "userEmail", "status", "paymentStatus"]}
+        filters={tableFilters}
       />
     </div>
   );

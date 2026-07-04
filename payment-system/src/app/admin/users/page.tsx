@@ -151,6 +151,37 @@ export default function AdminUsersPage() {
     );
   }
 
+  const tableFilters = [
+    {
+      key: "role",
+      label: "All Roles",
+      options: [
+        { label: "User", value: "user" },
+        { label: "Admin", value: "admin" },
+      ],
+    },
+    {
+      key: "paymentStatus",
+      label: "All Payment Statuses",
+      options: [
+        { label: "Pending", value: "pending" },
+        { label: "Completed", value: "completed" },
+        { label: "Refunded", value: "refunded" },
+      ],
+    },
+    {
+      key: "registrationCategory",
+      label: "All Categories",
+      options: [
+        { label: "FULL", value: "FULL" },
+        { label: "LIMITED", value: "LIMITED" },
+        { label: "WORKSHOP", value: "WORKSHOP" },
+        { label: "ATTENDEE", value: "ATTENDEE" },
+        { label: "Unregistered", value: "Unregistered" },
+      ],
+    },
+  ];
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -174,6 +205,7 @@ export default function AdminUsersPage() {
         columns={columns}
         searchPlaceholder="Search by name, email, country, ID..."
         searchKeys={["firstName", "lastName", "email", "country", "affiliation", "registrationCategory"]}
+        filters={tableFilters}
       />
 
       {/* Enroll Admin Modal */}

@@ -30,6 +30,7 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
   const isIeeeMember = ["IEEE", "STUDENT_IEEE"].includes(authorType) || (category === "FULL" && authorType === "IEEE");
   const isStudent = ["STUDENT_IEEE", "STUDENT_NON_IEEE"].includes(authorType);
   const isLocal = user.isLocal;
+  const maxPapers = isStudent ? 1 : 2;
 
   const calculatedAmount = useMemo(() => {
     return calculateAmount(category, authorType, isLocal, extraBanquet);
@@ -269,18 +270,18 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
                 {["FULL", "LIMITED"].includes(category) && authorType !== "NON_PRESENTING" && (
                   <div>
                     <div className="flex justify-between items-center mb-2">
-                      <label className="block text-sm font-medium text-gray-300">Paper ID(s) <span className="text-gray-400 font-normal">(Max 2 papers)</span></label>
-                      {paperIds.split(/[\s,]+/).filter((id: string) => id.trim() !== '').length > 2 && (
-                        <span className="text-xs font-semibold text-red-400">× Maximum 2 papers allowed</span>
+                      <label className="block text-sm font-medium text-gray-300">Paper ID(s) <span className="text-gray-400 font-normal">(Max {maxPapers} paper{maxPapers > 1 ? "s" : ""})</span></label>
+                      {paperIds.split(/[\s,]+/).filter((id: string) => id.trim() !== '').length > maxPapers && (
+                        <span className="text-xs font-semibold text-red-400">× Maximum {maxPapers} paper{maxPapers > 1 ? "s" : ""} allowed</span>
                       )}
                     </div>
                     <input
                       type="text"
                       value={paperIds}
                       onChange={e=>setPaperIds(e.target.value)}
-                      placeholder="e.g. 1570123456, 1570123457"
+                      placeholder={isStudent ? "e.g. 1570123456" : "e.g. 1570123456, 1570123457"}
                       className={`w-full p-3 border rounded-xl bg-white/5 text-white focus:ring-2 outline-none transition ${
-                        paperIds.split(/[\s,]+/).filter((id: string) => id.trim() !== '').length > 2
+                        paperIds.split(/[\s,]+/).filter((id: string) => id.trim() !== '').length > maxPapers
                           ? 'border-red-500/50 focus:ring-red-500'
                           : 'border-white/20 focus:ring-primary-500 focus:border-transparent'
                       }`}
@@ -291,7 +292,7 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
                       <div className="flex flex-wrap gap-2 mt-3">
                         {paperIds.split(/[\s,]+/).filter((id: string) => id.trim() !== '').map((id: string, index: number) => (
                           <span key={index} className={`inline-flex items-center px-3 py-1 rounded-lg text-xs font-semibold border shadow-sm ${
-                            paperIds.split(/[\s,]+/).filter((x: string) => x.trim() !== '').length > 2
+                            paperIds.split(/[\s,]+/).filter((x: string) => x.trim() !== '').length > maxPapers
                               ? 'bg-red-500/20 text-red-300 border-red-500/30'
                               : 'bg-primary-500/20 text-primary-300 border-primary-500/30'
                           }`}>

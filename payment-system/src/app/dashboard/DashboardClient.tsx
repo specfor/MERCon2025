@@ -367,7 +367,7 @@ export default function DashboardClient({ user, initialRegistration }: { user: a
                   <span className="font-bold text-sm text-emerald-400">LKR {convertedLkrAmount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</span>
                 </div>
                 <span className="block text-[11px] text-gray-400">(@ Official Exchange Rate: 1 USD = {exchangeRate} LKR)</span>
-                <span className="block text-[10px] text-amber-300/80 italic font-normal mt-0.5">Currently exchange fee charged by banks may apply.</span>
+                <span className="block text-[10px] text-amber-300/80 italic font-normal mt-0.5">Currency exchange fee charged by banks may apply.</span>
               </div>
             )}
             <p className="text-sm text-gray-400 text-right">Taxes and gateway fees included</p>

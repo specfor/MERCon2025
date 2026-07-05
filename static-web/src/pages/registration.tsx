@@ -49,7 +49,7 @@ const RegistrationPage = () => {
                   <th className="py-4 px-6 text-left font-semibold border-r border-white/10 align-top">Category</th>
                   <th className="py-4 px-6 text-left font-semibold border-r border-white/10 align-top">
                     Early Bird Registration<br />
-                    <span className="text-sm font-normal text-gray-300">(4th July 2026 - 15th July 2026)</span>
+                    <span className="text-sm font-normal text-gray-300">(5th July 2026 - 15th July 2026)</span>
                   </th>
                   <th className="py-4 px-6 text-left font-semibold align-top">
                     Normal Registration<br />

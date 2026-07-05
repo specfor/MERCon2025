@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
+import { COUNTRIES } from "@/constants/countries";
 
 export default function RegisterPage() {
   const [step, setStep] = useState<1 | 2 | 3>(1);
@@ -235,7 +236,7 @@ export default function RegisterPage() {
                   pattern="[0-9]*"
                   required
                   placeholder="123456"
-                  className="w-48 text-center text-3xl tracking-[0.5em] font-mono p-3 border border-white/20 rounded-xl bg-white/10 text-primary-400 focus:ring-2 focus:ring-primary-500 outline-none transition shadow-inner font-bold"
+                  className="w-56 text-center text-3xl tracking-[0.5em] font-mono p-3 border border-white/20 rounded-xl bg-white/10 text-primary-400 focus:ring-2 focus:ring-primary-500 outline-none transition shadow-inner font-bold"
                 />
                 <p className="text-xs text-gray-400 mt-4 text-center">
                   Please check your inbox (and spam folder) for the confirmation email.
@@ -307,17 +308,11 @@ export default function RegisterPage() {
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-1">Country</label>
                   <select name="country" defaultValue="Sri Lanka" className="w-full p-2 border border-white/20 rounded-lg bg-[#081a12] text-white focus:ring-2 focus:ring-primary-500 outline-none transition">
-                    <option value="Sri Lanka">Sri Lanka</option>
-                    <option value="United States">United States</option>
-                    <option value="United Kingdom">United Kingdom</option>
-                    <option value="India">India</option>
-                    <option value="Australia">Australia</option>
-                    <option value="Canada">Canada</option>
-                    <option value="China">China</option>
-                    <option value="Japan">Japan</option>
-                    <option value="Germany">Germany</option>
-                    <option value="France">France</option>
-                    <option value="Other">Other</option>
+                    {COUNTRIES.map((country) => (
+                      <option key={country} value={country}>
+                        {country}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>

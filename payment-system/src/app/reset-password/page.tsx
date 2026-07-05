@@ -240,7 +240,7 @@ export default function ResetPasswordPage() {
                 maxLength={6}
                 pattern="[0-9]*"
                 placeholder="123456"
-                className="w-48 text-center text-3xl tracking-[0.5em] font-mono p-3 border border-white/20 rounded-xl bg-white/10 text-primary-400 focus:ring-2 focus:ring-primary-500 outline-none transition shadow-inner font-bold"
+                className="w-56 text-center text-3xl tracking-[0.5em] font-mono p-3 border border-white/20 rounded-xl bg-white/10 text-primary-400 focus:ring-2 focus:ring-primary-500 outline-none transition shadow-inner font-bold"
               />
             </div>
 

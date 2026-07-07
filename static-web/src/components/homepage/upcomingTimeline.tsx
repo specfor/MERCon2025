@@ -7,6 +7,7 @@ interface TimelineEventWithParsed {
   id: number;
   title: string;
   date: string;
+  note?: string;
   parsedDate: Date | null;
   isPast: boolean;
 }
@@ -152,6 +153,11 @@ const UpcomingTimeline: React.FC = () => {
                           <span className="whitespace-nowrap">{event.date}</span>
                         </div>
                       </div>
+                      {event.note && (
+                        <p className={`mt-2 text-sm font-normal ${isPastEvent ? "text-gray-500" : "text-gray-400"}`}>
+                          {event.note}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </div>

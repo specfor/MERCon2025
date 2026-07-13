@@ -56,7 +56,12 @@ export async function submitRegistration(formData: FormData) {
     const uploadsDir = path.join(process.cwd(), "uploads", "proofs");
     await fs.mkdir(uploadsDir, { recursive: true });
 
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+
     if (ieeeProofFile && ieeeProofFile.size > 0) {
+      if (ieeeProofFile.size > MAX_FILE_SIZE) {
+        throw new Error("IEEE membership proof document exceeds the maximum limit of 5MB.");
+      }
       const arrayBuffer = await ieeeProofFile.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       const ext = path.extname(ieeeProofFile.name);
@@ -67,6 +72,9 @@ export async function submitRegistration(formData: FormData) {
     }
 
     if (studentProofFile && studentProofFile.size > 0) {
+      if (studentProofFile.size > MAX_FILE_SIZE) {
+        throw new Error("Student ID proof document exceeds the maximum limit of 5MB.");
+      }
       const arrayBuffer = await studentProofFile.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       const ext = path.extname(studentProofFile.name);

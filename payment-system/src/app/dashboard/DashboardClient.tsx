@@ -57,6 +57,16 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
     await logoutUser();
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file && file.size > 5 * 1024 * 1024) {
+      setError(`Selected file "${file.name}" exceeds the 5MB maximum limit. Please choose a file under 5MB.`);
+      e.target.value = "";
+    } else {
+      setError(null);
+    }
+  };
+
   const handleSaveAndPay = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
@@ -71,6 +81,16 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
       }
 
       const formData = new FormData(e.currentTarget);
+      const ieeeProofFile = formData.get("ieeeProof") as File | null;
+      const studentProofFile = formData.get("studentProof") as File | null;
+      const MAX_FILE_SIZE = 5 * 1024 * 1024;
+      if (ieeeProofFile && ieeeProofFile.size > MAX_FILE_SIZE) {
+        throw new Error("IEEE proof document exceeds the maximum allowed size of 5MB.");
+      }
+      if (studentProofFile && studentProofFile.size > MAX_FILE_SIZE) {
+        throw new Error("Student ID proof document exceeds the maximum allowed size of 5MB.");
+      }
+
       // Append manually managed state
       formData.append("registrationCategory", category);
       formData.append("authorType", authorType);
@@ -312,16 +332,16 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
                       <input type="text" pattern="[0-9]+" title="Only numbers are allowed" value={ieeeMemberNumber} onChange={e=>setIeeeMemberNumber(e.target.value)} className="w-full p-3 border border-white/20 rounded-xl bg-white/5 text-white focus:ring-2 focus:ring-primary-500 outline-none transition" required />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-300 mb-2">Upload IEEE Proof (PDF/Image)</label>
-                      <input type="file" name="ieeeProof" accept=".pdf,image/*" className="w-full p-2 border border-white/20 rounded-xl bg-white/5 text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-500 file:text-white hover:file:bg-primary-600 cursor-pointer" required={!initialRegistration?.ieeeProofPath} />
+                      <label className="block text-sm font-medium text-gray-300 mb-2">Upload IEEE Proof (PDF/Image, Max 5MB)</label>
+                      <input type="file" name="ieeeProof" accept=".pdf,image/*" onChange={handleFileChange} className="w-full p-2 border border-white/20 rounded-xl bg-white/5 text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-500 file:text-white hover:file:bg-primary-600 cursor-pointer" required={!initialRegistration?.ieeeProofPath} />
                     </div>
                   </div>
                 )}
 
                 {isStudent && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Upload Student ID Proof (PDF/Image)</label>
-                    <input type="file" name="studentProof" accept=".pdf,image/*" className="w-full p-2 border border-white/20 rounded-xl bg-white/5 text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-500 file:text-white hover:file:bg-primary-600 cursor-pointer" required={!initialRegistration?.studentProofPath} />
+                    <label className="block text-sm font-medium text-gray-300 mb-2">Upload Student ID Proof (PDF/Image, Max 5MB)</label>
+                    <input type="file" name="studentProof" accept=".pdf,image/*" onChange={handleFileChange} className="w-full p-2 border border-white/20 rounded-xl bg-white/5 text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary-500 file:text-white hover:file:bg-primary-600 cursor-pointer" required={!initialRegistration?.studentProofPath} />
                   </div>
                 )}
                 

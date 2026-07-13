@@ -5,6 +5,7 @@ import { getAllPayments } from "@/actions/admin";
 import AdminTable, { Column } from "@/components/admin/AdminTable";
 import Badge from "@/components/admin/Badge";
 import Link from "next/link";
+import { formatLocalTime } from "@/lib/formatDate";
 
 export default function AdminPaymentsPage() {
   const [payments, setPayments] = useState<any[]>([]);
@@ -82,7 +83,7 @@ export default function AdminPaymentsPage() {
     {
       key: "createdAt",
       header: "Timestamp",
-      render: (row) => <span className="text-xs text-gray-400">{new Date(row.createdAt).toLocaleString()}</span>,
+      render: (row) => <span className="text-xs text-gray-400">{formatLocalTime(row.createdAt)}</span>,
     },
     {
       key: "actions",

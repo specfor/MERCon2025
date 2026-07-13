@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { getUserDetails, updateUserInfo, updateRegistrationInfo, refundPayment } from "@/actions/admin";
 import Badge from "@/components/admin/Badge";
 import Link from "next/link";
+import { formatLocalTime } from "@/lib/formatDate";
 
 const renderLogDetails = (detailsStr: string) => {
   try {
@@ -505,7 +506,7 @@ export default function AdminUserDetailPage() {
                                       <td className="py-2 px-3 font-mono">{att.orderId || "—"}</td>
                                       <td className="py-2 px-3 font-mono text-[10px] text-gray-400 max-w-xs truncate">{att.sessionId || "—"}</td>
                                       <td className="py-2 px-3"><Badge status={att.status} type="payment" /></td>
-                                      <td className="py-2 px-3 text-right text-gray-400 font-mono">{new Date(att.createdAt).toLocaleString()}</td>
+                                      <td className="py-2 px-3 text-right text-gray-400 font-mono">{formatLocalTime(att.createdAt)}</td>
                                     </tr>
                                   ))}
                                 </tbody>
@@ -543,7 +544,7 @@ export default function AdminUserDetailPage() {
                   <div key={idx} className="p-3 bg-black/40 rounded-xl border border-white/5 text-xs space-y-1">
                     <div className="flex justify-between items-center text-amber-400 font-semibold">
                       <span>[{log.action}]</span>
-                      <span className="text-gray-400 font-normal">{new Date(log.createdAt).toLocaleString()}</span>
+                      <span className="text-gray-400 font-normal">{formatLocalTime(log.createdAt)}</span>
                     </div>
                     <div className="text-gray-300">Target User: <Link href={`/admin/users/${log.targetId}`} className="text-primary-400 hover:underline font-semibold font-mono">#{log.targetId}</Link></div>
                     <div className="text-gray-400 bg-black/60 p-3 rounded-xl border border-white/5 overflow-x-auto">
@@ -569,7 +570,7 @@ export default function AdminUserDetailPage() {
                 <div key={idx} className="p-3 bg-black/40 rounded-xl border border-white/5 text-xs space-y-1">
                   <div className="flex justify-between items-center text-primary-300 font-semibold">
                     <span>[{log.action}] by {log.adminEmail}</span>
-                    <span className="text-gray-400 font-normal">{new Date(log.createdAt).toLocaleString()}</span>
+                    <span className="text-gray-400 font-normal">{formatLocalTime(log.createdAt)}</span>
                   </div>
                   <div className="text-gray-400 bg-black/60 p-3 rounded-xl border border-white/5 overflow-x-auto">
                     {renderLogDetails(log.details)}

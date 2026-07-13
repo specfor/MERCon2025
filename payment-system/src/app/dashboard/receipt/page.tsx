@@ -5,6 +5,7 @@ import { registrations, users } from "@/db/schema";
 import { eq, and } from "drizzle-orm";
 import PrintButton from "./PrintButton";
 import Link from "next/link";
+import { formatLocalTime } from "@/lib/formatDate";
 
 export default async function ReceiptPage(props: { searchParams: Promise<{ [key: string]: string | string[] | undefined }> }) {
   const searchParams = await props.searchParams;
@@ -37,7 +38,7 @@ export default async function ReceiptPage(props: { searchParams: Promise<{ [key:
   }
 
   const invoiceId = registration.invoiceId || "N/A";
-  const paidAt = registration.paidAt ? new Date(registration.paidAt).toLocaleDateString() : "N/A";
+  const paidAt = registration.paidAt ? formatLocalTime(registration.paidAt) : "N/A";
 
   return (
     <div className="min-h-screen py-10 print:py-0 text-gray-800 font-sans flex flex-col items-center justify-start p-4">

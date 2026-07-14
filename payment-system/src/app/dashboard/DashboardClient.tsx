@@ -259,7 +259,21 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">Registration Category</label>
-                  <select value={category} onChange={e=>setCategory(e.target.value)} className="w-full p-3 border border-white/20 rounded-xl bg-[#081a12] text-white focus:ring-2 focus:ring-primary-500 outline-none transition">
+                  <select 
+                    value={category} 
+                    onChange={e => {
+                      const newCat = e.target.value;
+                      setCategory(newCat);
+                      if (newCat === "FULL") {
+                        if (authorType !== "IEEE" && authorType !== "NON_IEEE") {
+                          setAuthorType("NON_IEEE");
+                        }
+                      } else if (newCat === "PARTICIPANT") {
+                        setAuthorType("NON_PRESENTING");
+                      }
+                    }} 
+                    className="w-full p-3 border border-white/20 rounded-xl bg-[#081a12] text-white focus:ring-2 focus:ring-primary-500 outline-none transition"
+                  >
                     <option value="FULL">Full Registration</option>
                     <option value="LIMITED">Limited Registration</option>
                     <option value="PARTICIPANT">Participant Registration</option>

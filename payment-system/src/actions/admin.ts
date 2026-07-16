@@ -223,6 +223,37 @@ export async function updateRegistrationInfo(regId: number, targetUserId: number
   }
 }
 
+export async function toggleDocumentReviewed(regId: number, targetUserId: number, docType: "ieee" | "student", reviewed: boolean) {
+  const session = await verifyAdminSession();
+
+  try {
+    const updateData = docType === "ieee" 
+      ? { ieeeProofReviewed: reviewed } 
+      : { studentProofReviewed: reviewed };
+
+    await db.update(registrations).set(updateData).where(eq(registrations.id, regId));
+
+    await db.insert(adminLogs).values({
+      adminId: Number(session.userId),
+      adminEmail: String(session.email),
+      action: "REVIEW_DOCUMENT",
+      targetId: String(targetUserId),
+      details: JSON.stringify({
+        regId,
+        docType,
+        reviewed,
+      }),
+    });
+
+    revalidatePath(`/admin/users/${targetUserId}`);
+    revalidatePath("/admin/users");
+    return { success: true };
+  } catch (error: any) {
+    console.error("toggleDocumentReviewed error:", error);
+    return { success: false, error: error.message || "Failed to update document review status." };
+  }
+}
+
 export async function refundPayment(regId: number, targetUserId: number) {
   const session = await verifyAdminSession();
 

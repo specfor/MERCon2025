@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { getUserDetails, updateUserInfo, updateRegistrationInfo, refundPayment } from "@/actions/admin";
+import { getUserDetails, updateUserInfo, updateRegistrationInfo, refundPayment, toggleDocumentReviewed } from "@/actions/admin";
 import Badge from "@/components/admin/Badge";
 import Link from "next/link";
 import { formatLocalTime } from "@/lib/formatDate";
@@ -397,22 +397,62 @@ export default function AdminUserDetailPage() {
                                 </div>
                               </div>
 
-                              <div className="p-3 bg-black/30 rounded-xl border border-white/10 space-y-2">
-                                <div className="text-xs font-semibold text-gray-300 uppercase tracking-wider">Verified Documents</div>
-                                <div className="flex flex-wrap gap-4 text-xs">
+                              <div className="p-3 bg-black/30 rounded-xl border border-white/10 space-y-2.5">
+                                <div className="text-xs font-semibold text-gray-300 uppercase tracking-wider">Uploaded Documents & Review Status</div>
+                                <div className="flex flex-col gap-2">
                                   {registration.ieeeProofPath ? (
-                                    <a href={`/api/uploads?path=${encodeURIComponent(registration.ieeeProofPath)}`} target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline flex items-center gap-1 font-medium">
-                                      📄 View IEEE Proof
-                                    </a>
+                                    <div className="flex items-center justify-between gap-3 bg-white/5 p-2 rounded-lg border border-white/10 text-xs">
+                                      <a href={`/api/uploads?path=${encodeURIComponent(registration.ieeeProofPath)}`} target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline flex items-center gap-1.5 font-medium truncate max-w-[200px]">
+                                        📄 IEEE Proof
+                                      </a>
+                                      <button
+                                        type="button"
+                                        onClick={async () => {
+                                          const res = await toggleDocumentReviewed(registration.id, Number(userId), "ieee", !registration.ieeeProofReviewed);
+                                          if (res.success) {
+                                            loadData();
+                                          } else {
+                                            setMessage(`Error: ${res.error}`);
+                                          }
+                                        }}
+                                        className={`px-2.5 py-1 rounded text-xs font-semibold flex items-center gap-1 transition shrink-0 ${
+                                          registration.ieeeProofReviewed
+                                            ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/30"
+                                            : "bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30"
+                                        }`}
+                                      >
+                                        {registration.ieeeProofReviewed ? "✓ Reviewed" : "Mark as Reviewed"}
+                                      </button>
+                                    </div>
                                   ) : (
-                                    <span className="text-gray-500">No IEEE Proof</span>
+                                    <div className="text-gray-500 text-xs px-2 py-1">No IEEE Proof</div>
                                   )}
                                   {registration.studentProofPath ? (
-                                    <a href={`/api/uploads?path=${encodeURIComponent(registration.studentProofPath)}`} target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline flex items-center gap-1 font-medium">
-                                      📄 View Student Proof
-                                    </a>
+                                    <div className="flex items-center justify-between gap-3 bg-white/5 p-2 rounded-lg border border-white/10 text-xs">
+                                      <a href={`/api/uploads?path=${encodeURIComponent(registration.studentProofPath)}`} target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:underline flex items-center gap-1.5 font-medium truncate max-w-[200px]">
+                                        📄 Student Proof
+                                      </a>
+                                      <button
+                                        type="button"
+                                        onClick={async () => {
+                                          const res = await toggleDocumentReviewed(registration.id, Number(userId), "student", !registration.studentProofReviewed);
+                                          if (res.success) {
+                                            loadData();
+                                          } else {
+                                            setMessage(`Error: ${res.error}`);
+                                          }
+                                        }}
+                                        className={`px-2.5 py-1 rounded text-xs font-semibold flex items-center gap-1 transition shrink-0 ${
+                                          registration.studentProofReviewed
+                                            ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/30"
+                                            : "bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/30"
+                                        }`}
+                                      >
+                                        {registration.studentProofReviewed ? "✓ Reviewed" : "Mark as Reviewed"}
+                                      </button>
+                                    </div>
                                   ) : (
-                                    <span className="text-gray-500">No Student Proof</span>
+                                    <div className="text-gray-500 text-xs px-2 py-1">No Student Proof</div>
                                   )}
                                 </div>
                               </div>

@@ -48,7 +48,9 @@ export const registrations = mysqlTable("registrations", {
   exchangeRate: decimal("exchange_rate", { precision: 10, scale: 4 }),
   
   ieeeProofPath: varchar("ieee_proof_path", { length: 500 }),
+  ieeeProofReviewed: boolean("ieee_proof_reviewed").notNull().default(false),
   studentProofPath: varchar("student_proof_path", { length: 500 }),
+  studentProofReviewed: boolean("student_proof_reviewed").notNull().default(false),
   
   paymentStatus: varchar("payment_status", { length: 50 }).notNull().default("pending"),
   refundStatus: varchar("refund_status", { length: 50 }).default("none"),

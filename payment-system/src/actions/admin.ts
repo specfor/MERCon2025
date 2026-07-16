@@ -7,6 +7,7 @@ import { sendPasswordResetEmail } from "@/lib/email";
 import { eq, desc, and } from "drizzle-orm";
 import { getSession } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
+import { formatLocalTime } from "@/lib/formatDate";
 
 async function verifyAdminSession() {
   const session = await getSession();
@@ -495,5 +496,207 @@ export async function enrollAdmin(email: string, details: {
   } catch (error: any) {
     console.error("enrollAdmin error:", error);
     return { success: false, error: error.message || "Failed to enroll admin." };
+  }
+}
+
+export type ExportFilters = {
+  paymentStatus?: string;
+  category?: string;
+  authorType?: string;
+  country?: string;
+  countries?: string[];
+  sortBy?: string;
+  sortOrder?: string;
+  includeNoRegistrations?: boolean;
+};
+
+function escapeCsvField(field: any): string {
+  if (field === null || field === undefined) return '""';
+  const str = String(field);
+  return `"${str.replace(/"/g, '""')}"`;
+}
+
+export async function exportRegistrationsCsv(filters: ExportFilters = {}) {
+  await verifyAdminSession();
+
+  try {
+    const allUsers = await db.select().from(users).orderBy(desc(users.createdAt));
+    const allRegs = await db.select().from(registrations).orderBy(desc(registrations.createdAt));
+
+    const headers = [
+      "User ID",
+      "Title",
+      "First Name",
+      "Last Name",
+      "Email",
+      "Phone Number",
+      "Affiliation",
+      "Country",
+      "Registration ID",
+      "Registration Category",
+      "Author Type",
+      "Paper IDs",
+      "Extra Banquet Tickets",
+      "Amount",
+      "Currency",
+      "Payment Status",
+      "Invoice ID",
+      "IEEE Proof Document Name",
+      "IEEE Proof Reviewed Status",
+      "Student Proof Document Name",
+      "Student Proof Reviewed Status",
+      "Paid At",
+      "Registration Created At"
+    ];
+
+    type RawRow = {
+      firstName: string;
+      lastName: string;
+      email: string;
+      country: string;
+      category: string;
+      cells: string[];
+    };
+
+    const rawRows: RawRow[] = [];
+
+    for (const u of allUsers) {
+      const userRegs = allRegs.filter((r) => r.userId === u.id);
+
+      const matchesCountriesArray = !filters.countries || !Array.isArray(filters.countries) || filters.countries.length === 0 || filters.countries.some(c => u.country.toLowerCase().trim() === c.toLowerCase().trim());
+      const matchesCountryText = !filters.country || filters.country.trim() === "" || u.country.toLowerCase().includes(filters.country.toLowerCase().trim());
+      if (!matchesCountriesArray || !matchesCountryText) continue;
+
+      if (userRegs.length === 0) {
+        if (filters.includeNoRegistrations) {
+          const noStatusFilter = !filters.paymentStatus || filters.paymentStatus === "all";
+          const noCatFilter = !filters.category || filters.category === "all";
+          const noAuthorFilter = !filters.authorType || filters.authorType === "all";
+
+          if (noStatusFilter && noCatFilter && noAuthorFilter) {
+            rawRows.push({
+              firstName: u.firstName || "",
+              lastName: u.lastName || "",
+              email: u.email || "",
+              country: u.country || "",
+              category: "-",
+              cells: [
+                String(u.id),
+                u.title || "",
+                u.firstName || "",
+                u.lastName || "",
+                u.email || "",
+                u.phone || "",
+                u.affiliation || "",
+                u.country || "",
+                "-",
+                "-",
+                "-",
+                "-",
+                "-",
+                "-",
+                "-",
+                "No Registration Initiated",
+                "-",
+                "-",
+                "-",
+                "-",
+                "-",
+                "-",
+                formatLocalTime(u.createdAt)
+              ]
+            });
+          }
+        }
+      } else {
+        for (const reg of userRegs) {
+          const effectiveStatus = reg.refundStatus === "refunded" ? "refunded" : reg.paymentStatus;
+          if (filters.paymentStatus && filters.paymentStatus !== "all" && effectiveStatus !== filters.paymentStatus) {
+            continue;
+          }
+          if (filters.category && filters.category !== "all" && reg.registrationCategory !== filters.category) {
+            continue;
+          }
+          if (filters.authorType && filters.authorType !== "all" && reg.authorType !== filters.authorType) {
+            continue;
+          }
+
+          const ieeeDocName = reg.ieeeProofPath ? reg.ieeeProofPath.split("/").pop() || reg.ieeeProofPath : "";
+          const ieeeReviewed = reg.ieeeProofPath ? (reg.ieeeProofReviewed ? "Reviewed" : "Pending Review") : "N/A";
+
+          const studentDocName = reg.studentProofPath ? reg.studentProofPath.split("/").pop() || reg.studentProofPath : "";
+          const studentReviewed = reg.studentProofPath ? (reg.studentProofReviewed ? "Reviewed" : "Pending Review") : "N/A";
+
+          rawRows.push({
+            firstName: u.firstName || "",
+            lastName: u.lastName || "",
+            email: u.email || "",
+            country: u.country || "",
+            category: reg.registrationCategory || "",
+            cells: [
+              String(u.id),
+              u.title || "",
+              u.firstName || "",
+              u.lastName || "",
+              u.email || "",
+              u.phone || "",
+              u.affiliation || "",
+              u.country || "",
+              String(reg.id),
+              reg.registrationCategory || "",
+              reg.authorType || "",
+              reg.paperIds || "",
+              String(reg.extraBanquetTickets || 0),
+              String(reg.amount || 0),
+              reg.currency || "",
+              effectiveStatus || "",
+              reg.invoiceId || "",
+              ieeeDocName,
+              ieeeReviewed,
+              studentDocName,
+              studentReviewed,
+              reg.paidAt ? formatLocalTime(reg.paidAt) : "",
+              reg.createdAt ? formatLocalTime(reg.createdAt) : ""
+            ]
+          });
+        }
+      }
+    }
+
+    if (filters.sortBy && filters.sortBy !== "default") {
+      rawRows.sort((a, b) => {
+        let valA = "";
+        let valB = "";
+        if (filters.sortBy === "firstName") {
+          valA = a.firstName.toLowerCase();
+          valB = b.firstName.toLowerCase();
+        } else if (filters.sortBy === "lastName") {
+          valA = a.lastName.toLowerCase();
+          valB = b.lastName.toLowerCase();
+        } else if (filters.sortBy === "email") {
+          valA = a.email.toLowerCase();
+          valB = b.email.toLowerCase();
+        } else if (filters.sortBy === "country") {
+          valA = a.country.toLowerCase();
+          valB = b.country.toLowerCase();
+        } else if (filters.sortBy === "category") {
+          valA = a.category.toLowerCase();
+          valB = b.category.toLowerCase();
+        }
+        if (valA < valB) return filters.sortOrder === "desc" ? 1 : -1;
+        if (valA > valB) return filters.sortOrder === "desc" ? -1 : 1;
+        return 0;
+      });
+    }
+
+    const csvContent = [
+      headers.map(escapeCsvField).join(","),
+      ...rawRows.map((item) => item.cells.map(escapeCsvField).join(","))
+    ].join("\r\n");
+
+    return { success: true, csv: csvContent };
+  } catch (error: any) {
+    console.error("exportRegistrationsCsv error:", error);
+    return { success: false, error: error.message || "Failed to generate CSV export." };
   }
 }

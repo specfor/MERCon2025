@@ -1,4 +1,5 @@
 import React from "react";
+import { StaticImage } from "gatsby-plugin-image";
 import SectionHeader from "../components/sectionHeader";
 import { createPageHead } from "../components/pageHead";
 
@@ -333,6 +334,21 @@ const RegistrationPage = () => {
             >
               Proceed to Registration & Payment
             </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== EARLY BIRD REGISTRATION CLOSING IMAGE ===== */}
+      <section className="w-full pb-20 px-6">
+        <div className="max-w-4xl mx-auto flex justify-center">
+          <div className="rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+            <StaticImage
+              src="../images/posts/early-bird-reg-closing.jpg"
+              alt="Early Bird Registration Closing"
+              layout="constrained"
+              className="w-full h-auto max-w-full"
+              placeholder="blurred"
+            />
           </div>
         </div>
       </section>

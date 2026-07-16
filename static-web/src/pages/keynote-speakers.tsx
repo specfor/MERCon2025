@@ -1,11 +1,12 @@
 import React from "react";
 import { StaticImage } from "gatsby-plugin-image";
+import { User } from "lucide-react";
 import SectionHeader from "../components/sectionHeader";
 import type { Speaker } from "../components/speakerCard";
 import SpeakerCard from "../components/speakerCard";
 import { createPageHead } from "../components/pageHead";
 
-const speakersData: (Speaker & { desc?: string[] })[] = [
+const speakersData: (Speaker & { desc?: string[]; talkTitle?: string; abstract?: string })[] = [
   {
     name: "Associate Prof. Guohong Tian",
     university:
@@ -43,6 +44,25 @@ const speakersData: (Speaker & { desc?: string[] })[] = [
         className="w-full h-full"
         placeholder="blurred"
       />
+    ),
+  },
+  {
+    name: "Prof. Mahinda Vilathgamuwa",
+    university:
+      "Professor, Queensland University of Technology, Brisbane, Australia",
+    topic: "Dynamic Operating Envelopes",
+    talkTitle: "Dynamic Operating Envelopes for Unbalanced Distribution Networks: Robustness, Fairness, and Open Challenges",
+    abstract: "The rapid electrification of transport, buildings, and industry, together with increasing distributed energy resource (DER) penetration, is transforming electric distribution networks. Traditional static network limits are inadequate for managing the uncertainty and phase imbalance introduced by rooftop PV, battery storage, electric vehicles, and flexible loads, particularly in low-voltage feeders with predominantly single-phase connections. Dynamic Operating Envelopes (DOEs) offer a promising framework for adaptive, uncertainty-aware capacity allocation, but existing methods largely overlook unbalanced three-phase effects and equitable allocation across customers. This talk presents a robust DOE framework for unbalanced three-phase LV networks, computing uncertainty-aware envelopes using sensitivity-based robust optimisation under box uncertainty and integrating these into a chance-constrained scheduling framework for electric vehicle charging that accounts for stochastic departure times and battery degradation. Fairness in envelope allocation across customers is also addressed. The talk concludes by discussing open challenges in DOE deployment, including network modelling assumptions and computational scalability.",
+    desc: [
+      "Mahinda Vilathgamuwa received the B.Sc. degree in electrical engineering from the University of Moratuwa, Moratuwa, Sri Lanka, in 1985, and the Ph.D. degree in electrical engineering from Cambridge University, Cambridge, U.K., in 1993.",
+      "In 1993, he joined the School of Electrical and Electronic Engineering, Nanyang Technological University, Singapore, as a Lecturer and then became an Associate Professor.",
+      "He is currently a Professor with the Queensland University of Technology, Brisbane, Australia. He is an IEEE Fellow and IEEE Power Electronic Society distinguished lecturer.",
+      "His current research interests include power electronic converters, wireless power transfer systems, energy storage, electrical drives, and power quality.",
+    ],
+    image: (
+      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-950 to-emerald-900 text-emerald-400">
+        <User size={64} />
+      </div>
     ),
   },
 ];
@@ -107,8 +127,27 @@ const KeynoteSpeakersPage = () => {
 
                   {/* Description */}
                   <div className="w-full para md:w-1/2">
+                    {speaker.talkTitle && (
+                      <div className="mb-6">
+                        <h4 className="text-lg md:text-xl font-bold text-emerald-400 mb-3 leading-snug">
+                          {speaker.talkTitle}
+                        </h4>
+                        {speaker.abstract && (
+                          <div className="text-gray-300 text-sm md:text-base leading-relaxed text-justify mb-6">
+                            <span className="font-bold text-white">Abstract — </span>
+                            {speaker.abstract}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    
                     {speaker.desc && speaker.desc.length ? (
                       <div className="space-y-5 text-justify">
+                        {speaker.talkTitle && (
+                          <h5 className="text-sm font-bold text-white uppercase tracking-wider mb-2">
+                            Biography
+                          </h5>
+                        )}
                         {speaker.desc.map((para, i) => (
                           <p key={i} className="text-gray-300 para leading-relaxed text-sm md:text-base">
                             {para}

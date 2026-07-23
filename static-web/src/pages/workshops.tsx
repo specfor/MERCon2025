@@ -1,5 +1,5 @@
 import React from "react";
-import { ArrowRight, Book, Code, Cpu, Database, Map, Zap } from "lucide-react";
+import { ArrowRight, Book, Layers, Map } from "lucide-react";
 import SectionHeader from "../components/sectionHeader";
 import WorkshopCard from "../components/workshopCard";
 import type { Workshop } from "../components/workshopCard";
@@ -69,6 +69,30 @@ const workshopsData: WorkshopDetails[] = [
       {
         title: "From Draft to Submission",
         points: ["Submission checklists", "Responding to reviewers"],
+      },
+    ],
+  },
+  {
+    topic: "LiDAR360 Fast Track Workshop",
+    date: "31st July 2026",
+    icon: <Layers size={120} className="text-primary-500" />,
+    color: "bg-emerald-500/20",
+    detailsLink: "/workshop-lidar360-details",
+    paragraphs: [
+      "Take your first step into the world of LiDAR and geospatial analysis with the LiDAR360 Fast Track Workshop at MERCon 2026. Learn industry-standard workflows with practical demonstrations, real datasets, and interactive sessions led by field experts.",
+      "Start your LiDAR journey with practical learning covering point cloud visualization, classification, terrain models, feature extraction, forestry analysis, and data export.",
+    ],
+    subtopics: [
+      {
+        title: "Workshop Highlights",
+        points: [
+          "Point Cloud Visualization",
+          "Classification",
+          "Terrain Models",
+          "Feature Extraction",
+          "Forestry Analysis",
+          "Data Export",
+        ],
       },
     ],
   },

@@ -43,6 +43,11 @@ export const timelineEvents: TimelineEvent[] = [
   },
   {
     id: 8,
+    title: "Paper Registration Deadline",
+    date: "31st July 2026",
+  },
+  {
+    id: 9,
     title: "Conference Dates",
     date: "August 13, 14th 2026",
   },

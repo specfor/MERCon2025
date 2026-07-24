@@ -54,7 +54,7 @@ const RegistrationPage = () => {
                   </th>
                   <th className="py-4 px-6 text-left font-semibold align-top">
                     Normal Registration<br />
-                    <span className="text-sm font-normal text-gray-300">(16th July 2026 onwards)</span>
+                    <span className="text-sm font-normal text-gray-300">(16th July 2026 - 31st July 2026)</span>
                   </th>
                 </tr>
               </thead>

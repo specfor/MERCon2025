@@ -38,13 +38,19 @@ export default function ConferenceSchedulePage() {
           </a>
         </div>
 
-        {/* PDF Viewer Section */}
-        <div className="w-full bg-white/5 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden shadow-2xl" style={{ height: "80vh", minHeight: "600px" }}>
+        {/* PDF Viewer Section (Desktop Only) */}
+        <div className="w-full hidden md:block bg-white/5 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden shadow-2xl" style={{ height: "80vh", minHeight: "600px" }}>
           <iframe
             src={schedulePdf}
             className="w-full h-full border-none"
             title="MERCon 2026 Schedule"
           />
+        </div>
+        
+        {/* Mobile Fallback Message */}
+        <div className="md:hidden text-center text-gray-400 mt-6 px-4">
+          <p>PDF preview is typically not supported on mobile browsers.</p>
+          <p>Please use the download button above to view the schedule.</p>
         </div>
       </div>
     </div>

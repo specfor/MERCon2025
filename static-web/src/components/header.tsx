@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link as GatsbyLink } from "gatsby";
 import { ChevronDown, Menu, X } from "lucide-react";
 import { StaticImage } from "gatsby-plugin-image";
+import ieeeLogo from "../images/logo-ieee.svg";
 
 interface NavLink {
   label: string;
@@ -221,7 +222,7 @@ const MobileNavItem: React.FC<{ link: NavLink; onNavigate: () => void }> = ({ li
 
 // --- Main Header Component ---
 
-export default function Header() {
+export default function Header({ location }: { location?: any }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Prevent scrolling when mobile menu is open
@@ -235,9 +236,24 @@ export default function Header() {
 
   return (
     <>
+        <div className="w-full bg-white relative z-50">
+          <div className="max-w-7xl mx-auto py-3 md:py-0 md:h-16 flex flex-col md:flex-row items-center justify-between px-4 gap-3">
+            <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2 w-full md:w-auto order-2 md:order-1">
+              <a href="https://www.ieee.org/" target="_blank" rel="noopener noreferrer" className="py-1 transition-colors text-gray-800 hover:text-primary-600 rounded-md text-xs md:text-sm font-semibold underline decoration-gray-800/50 hover:decoration-primary-600 underline-offset-4">IEEE.org</a>
+              <a href="https://ieeexplore.ieee.org/" target="_blank" rel="noopener noreferrer" className="py-1 transition-colors text-gray-800 hover:text-primary-600 rounded-md text-xs md:text-sm font-semibold underline decoration-gray-800/50 hover:decoration-primary-600 underline-offset-4">IEEE Xplore Digital Library</a>
+              <a href="https://standards.ieee.org/" target="_blank" rel="noopener noreferrer" className="py-1 transition-colors text-gray-800 hover:text-primary-600 rounded-md text-xs md:text-sm font-semibold underline decoration-gray-800/50 hover:decoration-primary-600 underline-offset-4">IEEE Standards</a>
+              <a href="https://spectrum.ieee.org/" target="_blank" rel="noopener noreferrer" className="py-1 transition-colors text-gray-800 hover:text-primary-600 rounded-md text-xs md:text-sm font-semibold underline decoration-gray-800/50 hover:decoration-primary-600 underline-offset-4">IEEE Spectrum</a>
+              <a href="https://www.ieee.org/sitemap.html" target="_blank" rel="noopener noreferrer" className="py-1 transition-colors text-gray-800 hover:text-primary-600 rounded-md text-xs md:text-sm font-semibold underline decoration-gray-800/50 hover:decoration-primary-600 underline-offset-4">More Sites</a>
+            </div>
+            <div className="flex justify-center md:justify-end w-full md:w-auto order-1 md:order-2">
+              <img src={ieeeLogo} alt="IEEE Logo" className="h-8 md:h-10 w-auto object-contain" />
+            </div>
+          </div>
+        </div>
+
       {/* Navbar Container */}
-      <nav className="fixed top-0 left-0 w-full h-[70px] bg-black/80 backdrop-blur-md border-b border-white/5 z-50 shadow-lg">
-        <div className="h-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex items-center justify-between">
+      <nav className="sticky top-0 left-0 w-full h-[70px] bg-black/80 backdrop-blur-md border-b border-white/5 z-50 shadow-lg">
+        <div className="h-full max-w-7xl mx-auto px-4 md:px-6 lg:px-8 flex items-center justify-between relative">
           {/* Logo */}
           <GatsbyLink to="/" className="shrink-0 relative z-50">
             <StaticImage
@@ -269,26 +285,26 @@ export default function Header() {
             </button>
           </div>
         </div>
-      </nav>
 
-      {/* Mobile Navigation Overlay */}
-      <div
-        className={`fixed inset-0 z-40 bg-black lg:hidden transition-all duration-300 ease-in-out ${
-          mobileMenuOpen ? "opacity-100 visible translate-x-0" : "opacity-0 invisible translate-x-full"
-        }`}
-        style={{ top: "70px", height: "calc(100vh - 70px)" }}
-      >
-        <div className="h-full overflow-y-auto pb-10">
-          <ul className="flex flex-col">
-            {navLinks.map((link, index) => (
-              <MobileNavItem key={index} link={link} onNavigate={() => setMobileMenuOpen(false)} />
-            ))}
-          </ul>
+        {/* Mobile Navigation Overlay */}
+        <div
+          className={`absolute left-0 w-full bg-black lg:hidden transition-all duration-300 ease-in-out ${
+            mobileMenuOpen ? "opacity-100 visible translate-x-0" : "opacity-0 invisible translate-x-full"
+          }`}
+          style={{ top: "70px", height: "calc(100vh - 70px)" }}
+        >
+          <div className="h-full overflow-y-auto pb-10">
+            <ul className="flex flex-col">
+              {navLinks.map((link, index) => (
+                <MobileNavItem key={index} link={link} onNavigate={() => setMobileMenuOpen(false)} />
+              ))}
+            </ul>
 
-          {/* Optional Footer in Mobile Menu */}
-          <div className="p-6 mt-4 text-center text-gray-500 text-xs border-t border-white/10">© MERCon 2026</div>
+            {/* Optional Footer in Mobile Menu */}
+            <div className="p-6 mt-4 text-center text-gray-500 text-xs border-t border-white/10">© MERCon 2026</div>
+          </div>
         </div>
-      </div>
+      </nav>
     </>
   );
 }

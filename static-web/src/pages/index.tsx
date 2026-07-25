@@ -38,6 +38,8 @@ const homeBackground = (
   </div>
 );
 
+import ieeeLogo from "../images/logo-ieee.svg";
+
 const IndexPage: React.FC<PageProps> = () => {
   return (
     <div className="w-full min-h-screen flex flex-col">

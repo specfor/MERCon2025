@@ -269,11 +269,11 @@ const speakerLevels: SpeakerLevel[] = [
         ),
       },
       {
-        name: "Dr. Logeeshan",
+        name: "Dr. Kasun De Silva",
         image: (
           <StaticImage
-            src="../images/committee/Dr.Logeeshan.png"
-            alt="Dr. Logeeshan"
+            src="../images/committee/Dr.Kasun.De.Silva.png"
+            alt="Dr. Kasun De Silva"
             className="w-full h-full"
             objectFit="cover"
           />

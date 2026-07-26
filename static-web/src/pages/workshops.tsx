@@ -16,16 +16,6 @@ interface WorkshopDetails extends Workshop {
 
 const workshopsData: WorkshopDetails[] = [
   {
-    topic: "Hands-On WebGIS - Create Your Own Interactive Maps!",
-    date: "TBA",
-    icon: <Map size={120} className="text-primary-500" />,
-    color: "bg-blue-500/20",
-    paragraphs: [
-      "In this hands-on workshop, participants will learn how to create interactive, web-based maps using powerful tools like Leaflet and OpenLayers. Whether participants are new to GIS or looking to enhance their skills, this workshop will guide them through the essentials of integrating spatial data, adding interactive features, and deploying their own web map online.",
-      "By the end, participants will have a functional, dynamic map to showcase their skills, plus the knowledge to build their own projects in the future.",
-    ],
-  },
-  {
     topic: "Modern Research Paper Writing for Engineering and Computing Researchers",
     targetAudience: [
       "Undergraduate and postgraduate students",
@@ -130,7 +120,7 @@ const WorkshopsPage = () => {
 
           {/* Workshops */}
           <div className="flex flex-col gap-24">
-            {workshopsData.map((workshop, idx) => {
+            {[...workshopsData].reverse().map((workshop, idx) => {
               const isEven = idx % 2 === 0;
 
               return (

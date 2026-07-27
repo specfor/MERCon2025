@@ -302,8 +302,19 @@ const RegistrationPage = () => {
         </div>
       </section>
 
+      {/* ===== IMPORTANT NOTE ===== */}
+      <section className="w-full pt-8 pb-8 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-white/5 backdrop-blur-md rounded-lg p-6 border border-primary-500/30 text-center">
+            <p className="para text-gray-200 text-lg">
+              <strong className="text-primary-400">Important:</strong> Presentation of the accepted paper at the conference (either as an oral or poster presentation) is mandatory for the paper to be included in the conference proceedings and submitted to the IEEE Xplore Digital Library, subject to IEEE publication requirements.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ===== PAYMENT METHOD ===== */}
-      <section className="w-full py-16 px-6">
+      <section className="w-full pb-16 pt-8 px-6">
         <div className="max-w-6xl mx-auto">
           <h3 className="text-2xl font-bold text-white mb-6">Payment Method</h3>
 

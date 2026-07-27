@@ -52,6 +52,13 @@ export default function ConferenceSchedulePage() {
           <p>PDF preview is typically not supported on mobile browsers.</p>
           <p>Please use the download button above to view the schedule.</p>
         </div>
+
+        {/* Note to Authors */}
+        <div className="mt-12 bg-white/5 backdrop-blur-md rounded-lg p-6 border border-primary-500/30 text-center">
+          <p className="para text-gray-200 text-lg">
+            <strong className="text-primary-400">Note to Authors:</strong> All accepted papers scheduled for oral or poster presentation must be presented during the conference. Only presented papers will be included in the conference proceedings and submitted to the IEEE Xplore Digital Library, subject to IEEE publication requirements.
+          </p>
+        </div>
       </div>
     </div>
   );

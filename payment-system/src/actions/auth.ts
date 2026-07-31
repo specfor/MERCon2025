@@ -8,9 +8,14 @@ import { setSession, destroySession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { verifyRecaptcha } from "@/lib/recaptcha";
 import { sendVerificationEmail, sendPasswordResetEmail, sendAdmin2faEmail } from "@/lib/email";
+import { SYSTEM_CLOSING_DATE } from "@/lib/pricing";
 
 export async function initiateRegistration(formData: FormData) {
   try {
+    if (new Date() > SYSTEM_CLOSING_DATE) {
+      return { success: false, error: "Registration is closed. The system closing date has passed." };
+    }
+
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const confirmPassword = formData.get("confirmPassword") as string | null;

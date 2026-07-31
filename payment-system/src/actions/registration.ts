@@ -6,7 +6,7 @@ import fs from "fs/promises";
 import path from "path";
 import { eq, and } from "drizzle-orm";
 import { createPaymentSession, generateInvoiceIdExternal } from "./payment";
-import { calculateAmount } from "@/lib/pricing";
+import { calculateAmount, SYSTEM_CLOSING_DATE } from "@/lib/pricing";
 import { getSession } from "@/lib/auth";
 
 export async function getUsdToLkrRate() {
@@ -24,6 +24,10 @@ export async function submitRegistration(formData: FormData) {
     const session = await getSession();
     if (!session || !session.userId) {
       throw new Error("Unauthorized");
+    }
+
+    if (new Date() > SYSTEM_CLOSING_DATE) {
+      throw new Error("Registration is closed. The system closing date has passed.");
     }
 
     const userId = session.userId;

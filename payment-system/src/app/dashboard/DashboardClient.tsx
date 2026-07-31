@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { submitRegistration, getUsdToLkrRate } from "@/actions/registration";
-import { calculateAmount } from "@/lib/pricing";
+import { calculateAmount, SYSTEM_CLOSING_DATE } from "@/lib/pricing";
 import { logoutUser } from "@/actions/auth";
 import Link from "next/link";
 
@@ -20,6 +20,8 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(errorParam);
+
+  const isSystemClosed = new Date() > SYSTEM_CLOSING_DATE;
 
   const [category, setCategory] = useState(pendingRegistration?.registrationCategory || "FULL");
   const [authorType, setAuthorType] = useState(pendingRegistration?.authorType || "IEEE");
@@ -153,7 +155,7 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
 
           <div className="flex justify-between items-center mb-4 mt-8">
             <h2 className="text-xl font-bold text-white">Past Registrations</h2>
-            {completedRegistrations.length > 0 && (
+            {completedRegistrations.length > 0 && !isSystemClosed && (
               <Link 
                 href="/dashboard/register"
                 className="px-4 py-2 bg-primary-600 hover:bg-primary-500 text-white rounded-lg shadow font-medium transition"
@@ -226,15 +228,17 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
               <div className="space-y-2">
                 <h3 className="text-xl font-bold text-white">No Completed Registrations</h3>
                 <p className="text-gray-400 text-sm max-w-md mx-auto">
-                  You have not completed any conference registrations yet. Click below to start the registration and payment flow.
+                  You have not completed any conference registrations yet. {isSystemClosed ? "Registration is now closed." : "Click below to start the registration and payment flow."}
                 </p>
               </div>
-              <Link
-                href="/dashboard/register"
-                className="inline-block px-6 py-3 bg-primary-600 hover:bg-primary-500 text-white rounded-xl shadow-lg font-semibold transition"
-              >
-                Start New Registration
-              </Link>
+              {!isSystemClosed && (
+                <Link
+                  href="/dashboard/register"
+                  className="inline-block px-6 py-3 bg-primary-600 hover:bg-primary-500 text-white rounded-xl shadow-lg font-semibold transition"
+                >
+                  Start New Registration
+                </Link>
+              )}
             </div>
           )}
         </div>
@@ -457,12 +461,12 @@ export default function DashboardClient({ user, registrations = [], mode = "dash
         <button
           form="reg-form"
           type="submit"
-          disabled={loading || calculatedAmount <= 0}
+          disabled={loading || calculatedAmount <= 0 || isSystemClosed}
           className={`w-full py-4 px-6 rounded-xl text-white font-bold text-lg transition-all shadow-md mt-auto border
-            ${(loading || calculatedAmount <= 0) ? 'bg-white/10 border-white/10 text-gray-500 cursor-not-allowed' : 'bg-primary-600 border-primary-500/50 hover:bg-primary-500 hover:shadow-[0_0_25px_rgba(34,197,94,0.5)] transform hover:-translate-y-0.5'}
+            ${(loading || calculatedAmount <= 0 || isSystemClosed) ? 'bg-white/10 border-white/10 text-gray-500 cursor-not-allowed' : 'bg-primary-600 border-primary-500/50 hover:bg-primary-500 hover:shadow-[0_0_25px_rgba(34,197,94,0.5)] transform hover:-translate-y-0.5'}
           `}
         >
-          {loading ? "Processing..." : "Save & Proceed to Payment"}
+          {loading ? "Processing..." : isSystemClosed ? "Registration Closed" : "Save & Proceed to Payment"}
         </button>
       </div>
     </div>

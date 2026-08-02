@@ -2,7 +2,7 @@ export type RegistrationCategory = "FULL" | "LIMITED" | "PARTICIPANT";
 export type AuthorType = "IEEE" | "NON_IEEE" | "STUDENT_IEEE" | "STUDENT_NON_IEEE" | "NON_PRESENTING";
 
 export const EARLY_BIRD_DEADLINE = new Date("2026-07-16T00:00:00.000Z"); // Early Bird ends before 16th July 2026
-export const SYSTEM_CLOSING_DATE = new Date("2026-08-01T17:30:00.000+05:30"); // System closes at 5.30pm 1st of August 2026
+export const SYSTEM_CLOSING_DATE = new Date("2026-08-02T14:00:00.000+05:30"); // System closes at 2.00pm 2nd of August 2026
 
 export const PRICING = {
   FULL: {

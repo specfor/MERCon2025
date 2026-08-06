@@ -86,6 +86,17 @@ const workshopsData: WorkshopDetails[] = [
       },
     ],
   },
+  {
+    topic: "Power System Fault Analysis Using PSCAD: A Practical Introduction to Electromagnetic Transient Simulations",
+    date: "06.08.2026",
+    icon: <Book size={120} className="text-blue-500" />,
+    color: "bg-blue-500/20",
+    detailsLink: "/workshop-pscad-details",
+    paragraphs: [
+      "The increasing complexity of modern power systems, driven by renewable energy integration, power electronic converters, and advanced protection technologies, has created a growing need for detailed transient analysis techniques. Electromagnetic Transient (EMT) simulations provide engineers and researchers with the ability to investigate system behavior during fast dynamic events that cannot be adequately captured using conventional steady-state or phasor-domain methods.",
+      "PSCAD/EMTDC is one of the most widely adopted EMT simulation tools used by utilities, consultants, equipment manufacturers, and researchers worldwide for analyzing power system transients, protection performance, switching events, and fault conditions. This workshop will introduce participants to the fundamentals of electromagnetic transient simulations and demonstrate the practical application of PSCAD for detailed power system fault analysis."
+    ],
+  },
 ];
 
 const WorkshopsPage = () => {

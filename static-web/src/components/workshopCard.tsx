@@ -8,6 +8,7 @@ export interface Workshop {
   icon?: React.ReactNode;
   color?: string;
   detailsLink?: string;
+  registrationLink?: string;
 }
 
 const WorkshopCard: React.FC<{ workshop: Workshop }> = ({ workshop }) => {
@@ -63,6 +64,19 @@ const WorkshopCard: React.FC<{ workshop: Workshop }> = ({ workshop }) => {
               <span className="para">More Details</span>
               <ExternalLink className="w-3.5 h-3.5" />
             </Link>
+          )}
+
+          {/* Registration Button */}
+          {workshop.registrationLink && (
+            <a
+              href={workshop.registrationLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 px-5 py-2 text-xs bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-600 hover:scale-105 transition-all duration-300 shadow-md hover:shadow-blue-500/50"
+            >
+              <span className="para">Register Here</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
           )}
         </div>
       </div>

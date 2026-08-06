@@ -60,9 +60,13 @@ const speakersData: (Speaker & { desc?: string[]; talkTitle?: string; abstract?:
       "His current research interests include power electronic converters, wireless power transfer systems, energy storage, electrical drives, and power quality.",
     ],
     image: (
-      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-emerald-950 to-emerald-900 text-emerald-400">
-        <User size={64} />
-      </div>
+          <StaticImage
+        src="../images/keynote-speakers/Prof.Mahinda.Vilathgamuwa.png"
+        alt="Prof. Kasun Hewage"
+        objectFit="cover"
+        className="w-full h-full"
+        placeholder="blurred"
+      />
     ),
   },
 ];

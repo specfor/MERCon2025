@@ -1,12 +1,19 @@
 import React from "react";
 import { StaticImage } from "gatsby-plugin-image";
-import { User } from "lucide-react";
+import { User, Calendar, Clock, MapPin } from "lucide-react";
 import SectionHeader from "../components/sectionHeader";
 import type { Speaker } from "../components/speakerCard";
 import SpeakerCard from "../components/speakerCard";
 import { createPageHead } from "../components/pageHead";
 
-const speakersData: (Speaker & { desc?: string[]; talkTitle?: string; abstract?: string })[] = [
+const speakersData: (Speaker & { 
+  desc?: string[]; 
+  talkTitle?: string; 
+  abstract?: string;
+  date?: string;
+  time?: string;
+  venue?: string;
+})[] = [
   {
     name: "Associate Prof. Guohong Tian",
     university:
@@ -31,6 +38,11 @@ const speakersData: (Speaker & { desc?: string[]; talkTitle?: string; abstract?:
     name: "Prof. Kasun Hewage",
     university:
       "FortisBC Smart Energy Chair; Associate Director, Clean Energy Research Centre (CERC), University of British Columbia (UBC), Canada",
+    topic: "Life cycle thinking in Engineering Decisions and Public Policy - A Canadian Perspective.",
+    talkTitle: "Life cycle thinking in Engineering Decisions and Public Policy - A Canadian Perspective.",
+    date: "13th August",
+    time: "11:00 am",
+    venue: "Civil Auditorium",
     desc: [
       "Prof. Kasun Hewage is a Full-Professor and FortisBC Smart Energy Chair in the School of Engineering at the University of British Columbia (UBC). He is also the Associate Director of UBC’s Clean Energy Research Centre (CERC) and Director of the Life Cycle Management Laboratory (LCML).",
       "His research focuses on integrating life cycle thinking into urban development, energy policy, and infrastructure planning, enabling governments and infrastructure developers to achieve low-impact, net-zero development.",
@@ -136,6 +148,30 @@ const KeynoteSpeakersPage = () => {
                         <h4 className="text-lg md:text-xl font-bold text-emerald-400 mb-3 leading-snug">
                           {speaker.talkTitle}
                         </h4>
+                        
+                        {(speaker.date || speaker.time || speaker.venue) && (
+                          <div className="flex flex-wrap gap-4 md:gap-6 text-sm text-gray-400 mb-5">
+                            {speaker.date && (
+                              <div className="flex items-center gap-1.5">
+                                <Calendar size={16} className="text-emerald-500" />
+                                <span>{speaker.date}</span>
+                              </div>
+                            )}
+                            {speaker.time && (
+                              <div className="flex items-center gap-1.5">
+                                <Clock size={16} className="text-emerald-500" />
+                                <span>{speaker.time}</span>
+                              </div>
+                            )}
+                            {speaker.venue && (
+                              <div className="flex items-center gap-1.5">
+                                <MapPin size={16} className="text-emerald-500" />
+                                <span>{speaker.venue}</span>
+                              </div>
+                            )}
+                          </div>
+                        )}
+
                         {speaker.abstract && (
                           <div className="text-gray-300 text-sm md:text-base leading-relaxed text-justify mb-6">
                             <span className="font-bold text-white">Abstract — </span>

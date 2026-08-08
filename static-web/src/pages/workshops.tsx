@@ -108,6 +108,17 @@ const workshopsData: WorkshopDetails[] = [
       "Participants will engage in guided problem-solving and demonstrations, gaining practical experience that bridges the gap between theoretical fundamentals and real-world engineering applications."
     ],
   },
+  {
+    topic: "Communicating STEM Research Clearly: Academic Writing, Scientific Discourse and Presentation Skills",
+    date: "12th August 2026",
+    icon: <Book size={120} className="text-teal-500" />,
+    color: "bg-teal-500/20",
+    detailsLink: "/workshop-stem-research-details",
+    paragraphs: [
+      "This workshop is designed to help you write clearer STEM abstracts and research arguments using effective rhetorical organization. You will learn to use technical vocabulary and disciplinary language with greater clarity, precision, and readability.",
+      "The session also covers communicating research findings appropriately, presenting complex research ideas clearly to both specialist and non-specialist audiences, and improving conference presentation and visual communication choices for STEM research."
+    ],
+  },
 ];
 
 const WorkshopsPage = () => {

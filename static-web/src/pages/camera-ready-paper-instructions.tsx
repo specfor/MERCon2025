@@ -23,6 +23,10 @@ const preparationSteps = [
     description: "Prepare the final manuscript using the official IEEE conference formatting templates.",
   },
   {
+    title: "Remove the copyright stamp",
+    description: "Remove the copyright stamp from the bottom left-hand corner of the first page in the IEEE template.",
+  },
+  {
     title: "Proofread the source document thoroughly",
     description:
       "Authors must thoroughly proofread their source document before creating the final PDF to ensure that no further revisions are required. ",

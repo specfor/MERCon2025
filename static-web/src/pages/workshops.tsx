@@ -88,6 +88,17 @@ const workshopsData: WorkshopDetails[] = [
       "The session also covers communicating research findings appropriately, presenting complex research ideas clearly to both specialist and non-specialist audiences, and improving conference presentation and visual communication choices for STEM research."
     ],
   },
+  {
+    topic: "Visualize Your Science – Turning Research into Impactful Visual Narratives through Concepts, Literature, and Methodology",
+    date: "14th August 2026",
+    banner: <StaticImage src="../images/workshops/workshop6.jpeg" alt="Visualize Your Science" className="w-full h-full object-cover" />,
+    color: "bg-indigo-500/20",
+    detailsLink: "/workshop-visualize-science-details",
+    paragraphs: [
+      "Develop skills to visualize research concepts, literature, and methodologies. This workshop will guide participants in turning abstract ideas into meaningful research visuals, mapping knowledge networks, and communicating research approaches clearly.",
+      "Participants will learn how to apply practical visualization tools and adopt visual thinking approaches to solve complex engineering research problems."
+    ],
+  },
 ];
 
 const WorkshopsPage = () => {

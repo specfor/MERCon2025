@@ -15,9 +15,36 @@ const speakersData: (Speaker & {
   venue?: string;
 })[] = [
   {
+    name: "Prof. Kasun Hewage",
+    university:
+      "FortisBC Smart Energy Chair; Associate Director, Clean Energy Research Centre (CERC), University of British Columbia (UBC), Canada",
+    talkTitle: "Life cycle thinking in Engineering Decisions and Public Policy - A Canadian Perspective.",
+    date: "13th August",
+    time: "11:00 am",
+    venue: "TMLE Auditorium, University of Moratuwa",
+    desc: [
+      "Prof. Kasun Hewage is a Full-Professor and FortisBC Smart Energy Chair in the School of Engineering at the University of British Columbia (UBC). He is also the Associate Director of UBC’s Clean Energy Research Centre (CERC) and Director of the Life Cycle Management Laboratory (LCML).",
+      "His research focuses on integrating life cycle thinking into urban development, energy policy, and infrastructure planning, enabling governments and infrastructure developers to achieve low-impact, net-zero development.",
+      "Prof. Hewage has authored over 300 publications in peer-reviewed journals, book chapters, and international conference proceedings. He is a Professional Engineer in British Columbia, Canada, and a Fellow of multiple engineering institutions.",
+    ],
+    image: (
+      <StaticImage
+        src="../images/keynote-speakers/prof.kasun.hewage.png"
+        alt="Prof. Kasun Hewage"
+        objectFit="contain"
+        className="w-full h-full"
+        placeholder="blurred"
+      />
+    ),
+  },
+  {
     name: "Associate Prof. Guohong Tian",
     university:
       "Associate Professor (Reader) in Automotive Engineering, School of Engineering, University of Surrey, United Kingdom",
+    talkTitle: "Beyond Vehicle Retrofit: An Integrated Ecosystem for Tuk Tuk Electrification",
+    date: "14th August 2026",
+    time: "11:30 AM",
+    venue: "Civil Auditorium, University of Moratuwa",
     desc: [
       "Associate Prof. Guohong Tian is an Associate Professor (Reader) in Automotive Engineering at the School of Engineering, University of Surrey. His research focuses on advanced internal combustion engine technologies, alternative and sustainable fuels, battery thermal management, and vehicle electrification.",
       "Associate Prof. Tian has collaborated extensively with leading organisations including Jaguar Land Rover, Cummins, BP, Shell, JCB, and Continental, bridging fundamental research with industrial applications. He leads and contributes to numerous research and development projects funded by EPSRC, Innovate UK, the EU, the Royal Society, and industry partners. Currently, he is spearheading a major demonstration project in Colombo aimed at electrifying three-wheelers.",
@@ -35,35 +62,13 @@ const speakersData: (Speaker & {
     ),
   },
   {
-    name: "Prof. Kasun Hewage",
-    university:
-      "FortisBC Smart Energy Chair; Associate Director, Clean Energy Research Centre (CERC), University of British Columbia (UBC), Canada",
-    topic: "Life cycle thinking in Engineering Decisions and Public Policy - A Canadian Perspective.",
-    talkTitle: "Life cycle thinking in Engineering Decisions and Public Policy - A Canadian Perspective.",
-    date: "13th August",
-    time: "11:00 am",
-    venue: "Civil Auditorium",
-    desc: [
-      "Prof. Kasun Hewage is a Full-Professor and FortisBC Smart Energy Chair in the School of Engineering at the University of British Columbia (UBC). He is also the Associate Director of UBC’s Clean Energy Research Centre (CERC) and Director of the Life Cycle Management Laboratory (LCML).",
-      "His research focuses on integrating life cycle thinking into urban development, energy policy, and infrastructure planning, enabling governments and infrastructure developers to achieve low-impact, net-zero development.",
-      "Prof. Hewage has authored over 300 publications in peer-reviewed journals, book chapters, and international conference proceedings. He is a Professional Engineer in British Columbia, Canada, and a Fellow of multiple engineering institutions.",
-    ],
-    image: (
-      <StaticImage
-        src="../images/keynote-speakers/prof.kasun.hewage.png"
-        alt="Prof. Kasun Hewage"
-        objectFit="contain"
-        className="w-full h-full"
-        placeholder="blurred"
-      />
-    ),
-  },
-  {
     name: "Prof. Mahinda Vilathgamuwa",
     university:
       "Professor, Queensland University of Technology, Brisbane, Australia",
-    topic: "Dynamic Operating Envelopes",
     talkTitle: "Dynamic Operating Envelopes for Unbalanced Distribution Networks: Robustness, Fairness, and Open Challenges",
+    date: "14th August 2026",
+    time: "1:30 PM",
+    venue: "Civil Auditorium, University of Moratuwa",
     abstract: "The rapid electrification of transport, buildings, and industry, together with increasing distributed energy resource (DER) penetration, is transforming electric distribution networks. Traditional static network limits are inadequate for managing the uncertainty and phase imbalance introduced by rooftop PV, battery storage, electric vehicles, and flexible loads, particularly in low-voltage feeders with predominantly single-phase connections. Dynamic Operating Envelopes (DOEs) offer a promising framework for adaptive, uncertainty-aware capacity allocation, but existing methods largely overlook unbalanced three-phase effects and equitable allocation across customers. This talk presents a robust DOE framework for unbalanced three-phase LV networks, computing uncertainty-aware envelopes using sensitivity-based robust optimisation under box uncertainty and integrating these into a chance-constrained scheduling framework for electric vehicle charging that accounts for stochastic departure times and battery degradation. Fairness in envelope allocation across customers is also addressed. The talk concludes by discussing open challenges in DOE deployment, including network modelling assumptions and computational scalability.",
     desc: [
       "Mahinda Vilathgamuwa received the B.Sc. degree in electrical engineering from the University of Moratuwa, Moratuwa, Sri Lanka, in 1985, and the Ph.D. degree in electrical engineering from Cambridge University, Cambridge, U.K., in 1993.",

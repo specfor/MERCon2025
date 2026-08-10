@@ -1,5 +1,7 @@
 import React from "react";
-import { ArrowRight, Book, Layers, Map } from "lucide-react";
+import { Link } from "gatsby";
+import { ArrowRight, Book, Layers, Map, Calendar, ExternalLink } from "lucide-react";
+import { StaticImage } from "gatsby-plugin-image";
 import SectionHeader from "../components/sectionHeader";
 import WorkshopCard from "../components/workshopCard";
 import type { Workshop } from "../components/workshopCard";
@@ -22,50 +24,17 @@ const workshopsData: WorkshopDetails[] = [
       "Early-career researchers, PhD candidates, academics, and industry researchers",
     ],
     date: "30th march 2026",
-    icon: <Book size={120} className="text-primary-500" />,
+    banner: <StaticImage src="../images/workshop1.jpeg" alt="Modern Research Paper Writing" className="w-full h-full object-cover" />,
     color: "bg-green-500/20",
     detailsLink: "/workshop-paper-writing-details",
     paragraphs: [
       "This workshop is designed to equip researchers with practical, up-to-date skills for writing high-quality research papers aligned with international conference and journal standards. With increasing expectations on clarity, reproducibility, visual quality, and ethical use of AI tools, effective research communication has become as critical as technical novelty. Aligned with the requirements of major engineering and computing conferences, the workshop provides a hands-on, end-to-end guide to research paper preparation from structuring ideas to producing camera-ready manuscripts using professional tools.",
     ],
-    subtopics: [
-      {
-        title: "Modern Research Paper Writing Techniques",
-        points: [
-          "Paper structure, problem formulation, contributions",
-          "Common reviewer expectations and rejection reasons",
-        ],
-      },
-      {
-        title: "Conference Template Usage",
-        points: ["IEEE/ACM/Springer templates", "Page limits and camera-ready compliance"],
-      },
-      {
-        title: "LaTeX for Research Writing",
-        points: ["Equations, references, BibTeX", "Overleaf and local workflows"],
-      },
-      {
-        title: "Figure and Table Generation",
-        points: ["MATLAB, Python, TikZ, vector graphics", "Reproducibility and formatting standards"],
-      },
-      {
-        title: "Online Research Tools",
-        points: ["Reference managers, collaboration tools", "Plagiarism checking and version control"],
-      },
-      {
-        title: "Responsible Use of AI",
-        points: ["AI-assisted writing and limitations", "Conference/journal AI policies and ethical boundaries"],
-      },
-      {
-        title: "From Draft to Submission",
-        points: ["Submission checklists", "Responding to reviewers"],
-      },
-    ],
   },
   {
     topic: "LiDAR360 Fast Track Workshop",
     date: "31st July 2026",
-    icon: <Layers size={120} className="text-primary-500" />,
+    banner: <StaticImage src="../images/workshop2.png" alt="LiDAR360 Fast Track Workshop" className="w-full h-full object-cover" />,
     color: "bg-emerald-500/20",
     detailsLink: "/workshop-lidar360-details",
     paragraphs: [
@@ -89,7 +58,7 @@ const workshopsData: WorkshopDetails[] = [
   {
     topic: "Power System Fault Analysis Using PSCAD: A Practical Introduction to Electromagnetic Transient Simulations",
     date: "06.08.2026",
-    icon: <Book size={120} className="text-primary-500" />,
+    banner: <StaticImage src="../images/workshop3.jpeg" alt="Power System Fault Analysis Using PSCAD" className="w-full h-full object-cover" />,
     color: "bg-blue-500/20",
     detailsLink: "/workshop-pscad-details",
     paragraphs: [
@@ -100,7 +69,7 @@ const workshopsData: WorkshopDetails[] = [
   {
     topic: "Optimization for Complex Engineering Problems",
     date: "12th August 2026",
-    icon: <Layers size={120} className="text-primary-500" />,
+    banner: <StaticImage src="../images/workshops/workshop4.jpeg" alt="Optimization for Complex Engineering Problems" className="w-full h-full object-cover" />,
     color: "bg-purple-500/20",
     detailsLink: "/workshop-optimization-details",
     paragraphs: [
@@ -111,7 +80,7 @@ const workshopsData: WorkshopDetails[] = [
   {
     topic: "Communicating STEM Research Clearly: Academic Writing, Scientific Discourse and Presentation Skills",
     date: "12th August 2026",
-    icon: <Book size={120} className="text-teal-500" />,
+    banner: <StaticImage src="../images/workshops/workshop5.jpeg" alt="Communicating STEM Research Clearly" className="w-full h-full object-cover" />,
     color: "bg-teal-500/20",
     detailsLink: "/workshop-stem-research-details",
     paragraphs: [
@@ -167,7 +136,20 @@ const WorkshopsPage = () => {
                   <WorkshopCard workshop={workshop} />
 
                   {/* Description */}
-                  <div className="w-full para md:w-1/2">
+                  <div className="w-full para md:w-1/2 flex flex-col items-start">
+                    {/* Topic Title */}
+                    <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 para text-left">
+                      {workshop.topic}
+                    </h3>
+
+                    {/* Date Badge */}
+                    {workshop.date && (
+                      <div className="flex items-center gap-2 px-4 py-2 bg-gray-800/50 rounded-full border border-primary-500/30 text-primary-400 font-medium text-sm backdrop-blur-sm mb-6">
+                        <Calendar size={14} />
+                        <span className="uppercase tracking-wide">{workshop.date}</span>
+                      </div>
+                    )}
+
                     {/* Paragraphs */}
                     {workshop.paragraphs && workshop.paragraphs.length > 0 && (
                       <div className="space-y-5 mb-6">
@@ -219,6 +201,31 @@ const WorkshopsPage = () => {
                         ))}
                       </div>
                     )}
+
+                    {/* Action Buttons */}
+                    <div className="mt-8 flex flex-wrap gap-4 w-full">
+                      {workshop.detailsLink && (
+                        <Link
+                          to={workshop.detailsLink}
+                          className="inline-flex items-center gap-2 px-6 py-3 bg-primary-500 text-white font-semibold rounded-full hover:bg-primary-600 hover:scale-105 transition-all duration-300 shadow-md hover:shadow-primary-500/50"
+                        >
+                          <span className="para">More Details</span>
+                          <ExternalLink className="w-4 h-4" />
+                        </Link>
+                      )}
+
+                      {workshop.registrationLink && (
+                        <a
+                          href={workshop.registrationLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 text-white font-semibold rounded-full hover:bg-blue-600 hover:scale-105 transition-all duration-300 shadow-md hover:shadow-blue-500/50"
+                        >
+                          <span className="para">Register Here</span>
+                          <ExternalLink className="w-4 h-4" />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               );

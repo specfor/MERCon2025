@@ -3,7 +3,7 @@ import { createPageHead } from "../components/pageHead";
 import SectionHeader from "../components/sectionHeader";
 import { Download } from "lucide-react";
 // Import the PDF file to get its public URL
-import schedulePdf from "../images/MERCon 2026 Schedule-V3.pdf";
+import schedulePdf from "../images/MERCon 2026 Schedule-V5.pdf";
 
 export default function ConferenceSchedulePage() {
   return (
@@ -30,7 +30,7 @@ export default function ConferenceSchedulePage() {
         <div className="mt-8 mb-12 flex justify-center">
           <a
             href={schedulePdf}
-            download="MERCon_2026_Schedule.pdf"
+            download="MERCon_2026_Schedule_V5.pdf"
             className="flex items-center gap-2 px-8 py-4 bg-primary-600 hover:bg-primary-500 transition-all text-white font-semibold rounded-full shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:shadow-[0_0_25px_rgba(34,197,94,0.5)] transform hover:scale-105"
           >
             <Download size={20} />

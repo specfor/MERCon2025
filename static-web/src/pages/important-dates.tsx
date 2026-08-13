@@ -5,6 +5,7 @@ interface TimelineEvent {
   id: number;
   title: string;
   date: string;
+  note?: string;
 }
 
 export const timelineEvents: TimelineEvent[] = [
@@ -22,16 +23,17 @@ export const timelineEvents: TimelineEvent[] = [
   {
     id: 4,
     title: "Notification of Acceptance (extended due to large number of submissions)",
-    date: "27th June 2026",
+    date: "5th July 2026",
   },
   {
     id: 5,
     title: "Earlybird Registration Open",
-    date: "29th June 2026",
+    date: "5th July 2026",
   },
   {
     id: 6,
     title: "Camera Ready Paper Deadline",
+    note: "Please see the EDAS submission page for paper-specific deadlines.",
     date: "6th July 2026",
   },
   {
@@ -41,6 +43,11 @@ export const timelineEvents: TimelineEvent[] = [
   },
   {
     id: 8,
+    title: "Paper Registration Deadline",
+    date: "31st July 2026",
+  },
+  {
+    id: 9,
     title: "Conference Dates",
     date: "August 13, 14th 2026",
   },
@@ -138,6 +145,11 @@ const ImportantDatesPage: React.FC = () => {
                           </svg>
                           <span>{event.date}</span>
                         </div>
+                        {event.note && (
+                          <p className="mt-2 text-sm text-gray-400 font-normal">
+                            {event.note}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>

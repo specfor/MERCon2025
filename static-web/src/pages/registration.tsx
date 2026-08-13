@@ -1,4 +1,5 @@
 import React from "react";
+import { StaticImage } from "gatsby-plugin-image";
 import SectionHeader from "../components/sectionHeader";
 import { createPageHead } from "../components/pageHead";
 
@@ -49,11 +50,11 @@ const RegistrationPage = () => {
                   <th className="py-4 px-6 text-left font-semibold border-r border-white/10 align-top">Category</th>
                   <th className="py-4 px-6 text-left font-semibold border-r border-white/10 align-top">
                     Early Bird Registration<br />
-                    <span className="text-sm font-normal text-gray-300">(29th June 2026 – 15th July 2026)</span>
+                    <span className="text-sm font-normal text-gray-300">(5th July 2026 - 15th July 2026)</span>
                   </th>
                   <th className="py-4 px-6 text-left font-semibold align-top">
                     Normal Registration<br />
-                    <span className="text-sm font-normal text-gray-300">(16th July 2026 onwards)</span>
+                    <span className="text-sm font-normal text-gray-300">(16th July 2026 - 31st July 2026)</span>
                   </th>
                 </tr>
               </thead>
@@ -301,16 +302,29 @@ const RegistrationPage = () => {
         </div>
       </section>
 
+      {/* ===== IMPORTANT NOTE ===== */}
+      <section className="w-full pt-8 pb-8 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-white/5 backdrop-blur-md rounded-lg p-6 border border-primary-500/30 text-center">
+            <p className="para text-gray-200 text-lg">
+              <strong className="text-primary-400">Important:</strong> Presentation of the accepted paper at the conference (either as an oral or poster presentation) is mandatory for the paper to be included in the conference proceedings and submitted to the IEEE Xplore Digital Library, subject to IEEE publication requirements.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ===== PAYMENT METHOD ===== */}
-      <section className="w-full py-16 px-6">
+      <section className="w-full pb-16 pt-8 px-6">
         <div className="max-w-6xl mx-auto">
           <h3 className="text-2xl font-bold text-white mb-6">Payment Method</h3>
 
           <div className="bg-white/5 backdrop-blur-md rounded-lg p-8 border border-white/10 text-center">
             <p className="para text-gray-300 mb-4 text-lg">
-              Payments will be accepted via <strong>Visa, Mastercard, and UnionPay</strong> cards.
+              Payments are securely processed via the official MERCon Payment Gateway.
             </p>
-            <p className="para text-primary-400 font-semibold text-lg">Payment gateway will be linked soon.</p>
+            <p className="para text-primary-400 font-semibold text-lg">
+              We accept <strong>Visa, Mastercard, and UnionPay</strong> cards.
+            </p>
           </div>
         </div>
       </section>
@@ -321,19 +335,31 @@ const RegistrationPage = () => {
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-12 border border-white/10">
             <h3 className="text-2xl font-bold text-white mb-6">Ready to Register?</h3>
 
-            <p className="para text-gray-300 mb-8 text-lg">Coming Soon</p>
-            {/* <p className="para text-gray-300 mb-8 text-lg">
-              Click the button below to proceed with registration.
-            </p> */}
+            <p className="para text-gray-300 mb-8 text-lg">
+              Click the button below to proceed to the registration and payment system.
+            </p>
 
-            {/* <a
-              href="https://forms.gle/bnYtSPhywcDxGE5D6"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-12 py-4 bg-primary-500 text-white font-semibold text-lg rounded-full hover:bg-primary-600 transition-all duration-300 shadow-lg hover:scale-105"
+            <a
+              href="https://pay.mercon.uom.lk"
+              className="inline-block px-12 py-4 bg-primary-500 text-white font-bold text-lg rounded-full hover:bg-primary-600 transition-all duration-300 shadow-[0_0_15px_rgba(34,197,94,0.3)] hover:shadow-[0_0_25px_rgba(34,197,94,0.5)] hover:scale-105"
             >
-              Register Here
-            </a> */}
+              Proceed to Registration & Payment
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== EARLY BIRD REGISTRATION CLOSING IMAGE ===== */}
+      <section className="w-full pb-20 px-6">
+        <div className="max-w-4xl mx-auto flex justify-center">
+          <div className="rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_15px_rgba(255,255,255,0.05)]">
+            <StaticImage
+              src="../images/posts/early-bird-reg-closing.jpg"
+              alt="Early Bird Registration Closing"
+              layout="constrained"
+              className="w-full h-auto max-w-full"
+              placeholder="blurred"
+            />
           </div>
         </div>
       </section>

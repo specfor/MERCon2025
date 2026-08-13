@@ -3,7 +3,8 @@
 import { timingSafeEqual } from "crypto";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
-import { registrations, paymentAttempts } from "@/db/schema";
+import { registrations, paymentAttempts, users } from "@/db/schema";
+import { sendPaymentConfirmationEmail } from "@/lib/email";
 
 // Base URL for the UoM IPG. Defaults to production; set UOM_IPG_BASE to
 // "https://pay.uom.lk/api/test/payments" for the CITeS test environment.
@@ -72,6 +73,8 @@ export async function createPaymentSession(params: CreateSessionParams) {
       nicPassport: params.nicPassport || "",
       address: params.address || "",
       description: params.description || "MERCon 2026 Registration",
+      invoice_id: params.invoiceId,
+      invoiceFlag: true,
       order_id: params.orderId,
       currency: params.currency,
       // Carry the invoice id on the return URL so the return page can verify even
@@ -234,7 +237,7 @@ export async function verifyPaymentResult(invoiceId: string, resultIndicator?: s
       return {
         success: true as const,
         message: "Payment successful",
-        referenceTag: reg.referenceTag,
+        invoiceId: reg.invoiceId,
         alreadyPaid: true,
       };
     }
@@ -311,13 +314,43 @@ export async function verifyPaymentResult(invoiceId: string, resultIndicator?: s
 
     await db
       .update(registrations)
-      .set({ paymentStatus: "completed", paidAt: new Date() })
-      .where(eq(registrations.id, reg.id));
+      .set({
+        paymentStatus: "completed",
+        paidAt: new Date(),
+        invoiceId: attempt.invoiceId,
+      })
+      .where(eq(registrations.id, attempt.registrationId));
+
+    // Send payment confirmation email
+    try {
+      const [user] = await db
+        .select()
+        .from(users)
+        .where(eq(users.id, reg.userId))
+        .limit(1);
+
+      if (user) {
+        await sendPaymentConfirmationEmail({
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          title: user.title || "",
+          invoiceId: attempt.invoiceId || reg.invoiceId || "N/A",
+          amount: reg.amount,
+          currency: reg.currency,
+          registrationCategory: reg.registrationCategory,
+          authorType: reg.authorType,
+          paidAt: new Date(),
+        });
+      }
+    } catch (mailErr) {
+      console.error("Failed to trigger payment confirmation email:", mailErr);
+    }
 
     return {
       success: true as const,
-      message: (data?.message as string) || "Payment successful",
-      referenceTag: reg.referenceTag,
+      message: "Payment successful",
+      invoiceId: attempt.invoiceId,
     };
   } catch (error: unknown) {
     const message = error instanceof Error ? error.message : "Unknown error";

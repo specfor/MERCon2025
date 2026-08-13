@@ -112,16 +112,7 @@ export default function Footer() {
               <FacebookIcon className="w-5 h-5" />
             </a>
             <a
-              href="https://twitter.com/merconeru"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Twitter"
-              className="inline-flex items-center justify-center w-10 h-10 bg-primary-500/10 border-2 border-primary-500 rounded-full text-primary-500 hover:text-dark-900 hover:-translate-y-1 transition-all"
-            >
-              <XIcon className="w-5 h-5" />
-            </a>
-            <a
-              href="https://www.linkedin.com/showcase/erumercon"
+              href="https://www.linkedin.com/company/mercon-moratuwa-engineering-research-conference/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"

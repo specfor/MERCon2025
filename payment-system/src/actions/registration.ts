@@ -1,14 +1,23 @@
 "use server";
 
 import { db } from "@/db";
-import { registrations, users, paymentAttempts } from "@/db/schema";
+import { registrations, users, paymentAttempts, settings } from "@/db/schema";
 import fs from "fs/promises";
 import path from "path";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { createPaymentSession, generateInvoiceIdExternal } from "./payment";
-import { calculateAmount } from "@/lib/pricing";
-import { generateReferenceTag } from "@/lib/reference";
+import { calculateAmount, SYSTEM_CLOSING_DATE } from "@/lib/pricing";
 import { getSession } from "@/lib/auth";
+
+export async function getUsdToLkrRate() {
+  try {
+    const [setting] = await db.select().from(settings).where(eq(settings.key, "usd_to_lkr_rate")).limit(1);
+    const rate = setting ? Number(setting.value) : 300;
+    return { success: true, rate };
+  } catch {
+    return { success: true, rate: 300 };
+  }
+}
 
 export async function submitRegistration(formData: FormData) {
   try {
@@ -17,13 +26,16 @@ export async function submitRegistration(formData: FormData) {
       throw new Error("Unauthorized");
     }
 
+    if (new Date() > SYSTEM_CLOSING_DATE) {
+      throw new Error("Registration is closed. The system closing date has passed.");
+    }
+
     const userId = session.userId;
     
-    // Check if the user already has a registration that is completed
-    const [existingRegistration] = await db.select().from(registrations).where(eq(registrations.userId, userId)).limit(1);
-    if (existingRegistration && existingRegistration.paymentStatus === "completed") {
-      throw new Error("Registration is already completed and cannot be modified.");
-    }
+    // Find an existing pending registration to update, otherwise a new one will be created
+    const [existingRegistration] = await db.select().from(registrations)
+      .where(and(eq(registrations.userId, userId), eq(registrations.paymentStatus, "pending")))
+      .limit(1);
     
     const [user] = await db.select().from(users).where(eq(users.id, userId)).limit(1);
     
@@ -48,7 +60,12 @@ export async function submitRegistration(formData: FormData) {
     const uploadsDir = path.join(process.cwd(), "uploads", "proofs");
     await fs.mkdir(uploadsDir, { recursive: true });
 
+    const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5 MB
+
     if (ieeeProofFile && ieeeProofFile.size > 0) {
+      if (ieeeProofFile.size > MAX_FILE_SIZE) {
+        throw new Error("IEEE membership proof document exceeds the maximum limit of 5MB.");
+      }
       const arrayBuffer = await ieeeProofFile.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       const ext = path.extname(ieeeProofFile.name);
@@ -59,6 +76,9 @@ export async function submitRegistration(formData: FormData) {
     }
 
     if (studentProofFile && studentProofFile.size > 0) {
+      if (studentProofFile.size > MAX_FILE_SIZE) {
+        throw new Error("Student ID proof document exceeds the maximum limit of 5MB.");
+      }
       const arrayBuffer = await studentProofFile.arrayBuffer();
       const buffer = Buffer.from(arrayBuffer);
       const ext = path.extname(studentProofFile.name);
@@ -75,6 +95,23 @@ export async function submitRegistration(formData: FormData) {
       throw new Error("Student ID proof document is required.");
     }
 
+    if (isStudent) {
+      const paperList = (paperIds || "").split(/[\s,]+/).filter((id: string) => id.trim() !== "");
+      if (paperList.length > 1) {
+        throw new Error("A maximum of 1 paper is allowed for student registrations.");
+      }
+    }
+
+    if (["FULL", "LIMITED"].includes(registrationCategory) && authorType !== "NON_PRESENTING") {
+      if (!paperIds || paperIds.trim() === "") {
+        throw new Error("At least one Paper ID is required.");
+      }
+      const paperList = paperIds.split(/[\s,]+/).filter((id: string) => id.trim() !== "");
+      if (paperList.length > 2) {
+        throw new Error("A maximum of 2 papers is allowed per registration.");
+      }
+    }
+
     // Pricing Calculation
     const amount = calculateAmount(registrationCategory, authorType, user.isLocal, extraBanquetTickets);
     const currency = user.isLocal ? "LKR" : "USD";
@@ -83,7 +120,30 @@ export async function submitRegistration(formData: FormData) {
       throw new Error("Calculated amount is invalid.");
     }
 
-    const referenceTag = existingRegistration?.referenceTag || generateReferenceTag();
+    // Currency conversion for USD payments to LKR
+    const [rateSetting] = await db.select().from(settings).where(eq(settings.key, "usd_to_lkr_rate")).limit(1);
+    const exchangeRateVal = rateSetting ? Number(rateSetting.value) : 300;
+
+    let lkrAmountVal = amount;
+    let rateVal = 1;
+    if (currency === "USD") {
+      rateVal = exchangeRateVal;
+      lkrAmountVal = Math.round(amount * rateVal * 100) / 100;
+    }
+
+    const invoiceReq = await generateInvoiceIdExternal({
+      studentName: `${user.firstName} ${user.lastName}`.trim(),
+      amount: lkrAmountVal,
+      description: "MERCon 2026 Registration",
+    });
+
+    if (!invoiceReq.success || !invoiceReq.invoice_id) {
+      throw new Error("Failed to generate invoice ID: " + invoiceReq.error);
+    }
+
+    const invoiceId = invoiceReq.invoice_id;
+    const customOrderId = invoiceId;
+
     let registrationId: number;
 
     if (existingRegistration) {
@@ -97,8 +157,11 @@ export async function submitRegistration(formData: FormData) {
         extraBanquetTickets,
         amount: amount.toString(),
         currency,
+        lkrAmount: lkrAmountVal.toString(),
+        exchangeRate: rateVal.toString(),
         ieeeProofPath,
         studentProofPath,
+        invoiceId,
       }).where(eq(registrations.id, existingRegistration.id));
       registrationId = existingRegistration.id;
     } else {
@@ -113,29 +176,35 @@ export async function submitRegistration(formData: FormData) {
         extraBanquetTickets,
         amount: amount.toString(),
         currency,
+        lkrAmount: lkrAmountVal.toString(),
+        exchangeRate: rateVal.toString(),
         ieeeProofPath,
         studentProofPath,
-        referenceTag,
+        invoiceId,
       });
       registrationId = Number(result.insertId);
     }
-  
-    const invoiceReq = await generateInvoiceIdExternal({
-      studentName: `${user.firstName} ${user.lastName}`.trim(),
-      amount,
-      description: "MERCon 2026 Registration",
-    });
 
-    if (!invoiceReq.success || !invoiceReq.invoice_id) {
-      throw new Error("Failed to generate invoice ID: " + invoiceReq.error);
+    if (process.env.NODE_ENV === "development") {
+      console.log("==== Payment Session Payload ====")
+      console.log({
+        originalAmount: amount,
+        originalCurrency: currency,
+        billedAmount: lkrAmountVal,
+        billedCurrency: "LKR",
+        exchangeRate: rateVal,
+        invoiceId,
+        orderId: customOrderId,
+        studentName: `${user.firstName} ${user.lastName}`.trim(),
+        phoneNo: (user.phone || "").trim(),
+        address: user.affiliation,
+        description: "MERCon 2026 Registration",
+      })
     }
 
-    const invoiceId = invoiceReq.invoice_id;
-    const customOrderId = invoiceId;
-
     const ipgResult = await createPaymentSession({
-      amount,
-      currency,
+      amount: lkrAmountVal,
+      currency: "LKR",
       invoiceId,
       orderId: customOrderId,
       studentName: `${user.firstName} ${user.lastName}`.trim(),
@@ -165,7 +234,7 @@ export async function submitRegistration(formData: FormData) {
     return {
       success: true,
       registrationId,
-      referenceTag,
+      invoiceId,
       sessionId: ipgResult.sessionId,
       success_indicator: ipgResult.success_indicator,
       invoice_id: ipgResult.invoice_id,

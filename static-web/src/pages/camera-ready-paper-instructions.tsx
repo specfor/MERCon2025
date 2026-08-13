@@ -23,6 +23,10 @@ const preparationSteps = [
     description: "Prepare the final manuscript using the official IEEE conference formatting templates.",
   },
   {
+    title: "Remove the copyright stamp",
+    description: "Remove the copyright stamp from the bottom left-hand corner of the first page in the IEEE template.",
+  },
+  {
     title: "Proofread the source document thoroughly",
     description:
       "Authors must thoroughly proofread their source document before creating the final PDF to ensure that no further revisions are required. ",
@@ -238,6 +242,20 @@ export default function CameraReadyPaperInstructionsPage() {
               <p className="max-w-4xl text-sm leading-relaxed text-gray-300 sm:text-base">
                 For any technical issues, use the IEEE Publications Support Center and the Find Answers or Ask a
                 Question tabs. Responses are typically provided within 3 business days.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 mb-8 rounded-3xl border border-primary-500/20 bg-primary-500/10 p-8 backdrop-blur-sm">
+          <div className="flex items-start gap-4">
+            <div className="rounded-2xl border border-primary-500/25 bg-primary-500/10 p-3 text-primary-300">
+              <BadgeCheck className="h-6 w-6" />
+            </div>
+            <div className="space-y-3">
+              <h2 className="text-xl font-bold text-white">Publication Policy</h2>
+              <p className="max-w-4xl text-sm leading-relaxed text-gray-300 sm:text-base">
+                Only accepted papers that are presented at the conference (either as oral or poster presentations) by a registered author will be included in the conference proceedings and submitted for publication in the IEEE Xplore Digital Library, subject to IEEE quality and publication requirements.
               </p>
             </div>
           </div>

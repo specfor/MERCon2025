@@ -8,6 +8,48 @@
       "when": 1782722692146,
       "tag": "0000_bumpy_lyja",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1782797339100,
+      "tag": "0001_drop_reference_tag",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1782797363065,
+      "tag": "0002_add_invoice_id",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1782879778005,
+      "tag": "0003_fearless_nocturne",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1783095120573,
+      "tag": "0004_flaky_black_tarantula",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1783140866594,
+      "tag": "0005_greedy_ultimo",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1784177535187,
+      "tag": "0006_neat_doctor_octopus",
+      "breakpoints": true
     }
   ]
 }

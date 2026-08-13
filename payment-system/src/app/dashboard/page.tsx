@@ -10,7 +10,9 @@ export default async function DashboardPage() {
   if (!session) redirect("/");
 
   const [user] = await db.select().from(users).where(eq(users.id, session.userId)).limit(1);
-  const [registration] = await db.select().from(registrations).where(eq(registrations.userId, session.userId)).limit(1);
+  const userRegistrations = await db.select().from(registrations)
+    .where(eq(registrations.userId, session.userId))
+    .orderBy(registrations.createdAt);
 
   if (!user) {
     return (
@@ -35,6 +37,6 @@ export default async function DashboardPage() {
   }
 
   return (
-    <DashboardClient user={user} initialRegistration={registration || null} />
+    <DashboardClient user={user} registrations={userRegistrations} />
   );
 }

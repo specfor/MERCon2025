@@ -1,16 +1,121 @@
 "use server";
 
 import { db } from "@/db";
-import { users } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { users, pendingRegistrations, passwordResets, adminLogins } from "@/db/schema";
+import { eq, and } from "drizzle-orm";
 import bcrypt from "bcryptjs";
 import { setSession, destroySession } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { verifyRecaptcha } from "@/lib/recaptcha";
+import { sendVerificationEmail, sendPasswordResetEmail, sendAdmin2faEmail } from "@/lib/email";
+import { SYSTEM_CLOSING_DATE } from "@/lib/pricing";
 
-export async function registerUser(formData: FormData) {
+export async function initiateRegistration(formData: FormData) {
   try {
+    if (new Date() > SYSTEM_CLOSING_DATE) {
+      return { success: false, error: "Registration is closed. The system closing date has passed." };
+    }
+
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+    const confirmPassword = formData.get("confirmPassword") as string | null;
+    const recaptchaToken = formData.get("recaptchaToken") as string;
+
+    if (!email || !password) {
+      return { success: false, error: "Email and password are required." };
+    }
+
+    if (confirmPassword !== null && password !== confirmPassword) {
+      return { success: false, error: "Passwords do not match." };
+    }
+
+    const isValidRecaptcha = await verifyRecaptcha(recaptchaToken);
+    if (!isValidRecaptcha) {
+      return { success: false, error: "reCAPTCHA validation failed. Please try again." };
+    }
+
+    // Check if user already exists in main verified users table
+    const [existingUser] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+    if (existingUser) {
+      return { success: false, error: "An account with this email is already registered." };
+    }
+
+    // Hash password
+    const passwordHash = await bcrypt.hash(password, 10);
+
+    // Generate 6-digit OTP
+    const verificationCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes from now
+
+    // Upsert into pending_registrations table
+    await db
+      .insert(pendingRegistrations)
+      .values({
+        email,
+        passwordHash,
+        verificationCode,
+        expiresAt,
+      })
+      .onDuplicateKeyUpdate({
+        set: {
+          passwordHash,
+          verificationCode,
+          expiresAt,
+          updatedAt: new Date(),
+        },
+      });
+
+    // Send email
+    await sendVerificationEmail(email, verificationCode);
+
+    return { success: true, email };
+  } catch (error: unknown) {
+    console.error("Error:", error);
+    const message = error instanceof Error ? error.message : "An error occurred.";
+    return { success: false, error: message };
+  }
+}
+
+export async function verifyEmailCode(email: string, code: string, recaptchaToken?: string) {
+  try {
+    if (!email || !code) {
+      return { success: false, error: "Email and verification code are required." };
+    }
+
+    if (recaptchaToken !== undefined) {
+      const isValidRecaptcha = await verifyRecaptcha(recaptchaToken || null);
+      if (!isValidRecaptcha) {
+        return { success: false, error: "reCAPTCHA validation failed. Please try again." };
+      }
+    }
+
+    const [pending] = await db
+      .select()
+      .from(pendingRegistrations)
+      .where(and(eq(pendingRegistrations.email, email), eq(pendingRegistrations.verificationCode, code)))
+      .limit(1);
+
+    if (!pending) {
+      return { success: false, error: "Invalid verification code. Please check and try again." };
+    }
+
+    if (new Date() > pending.expiresAt) {
+      return { success: false, error: "Verification code has expired. Please request a new code." };
+    }
+
+    return { success: true, email, code };
+  } catch (error: unknown) {
+    console.error("Error:", error);
+    const message = error instanceof Error ? error.message : "An error occurred.";
+    return { success: false, error: message };
+  }
+}
+
+export async function completeRegistration(formData: FormData) {
+  try {
+    const email = formData.get("email") as string;
+    const verificationCode = formData.get("verificationCode") as string;
+    const recaptchaToken = formData.get("recaptchaToken") as string;
     const title = formData.get("title") as string;
     const firstName = formData.get("firstName") as string;
     const lastName = formData.get("lastName") as string;
@@ -19,22 +124,35 @@ export async function registerUser(formData: FormData) {
     const country = formData.get("country") as string;
     const isLocal = formData.get("isLocal") === "true";
 
+    const isValidRecaptcha = await verifyRecaptcha(recaptchaToken || null);
+    if (!isValidRecaptcha) {
+      return { success: false, error: "reCAPTCHA validation failed. Please try again." };
+    }
+
     if (!/^[0-9]+$/.test(phone)) {
       return { success: false, error: "Phone number can contain only numbers." };
     }
 
-    // Check if user exists
-    const [existingUser] = await db.select().from(users).where(eq(users.email, email)).limit(1);
-    if (existingUser) {
-      return { success: false, error: "An account with this email already exists." };
+    // Re-verify the OTP to ensure security and prevent step bypassing
+    const [pending] = await db
+      .select()
+      .from(pendingRegistrations)
+      .where(and(eq(pendingRegistrations.email, email), eq(pendingRegistrations.verificationCode, verificationCode)))
+      .limit(1);
+
+    if (!pending || new Date() > pending.expiresAt) {
+      return { success: false, error: "Email verification expired or invalid. Please start registration again." };
     }
 
-    // Hash password
-    const passwordHash = await bcrypt.hash(password, 10);
+    // Check if user exists in main table again
+    const [existingUser] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+    if (existingUser) {
+      return { success: false, error: "An account with this email is already registered." };
+    }
 
     const [result] = await db.insert(users).values({
       email,
-      passwordHash,
+      passwordHash: pending.passwordHash,
       title,
       firstName,
       lastName,
@@ -46,13 +164,17 @@ export async function registerUser(formData: FormData) {
 
     const userId = Number(result.insertId);
 
+    // Delete from pending_registrations
+    await db.delete(pendingRegistrations).where(eq(pendingRegistrations.email, email));
+
     // Create session
     await setSession(userId, email);
 
     return { success: true };
-  } catch (error: any) {
-    console.error("Registration error:", error);
-    return { success: false, error: error.message || "An error occurred during registration." };
+  } catch (error: unknown) {
+    console.error("Error:", error);
+    const message = error instanceof Error ? error.message : "An error occurred.";
+    return { success: false, error: message };
   }
 }
 
@@ -60,6 +182,12 @@ export async function loginUser(formData: FormData) {
   try {
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+    const recaptchaToken = formData.get("recaptchaToken") as string;
+
+    const isValidRecaptcha = await verifyRecaptcha(recaptchaToken);
+    if (!isValidRecaptcha) {
+      return { success: false, error: "reCAPTCHA validation failed. Please try again." };
+    }
 
     const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
     
@@ -73,17 +201,194 @@ export async function loginUser(formData: FormData) {
       return { success: false, error: "Invalid email or password." };
     }
 
-    // Create session
-    await setSession(user.id, user.email);
+    // Check if user is an admin - require 2FA
+    if (user.role === "admin") {
+      await db.delete(adminLogins).where(eq(adminLogins.email, email));
+      const code = Math.floor(100000 + Math.random() * 900000).toString();
+      const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+      await db.insert(adminLogins).values({ email, code, expiresAt });
+      await sendAdmin2faEmail(email, code);
+      return { success: true, require2fa: true, email: user.email };
+    }
 
-    return { success: true };
+    // Create session for normal user
+    await setSession(user.id, user.email, user.role || "user");
+
+    return { success: true, role: user.role || "user" };
   } catch (error: any) {
     console.error("Login error:", error);
     return { success: false, error: error.message || "An error occurred during login." };
   }
 }
 
+export async function verifyAdmin2fa(email: string, code: string) {
+  try {
+    const [record] = await db
+      .select()
+      .from(adminLogins)
+      .where(and(eq(adminLogins.email, email), eq(adminLogins.code, code)))
+      .limit(1);
+
+    if (!record || new Date() > record.expiresAt) {
+      return { success: false, error: "Invalid or expired 2FA verification code." };
+    }
+
+    const [user] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+    if (!user || user.role !== "admin") {
+      return { success: false, error: "Admin account not found." };
+    }
+
+    await db.delete(adminLogins).where(eq(adminLogins.email, email));
+    await setSession(user.id, user.email, "admin");
+
+    return { success: true };
+  } catch (error: any) {
+    console.error("verifyAdmin2fa error:", error);
+    return { success: false, error: error.message || "An error occurred during 2FA verification." };
+  }
+}
+
+
 export async function logoutUser() {
   await destroySession();
   redirect("/");
 }
+
+export async function requestPasswordReset(formData: FormData) {
+  try {
+    const email = formData.get("email") as string;
+    const recaptchaToken = formData.get("recaptchaToken") as string;
+
+    if (!email) {
+      return { success: false, error: "Please enter your registered email address." };
+    }
+
+    const isValidRecaptcha = await verifyRecaptcha(recaptchaToken);
+    if (!isValidRecaptcha) {
+      return { success: false, error: "reCAPTCHA validation failed. Please try again." };
+    }
+
+    // Check if user exists
+    const [existingUser] = await db.select().from(users).where(eq(users.email, email)).limit(1);
+    if (!existingUser) {
+      // For security, do not disclose whether the email exists or not
+      return { success: true };
+    }
+
+    // Generate 6-digit OTP code
+    const token = Math.floor(100000 + Math.random() * 900000).toString();
+    const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 mins
+
+    await db
+      .insert(passwordResets)
+      .values({
+        email,
+        token,
+        expiresAt,
+      })
+      .onDuplicateKeyUpdate({
+        set: {
+          token,
+          expiresAt,
+        },
+      });
+
+    await sendPasswordResetEmail(email, token);
+
+    return { success: true };
+  } catch (error: any) {
+    console.error("Password reset request error:", error);
+    return { success: false, error: error.message || "Failed to process request." };
+  }
+}
+
+export async function verifyPasswordResetCode(email: string, code: string, recaptchaToken?: string) {
+  try {
+    if (!email || !code) {
+      return { success: false, error: "Email and verification code are required." };
+    }
+
+    if (recaptchaToken !== undefined) {
+      const isValidRecaptcha = await verifyRecaptcha(recaptchaToken || null);
+      if (!isValidRecaptcha) {
+        return { success: false, error: "reCAPTCHA validation failed. Please try again." };
+      }
+    }
+
+    const [resetRecord] = await db
+      .select()
+      .from(passwordResets)
+      .where(and(eq(passwordResets.email, email), eq(passwordResets.token, code)))
+      .limit(1);
+
+    if (!resetRecord) {
+      return { success: false, error: "Invalid verification code. Please check and try again." };
+    }
+
+    if (new Date() > new Date(resetRecord.expiresAt)) {
+      return { success: false, error: "Verification code has expired. Please request a new one." };
+    }
+
+    return { success: true };
+  } catch (error: any) {
+    console.error("Verify password reset code error:", error);
+    return { success: false, error: error.message || "Failed to verify code." };
+  }
+}
+
+export async function resetPassword(formData: FormData) {
+  try {
+    const email = formData.get("email") as string;
+    const code = formData.get("code") as string;
+    const newPassword = formData.get("newPassword") as string;
+    const confirmPassword = formData.get("confirmPassword") as string;
+    const recaptchaToken = formData.get("recaptchaToken") as string;
+
+    if (!email || !code || !newPassword || !confirmPassword) {
+      return { success: false, error: "All fields are required." };
+    }
+
+    if (newPassword !== confirmPassword) {
+      return { success: false, error: "Passwords do not match." };
+    }
+
+    if (newPassword.length < 6) {
+      return { success: false, error: "Password must be at least 6 characters long." };
+    }
+
+    const isValidRecaptcha = await verifyRecaptcha(recaptchaToken);
+    if (!isValidRecaptcha) {
+      return { success: false, error: "reCAPTCHA validation failed. Please try again." };
+    }
+
+    // Verify token
+    const [resetRecord] = await db
+      .select()
+      .from(passwordResets)
+      .where(and(eq(passwordResets.email, email), eq(passwordResets.token, code)))
+      .limit(1);
+
+    if (!resetRecord) {
+      return { success: false, error: "Invalid verification code." };
+    }
+
+    if (new Date() > new Date(resetRecord.expiresAt)) {
+      return { success: false, error: "Verification code has expired. Please request a new one." };
+    }
+
+    // Hash new password
+    const passwordHash = await bcrypt.hash(newPassword, 10);
+
+    // Update password in users table
+    await db.update(users).set({ passwordHash }).where(eq(users.email, email));
+
+    // Remove token from password_resets table
+    await db.delete(passwordResets).where(eq(passwordResets.email, email));
+
+    return { success: true };
+  } catch (error: any) {
+    console.error("Reset password error:", error);
+    return { success: false, error: error.message || "Failed to reset password." };
+  }
+}
+

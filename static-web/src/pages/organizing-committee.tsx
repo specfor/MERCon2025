@@ -106,6 +106,23 @@ const speakerLevels: SpeakerLevel[] = [
     ],
   },
   {
+    levelName: "Publication Chair",
+    rank: 5,
+    speakers: [
+      {
+        name: "Dr. Dumith Jayathilaka",
+        image: (
+          <StaticImage
+            src="../images/committee/Dr.Dumith.Jayathilake.png"
+            alt="Dr. Dumith Jayathilaka"
+            className="w-full h-full"
+            objectFit="cover"
+          />
+        ),
+      },
+    ],
+  },
+  {
     levelName: "Publication Co-Chairs",
     rank: 5,
     speakers: [
@@ -115,17 +132,6 @@ const speakerLevels: SpeakerLevel[] = [
           <StaticImage
             src="../images/committee/Dr.Jayani.Sudusinghe.png"
             alt="Dr. Jayani Sudusinghe"
-            className="w-full h-full"
-            objectFit="cover"
-          />
-        ),
-      },
-      {
-        name: "Dr. Dumith Jayathilaka",
-        image: (
-          <StaticImage
-            src="../images/committee/Dr.Dumith.Jayathilake.png"
-            alt="Dr. Dumith Jayathilaka"
             className="w-full h-full"
             objectFit="cover"
           />
@@ -162,7 +168,7 @@ const speakerLevels: SpeakerLevel[] = [
     ],
   },
   {
-    levelName: "Finance Co-Chairs",
+    levelName: "Finance Committee",
     rank: 7,
     speakers: [
       {
@@ -175,6 +181,7 @@ const speakerLevels: SpeakerLevel[] = [
             objectFit="cover"
           />
         ),
+        university: "Committee Chair Person"
       },
       {
         name: "Ms. Warunika Hippola",
@@ -186,6 +193,7 @@ const speakerLevels: SpeakerLevel[] = [
             objectFit="cover"
           />
         ),
+        university: "IEEE Sri Lanka Section Representative"
       },
     ],
   },
@@ -261,11 +269,11 @@ const speakerLevels: SpeakerLevel[] = [
         ),
       },
       {
-        name: "Dr. Logeeshan",
+        name: "Dr. Kasun De Silva",
         image: (
           <StaticImage
-            src="../images/committee/Dr.Logeeshan.png"
-            alt="Dr. Logeeshan"
+            src="../images/committee/Dr.Kasun.De.Silva.png"
+            alt="Dr. Kasun De Silva"
             className="w-full h-full"
             objectFit="cover"
           />

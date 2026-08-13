@@ -38,6 +38,8 @@ const homeBackground = (
   </div>
 );
 
+import ieeeLogo from "../images/logo-ieee.svg";
+
 const IndexPage: React.FC<PageProps> = () => {
   return (
     <div className="w-full min-h-screen flex flex-col">
@@ -58,9 +60,9 @@ const IndexPage: React.FC<PageProps> = () => {
         <div className="relative z-20 flex flex-col justify-center items-center h-full text-center mt-20 px-6 md:px-12">
           <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-primary-400/40 bg-black/35 px-5 py-3 text-sm md:text-base font-semibold text-white backdrop-blur-md shadow-lg shadow-primary-500/10">
             <span className="inline-flex h-2.5 w-2.5 rounded-full bg-primary-400 animate-pulse" />
-            Camera Ready Paper Deadline extended to{" "}
+            Paper Registration Deadline:{" "}
             <span className="inline-flex items-baseline whitespace-nowrap">
-              6<sup className="relative -top-1 ml-0 text-[0.7em] leading-none">th</sup>
+              31<sup className="relative -top-1 ml-0 text-[0.7em] leading-none">st</sup>
             </span>{" "}
             July 2026
           </div>

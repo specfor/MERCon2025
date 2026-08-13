@@ -35,6 +35,8 @@ const OrganizerSection = () => {
 
   const financialSponsors = [
     { image: <StaticImage src="../../images/logos/IEEE-SL-Logo.png" alt="IEEE-SL-Logo" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/Dialog5GUltra-Vertical-Logo.png" alt="Dialog 5G Ultra" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/LTL-Holdings-Logo.svg" alt="LTL Holdings" {...imageProps} /> },
   ]
 
   const techSponsors = [

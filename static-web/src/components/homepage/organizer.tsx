@@ -34,15 +34,16 @@ const OrganizerSection = () => {
   ];
 
   const financialSponsors = [
-    { image: <StaticImage src="../../images/logos/IEEE-SL-Logo.png" alt="IEEE-SL-Logo" {...imageProps} /> },
     { image: <StaticImage src="../../images/logos/Dialog5GUltra-Vertical-Logo.png" alt="Dialog 5G Ultra" {...imageProps} /> },
     { image: <StaticImage src="../../images/logos/LTL-Holdings-Logo.svg" alt="LTL Holdings" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/Cinertia-Ceylon.png" alt="Cinertia-Ceylon" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/IEEE-SL-Logo.png" alt="IEEE-SL-Logo" {...imageProps} /> },
   ]
 
   const techSponsors = [
     { image: <StaticImage src="../../images/logos/IEEE-SL-CASS_CEDA.jpg" alt="IEEE-SL-CASS_CEDA" {...imageProps} /> },
     { image: <StaticImage src="../../images/logos/IEEE-SL-COMPUTER-SOCIETY.png" alt="IEEE-SL-COMPUTER-SOCIETY" {...imageProps} /> },
-    { image: <StaticImage src="../../images/logos/IEEE-SL-ComSoc.jpg" alt="IEEE-SL-ComSoc" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/IEEE-SL-ComSoc-new.png" alt="IEEE-SL-ComSoc" {...imageProps} /> },
     { image: <StaticImage src="../../images/logos/IEEE-SL-GRSS.png" alt="IEEE-SL-GRSS" {...imageProps} /> },
     { image: <StaticImage src="../../images/logos/IEEE-SL-IAS.png" alt="IEEE-SL-IAS" {...imageProps} /> },
     { image: <StaticImage src="../../images/logos/IEEE-SL-IES.png" alt="IEEE-SL-IES" {...imageProps} /> },
@@ -51,6 +52,7 @@ const OrganizerSection = () => {
     { image: <StaticImage src="../../images/logos/IEEE-SL-SPS.jpg" alt="IEEE-SL-SPS" {...imageProps} /> },
     { image: <StaticImage src="../../images/logos/MTT-S-SL.jpg" alt="MTT-S-SL" {...imageProps} /> },
     { image: <StaticImage src="../../images/logos/IEEE-SL-EMBS.png" alt="IEEE-SL-EMBS" {...imageProps} /> },
+    { image: <StaticImage src="../../images/logos/PELS.png" alt="PELS" {...imageProps} /> },
   ];
 
   const goldSponsors = [
